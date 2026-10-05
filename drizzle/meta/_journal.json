@@ -8,6 +8,13 @@
       "when": 1791193512468,
       "tag": "0000_serious_dragon_man",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1791195856099,
+      "tag": "0001_magical_eddie_brock",
+      "breakpoints": true
     }
   ]
 }

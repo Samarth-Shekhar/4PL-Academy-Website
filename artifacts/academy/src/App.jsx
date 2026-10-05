@@ -18,6 +18,7 @@ const AdminLayout = lazy(() => import('@/admin/AdminLayout').then((m) => ({ defa
 const Login = lazy(() => import('@/admin/Login'));
 const Dashboard = lazy(() => import('@/admin/Dashboard'));
 const ContentManager = lazy(() => import('@/admin/ContentManager'));
+const HomepageManager = lazy(() => import('@/admin/HomepageManager'));
 const Leads = lazy(() => import('@/admin/Leads'));
 const Settings = lazy(() => import('@/admin/Settings'));
 
@@ -30,6 +31,10 @@ const ADMIN = [
   ['courses', 'Courses', () => <ContentManager kind="courses" />],
   ['blogs', 'Blogs', () => <ContentManager kind="blogs" />],
   ['faqs', 'FAQs', () => <ContentManager kind="faqs" />],
+  ['homepage', 'Homepage', () => <HomepageManager />],
+  ['industry-companies', 'Industry companies', () => <ContentManager kind="industry_companies" />],
+  ['certifications', 'Certifications', () => <ContentManager kind="certifications" />],
+  ['testimonials', 'Testimonials', () => <ContentManager kind="testimonials" />],
   ['media', 'Media', () => <ContentManager kind="media" />],
   ['seo', 'SEO', () => <ContentManager kind="seo" />],
   ['pages', 'Pages', () => <ContentManager kind="pages" />],

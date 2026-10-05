@@ -6,6 +6,45 @@ info:
 servers:
   - url: /api
 paths:
+  /storage/uploads/request-url:
+    post:
+      operationId: requestMediaUpload
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, size, contentType]
+              properties:
+                name: { type: string, minLength: 1, maxLength: 250 }
+                size: { type: integer, minimum: 1, maximum: 26214400 }
+                contentType: { type: string, enum: [image/jpeg, image/png, image/webp, image/avif, video/mp4, video/webm] }
+      responses:
+        "200":
+          description: Short-lived administrator upload URL
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [uploadURL, objectPath]
+                properties:
+                  uploadURL: { type: string }
+                  objectPath: { type: string }
+        "401": { description: Administrator sign-in required }
+        "503": { description: Storage is not configured }
+  /storage/objects/{id}:
+    get:
+      operationId: getMediaObject
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        "200": { description: Approved published media or administrator-only draft preview }
+        "206": { description: Requested media byte range }
+        "404": { description: Media not found or not approved for publication }
   /healthz:
     get:
       operationId: healthCheck
@@ -253,6 +292,10 @@ components:
         universityId: { type: [integer, "null"] }
         universityName: { type: string }
         city: { type: string }
+        region: { type: string }
+        latitude: { type: [number, "null"], minimum: -90, maximum: 90 }
+        longitude: { type: [number, "null"], minimum: -180, maximum: 180 }
+        coordinateAccuracy: { type: string, enum: [city-centre, campus, unlocated] }
         state: { type: string }
         location: { type: string }
         degree: { type: string }
@@ -306,6 +349,38 @@ components:
         internships: { type: array, items: { type: string } }
         placementInformation: { type: array, items: { type: string } }
         media: { type: array, items: { type: string } }
+        url: { type: string }
+        posterUrl: { type: string }
+        thumbnailUrl: { type: string }
+        altText: { type: string }
+        caption: { type: string }
+        section: { type: string }
+        programId: { type: [integer, "null"] }
+        courseId: { type: [integer, "null"] }
+        enabled: { type: boolean }
+        ctaLabel: { type: string }
+        ctaUrl: { type: string }
+        secondaryCtaLabel: { type: string }
+        secondaryCtaUrl: { type: string }
+        issuer: { type: string }
+        credentialType: { type: string }
+        relationshipType:
+          type: string
+          enum: [Partner, Hiring Partner, Training Partner, Corporate Client, Industry Association, Technology Partner, Featured Company, Other]
+        quote: { type: string }
+        studentName: { type: string }
+        year: { type: string }
+        items:
+          type: array
+          items:
+            type: object
+            required: [name]
+            properties:
+              name: { type: string }
+              description: { type: string }
+              image: { type: string }
+              url: { type: string }
+              altText: { type: string }
         faqs: { type: array, items: { $ref: "#/components/schemas/FaqItem" } }
     FaqItem:
       type: object

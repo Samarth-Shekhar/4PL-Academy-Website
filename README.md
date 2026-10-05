@@ -46,7 +46,21 @@ Open `/admin/login`. The initial administrator is created from environment confi
 
 The CMS manages universities, programs, professional courses, blogs, FAQs, informational pages, approved media URLs, SEO and admissions enquiries. Archiving is reversible. Public APIs show published records only. Private routes require a valid administrator session.
 
-Media management uses approved image/video URLs and metadata. File-upload storage is **not** configured; a portable storage adapter can be added once a provider is selected.
+Media management supports approved image/video URLs and direct administrator uploads through App Storage. Uploaded bytes are stored outside PostgreSQL; the database stores paths and metadata only. Images are limited to 10 MB and videos to 25 MB. JPEG, PNG, WebP, AVIF, MP4 and WebM are accepted; SVG/HTML uploads are not accepted.
+
+Uploads are private until a verified, published record references the file. Administrators can preview drafts. Videos require a poster before publication and support byte-range playback. Publishing a media record is an approval action, not proof that a photographed campus or company belongs to 4PL.
+
+The storage adapter uses `PRIVATE_OBJECT_DIR` and the Replit signing service during development. Outside Replit, supply a compatible private `STORAGE_SIGNER_URL` and object-storage path, or replace the small `media-storage.js` adapter with your approved provider. Uploads return an explicit configuration error when no provider is available; approved URL-based media and the rest of the site do not require Replit storage. No deployment is configured.
+
+### Homepage controls
+
+`/admin/homepage` manages individual homepage sections: text, media, CTAs, enable/disable, ordering, featured status and learning/admissions story steps. Separate CMS collections manage industry companies, certifications and approved testimonials. They use the same existing PostgreSQL content store, archive/restore lifecycle and authentication as other catalog content.
+
+Company relationship types are displayed explicitly; company logos, certifications and testimonials require verification before appearing on the homepage. No demonstration partners, credentials or testimonials are seeded. The real-event gallery is empty until approved 4PL or university media is provided.
+
+The university map distinguishes directory entries from verified partnerships. Seed coordinates are approximate city centres for recognizable locations in the supplied directory, not campus coordinates. Unrecognized locations are not guessed. Administrators can provide approved campus coordinates and region data. Seeding does not replace coordinates after the initial geographic enrichment or overwrite CMS edits.
+
+New homepage photography comes from Pexels and is labelled as illustrative—not as actual 4PL students, campuses or events. Credits are in `artifacts/academy/public/images/editorial/credits.md`. The India silhouette is generated from public-domain Natural Earth country boundaries and is a schematic discovery aid, not a campus-location survey.
 
 Admissions forms save enquiries to PostgreSQL for the admissions team. They do not send email or confirm university admission. Application links supplied in the workbook require verification before use as official admissions destinations.
 

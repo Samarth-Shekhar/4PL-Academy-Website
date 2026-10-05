@@ -1,7 +1,7 @@
 import { db, contentTable } from '@workspace/db';
 import { eq, and, asc, desc, ilike, or, inArray, sql } from 'drizzle-orm';
 
-export const kinds = ['universities', 'programs', 'courses', 'blogs', 'faqs', 'pages', 'media', 'seo', 'settings'];
+export const kinds = ['universities', 'programs', 'courses', 'blogs', 'faqs', 'pages', 'media', 'seo', 'settings', 'homepage', 'industry_companies', 'certifications', 'testimonials'];
 export function checkKind(kind) {
   if (!kinds.includes(kind)) throw Object.assign(new Error('Content type not found.'), { status: 404 });
   return kind;
@@ -18,10 +18,14 @@ export function publicContent(row, privateFields = false) {
 export function contentValues(input, kind) {
   const { id: _id, kind: _kind, createdAt: _createdAt, updatedAt: _updatedAt, universityName: _universityName, name, slug, status = 'draft', featured = false, sortOrder = 0, universityId = null, location = '', degree = '', category = '', verified = false, ...data } = input;
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw Object.assign(new Error('Use a lowercase hyphen-separated URL slug.'), { status: 400 });
-  for (const key of ['image','logo','websiteUrl','applicationUrl','brochureUrl','canonical','ogImage']) {
+  if (kind === 'media' && status === 'published' && data.type === 'video' && !data.posterUrl) {
+    throw Object.assign(new Error('Published videos need an approved poster image for mobile and reduced-motion visitors.'), {status:400});
+  }
+  const localPath = value => /^\/(?![\/\\])[^\\\u0000-\u001f]*$/.test(value);
+  for (const key of ['image','logo','websiteUrl','applicationUrl','brochureUrl','canonical','ogImage','url','posterUrl','thumbnailUrl']) {
     const value = data[key];
     if (!value) continue;
-    if (['image','logo','ogImage'].includes(key) && /^\/(?!\/)/.test(value)) continue;
+    if (['image','logo','ogImage','url','posterUrl','thumbnailUrl'].includes(key) && localPath(value)) continue;
     try {
       const url = new URL(value);
       if (!['https:', 'http:'].includes(url.protocol) || url.username || url.password) throw new Error();
@@ -29,8 +33,22 @@ export function contentValues(input, kind) {
       throw Object.assign(new Error(`${key} must be a safe http(s) URL or an approved local image path.`), { status: 400 });
     }
   }
+  for (const key of ['ctaUrl','secondaryCtaUrl']) {
+    const value = data[key];
+    if (!value || ['bot',''].includes(value)) continue;
+    if (localPath(value)) continue;
+    try { const url = new URL(value); if (!['https:','http:'].includes(url.protocol) || url.username || url.password) throw new Error(); }
+    catch { throw Object.assign(new Error('CTA links must be safe http(s) URLs or local routes.'), {status:400}); }
+  }
+  for (const item of data.items || []) {
+    for (const value of [item.image, item.url === 'bot' ? '' : item.url].filter(Boolean)) {
+      if (localPath(value)) continue;
+      try { const url = new URL(value); if (!['https:','http:'].includes(url.protocol) || url.username || url.password) throw new Error(); }
+      catch { throw Object.assign(new Error('Story media and links must be safe http(s) URLs or local routes.'), {status:400}); }
+    }
+  }
   for (const value of data.media || []) {
-    if (/^\/(?!\/)/.test(value)) continue;
+    if (localPath(value)) continue;
     try { const url=new URL(value); if(!['http:','https:'].includes(url.protocol)||url.username||url.password)throw new Error(); }
     catch {throw Object.assign(new Error('Media links must be safe http(s) URLs or local asset paths.'),{status:400});}
   }

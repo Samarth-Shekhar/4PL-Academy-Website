@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAdminLogout, getGetAdminSessionQueryKey } from '@workspace/api-client-react';
-import { LayoutDashboard, Landmark, GraduationCap, BookOpen, Newspaper, HelpCircle, Image, Search, FileText, Inbox, ClipboardList, Settings, LogOut, Menu, ExternalLink } from 'lucide-react';
+import { LayoutDashboard, Landmark, GraduationCap, BookOpen, Newspaper, HelpCircle, Image, Search, FileText, Inbox, ClipboardList, Settings, LogOut, Menu, ExternalLink, LayoutTemplate, Building2, Award, Quote } from 'lucide-react';
 import { useAdminSession } from '@/lib/api';
 import { useSeo } from '@/lib/seo';
 import { cn } from '@/lib/cn';
@@ -18,6 +18,10 @@ export const ADMIN_NAV = [
   { href: '/admin/blogs', label: 'Blogs', icon: Newspaper },
   { href: '/admin/faqs', label: 'FAQs', icon: HelpCircle },
   { href: '/admin/pages', label: 'Pages', icon: FileText },
+  { href: '/admin/homepage', label: 'Homepage', icon: LayoutTemplate },
+  { href: '/admin/industry-companies', label: 'Industry companies', icon: Building2 },
+  { href: '/admin/certifications', label: 'Certifications', icon: Award },
+  { href: '/admin/testimonials', label: 'Testimonials', icon: Quote },
   { href: '/admin/media', label: 'Media', icon: Image },
   { href: '/admin/seo', label: 'SEO', icon: Search },
   { href: '/admin/leads', label: 'Leads', icon: Inbox },

@@ -56,9 +56,16 @@ router.get('/dashboard', async (_req, res) => {
   }));
 });
 router.get('/content/:kind', async (req, res) => res.json(await getCatalog(req.params.kind, {}, true)));
+async function validateLinkedContent(input) {
+  for (const [key,kind] of [['programId','programs'],['courseId','courses']]) {
+    if (!input[key]) continue;
+    const [linked] = await db.select({id:contentTable.id}).from(contentTable).where(and(eq(contentTable.id,input[key]),eq(contentTable.kind,kind))).limit(1);
+    if (!linked) throw Object.assign(new Error(`Choose an existing ${kind === 'programs' ? 'program' : 'course'}.`), {status:400});
+  }
+}
 async function validateRelation(input, kind) {
   if (!input.universityId) return;
-  if (kind !== 'programs') throw Object.assign(new Error('Only programs can reference a university.'), { status:400 });
+  if (!['programs','media','certifications','testimonials'].includes(kind)) throw Object.assign(new Error('This content type cannot reference a university.'), { status:400 });
   const [university] = await db.select({ id:contentTable.id }).from(contentTable).where(and(eq(contentTable.id,input.universityId),eq(contentTable.kind,'universities')));
   if (!university) throw Object.assign(new Error('Select an existing university.'), { status:400 });
 }
@@ -66,6 +73,7 @@ router.post('/content/:kind', async (req, res) => {
   const kind = checkKind(req.params.kind);
   const input = CreateContentBody.parse(req.body);
   await validateRelation(input, kind);
+  await validateLinkedContent(input);
   const [row] = await db.insert(contentTable).values(contentValues(input,kind)).returning();
   res.status(201).json(publicContent(row,true));
 });
@@ -75,6 +83,7 @@ router.patch('/content/:kind/:id', async (req, res) => {
   if (!Number.isSafeInteger(id) || id <= 0) { res.status(400).json({ error:'Invalid record.' }); return; }
   const input = UpdateContentBody.parse(req.body);
   await validateRelation(input, kind);
+  await validateLinkedContent(input);
   const [existing] = await db.select().from(contentTable).where(and(eq(contentTable.id,id),eq(contentTable.kind,kind))).limit(1);
   if (!existing) { res.status(404).json({ error:'Record not found.' }); return; }
   const merged = { ...publicContent(existing,true), ...input };

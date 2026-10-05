@@ -1,0 +1,2 @@
+ALTER TABLE "academy_content" DROP CONSTRAINT "academy_content_kind_check";--> statement-breakpoint
+ALTER TABLE "academy_content" ADD CONSTRAINT "academy_content_kind_check" CHECK ("academy_content"."kind" in ('universities','programs','courses','blogs','faqs','pages','media','seo','settings','homepage','industry_companies','certifications','testimonials'));

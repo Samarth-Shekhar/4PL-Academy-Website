@@ -43,6 +43,9 @@ Degree and institution discovery, professional courses, comparisons, admissions 
 - Do not fabricate fees, accreditation, eligibility, deadlines, salary/placement claims, facilities or partnerships.
 - Database content is the source of truth; React must not hardcode CMS-managed institution, program or course data.
 - Mobile-first experience must work from 320px; generic imagery must not be presented as a real institution's campus.
+- Use upGrad SOT as storytelling inspiration only, never copy its layout or animations. The homepage should be cinematic, interactive and uniquely 4PL, with no generated website mockups.
+- Treat city-centre map coordinates as approximate directory locations, not campus addresses or evidence of a partnership. Real-event galleries require approved 4PL/university media.
+- Keep the public header limited to Home, About Us, Courses, Universities, Blogs and Contact Us. Do not add extra top-level links or action buttons.
 
 ## Gotchas
 

@@ -5,6 +5,7 @@ import pinoHttp from 'pino-http';
 import { logger } from './lib/log.js';
 import catalogRouter from './routes/catalog.js';
 import adminRouter from './routes/admin.js';
+import storageRouter from './routes/storage.js';
 import { siteUrl } from './lib/config.js';
 import { robots, sitemap } from './lib/seo.js';
 
@@ -30,6 +31,7 @@ app.use('/api', (req,res,next) => {
 });
 app.use('/api',catalogRouter);
 app.use('/api/admin',adminRouter);
+app.use('/api/storage',storageRouter);
 app.get(['/robots.txt','/api/seo/robots.txt'], (_req,res)=>res.type('text/plain').send(robots()));
 app.get(['/sitemap.xml','/api/seo/sitemap.xml'],async (_req,res)=>{
   const xml=await sitemap();

@@ -1,24 +1,30 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useHealthCheck } from '@workspace/api-client-react';
-import { Menu, Bot, ArrowRight, Mail, Phone } from 'lucide-react';
+import { Menu, ChevronDown, ArrowRight, Mail, Phone } from 'lucide-react';
 import { Modal } from './Modal';
 import { AcadBot } from './AcadBot';
 import { cn } from '@/lib/cn';
 import { asset } from '@/lib/format';
-import { openBot } from '@/lib/events';
 import { useCompare } from '@/lib/compare';
 
 const NAV = [
-  { href: '/programs', label: 'Programs' },
-  { href: '/courses', label: 'Courses' },
-  { href: '/universities', label: 'Universities' },
-  { href: '/career-industry', label: 'Career & Industry' },
-  { href: '/student-life', label: 'Student Life' },
-  { href: '/about', label: 'About' },
-  { href: '/for-universities', label: 'For Universities' },
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About Us' },
+  { href: '/courses', label: 'Courses', children: [
+    { href: '/courses', label: 'All Courses' },
+    { href: '/programs/undergraduate', label: 'Undergraduate Programs' },
+    { href: '/programs/postgraduate', label: 'Postgraduate Programs' },
+    { href: '/courses/short-term', label: 'Short-Term Courses' },
+    { href: '/courses/long-term', label: 'Long-Term Courses' },
+  ] },
+  { href: '/universities', label: 'Universities', children: [
+    { href: '/universities', label: 'University Directory' },
+    { href: '/for-universities', label: 'For Universities' },
+  ] },
+  { href: '/blogs', label: 'Blogs' },
+  { href: '/contact', label: 'Contact Us' },
 ];
-const MORE = [{ href: '/blogs', label: 'Blogs' }, { href: '/faq', label: 'FAQ' }, { href: '/contact', label: 'Contact' }, { href: '/counselling', label: 'Request Counselling' }];
 
 export const Logo = ({ className = 'h-14', blend = true }) => (
   <img src={asset('images/4pl-logo.jpg')} alt="4PL Academy: Creating Global Professionals" className={cn('w-auto', blend && 'logo-blend', className)} width="160" height="154" />
@@ -27,8 +33,22 @@ export const Logo = ({ className = 'h-14', blend = true }) => (
 function Header() {
   const [loc] = useLocation();
   const [open, setOpen] = useState(false);
+  const [dropdown, setDropdown] = useState(null);
+  const header = useRef(null);
   const [scrolled, setScrolled] = useState(false);
-  useEffect(() => { setOpen(false); }, [loc]);
+  useEffect(() => { setOpen(false); setDropdown(null); }, [loc]);
+  useEffect(() => {
+    if (!dropdown) return undefined;
+    const outside = (e) => { if (!header.current?.contains(e.target)) setDropdown(null); };
+    const escape = (e) => {
+      if (e.key !== 'Escape') return;
+      header.current?.querySelector(`[aria-controls="header-${dropdown.slice(1)}"]`)?.focus();
+      setDropdown(null);
+    };
+    document.addEventListener('pointerdown', outside);
+    document.addEventListener('keydown', escape);
+    return () => { document.removeEventListener('pointerdown', outside); document.removeEventListener('keydown', escape); };
+  }, [dropdown]);
   useEffect(() => {
     const f = () => setScrolled(window.scrollY > 8);
     f(); window.addEventListener('scroll', f, { passive: true });
@@ -36,29 +56,37 @@ function Header() {
   }, []);
   const active = (h) => loc === h || loc.startsWith(h + '/');
   return (
-    <header className={cn('sticky top-0 z-50 bg-surface transition-shadow', scrolled && 'shadow-[0_6px_24px_-14px_hsl(221_76%_17%/.5)]')}>
+    <header ref={header} className={cn('sticky top-0 z-50 bg-surface transition-shadow', scrolled && 'shadow-[0_6px_24px_-14px_hsl(221_76%_17%/.5)]')}>
       <div className="container-x flex h-[4.25rem] items-center justify-between gap-2">
         <Link href="/" aria-label="4PL Academy home" className="shrink-0"><Logo className="h-14 sm:h-16 -my-1" /></Link>
-        <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Primary">
-          {NAV.map((n) => (
-            <Link key={n.href} href={n.href} className={cn('relative rounded px-2.5 py-2 text-[0.88rem] font-semibold text-navy/80 hover:text-navy', active(n.href) && 'text-navy after:absolute after:inset-x-2.5 after:-bottom-0.5 after:h-0.5 after:bg-gold')}>{n.label}</Link>
-          ))}
+        <nav className="hidden items-center gap-2 lg:flex" aria-label="Primary">
+          {NAV.map((n) => {
+            const selected = active(n.href) || (n.children || []).some(c => active(c.href));
+            const style = cn('relative flex min-h-11 items-center gap-1 rounded px-3 py-2 text-[0.82rem] font-medium uppercase text-navy/80 hover:text-navy', selected && 'text-gold-deep');
+            return n.children ? (
+              <div key={n.href} className="relative" onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setDropdown(null); }}>
+                <button type="button" className={style} aria-expanded={dropdown === n.href} aria-controls={`header-${n.href.slice(1)}`} onClick={() => setDropdown(dropdown === n.href ? null : n.href)}>{n.label}<ChevronDown className="h-3 w-3" aria-hidden="true" /></button>
+                {dropdown === n.href && <ul id={`header-${n.href.slice(1)}`} className="absolute left-0 top-full min-w-60 rounded-md border border-line bg-surface p-2 shadow-xl">
+                  {n.children.map(c => <li key={c.href}><Link href={c.href} onClick={() => setDropdown(null)} className={cn('block min-h-11 rounded px-3 py-3 text-sm text-navy hover:bg-mist', active(c.href) && 'font-semibold text-gold-deep')}>{c.label}</Link></li>)}
+                </ul>}
+              </div>
+            ) : <Link key={n.href} href={n.href} className={style} aria-current={selected ? 'page' : undefined} onClick={() => setDropdown(null)}>{n.label}</Link>;
+          })}
         </nav>
         <div className="flex items-center gap-2">
-          <button type="button" onClick={() => openBot()} className="btn btn-outline btn-sm" data-testid="button-header-bot"><Bot className="h-4 w-4" aria-hidden="true" /><span>ACAD BOT</span></button>
-          <Link href="/apply" className="btn btn-gold btn-sm hidden sm:inline-flex" data-testid="link-apply-now">Apply Now</Link>
-          <button type="button" onClick={() => setOpen(true)} className="btn btn-navy btn-sm xl:hidden" aria-label="Open menu" data-testid="button-menu"><Menu className="h-5 w-5" aria-hidden="true" /><span className="sr-only sm:not-sr-only">Menu</span></button>
+          <button type="button" onClick={() => setOpen(true)} className="btn btn-navy btn-sm lg:hidden" aria-label="Open menu" data-testid="button-menu"><Menu className="h-5 w-5" aria-hidden="true" /><span className="sr-only sm:not-sr-only">Menu</span></button>
         </div>
       </div>
       <div className="h-px bg-line" />
       <Modal open={open} onOpenChange={setOpen} title="Menu" side="right">
         <nav aria-label="Mobile" className="flex flex-col">
-          {[...NAV, ...MORE.slice(0, 3)].map((n) => (
-            <Link key={n.href} href={n.href} className={cn('flex min-h-12 items-center justify-between border-b border-line font-semibold text-navy', active(n.href) && 'text-gold-deep')}>{n.label}<ArrowRight className="h-4 w-4 text-gold-deep" aria-hidden="true" /></Link>
-          ))}
+          {NAV.map((n) => n.children ? (
+            <details key={n.href} className="group border-b border-line">
+              <summary className="flex min-h-12 cursor-pointer list-none items-center justify-between font-medium uppercase text-navy [&::-webkit-details-marker]:hidden">{n.label}<ChevronDown className="h-4 w-4 text-gold-deep transition-transform group-open:rotate-180" aria-hidden="true" /></summary>
+              <ul className="pb-2 pl-3">{n.children.map(c => <li key={c.href}><Link href={c.href} onClick={() => setOpen(false)} className={cn('block min-h-11 rounded px-2 py-3 text-sm text-navy hover:bg-mist', active(c.href) && 'font-semibold text-gold-deep')}>{c.label}</Link></li>)}</ul>
+            </details>
+          ) : <Link key={n.href} href={n.href} onClick={() => setOpen(false)} aria-current={active(n.href) ? 'page' : undefined} className={cn('flex min-h-12 items-center justify-between border-b border-line font-medium uppercase text-navy', active(n.href) && 'text-gold-deep')}>{n.label}<ArrowRight className="h-4 w-4 text-gold-deep" aria-hidden="true" /></Link>)}
         </nav>
-        <Link href="/apply" className="btn btn-gold mt-6 w-full">Apply Now</Link>
-        <Link href="/counselling" className="btn btn-outline mt-3 w-full">Request Counselling</Link>
       </Modal>
     </header>
   );

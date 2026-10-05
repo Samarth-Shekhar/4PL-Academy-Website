@@ -4,6 +4,7 @@ import path from 'node:path';
 import { db, pool, contentTable } from '@workspace/db';
 import { contentValues } from '../lib/content.js';
 import { logger } from '../lib/log.js';
+import { seedHomepage } from './seed-homepage.js';
 
 const root = path.resolve(import.meta.dirname,'../../../../');
 const slugify = name => name.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
@@ -97,5 +98,6 @@ const faqs=[
  ['Does 4PL guarantee a job or admission?','No admission, job, salary, scholarship or visa guarantee is made. Pre-Placement Offer opportunities described on the official site depend on performance.'],
 ];
 for(const [index,[name,description]] of faqs.entries())await insert('faqs',{name,description,slug:slugify(name),source:officialSource,verified:true,sortOrder:index});
+await seedHomepage(rows);
 logger.info({institutionRecords:added},'Seed import complete. Existing CMS records were not overwritten.');
 await pool.end();

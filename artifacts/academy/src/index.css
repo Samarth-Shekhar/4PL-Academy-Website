@@ -162,3 +162,32 @@
   .skel { background: hsl(var(--brand-mist)); border-radius: .375rem; animation: shimmer 1.4s ease-in-out infinite; }
   @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 }
+
+/* ---- 4PL cinematic homepage ---- */
+@layer components {
+  @keyframes kb-a { from { transform: scale(1.03) translate3d(0,0,0); } to { transform: scale(1.14) translate3d(-1.6%,-1.2%,0); } }
+  @keyframes kb-b { from { transform: scale(1.14) translate3d(-1.2%,0,0); } to { transform: scale(1.03) translate3d(1%,-1%,0); } }
+  .kb-a { animation: kb-a 14s ease-in-out forwards; }
+  .kb-b { animation: kb-b 14s ease-in-out forwards; }
+  .kb-paused { animation-play-state: paused; }
+  @keyframes marquee { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+  .marquee-track { display: flex; width: max-content; animation: marquee 48s linear infinite; }
+  .marquee:hover .marquee-track, .marquee:focus-within .marquee-track, .marquee-paused .marquee-track { animation-play-state: paused; }
+  @media (hover: none) {
+    .marquee { overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x proximity; }
+    .marquee-track { animation: none; }
+    .marquee-dup { display: none; }
+  }
+  @keyframes dashflow { to { stroke-dashoffset: -28; } }
+  .map-line { stroke-dasharray: 5 9; animation: dashflow 2.4s linear infinite; }
+  @keyframes ping-soft { 0% { transform: scale(.8); opacity: .7; } 100% { transform: scale(2.1); opacity: 0; } }
+  .map-ping { transform-box: fill-box; transform-origin: center; animation: ping-soft 2.6s ease-out infinite; }
+  .map-marker { cursor: pointer; outline: none; }
+  .map-marker:focus-visible circle.ring { stroke: hsl(var(--brand-surface)); stroke-width: 3; }
+  .grain::after { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .07; mix-blend-mode: overlay; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+  .snap-row { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+  .snap-row::-webkit-scrollbar { display: none; }
+  .snap-row > * { scroll-snap-align: start; flex: none; }
+  .display-xl { font-family: var(--font-display); font-weight: 600; line-height: .98; letter-spacing: -.02em; font-size: clamp(2.5rem, 7.2vw, 6.2rem); }
+  .display-lg { font-family: var(--font-display); font-weight: 600; line-height: 1.04; letter-spacing: -.015em; font-size: clamp(2rem, 4.6vw, 3.9rem); }
+}
