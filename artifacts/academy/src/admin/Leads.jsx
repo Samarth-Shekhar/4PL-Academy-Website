@@ -17,11 +17,18 @@ export default function Leads({ onlyCategory }) {
   const [s, setS] = useState({ search: '', status: '', category: onlyCategory || '' });
   const [sel, setSel] = useState(null);
   const [form, setForm] = useState({ status: 'New', notes: '' });
-  const list = useMemo(() => (q.data || []).filter((l) => (!onlyCategory || l.category === onlyCategory) && (!s.status || l.status === s.status) && (!s.category || l.category === s.category) && (!s.search || `${l.name} ${l.email} ${l.phone} ${l.program || ''} ${l.university || ''} ${l.course || ''}`.toLowerCase().includes(s.search.toLowerCase()))), [q.data, s, onlyCategory]);
+  const list = useMemo(() => (q.data || []).filter((l) => (!onlyCategory || l.category === onlyCategory) && (!s.status || l.status === s.status) && (!s.category || l.category === s.category) && (!s.search || `${l.name} ${l.email} ${l.phone} ${l.program || ''} ${l.university || ''} ${l.course || ''} ${l.city || ''} ${l.interestedIn || ''} ${l.qualification || ''}`.toLowerCase().includes(s.search.toLowerCase()))), [q.data, s, onlyCategory]);
   const open = (l) => { setSel(l); setForm({ status: l.status || 'New', notes: l.notes || '' }); upd.reset(); };
   const save = () => upd.mutate({ id: sel.id, data: { status: form.status, notes: form.notes } }, { onSuccess: () => { invalidateAll(qc); setSel(null); } });
+  const exportCsv = () => {
+    const cols = ['id', 'createdAt', 'name', 'email', 'phone', 'category', 'status', 'interestedIn', 'university', 'program', 'course', 'qualification', 'city', 'message', 'source', 'utm', 'notes'];
+    const esc = (v) => { let t = String(v ?? '').replace(/"/g, '""'); if (/^\s*[=+\-@]|^[\t\r\n]/.test(t)) t = `'${t}`; return `"${t}"`; };
+    const csv = [cols.join(','), ...list.map((l) => cols.map((c) => esc(l[c])).join(','))].join('\n');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv' })); a.download = 'leads.csv'; a.click(); URL.revokeObjectURL(a.href);
+  };
   return (
     <div>
+      <div className="mb-3 flex justify-end"><button type="button" className="btn btn-outline btn-sm" onClick={exportCsv} disabled={!list.length} data-testid="button-export-leads">Export CSV ({list.length})</button></div>
       <div className="mb-5 grid gap-3 sm:grid-cols-[1fr_12rem_12rem]">
         <div><label className="sr-only" htmlFor="l-search">Search</label><input id="l-search" type="search" className="input" placeholder="Search name, email, phone, program" value={s.search} onChange={(e) => setS({ ...s, search: e.target.value })} /></div>
         <div><label className="sr-only" htmlFor="l-status">Status</label><select id="l-status" className="input" value={s.status} onChange={(e) => setS({ ...s, status: e.target.value })}><option value="">All statuses</option>{STATUSES.map((x) => <option key={x}>{x}</option>)}</select></div>
@@ -32,7 +39,7 @@ export default function Leads({ onlyCategory }) {
           {list.map((l) => (
             <li key={l.id}><button type="button" onClick={() => open(l)} className="card-s grid w-full gap-1 p-4 text-left hover:border-gold sm:grid-cols-[1.4fr_1.6fr_auto] sm:items-center sm:gap-4" data-testid={`row-lead-${l.id}`}>
               <span className="min-w-0"><span className="block truncate font-semibold text-navy">{l.name}</span><span className="block truncate text-xs text-muted-foreground">{l.email} &middot; {l.phone}</span></span>
-              <span className="min-w-0 text-sm text-foreground/75"><span className="chip mr-2">{l.category || 'contact'}</span><span className="break-words">{[l.program, l.course, l.university].filter(has).join(' / ') || l.source || 'General enquiry'}</span></span>
+              <span className="min-w-0 text-sm text-foreground/75"><span className="chip mr-2">{l.category || 'contact'}</span><span className="break-words">{[l.interestedIn, l.program, l.course, l.university, l.city].filter(has).join(' / ') || l.source || 'General enquiry'}</span></span>
               <span className="flex items-center gap-2"><span className="chip chip-gold">{l.status}</span><span className="text-xs text-muted-foreground">{fmtDate(l.createdAt)}</span></span>
             </button></li>
           ))}
@@ -42,7 +49,7 @@ export default function Leads({ onlyCategory }) {
         {sel && (
           <div className="space-y-4">
             <dl className="grid gap-3 text-sm sm:grid-cols-2">
-              {[['Email', sel.email], ['Phone', sel.phone], ['Category', sel.category], ['University', sel.university], ['Program', sel.program], ['Course', sel.course], ['Source', sel.source], ['UTM', sel.utm], ['Received', fmtDate(sel.createdAt)]].map(([k, v]) => <div key={k}><dt className="text-xs font-bold uppercase tracking-wider text-gold-deep">{k}</dt><dd className="break-words text-navy">{has(v) ? v : 'Not provided'}</dd></div>)}
+              {[['Email', sel.email], ['Phone', sel.phone], ['Category', sel.category], ['Interested in', sel.interestedIn], ['Highest qualification', sel.qualification], ['City', sel.city], ['University', sel.university], ['Program', sel.program], ['Course', sel.course], ['Source', sel.source], ['UTM', sel.utm], ['Received', fmtDate(sel.createdAt)]].map(([k, v]) => <div key={k}><dt className="text-xs font-bold uppercase tracking-wider text-gold-deep">{k}</dt><dd className="break-words text-navy">{has(v) ? v : 'Not provided'}</dd></div>)}
             </dl>
             {has(sel.message) && <div className="rounded-md bg-mist p-3 text-sm"><p className="text-xs font-bold uppercase tracking-wider text-gold-deep">Message</p><p className="mt-1 whitespace-pre-line">{sel.message}</p></div>}
             <div><label className="label" htmlFor="ld-status">Status</label><select id="ld-status" className="input" value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })} data-testid="select-lead-status">{STATUSES.map((x) => <option key={x}>{x}</option>)}</select></div>

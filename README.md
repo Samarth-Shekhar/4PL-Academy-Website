@@ -64,6 +64,16 @@ New homepage photography comes from Pexels and is labelled as illustrative—not
 
 Admissions forms save enquiries to PostgreSQL for the admissions team. They do not send email or confirm university admission. Application links supplied in the workbook require verification before use as official admissions destinations.
 
+### Education discovery and counselling
+
+The public header intentionally remains Home, About Us, Courses, Universities, Blogs and Contact Us, without additional action buttons. Book Counselling is the primary conversion within pages; the existing verified-content assistant remains secondary.
+
+Program cards and detail pages expose database-managed facts, intake, fees, eligibility and highlights. Discovery supports degree, professional-course and approved-certification selection; comparison supports up to three degree programs, including curriculum and career paths. `/professional-courses` and its detail/category routes are available alongside the existing `/courses` URLs. `/book-counselling` and `/counselling` share the contextual booking form.
+
+Program semesters are managed as named groups of modules in the CMS; the existing curriculum list remains supported. University-linked approved media is managed through `/admin/media`. Contact offices supplied in the discovery brief are initial published Site Settings records, not React constants; both UK numbers are retained. Subsequent imports preserve these settings edits. Legacy homepage bot conversion links are migrated once to counselling defaults.
+
+Counselling requests include interest, university/program selection, qualification, city, consent, page source and session UTM attribution. The shared lead schema and checked-in migration persist these fields. Administrator lead lists/details and filtered CSV exports include them. No additional administrator or authentication bypass is created for testing; signed-in CMS verification requires owner-configured credentials.
+
 ## ACAD BOT
 
 ACAD BOT uses bounded, read-only catalog retrieval and approved fields. It does not call an external LLM or execute user-written SQL. Missing fees, eligibility, dates and other unverified facts receive the required “I don't have verified information…” response. It cannot access administrator credentials, private leads, coupon codes or database mutation tools.

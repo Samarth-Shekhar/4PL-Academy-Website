@@ -23,7 +23,7 @@ function fieldList(cfg) {
 }
 const EMPTY_ITEM = { name: '', description: '', image: '', url: '', altText: '' };
 function itemToForm(item, cfg) {
-  const v = { name: item?.name || '', slug: item?.slug || '', status: item?.status || 'draft', featured: !!item?.featured, sortOrder: item?.sortOrder ?? 0, shortDescription: item?.shortDescription || '', description: item?.description || '', verified: !!item?.verified, verificationNotes: item?.verificationNotes || '', partnershipVerified: !!item?.partnershipVerified, source: item?.source || '', universityId: item?.universityId ?? '', universityName: item?.universityName || '', faqs: (item?.faqs || []).map((f) => ({ question: f.question || '', answer: f.answer || '' })), items: (item?.items || []).map((i) => ({ ...EMPTY_ITEM, ...i })) };
+  const v = { name: item?.name || '', slug: item?.slug || '', status: item?.status || 'draft', featured: !!item?.featured, sortOrder: item?.sortOrder ?? 0, shortDescription: item?.shortDescription || '', description: item?.description || '', verified: !!item?.verified, verificationNotes: item?.verificationNotes || '', partnershipVerified: !!item?.partnershipVerified, source: item?.source || '', universityId: item?.universityId ?? '', universityName: item?.universityName || '', faqs: (item?.faqs || []).map((f) => ({ question: f.question || '', answer: f.answer || '' })), semesters: (item?.semesters || []).map((x) => ({ name: x.name || '', modules: (x.modules || []).join('\n') })), items: (item?.items || []).map((i) => ({ ...EMPTY_ITEM, ...i })) };
   fieldList(cfg).forEach((f) => {
     const x = item?.[f.name];
     if (f.type === 'bool') v[f.name] = x === undefined || x === null ? (item ? (f.default ?? false) : (f.default ?? false)) : !!x;
@@ -47,6 +47,7 @@ function formToPayload(v, cfg) {
   if (cfg.mirrorName) p[cfg.mirrorName] = p.name;
   (cfg.arrays || []).forEach(([n]) => { p[n] = String(v[n] || '').split('\n').map((s) => s.trim()).filter(Boolean); });
   if (cfg.faqs) p.faqs = (v.faqs || []).filter((f) => f.question.trim() && f.answer.trim()).map((f) => ({ question: f.question.trim(), answer: f.answer.trim() }));
+  if (cfg.semesters) p.semesters = (v.semesters || []).map((x) => ({ name: (x.name || '').trim(), modules: String(x.modules || '').split('\n').map((m) => m.trim()).filter(Boolean) })).filter((x) => x.name);
   if (cfg.items) p.items = (v.items || []).filter((i) => i.name.trim()).map((i) => ({ name: i.name.trim(), description: (i.description || '').trim(), image: (i.image || '').trim(), url: (i.url || '').trim(), altText: (i.altText || '').trim() }));
   return p;
 }
@@ -106,6 +107,7 @@ export function EditorForm({ kind, cfg, item, onClose, universities = [] }) {
   const { register, handleSubmit, control, setValue, watch, getValues, formState: { errors, dirtyFields } } = useForm({ resolver: zodResolver(buildSchema(cfg)), defaultValues: itemToForm(item, cfg) });
   const { fields, append, remove } = useFieldArray({ control, name: 'faqs' });
   const itemsArr = useFieldArray({ control, name: 'items' });
+  const semArr = useFieldArray({ control, name: 'semesters' });
   const onUploading = active => setUploadCount(count=>Math.max(0,count+(active?1:-1)));
   const form = { register, errors, setValue, watch, onUploading };
   const name = watch('name');
@@ -153,6 +155,23 @@ export function EditorForm({ kind, cfg, item, onClose, universities = [] }) {
       {(cfg.groups || []).map(([t, fs]) => <Group key={t} title={t}>{fs.map((f) => <Field key={f.name} f={f} form={form} onUploaded={onUploaded} />)}</Group>)}
       {(cfg.arrays || []).length > 0 && (
         <Group title="Lists (one item per line)">{cfg.arrays.map(([n, l]) => <div key={n} className="sm:col-span-2"><label className="label" htmlFor={`f-${n}`}>{l}</label><textarea id={`f-${n}`} rows={4} className="input" {...register(n)} /></div>)}</Group>
+      )}
+      {cfg.semesters && (
+        <fieldset className="rounded-lg border border-line p-4" data-testid="editor-semesters"><legend className="px-2 text-sm font-bold text-navy">Semester-wise curriculum</legend>
+          <p className="mb-3 text-xs text-muted-foreground">Add only verified modules. If no semesters are added, the plain curriculum list is shown instead.</p>
+          <div className="space-y-4">{semArr.fields.map((sf, i) => (
+            <div key={sf.id} className="rounded-md border border-line bg-mist/40 p-3">
+              <label className="label" htmlFor={`sem-n-${i}`}>Semester name</label><input id={`sem-n-${i}`} className="input" placeholder="Semester 1" {...register(`semesters.${i}.name`)} />
+              <label className="label mt-2" htmlFor={`sem-m-${i}`}>Modules (one per line)</label><textarea id={`sem-m-${i}`} rows={4} className="input" {...register(`semesters.${i}.modules`)} />
+              <div className="mt-2 flex flex-wrap gap-2">
+                <button type="button" disabled={i === 0} onClick={() => semArr.move(i, i - 1)} className="btn btn-outline btn-sm">Move up</button>
+                <button type="button" disabled={i === semArr.fields.length - 1} onClick={() => semArr.move(i, i + 1)} className="btn btn-outline btn-sm">Move down</button>
+                <button type="button" onClick={() => semArr.remove(i)} className="btn btn-outline btn-sm"><Trash2 className="h-4 w-4" aria-hidden="true" /> Remove</button>
+              </div>
+            </div>
+          ))}</div>
+          <button type="button" onClick={() => semArr.append({ name: `Semester ${semArr.fields.length + 1}`, modules: '' })} className="btn btn-outline btn-sm mt-3"><Plus className="h-4 w-4" aria-hidden="true" /> Add semester</button>
+        </fieldset>
       )}
       {cfg.faqs && (
         <fieldset className="rounded-lg border border-line p-4"><legend className="px-2 text-sm font-bold text-navy">{cfg.faqsLabel || 'FAQs'}</legend>

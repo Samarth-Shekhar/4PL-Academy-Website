@@ -50,18 +50,18 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
       </div>
       <div className="container-x flex min-h-[100svh] flex-col justify-end pb-6 pt-28 sm:pt-32">
         <div className="max-w-4xl">
-          <motion.p initial={reduce ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="eyebrow mb-5 flex items-center gap-3"><span className="h-px w-10 bg-gold" aria-hidden="true" />4PL Academy</motion.p>
-          <h1 className="display-xl text-surface">
+          <motion.p initial={reduce || light ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="eyebrow mb-5 flex items-center gap-3"><span className="h-px w-10 bg-gold" aria-hidden="true" />4PL Academy</motion.p>
+          <h1 className="display-xl text-surface max-sm:text-[clamp(2rem,8.5vw,3.5rem)] max-sm:leading-[1.12]">
             {words.map((w, i) => (
-              <span key={i} className="mr-[0.22em] inline-block overflow-hidden align-bottom">
-                <motion.span className={cn('inline-block', i === words.length - 1 && 'text-gold')} initial={reduce ? false : { y: '105%' }} animate={{ y: 0 }} transition={{ delay: 0.1 + i * 0.09, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>{w}</motion.span>
+              <span key={i} className="mr-[0.22em] inline-block overflow-visible align-bottom sm:overflow-hidden">
+                <motion.span className={cn('inline-block', i === words.length - 1 && 'text-gold')} initial={reduce || light ? false : { y: '105%' }} animate={{ y: 0 }} transition={{ delay: 0.1 + i * 0.09, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>{w}</motion.span>
               </span>
             ))}
           </h1>
-          <motion.p initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-6 max-w-xl text-lg leading-relaxed text-surface/85 sm:text-xl">{section?.shortDescription || fallbackBody}</motion.p>
+          <motion.p initial={reduce || light ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-6 max-w-xl text-lg leading-relaxed text-surface/85 sm:text-xl">{section?.shortDescription || fallbackBody}</motion.p>
           <motion.div initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Cta label={section?.ctaLabel || (section ? '' : 'Explore programs')} url={section?.ctaUrl || '/programs'} testid="link-hero-programs" />
-            <Cta label={section?.secondaryCtaLabel || (section ? '' : 'Ask ACAD BOT')} url={section?.secondaryCtaUrl || 'bot'} variant="light" testid="button-hero-bot" />
+            <Cta label={section?.secondaryCtaLabel || (section ? '' : 'Book Counselling')} url={section?.secondaryCtaUrl || '/book-counselling'} variant="light" testid="button-hero-bot" />
           </motion.div>
           <form onSubmit={(e) => { e.preventDefault(); nav(`/programs${q ? `?search=${encodeURIComponent(q)}` : ''}`); }} className="mt-6 flex max-w-lg gap-2 rounded-md bg-surface/10 p-1.5 ring-1 ring-surface/25 backdrop-blur-sm" role="search">
             <label htmlFor="hero-search" className="sr-only">Search programs and universities</label>

@@ -4,7 +4,6 @@ import { usePublicItem, usePublicList } from '@/lib/api';
 import { useSeo } from '@/lib/seo';
 import { asset, has } from '@/lib/format';
 import { openBot } from '@/lib/events';
-import { REFRESH } from '@/lib/home';
 import { Skeleton, CardSkeletons, SectionHead, EmptyState } from '@/components/ui-kit';
 import { BlogCard } from '@/components/Cards';
 import { ProgramVideoHero } from '@/components/home/ProgramVideoHero';
@@ -39,7 +38,7 @@ function Blogs() {
 
 export default function Home() {
   const home = usePublicItem('pages', 'home').data;
-  const hp = usePublicList('homepage', undefined, { refetchInterval: REFRESH, refetchIntervalInBackground: false });
+  const hp = usePublicList('homepage', undefined, { refetchOnWindowFocus: true });
   useSeo({
     title: home?.seoTitle || '4PL Academy | Creating Global Professionals',
     description: home?.seoDescription || 'Industry-integrated education built for real-world careers. Explore degree programs, professional courses and a university directory.',
@@ -53,7 +52,7 @@ export default function Home() {
       <>
         {!hp.data?.length && <ProgramVideoHero section={null} fallbackTitle={has(home?.name) && home.name.toLowerCase() !== 'home' ? home.name : 'Creating Global Professionals'} fallbackBody={home?.shortDescription || 'Industry-integrated education built for real-world careers.'} />}
         <section className="container-x py-16">
-          <EmptyState icon={Bot} title={hp.isError ? 'The full homepage could not load' : 'More of the homepage is on its way'} body="Explore programs and universities directly, or ask ACAD BOT." action={<div className="flex flex-wrap justify-center gap-3"><Link href="/universities" className="btn btn-navy">Find a university</Link><button type="button" onClick={() => openBot()} className="btn btn-outline">Ask ACAD BOT</button>{hp.isError && <button type="button" onClick={() => hp.refetch()} className="btn btn-outline">Retry</button>}</div>} />
+          <EmptyState icon={Bot} title={hp.isError ? 'The full homepage could not load' : 'More of the homepage is on its way'} body="Explore programs and universities directly, or book a counselling session." action={<div className="flex flex-wrap justify-center gap-3"><Link href="/universities" className="btn btn-navy">Find a university</Link><button type="button" onClick={() => openBot()} className="btn btn-outline">Ask ACAD BOT</button>{hp.isError && <button type="button" onClick={() => hp.refetch()} className="btn btn-outline">Retry</button>}</div>} />
         </section>
         <Blogs />
       </>

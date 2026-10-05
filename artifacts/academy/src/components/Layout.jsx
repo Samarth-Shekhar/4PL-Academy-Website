@@ -7,6 +7,7 @@ import { AcadBot } from './AcadBot';
 import { cn } from '@/lib/cn';
 import { asset } from '@/lib/format';
 import { useCompare } from '@/lib/compare';
+import { captureAttribution } from '@/lib/booking';
 
 const NAV = [
   { href: '/', label: 'Home' },
@@ -126,9 +127,9 @@ function Footer() {
             <Link href="/contact" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-gold"><Mail className="h-4 w-4" aria-hidden="true" /> Speak with admissions</Link>
           </div>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
-            {col('Learn', [{ href: '/programs/undergraduate', label: 'Undergraduate' }, { href: '/programs/postgraduate', label: 'Postgraduate' }, { href: '/compare', label: 'Compare Programs' }, { href: '/courses/short-term', label: 'Short-Term Courses' }, { href: '/courses/long-term', label: 'Long-Term Courses' }])}
+            {col('Learn', [{ href: '/programs/undergraduate', label: 'Undergraduate' }, { href: '/programs/postgraduate', label: 'Postgraduate' }, { href: '/compare', label: 'Compare Programs' }, { href: '/professional-courses', label: 'Professional Courses' }, { href: '/certifications', label: 'Certifications' }])}
             {col('Discover', [{ href: '/universities', label: 'University Directory' }, { href: '/career-industry', label: 'Career & Industry' }, { href: '/student-life', label: 'Student Life' }, { href: '/blogs', label: 'Blogs' }])}
-            {col('4PL Academy', [{ href: '/about', label: 'About' }, { href: '/for-universities', label: 'For Universities' }, { href: '/faq', label: 'FAQ' }, { href: '/contact', label: 'Contact' }, { href: '/apply', label: 'Apply' }, { href: '/counselling', label: 'Counselling' }])}
+            {col('4PL Academy', [{ href: '/about', label: 'About' }, { href: '/for-universities', label: 'For Universities' }, { href: '/faq', label: 'FAQ' }, { href: '/contact', label: 'Contact' }, { href: '/apply', label: 'Apply' }, { href: '/book-counselling', label: 'Book Counselling' }])}
           </div>
         </div>
         <div className="mt-12 border-t border-surface/15 pt-6 text-xs leading-relaxed text-surface/60">
@@ -142,7 +143,7 @@ function Footer() {
 
 export function Layout({ children }) {
   const [loc] = useLocation();
-  useEffect(() => { window.scrollTo(0, 0); }, [loc]);
+  useEffect(() => { captureAttribution(); window.scrollTo(0, 0); }, [loc]);
   return (
     <div className="flex min-h-[100dvh] flex-col">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:rounded focus:bg-gold focus:px-4 focus:py-2 focus:text-navy">Skip to content</a>
@@ -150,7 +151,7 @@ export function Layout({ children }) {
       <main id="main" className="flex-1">{children}</main>
       <Footer />
       <CompareBar />
-      <AcadBot />
+      <AcadBot raised={/^\/(?:programs|universities|courses|professional-courses)\/[^/]+\/?$/.test(loc) && !/(?:undergraduate|postgraduate|short-term|long-term)\/?$/.test(loc)} />
     </div>
   );
 }

@@ -9,7 +9,7 @@ import { PageHero, Skeleton, EmptyState, ErrorState } from '@/components/ui-kit'
 const ROWS = [
   ['University', (p) => val(p.universityName)], ['Program', (p) => p.name], ['Degree', (p) => val(p.degree)], ['Location', (p) => val(p.location || p.city)],
   ['Duration', (p) => val(p.duration)], ['Fee', (p) => val(p.fee)], ['Eligibility', (p) => val(p.eligibility)], ['Mode', (p) => val(p.mode)],
-  ['Specialization', (p) => val(p.specialization)], ['Career paths', (p) => (lines(p.careerPaths).join(', ') || val(''))],
+  ['Specialization', (p) => val(p.specialization)], ['Intake', (p) => val(p.intake || p.batch)], ['Curriculum', (p) => (Array.isArray(p.semesters) && p.semesters.length ? p.semesters.map((x) => `${x.name}: ${lines(x.modules).join(', ')}`).join(' | ') : lines(p.curriculum).join(', ') || val(''))], ['Career paths', (p) => (lines(p.careerPaths).join(', ') || val(''))],
 ];
 
 export default function Compare() {
@@ -30,7 +30,7 @@ export default function Compare() {
                 <caption className="sr-only">Program comparison</caption>
                 <thead><tr><th className="w-40 p-3" scope="col"><span className="sr-only">Field</span></th>{items.map((p) => <th key={p.id} scope="col" className="navy-surface on-navy min-w-[14rem] p-4 align-top font-display text-lg font-medium">{p.name}<button type="button" onClick={() => cmp.remove(p.slug)} className="mt-2 flex items-center gap-1 font-sans text-xs text-gold"><X className="h-3 w-3" aria-hidden="true" /> Remove</button></th>)}</tr></thead>
                 <tbody>{ROWS.map(([l, fn], i) => <tr key={l} className={i % 2 ? 'bg-mist/50' : 'bg-card'}><th scope="row" className="p-3 text-xs font-bold uppercase tracking-wider text-gold-deep">{l}</th>{items.map((p) => <td key={p.id} className="border-l border-line p-3 font-medium text-navy">{fn(p)}</td>)}</tr>)}
-                  <tr><th scope="row" className="p-3" /> {items.map((p) => <td key={p.id} className="border-l border-line p-3"><Link href={`/programs/${p.slug}`} className="btn btn-gold btn-sm">View program</Link></td>)}</tr></tbody>
+                  <tr><th scope="row" className="p-3" />{items.map((p) => <td key={p.id} className="border-l border-line p-3"><Link href={`/programs/${p.slug}`} className="btn btn-gold btn-sm">View program</Link></td>)}</tr></tbody>
               </table>
             </div>
             <div className="space-y-5 md:hidden">

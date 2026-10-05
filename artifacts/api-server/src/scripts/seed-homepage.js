@@ -7,9 +7,9 @@ const step = (name,description,photo,url='') => ({name,description,image:image(p
 const sections = [
   {
     slug:'hero',name:'Creating Global Professionals',
-    shortDescription:'Industry-integrated education for real-world careers.',
+    shortDescription:'Industry-integrated education built for real-world careers.',
     description:'Explore degree pathways and professional learning shaped by the world of work.',
-    ctaLabel:'Explore Programs',ctaUrl:'/programs',secondaryCtaLabel:'Ask ACAD BOT',secondaryCtaUrl:'bot',
+    ctaLabel:'Explore Programs',ctaUrl:'/programs',secondaryCtaLabel:'Book Counselling',secondaryCtaUrl:'/counselling',
     image:image('port'),
   },
   {
@@ -27,13 +27,13 @@ const sections = [
     slug:'programs',name:'Choose the Path That Moves You Forward',
     shortDescription:'Start with your ambition. Discover a pathway to match.',
     description:'Confirm current duration, mode, eligibility and fees with admissions before applying.',
-    ctaLabel:'Explore all programs',ctaUrl:'/programs',secondaryCtaLabel:'Find your path with ACAD BOT',secondaryCtaUrl:'bot',
+    ctaLabel:'Explore all programs',ctaUrl:'/programs',secondaryCtaLabel:'Book Counselling',secondaryCtaUrl:'/counselling',
   },
   {
     slug:'universities',name:'One Academy. A Growing University Network.',
     shortDescription:'Explore institutions across India, one region at a time.',
     description:'Directory entries do not confirm a 4PL partnership. Map pins show approximate city centres, not campus addresses. Confirmed partners are identified separately.',
-    ctaLabel:'Explore universities',ctaUrl:'/universities',secondaryCtaLabel:'Find your university with ACAD BOT',secondaryCtaUrl:'bot',
+    ctaLabel:'Explore universities',ctaUrl:'/universities',secondaryCtaLabel:'Book Counselling',secondaryCtaUrl:'/counselling',
   },
   {
     slug:'industry',name:'Learn With Industry. Build For Industry.',
@@ -77,7 +77,7 @@ const sections = [
     shortDescription:'Explore the fields connected to approved 4PL degree pathways.',
     description:'Career pathways are areas to explore—not a guarantee of placement, employment or salary.',
     image:image('warehouse'),ctaLabel:'Explore career pathways',ctaUrl:'/career-industry',
-    secondaryCtaLabel:'Talk to a counsellor',secondaryCtaUrl:'/counselling',
+    secondaryCtaLabel:'Book Counselling',secondaryCtaUrl:'/counselling',
   },
   {
     slug:'student-life',name:'Learning Happens Together',
@@ -108,19 +108,19 @@ const sections = [
     description:'Admissions requirements and final decisions belong to the relevant institution. Counselling and an enquiry do not guarantee admission.',
     items:[
       step('Explore','Discover institutions, programs and professional courses.','port','/programs'),
-      step('Choose Program','Compare the pathways that interest you.','classroom','/programs'),
-      step('Get Counselling','Confirm eligibility, availability and current details.','business','/counselling'),
+       step('Book Counselling','Confirm eligibility, availability and current details.','business','/counselling'),
+       step('Choose Program','Compare the pathways that interest you.','classroom','/programs'),
       step('Apply','Submit an enquiry and follow the confirmed application process.','technology','/apply'),
       step('Admission','Complete the institution’s requirements and await its decision.','classroom','/counselling'),
       step('Start Learning','Begin after admission and enrolment are confirmed.','warehouse','/student-life'),
     ],
-    ctaLabel:'Start Your Journey',ctaUrl:'/apply',
-    secondaryCtaLabel:'Ask ACAD BOT about admissions',secondaryCtaUrl:'bot',
+    ctaLabel:'Book Counselling',ctaUrl:'/counselling',
+    secondaryCtaLabel:'Apply Now',secondaryCtaUrl:'/apply',
   },
   {
     slug:'final-cta',name:'Your Next Chapter Starts Here.',
     shortDescription:'Explore programs, discover universities and build skills for the world of work.',
-    image:image('trade'),ctaLabel:'Explore Programs',ctaUrl:'/programs',
+    image:image('trade'),ctaLabel:'Book Counselling',ctaUrl:'/counselling',
     secondaryCtaLabel:'Find a University',secondaryCtaUrl:'/universities',
     items:[{name:'Talk to ACAD BOT',url:'bot'}],
   },

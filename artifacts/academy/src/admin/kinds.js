@@ -27,12 +27,12 @@ export const KINDS = {
   programs: {
     label: 'Program', plural: 'Programs', universityPicker: true,
     groups: [
-      ['Program details', [T('degree', 'Degree'), T('degreeLevel', 'Degree level'), T('specialization', 'Specialization'), T('duration', 'Duration'), T('mode', 'Mode'), T('location', 'Location'), T('eligibility', 'Eligibility'), T('minimumPercentage', 'Minimum percentage'), T('batch', 'Batch')]],
+      ['Program details', [T('degree', 'Degree'), T('degreeLevel', 'Degree level'), T('specialization', 'Specialization'), T('duration', 'Duration'), T('mode', 'Mode'), T('location', 'Location'), T('eligibility', 'Eligibility'), T('minimumPercentage', 'Minimum percentage'), T('batch', 'Batch'), T('intake', 'Intake', { hint: 'For example July and January. Leave empty if not verified.' })]],
       ['Fees', [T('fee', 'Fee', { hint: 'Leave empty if not verified.' }), T('feeNote', 'Fee note')]],
       ['Links and media', [T('applicationUrl', 'Application URL', { type: 'url' }), T('brochureUrl', 'Brochure URL', { type: 'url' }), U('image', 'Image')]],
     ],
     arrays: [['highlights', 'Why choose this program'], ['curriculum', 'Curriculum'], ['outcomes', 'Learning outcomes'], ['industryExposure', 'Industry exposure'], ['projects', 'Projects'], ['internships', 'Internships'], ['admissionProcess', 'Admission process'], ['documentsRequired', 'Documents required'], ['careerPaths', 'Career paths'], ['facilities', 'Facilities'], ['media', 'Media URLs']],
-    faqs: true,
+    faqs: true, semesters: true,
   },
   courses: {
     label: 'Course', plural: 'Courses',

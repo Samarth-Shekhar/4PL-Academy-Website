@@ -1,1 +1,2 @@
 - [API generation in JavaScript projects](javascript-api-generation.md) — treat generated TypeScript as a temporary intermediate and avoid conflicting validator/type barrel exports.
+- [Environment-file guard](environment-file-guard.md) — direct .env creation is blocked even for comments; retain portable examples and use secure configuration tools.

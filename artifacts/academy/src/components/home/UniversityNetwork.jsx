@@ -14,8 +14,8 @@ const num = (v) => (v === null || v === undefined || v === '' ? NaN : Number(v))
 const valid = (u) => Number.isFinite(num(u.latitude)) && Number.isFinite(num(u.longitude)) && num(u.latitude) >= 6 && num(u.latitude) <= 38 && num(u.longitude) >= 68 && num(u.longitude) <= 98;
 
 export function UniversityNetwork({ s }) {
-  const uq = usePublicList('universities', undefined, { refetchInterval: REFRESH });
-  const pq = usePublicList('programs', undefined, { refetchInterval: REFRESH });
+  const uq = usePublicList('universities', undefined, { refetchOnWindowFocus: true });
+  const pq = usePublicList('programs', undefined, { refetchOnWindowFocus: true });
   const [mode, setMode] = useState('directory');
   const [selected, setSelected] = useState(null);
   const [activeUni, setActiveUni] = useState(null);
@@ -39,22 +39,22 @@ export function UniversityNetwork({ s }) {
   return (
     <section className="navy-surface on-navy py-20 sm:py-28" aria-labelledby="sec-universities">
       <div className="container-x">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
-          <div id="sec-universities" className="lg:pt-6">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
+          <div id="sec-universities" className="min-w-0 lg:pt-6">
             <Head s={s} light />
             <Body s={s} light />
-            <div className="mt-7 inline-flex rounded-md bg-surface/10 p-1" role="group" aria-label="Map mode">
-              {[['directory', 'University directory'], ['partners', 'Verified partnerships']].map(([k, l]) => <button key={k} type="button" aria-pressed={mode === k} onClick={() => { setMode(k); pick(null); }} className={cn('min-h-10 rounded px-4 text-sm font-bold transition', mode === k ? 'bg-gold text-navy' : 'text-surface/80 hover:text-surface')}>{l}</button>)}
+            <div className="mt-7 grid w-full grid-cols-2 rounded-md bg-surface/10 p-1 sm:inline-flex sm:w-auto" role="group" aria-label="Map mode">
+              {[['directory', 'University directory'], ['partners', 'Verified partnerships']].map(([k, l]) => <button key={k} type="button" aria-pressed={mode === k} onClick={() => { setMode(k); pick(null); }} className={cn('min-h-10 min-w-0 whitespace-normal rounded px-2 py-2 text-sm font-bold transition sm:px-4', mode === k ? 'bg-gold text-navy' : 'text-surface/80 hover:text-surface')}>{l}</button>)}
             </div>
             <p className="mt-3 max-w-md text-xs leading-relaxed text-surface/65">{mode === 'directory' ? 'Directory mode shows every listed institution. Listing does not imply a partnership with 4PL Academy. Markers show city centres, not campus locations.' : 'Partnership mode shows only institutions whose partnership with 4PL Academy has been verified.'}</p>
-            <CtaRow s={s} light className="mt-7" />
+            <CtaRow s={s} light className="mt-7 max-w-full [&_.btn]:max-w-full [&_.btn]:whitespace-normal" />
             {regions.length > 0 && (
               <div className="no-scrollbar -mx-4 mt-8 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label="Choose a region">
                 {regions.map((r) => <button key={r.key} type="button" aria-pressed={r.key === selected} onClick={() => pick(r.key === selected ? null : r.key)} className={cn('shrink-0 rounded-full border px-4 py-2 text-sm font-semibold', r.key === selected ? 'border-gold bg-gold text-navy' : 'border-surface/30 text-surface hover:border-gold')}>{r.label} <span className="ml-1 opacity-70">{r.unis.length}</span></button>)}
               </div>
             )}
           </div>
-          <div>
+          <div className="min-w-0">
             {uq.isLoading ? <Skeleton className="mx-auto aspect-[600/640] w-full max-w-[34rem]" /> : (
               <IndiaUniversityMap regions={regions} selected={selected} onSelect={pick} activeUni={activeUni} onUni={setActiveUni} programsOf={programsOf} partnerMode={mode === 'partners'} />
             )}

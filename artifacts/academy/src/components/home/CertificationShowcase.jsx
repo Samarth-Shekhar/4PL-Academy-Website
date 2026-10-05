@@ -14,8 +14,8 @@ function Mark({ c }) {
 
 export function CertificationShowcase({ s }) {
   const { list } = useVerified('certifications');
-  const courses = usePublicList('courses', undefined, { refetchInterval: REFRESH }).data || [];
-  const programs = usePublicList('programs', undefined, { refetchInterval: REFRESH }).data || [];
+  const courses = usePublicList('courses', undefined, { refetchOnWindowFocus: true }).data || [];
+  const programs = usePublicList('programs', undefined, { refetchOnWindowFocus: true }).data || [];
   const row = useRef(null);
   const reduce = useReducedMotion();
   const by = (d) => row.current?.scrollBy({ left: d * 340, behavior: reduce ? 'auto' : 'smooth' });

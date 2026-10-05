@@ -1,16 +1,20 @@
 import { Link } from 'wouter';
-import { useGetDiscovery, getGetDiscoveryQueryKey } from '@workspace/api-client-react';
 import { usePublicList } from '@/lib/api';
-import { REFRESH } from '@/lib/home';
 import { has } from '@/lib/format';
 import { Reveal } from '@/components/ui-kit';
 import { Head, Body, Pic, Count, CtaRow } from './shared';
 
 export function Ecosystem({ s }) {
-  const d = useGetDiscovery({ query: { queryKey: getGetDiscoveryQueryKey(), staleTime: 30000, refetchInterval: REFRESH } }).data;
   const unis = usePublicList('universities').data || [];
-  const partners = unis.filter((u) => u.partnershipVerified).length;
-  const stats = [[d?.universities, 'Directory records'], [d?.programs, 'Programs listed'], [d?.courses, 'Courses listed'], [partners, 'Verified university partners']].filter(([n]) => n > 0);
+  const programs = usePublicList('programs').data || [];
+  const courses = usePublicList('courses').data || [];
+  const partners = unis.filter((u) => u.verified && u.partnershipVerified).length;
+  const stats = [
+    [unis.filter(u=>u.verified).length, 'Verified university records'],
+    [programs.filter(p=>p.verified).length, 'Verified program titles'],
+    [courses.filter(c=>c.verified).length, 'Verified course titles'],
+    [partners, 'Verified university partners'],
+  ].filter(([n]) => n > 0);
   const items = s.items || [];
   return (
     <section className="container-x py-20 sm:py-28" aria-labelledby="sec-ecosystem">

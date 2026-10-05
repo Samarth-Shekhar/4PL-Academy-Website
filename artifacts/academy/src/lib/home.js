@@ -11,13 +11,13 @@ export const mediaUrl = (u) => {
   return asset(s);
 };
 export function useMedia() {
-  const q = usePublicList('media', undefined, { refetchInterval: REFRESH });
+  const q = usePublicList('media', undefined, { refetchOnWindowFocus: true });
   const list = (q.data || []).filter((m) => m.verified === true && has(m.url) && m.status !== 'archived').sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
   return { ...q, list };
 }
 export const bySection = (list, s) => list.filter((m) => String(m.section || '').toLowerCase() === s);
 export function useVerified(kind) {
-  const q = usePublicList(kind, undefined, { refetchInterval: REFRESH });
+  const q = usePublicList(kind, undefined, { refetchOnWindowFocus: true });
   const list = (q.data || []).filter((x) => x.verified === true).sort((a, b) => Number(!!b.featured) - Number(!!a.featured) || (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
   return { ...q, list };
 }

@@ -11,7 +11,7 @@ const clean = (p) => {
 };
 export function usePublicList(kind, params, extra = {}) {
   const p = clean(params);
-  return useListContent(kind, p, { query: { queryKey: getListContentQueryKey(kind, p), staleTime: 30000, refetchOnMount: true, ...extra } });
+  return useListContent(kind, p, { query: { queryKey: getListContentQueryKey(kind, p), staleTime: 60000, refetchOnMount: true, refetchOnWindowFocus: true, ...extra } });
 }
 export function usePublicItem(kind, slug, extra = {}) {
   return useGetContent(kind, slug, { query: { queryKey: getGetContentQueryKey(kind, slug), staleTime: 30000, refetchOnMount: true, retry: false, enabled: !!slug, ...extra } });

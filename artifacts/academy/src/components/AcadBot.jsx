@@ -7,7 +7,7 @@ import { errMsg } from '@/lib/api';
 
 const PROMPTS = ['Which degree programs does 4PL Academy offer?', 'How does admission support work?', 'What professional courses are available?'];
 
-export function AcadBot() {
+export function AcadBot({ raised = false }) {
   const [open, setOpen] = useState(false);
   const [msgs, setMsgs] = useState([]);
   const [text, setText] = useState('');
@@ -36,7 +36,7 @@ export function AcadBot() {
     <>
       <AnimatePresence>
         {!open && (
-          <motion.button initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.8, opacity: 0 }} type="button" onClick={() => setOpen(true)} className="fixed bottom-4 right-4 z-40 flex h-14 items-center gap-2 rounded-full bg-gold pl-4 pr-5 font-bold text-navy shadow-[0_10px_30px_-8px_hsl(221_76%_17%/.6)] ring-2 ring-navy/90" aria-label="Open ACAD BOT assistant" data-testid="button-bot-launch">
+          <motion.button initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.8, opacity: 0 }} type="button" onClick={() => setOpen(true)} className={`fixed bottom-4 right-4 z-40 flex h-14 items-center gap-2 rounded-full bg-gold pl-4 pr-5 font-bold text-navy shadow-[0_10px_30px_-8px_hsl(221_76%_17%/.6)] ring-2 ring-navy/90 ${raised ? 'max-md:bottom-24' : ''}`} aria-label="Open ACAD BOT assistant" data-testid="button-bot-launch">
             <Bot className="h-5 w-5" aria-hidden="true" /> <span className="text-sm">ACAD BOT</span>
           </motion.button>
         )}

@@ -309,6 +309,7 @@ components:
         fee: { type: string }
         feeNote: { type: string }
         batch: { type: string }
+        intake: { type: string }
         hours: { type: string }
         certification: { type: string }
         targetAudience: { type: string }
@@ -339,6 +340,14 @@ components:
         highlights: { type: array, items: { type: string } }
         facilities: { type: array, items: { type: string } }
         curriculum: { type: array, items: { type: string } }
+        semesters:
+          type: array
+          items:
+            type: object
+            required: [name, modules]
+            properties:
+              name: { type: string, minLength: 1, maxLength: 150 }
+              modules: { type: array, items: { type: string, maxLength: 500 } }
         outcomes: { type: array, items: { type: string } }
         careerPaths: { type: array, items: { type: string } }
         admissionProcess: { type: array, items: { type: string } }
@@ -410,6 +419,9 @@ components:
         university: { type: string }
         program: { type: string }
         course: { type: string }
+        interestedIn: { type: string, maxLength: 150 }
+        qualification: { type: string, maxLength: 250 }
+        city: { type: string, maxLength: 150 }
         source: { type: string }
         utm: { type: string }
         message: { type: string, maxLength: 3000 }

@@ -15,6 +15,13 @@
       "when": 1791195856099,
       "tag": "0001_magical_eddie_brock",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791198505888,
+      "tag": "0002_loose_arachne",
+      "breakpoints": true
     }
   ]
 }

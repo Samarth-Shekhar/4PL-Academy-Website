@@ -12,6 +12,7 @@ import Universities from '@/pages/Universities';
 import Courses from '@/pages/Courses';
 import NotFound from '@/pages/NotFound';
 import { ProgramDetail, UniversityDetail, CourseDetail } from '@/pages/Details';
+import Certifications from '@/pages/Certifications';
 import { KindPage, Blogs, BlogDetail, Faq, FormPage } from '@/pages/Content';
 
 const AdminLayout = lazy(() => import('@/admin/AdminLayout').then((m) => ({ default: m.AdminLayout })));
@@ -75,6 +76,13 @@ function PublicApp() {
         <Route path="/courses/short-term"><Courses variant="short" /></Route>
         <Route path="/courses/long-term"><Courses variant="long" /></Route>
         <Route path="/courses/:slug" component={CourseDetail} />
+        <Route path="/professional-courses"><Courses variant="all" /></Route>
+        <Route path="/professional-courses/short-term"><Courses variant="short" /></Route>
+        <Route path="/professional-courses/long-term"><Courses variant="long" /></Route>
+        <Route path="/professional-courses/:slug" component={CourseDetail} />
+        <Route path="/certifications" component={Certifications} />
+        <Route path="/blog/:slug" component={BlogDetail} />
+        <Route path="/book-counselling"><FormPage kind="book" /></Route>
         <Route path="/about"><KindPage slug="about" /></Route>
         <Route path="/career-industry"><KindPage slug="career-industry" /></Route>
         <Route path="/student-life"><KindPage slug="student-life" /></Route>
@@ -84,7 +92,7 @@ function PublicApp() {
         <Route path="/faq" component={Faq} />
         <Route path="/contact"><FormPage kind="contact" /></Route>
         <Route path="/apply"><FormPage kind="apply" /></Route>
-        <Route path="/counselling"><FormPage kind="counselling" /></Route>
+        <Route path="/counselling"><FormPage kind="book" /></Route>
         <Route component={NotFound} />
       </Switch>
     </Layout>

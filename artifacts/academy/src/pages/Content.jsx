@@ -1,5 +1,6 @@
-import { Link, useParams } from 'wouter';
-import { ArrowRight, CalendarDays, User } from 'lucide-react';
+import { Link, useParams, useSearch } from 'wouter';
+import { ArrowRight, CalendarDays, User, Mail, Phone, MapPin } from 'lucide-react';
+import { useContactSettings, telHref } from '@/lib/settings';
 import { usePublicItem, usePublicList } from '@/lib/api';
 import { useSeo, seoFrom } from '@/lib/seo';
 import { has, lines, fmtDate, asset } from '@/lib/format';
@@ -115,23 +116,38 @@ export function Faq() {
 }
 
 const FORMS = {
+  book: { title: "Let's Find the Right Program for You", eyebrow: 'Book Counselling', body: 'Tell us what you are exploring. Your selected program or university is already filled in. No guarantees, only honest guidance.', cat: 'counselling', label: 'Book Counselling' },
   contact: { title: 'Contact 4PL Academy', eyebrow: 'Contact', body: 'Questions about programs, courses or partnerships? Send us a message.', cat: 'contact', label: 'Send message' },
   apply: { title: 'Start your application', eyebrow: 'Apply', body: 'Tell us what you are interested in. Our admissions team will guide you through the process.', cat: 'application', label: 'Submit application interest' },
   counselling: { title: 'Request counselling', eyebrow: 'Counselling', body: 'A one-to-one conversation about programs, universities and admission support. No guarantees, only honest guidance.', cat: 'counselling', label: 'Request counselling' },
 };
 export function FormPage({ kind }) {
   const c = FORMS[kind];
+  const sp = new URLSearchParams(useSearch());
+  const ctx = { program: sp.get('program') || undefined, university: sp.get('university') || undefined, course: sp.get('course') || undefined, interestedIn: sp.get('interestedIn') || undefined };
+  const st = useContactSettings();
   useSeo({ title: c.title, description: c.body });
   const page = usePublicItem('pages', kind === 'contact' ? 'contact' : '__none__', { enabled: kind === 'contact' }).data;
   return (
     <>
       <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: c.eyebrow }]} eyebrow={c.eyebrow} title={c.title} body={c.body} />
       <div className="container-x grid gap-10 py-10 sm:py-14 lg:grid-cols-[1.2fr_1fr]">
-        <div className="card-s p-5 sm:p-8"><LeadForm category={c.cat} idPrefix={kind} submitLabel={c.label} /></div>
+        <div className="card-s p-5 sm:p-8"><LeadForm key={JSON.stringify(ctx)} category={c.cat} idPrefix={kind} submitLabel={c.label} {...ctx} /></div>
         <div className="space-y-5">
+          {kind === 'contact' && (
+            <div className="card-s p-5" data-testid="block-contact-details">
+              <h2 className="text-xl text-navy">Contact details</h2>
+              {st.offices.length ? <div className="mt-3 space-y-5">{st.offices.map((o) => (
+                <section key={o.id} aria-label={o.name}><h3 className="text-base text-navy">{o.name}</h3>
+                  <ul className="mt-2 space-y-2 text-sm">
+                    {has(o.address) && <li className="flex gap-3"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-gold-deep" aria-hidden="true" /><span className="min-w-0 whitespace-pre-line break-words">{o.address}</span></li>}
+                    {has(o.email) && <li className="flex gap-3"><Mail className="mt-0.5 h-4 w-4 shrink-0 text-gold-deep" aria-hidden="true" /><a href={`mailto:${o.email}`} className="min-w-0 break-all underline">{o.email}</a></li>}
+                    {o.phones.map((ph) => <li key={ph} className="flex gap-3"><Phone className="mt-0.5 h-4 w-4 shrink-0 text-gold-deep" aria-hidden="true" /><a href={telHref(ph)} className="underline">{ph}</a></li>)}
+                  </ul></section>))}</div> : <p className="mt-2 text-sm text-muted-foreground">{st.isLoading ? 'Loading contact details' : 'Contact details are being verified. Please use the form and our team will reply.'}</p>}
+            </div>
+          )}
           {page && has(page.description) && <RichText text={page.description} />}
-          {page?.applicationUrl && <a href={page.applicationUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline">Book free university counselling <ArrowRight className="h-4 w-4" aria-hidden="true" /></a>}
-          <div className="navy-surface on-navy rounded-lg p-6"><p className="eyebrow">What happens next</p><ol className="mt-4 space-y-4">{['We review your request', 'An admissions advisor contacts you', 'You get verified information and next steps'].map((s, i) => <li key={s} className="flex gap-3"><span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-gold text-sm font-bold text-navy">{i + 1}</span><span className="text-surface/90">{s}</span></li>)}</ol></div>
+          <div className="navy-surface on-navy rounded-lg p-6"><p className="eyebrow">What happens next</p><ol className="mt-4 space-y-4">{['We review your request', 'An admissions advisor contacts you', 'You get verified information and next steps'].map((s, i) => <li key={s} className="flex gap-3"><span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-gold text-sm font-bold text-navy">{i + 1}</span><span className="text-sm text-surface/90">{s}</span></li>)}</ol></div>
           <p className="text-xs text-muted-foreground">Admission, training and placement support is provided. Admission, jobs and salaries are never guaranteed.</p>
         </div>
       </div>

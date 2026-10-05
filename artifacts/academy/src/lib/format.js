@@ -27,3 +27,9 @@ export const FEE_RANGES = [
 ];
 export const uniq = (arr) => [...new Set(arr.filter(has).map((s) => String(s).trim()))].sort((a, b) => a.localeCompare(b));
 export const slugify = (s) => String(s || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 120);
+export const programLevel = (p) => {
+  const t = `${p.degreeLevel || ''} ${p.degree || ''} ${p.name || ''}`.toLowerCase();
+  if (/post|master|mba|pgdm|m\.?sc|m\.?com|\bm\.?a\b/.test(t)) return 'pg';
+  if (/under|bachelor|bba|b\.?com|b\.?sc|bca|\bb\.?a\b|b\.?tech/.test(t)) return 'ug';
+  return '';
+};

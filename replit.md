@@ -45,7 +45,9 @@ Degree and institution discovery, professional courses, comparisons, admissions 
 - Mobile-first experience must work from 320px; generic imagery must not be presented as a real institution's campus.
 - Use upGrad SOT as storytelling inspiration only, never copy its layout or animations. The homepage should be cinematic, interactive and uniquely 4PL, with no generated website mockups.
 - Treat city-centre map coordinates as approximate directory locations, not campus addresses or evidence of a partnership. Real-event galleries require approved 4PL/university media.
-- Keep the public header limited to Home, About Us, Courses, Universities, Blogs and Contact Us. Do not add extra top-level links or action buttons.
+- Keep the public header limited to Home, About Us, Courses, Universities, Blogs and Contact Us. Do not add extra top-level links or action buttons. The owner explicitly retained this header for the education-platform rebuild despite the different header in the uploaded brief.
+- Book Counselling is the main in-page conversion. Keep ACAD BOT secondary and read-only; do not make it the default hero or admissions action.
+- Use premium sans-serif typography and information-rich discovery cards; important program facts should not depend on hover.
 
 ## Gotchas
 

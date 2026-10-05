@@ -58,7 +58,18 @@ export async function getCatalog(kind, filters = {}, admin = false) {
   checkKind(kind);
   const conditions = [eq(contentTable.kind, kind)];
   if (!admin) conditions.push(eq(contentTable.status, 'published'));
-  if (filters.search) conditions.push(or(ilike(contentTable.name, `%${filters.search}%`), ilike(contentTable.location, `%${filters.search}%`), ilike(contentTable.degree, `%${filters.search}%`),sql`${contentTable.data}->>'specialization' ilike ${'%'+filters.search+'%'}`,sql`${contentTable.data}->>'state' ilike ${'%'+filters.search+'%'}`));
+  if (filters.search) {
+    const pattern = `%${filters.search}%`;
+    conditions.push(or(
+      ilike(contentTable.name, pattern), ilike(contentTable.location, pattern), ilike(contentTable.degree, pattern),
+      sql`${contentTable.data}->>'specialization' ilike ${pattern}`,
+      sql`${contentTable.data}->>'state' ilike ${pattern}`,
+      sql`exists (select 1 from academy_content as university
+        where university.id = ${contentTable.universityId}
+        and university.kind = 'universities' and university.status = 'published'
+        and university.name ilike ${pattern})`,
+    ));
+  }
   if (filters.location) conditions.push(eq(contentTable.location, filters.location));
   if (filters.degree && kind === 'universities') {
     const linked=await db.select({id:contentTable.universityId}).from(contentTable).where(and(eq(contentTable.kind,'programs'),eq(contentTable.status,'published'),eq(contentTable.degree,filters.degree)));

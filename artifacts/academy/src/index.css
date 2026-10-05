@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Figtree:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Figtree:wght@400;500;600;700&display=swap');
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
@@ -36,7 +36,7 @@
   --color-ink: hsl(var(--brand-ink));
   --color-line: hsl(var(--border));
   --font-sans: 'Figtree', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Fraunces', Georgia, serif;
+  --font-display: 'Plus Jakarta Sans', 'Figtree', ui-sans-serif, system-ui, sans-serif;
   --radius-sm: 4px;
   --radius-md: 6px;
   --radius-lg: 8px;
@@ -107,7 +107,7 @@
   * { @apply border-border; }
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   body { @apply font-sans antialiased bg-background text-foreground; overflow-x: hidden; min-width: 320px; }
-  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; text-wrap: balance; }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
   img { max-width: 100%; }
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
@@ -188,6 +188,6 @@
   .snap-row { display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
   .snap-row::-webkit-scrollbar { display: none; }
   .snap-row > * { scroll-snap-align: start; flex: none; }
-  .display-xl { font-family: var(--font-display); font-weight: 600; line-height: .98; letter-spacing: -.02em; font-size: clamp(2.5rem, 7.2vw, 6.2rem); }
-  .display-lg { font-family: var(--font-display); font-weight: 600; line-height: 1.04; letter-spacing: -.015em; font-size: clamp(2rem, 4.6vw, 3.9rem); }
+  .display-xl { font-family: var(--font-display); font-weight: 800; line-height: .98; letter-spacing: -.02em; font-size: clamp(2.5rem, 7.2vw, 6.2rem); }
+  .display-lg { font-family: var(--font-display); font-weight: 700; line-height: 1.04; letter-spacing: -.015em; font-size: clamp(2rem, 4.6vw, 3.9rem); }
 }
