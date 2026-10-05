@@ -1,0 +1,1328 @@
+You are rebuilding the complete 4PL Academy website as a premium, production-quality education platform.
+
+IMPORTANT:
+Do NOT create a generic AI-looking education website.
+Do NOT make it look like a template.
+Do NOT simply copy the current 4PL Academy website.
+Do NOT copy upGrad or Student Grad pixel-for-pixel.
+
+The design direction should combine:
+
+1. The information-rich course/university discovery experience of the Student Grad website
+2. The premium typography, spacing, visual hierarchy, animation and polished UI feel of upGrad School of Technology:
+   https://sot.upgrad.com/
+3. The existing 4PL Academy branding, content, courses, universities and contact information
+
+The final product should feel like a serious modern education platform where students can discover universities, compare programs, understand fees/eligibility/curriculum, and book counselling.
+
+==================================================
+TECH STACK — MUST FOLLOW
+==================================================
+
+Frontend:
+- React
+- JavaScript / ES Modules
+- Vite
+- Tailwind CSS
+- Radix UI
+- Custom CSS
+- Wouter
+- TanStack React Query
+- React Hook Form
+- Zod
+- Framer Motion
+- Recharts where charts are actually useful
+
+Backend:
+- Node.js
+- Express.js
+- REST APIs
+
+Database:
+- PostgreSQL
+- Drizzle ORM
+- Keep schema portable enough for MySQL if required later
+
+Workspace:
+- pnpm monorepo
+- Shared API/validation packages where useful
+
+Replit is ONLY the development environment.
+
+DO NOT configure deployment to Replit.
+DO NOT add Replit deployment configuration.
+DO NOT make Replit the production architecture.
+
+The project must support:
+
+pnpm install
+pnpm dev
+pnpm build
+pnpm start
+
+==================================================
+CORE DESIGN REQUIREMENT
+==================================================
+
+The previous design was too generic.
+
+I want the UI to feel much closer to a real Student Grad-style education discovery platform.
+
+The website must show substantial course information directly in the interface.
+
+For example, a course card should NOT simply contain:
+
+"BBA Logistics"
+"3 Years"
+"View More"
+
+Instead show:
+
+BBA in Logistics & Supply Chain Management
+
+Sushant University · Gurugram
+
+UG
+BBA
+3 Years
+On Campus
+
+₹7,95,800 Total Fees
+
+Eligibility:
+10+2 · Minimum 50%
+
+Highlights:
+- Industry-aligned curriculum
+- Practical learning
+- Live projects
+- Industry exposure
+- Career development
+- Placement assistance
+
+[View Program]
+[Book Counselling]
+
+The exact information must come from PostgreSQL.
+
+==================================================
+BRAND
+==================================================
+
+Use the official 4PL Academy logo provided by the user.
+
+Do not redesign the logo.
+
+Brand direction:
+- Deep navy
+- Academic gold
+- White
+- Soft neutral backgrounds
+- Subtle gradients where appropriate
+- Premium typography
+- High contrast
+- Clean layouts
+
+The website should feel:
+- Premium
+- Trustworthy
+- Modern
+- Academic
+- Career-focused
+- Industry-connected
+- International
+- Professional
+
+Avoid:
+- Excessive gradients
+- Excessive glassmorphism
+- Random blobs
+- Generic AI illustrations
+- Overuse of rounded cards
+- Cheap-looking stock imagery
+- Excessive animations
+- Template-looking sections
+
+==================================================
+TYPOGRAPHY
+==================================================
+
+Typography is extremely important.
+
+Use a modern premium sans-serif font system similar in visual character to the Student Grad / upGrad reference websites.
+
+Use:
+- Large bold display headings
+- Strong section headings
+- Medium-weight supporting text
+- Compact metadata typography
+- Excellent line height
+- Strong hierarchy
+
+Do not use a playful startup font.
+
+Typography should feel:
+Premium + Educational + Technology + Career-focused.
+
+Maintain consistent typography across:
+- Homepage
+- Program pages
+- University pages
+- Courses
+- Blogs
+- Admin dashboard
+
+==================================================
+HEADER
+==================================================
+
+Create a sticky premium header.
+
+Desktop:
+
+4PL Academy Logo
+
+Programs
+Universities
+Professional Courses
+Certifications
+About
+Blogs
+
+Right side:
+[Book Counselling]
+
+Header should become compact when scrolling.
+
+Mobile:
+
+Logo
+Menu icon
+
+Menu:
+Programs
+Universities
+Professional Courses
+Certifications
+About
+Blogs
+
+Large:
+[Book Counselling]
+
+The primary conversion CTA throughout the website is:
+
+BOOK COUNSELLING
+
+Do NOT use "Ask ACAD BOT" as the primary CTA.
+
+==================================================
+HOMEPAGE
+==================================================
+
+Build the homepage as a premium long-form education platform.
+
+It must NOT feel like a collection of generic card grids.
+
+Use:
+- Full-width sections
+- Large typography
+- Large imagery
+- Video sections
+- Editorial layouts
+- Asymmetric layouts
+- Horizontal scrolling sections
+- Interactive elements
+- Real university/program information
+- Strong CTA placement
+
+--------------------------------------------------
+SECTION 1 — CINEMATIC HERO
+--------------------------------------------------
+
+Create a large cinematic hero similar in visual impact to Student Grad.
+
+Use real/approved education and industry-related imagery/video.
+
+The hero background should dynamically rotate through program-related media such as:
+
+- Logistics & Supply Chain
+- International Trade
+- Business Management
+- AI / Technology
+- Professional Training
+- Trade Compliance
+- Global Business
+- University education
+- Industry learning
+
+Use:
+- Smooth fade transitions
+- Subtle zoom
+- Motion
+- Dark overlay
+- Strong readability
+- Framer Motion
+
+Hero copy:
+
+CREATING GLOBAL PROFESSIONALS
+
+Industry-integrated education built for real-world careers.
+
+Primary CTA:
+[Explore Programs]
+
+Secondary CTA:
+[Book Counselling]
+
+Do NOT use:
+[Ask ACAD BOT]
+
+On mobile:
+Use optimized short videos or poster images.
+Do not load huge background videos.
+
+--------------------------------------------------
+SECTION 2 — EDUCATION ECOSYSTEM
+--------------------------------------------------
+
+Create a premium trust section showing:
+
+Universities
+Industry Exposure
+Practical Learning
+Career Development
+
+Use visual counters/icons/animated elements.
+
+Do not invent statistics.
+
+Only display verified statistics from the database.
+
+--------------------------------------------------
+SECTION 3 — EXPLORE OUR PROGRAMS
+--------------------------------------------------
+
+This is one of the most important sections.
+
+Show:
+
+Undergraduate
+Postgraduate
+Professional
+Certifications
+
+Use tabs or segmented navigation.
+
+Program cards must be information-rich.
+
+Each card should contain:
+
+- Program image/video
+- University logo
+- University name
+- Program name
+- Degree
+- Level
+- Location
+- Duration
+- Mode
+- Intake
+- Fees
+- Eligibility
+- Short highlights
+- View Program
+- Book Counselling
+
+Example:
+
+BBA in Logistics & Supply Chain Management
+
+Sushant University
+Gurugram
+
+UG | BBA | 3 Years | On Campus
+
+₹7,95,800
+
+Eligibility:
+10+2 · 50%+
+
+[View Program]
+[Book Counselling]
+
+Add subtle hover animation on desktop.
+
+On mobile:
+Use swipeable cards and tap interactions.
+
+--------------------------------------------------
+SECTION 4 — PROGRAM DISCOVERY
+--------------------------------------------------
+
+Create a dedicated Programs page:
+
+/programs
+
+Layout:
+
+Left:
+Filters
+
+Right:
+Program results
+
+Search:
+"Search university, course, specialization..."
+
+Filters:
+- Undergraduate
+- Postgraduate
+- Professional
+- Certification
+- University
+- Location
+- Duration
+- Mode
+- Fee range
+- Eligibility
+- Specialization
+
+Show:
+"X Programs Available"
+
+Program cards should feel similar to Student Grad's information density.
+
+Mobile:
+Filters open through a bottom sheet/modal.
+
+--------------------------------------------------
+SECTION 5 — INDIA UNIVERSITY MAP
+--------------------------------------------------
+
+Create:
+
+"Find Your University"
+
+Use an interactive India SVG map.
+
+University locations must come from PostgreSQL.
+
+Each university contains:
+
+- Latitude
+- Longitude
+- City
+- State
+- Region
+
+Show animated gold markers.
+
+Click marker:
+
+University Name
+City
+State
+Programs Available
+
+[Explore University]
+
+Desktop:
+Interactive map.
+
+Mobile:
+Use:
+- Region selector
+- University list
+- Simplified map
+
+Do not hardcode university markers.
+
+--------------------------------------------------
+SECTION 6 — UNIVERSITY NETWORK
+--------------------------------------------------
+
+Create university cards containing:
+
+- Logo
+- University name
+- Location
+- Accreditation if verified
+- Number of available programs if verified
+- Featured programs
+- University image
+- CTA
+
+[Explore University]
+
+Create:
+
+/universities
+
+with filters and search.
+
+--------------------------------------------------
+SECTION 7 — INDIVIDUAL UNIVERSITY PAGE
+--------------------------------------------------
+
+Example:
+
+/universities/sushant-university
+
+Page should contain:
+
+Hero
+University overview
+Campus
+Accreditation
+Programs
+Fees
+Eligibility
+Student experience
+Facilities
+Industry exposure
+Career information
+FAQs
+Media gallery
+Contact / counselling CTA
+
+Use only verified data.
+
+--------------------------------------------------
+SECTION 8 — INDIVIDUAL PROGRAM PAGE
+--------------------------------------------------
+
+Example:
+
+/programs/bba-logistics-supply-chain-management-sushant
+
+This must be a highly detailed Student Grad-style course page.
+
+Hero:
+
+Program name
+University
+Location
+Program image/video
+
+Metadata:
+
+Degree
+Duration
+Mode
+Intake
+Fees
+Eligibility
+
+CTA:
+
+[Book Counselling]
+[Apply Now]
+
+Then:
+
+Program Overview
+
+Why This Program
+
+What You'll Learn
+
+Curriculum
+
+Semester-wise Modules
+
+Specializations
+
+Practical Learning
+
+Industry Exposure
+
+Internship
+
+Career Pathways
+
+University Information
+
+Campus
+
+Student Experience
+
+Admission Process
+
+FAQs
+
+Related Programs
+
+Sticky CTA:
+
+[Book Counselling]
+
+--------------------------------------------------
+SECTION 9 — PROGRAM COMPARISON
+--------------------------------------------------
+
+Allow students to compare 2–3 programs.
+
+Compare:
+
+University
+Program
+Degree
+Location
+Duration
+Fees
+Eligibility
+Mode
+Specialization
+Curriculum
+Career pathway
+
+Desktop:
+Comparison table.
+
+Mobile:
+Stacked comparison cards / horizontal scrolling.
+
+--------------------------------------------------
+SECTION 10 — PROFESSIONAL COURSES
+--------------------------------------------------
+
+Create:
+
+/professional-courses
+
+Categories:
+
+Short-Term Courses
+Long-Term Courses
+
+Use actual 4PL course information.
+
+Known courses include:
+
+Foundation to Trade Compliance
+Customs Valuation
+COO & FTA
+Foundation Course in Global Logistics
+Foundation Course in Export Import & International Trade
+Foundation Course in Incoterms 2020
+Foundation Course in Letter of Credit
+Foundation Course in Shipping & Trade Documentation
+
+Long-term:
+
+Master Course
+Trade Compliance
+CTCP
+Logistics Management
+
+Show:
+- Duration
+- Fee
+- Mode
+- Course level
+- Description
+- Modules
+- Certificate
+- Career relevance
+- CTA
+
+[View Course]
+[Book Counselling]
+
+--------------------------------------------------
+SECTION 11 — CERTIFICATIONS
+--------------------------------------------------
+
+Create:
+
+"Build Skills. Earn Credentials."
+
+Certification cards should show:
+
+Certification
+Issuer
+Credential type
+Duration
+Related program/course
+Logo
+Description
+
+Only show verified certifications.
+
+--------------------------------------------------
+SECTION 12 — INDUSTRY ECOSYSTEM
+--------------------------------------------------
+
+Create an animated horizontal logo section.
+
+Potential companies can include:
+
+KPMG
+DHL
+IBM
+Microsoft
+Google
+Amazon
+
+BUT:
+
+DO NOT automatically call them "Partners".
+
+Relationship type must be database-controlled.
+
+Possible relationship types:
+
+Partner
+Hiring Partner
+Training Partner
+Corporate Client
+Industry Association
+Technology Partner
+Featured Company
+Other
+
+If there is no verified relationship, display them as "Featured Companies" or another accurate label.
+
+Add:
+- Logo marquee
+- Pause on hover
+- Touch scrolling on mobile
+- Subtle motion
+
+--------------------------------------------------
+SECTION 13 — LEARN BY DOING
+--------------------------------------------------
+
+Create a visually rich section showing:
+
+Warehousing
+Shipping
+Trade documentation
+Supply chain planning
+International logistics
+Business meetings
+Industry training
+Classroom learning
+Projects
+
+Use REAL approved photography/video whenever possible.
+
+Do not use fake AI-generated campus images as if they are real.
+
+--------------------------------------------------
+SECTION 14 — PROGRAM JOURNEY
+--------------------------------------------------
+
+Create an animated journey:
+
+LEARN
+↓
+PRACTICE
+↓
+BUILD
+↓
+EXPERIENCE
+↓
+CERTIFY
+↓
+LAUNCH
+
+Use custom React animations.
+
+--------------------------------------------------
+SECTION 15 — CAREER PATHWAYS
+--------------------------------------------------
+
+Create:
+
+"From Learning to Career"
+
+Show career areas such as:
+
+Supply Chain & Logistics
+Trade Compliance
+AI & Business Analytics
+Digital Marketing
+Operations & Business Management
+
+Only show career outcomes supported by actual program data.
+
+Do not invent salaries or placement percentages.
+
+--------------------------------------------------
+SECTION 16 — STUDENT LIFE
+--------------------------------------------------
+
+Use real approved media.
+
+Categories:
+
+Campus
+Classroom
+Industry
+Events
+Workshops
+Students
+Faculty
+Projects
+Career
+
+Create a premium masonry/gallery layout.
+
+Desktop:
+Asymmetric image grid.
+
+Mobile:
+Swipeable gallery.
+
+--------------------------------------------------
+SECTION 17 — TESTIMONIALS
+--------------------------------------------------
+
+Show verified testimonials.
+
+Each testimonial:
+
+Student photo
+Name
+Program
+University
+Year
+Quote
+
+Desktop:
+Editorial layout.
+
+Mobile:
+Swipe carousel.
+
+--------------------------------------------------
+SECTION 18 — ADMISSIONS
+--------------------------------------------------
+
+Create:
+
+"Your Journey Starts Here"
+
+Steps:
+
+1. Explore Programs
+2. Book Counselling
+3. Choose Program
+4. Apply
+5. Admission
+6. Start Learning
+
+Primary CTA:
+
+[Book Counselling]
+
+--------------------------------------------------
+SECTION 19 — CONTACT
+--------------------------------------------------
+
+Use actual 4PL Academy contact information.
+
+INDIA:
+
+4PL Academy
+Unit 907, 9th Floor, C-27,
+Trapezoid IT Park,
+Sector 62, Noida,
+Uttar Pradesh 201309
+
+Phone:
++91 8448398180
+
+UK:
+
+42 Grace Holland Avenue,
+Pease Pottage,
+Crawley,
+West Sussex RH11 9SL
+
+Phone:
++44 330 043 1245
++44 798 018 1209
+
+Email:
+admission@4plconsultancy.co.uk
+
+IMPORTANT:
+There are historical inconsistencies in some old 4PL contact information.
+
+Therefore contact information must be editable from Admin > Site Settings.
+
+Do not hardcode contact details in React components.
+
+--------------------------------------------------
+SECTION 20 — BOOK COUNSELLING
+--------------------------------------------------
+
+Create a premium counselling form.
+
+Heading:
+
+"Let's Find the Right Program for You"
+
+Fields:
+
+Full Name
+Email
+Phone
+Interested In
+Preferred University
+Preferred Program
+Highest Qualification
+City
+Message
+
+CTA:
+
+BOOK COUNSELLING
+
+Store submissions in PostgreSQL.
+
+Admin can see:
+
+New
+Contacted
+Interested
+Application Started
+Applied
+Admission Confirmed
+Closed
+
+Add source and UTM tracking.
+
+==================================================
+ADMIN CMS
+==================================================
+
+Build a complete responsive admin dashboard.
+
+Routes:
+
+/admin/login
+/admin/dashboard
+/admin/universities
+/admin/programs
+/admin/courses
+/admin/blogs
+/admin/faqs
+/admin/leads
+/admin/applications
+/admin/media
+/admin/seo
+/admin/settings
+/admin/homepage
+
+Admin must be able to:
+
+Create
+Edit
+Delete
+Publish
+Unpublish
+Reorder
+
+universities
+programs
+courses
+fees
+eligibility
+curriculum
+modules
+FAQs
+media
+certifications
+industry companies
+testimonials
+homepage sections
+SEO
+contact details
+
+The frontend must automatically reflect changes from the database.
+
+No React code changes should be required when an admin edits content.
+
+==================================================
+DATABASE
+==================================================
+
+Use PostgreSQL + Drizzle ORM.
+
+Core entities:
+
+University
+UniversityLocation
+UniversityFacility
+UniversityMedia
+UniversityFAQ
+
+Program
+ProgramFee
+ProgramEligibility
+ProgramCurriculum
+ProgramModule
+ProgramOutcome
+ProgramFAQ
+ProgramMedia
+
+ProfessionalCourse
+CourseModule
+CourseMedia
+CourseFAQ
+
+Certification
+
+IndustryCompany
+
+Testimonial
+
+Media
+
+Blog
+FAQ
+
+Lead
+Application
+CounsellingRequest
+
+HomepageSection
+HomepageMedia
+
+SEO
+SiteSettings
+AdminUser
+
+==================================================
+MEDIA CMS
+==================================================
+
+Media fields:
+
+id
+title
+type
+url
+poster_url
+thumbnail_url
+category
+university_id
+program_id
+course_id
+section
+alt_text
+caption
+sort_order
+status
+
+Support:
+
+Images
+Videos
+Posters
+Thumbnails
+Logos
+
+Media must be reusable throughout the website.
+
+==================================================
+IMPORTANT DATA RULE
+==================================================
+
+The database is the source of truth.
+
+The React frontend is only the presentation layer.
+
+Architecture:
+
+PostgreSQL
+↓
+Drizzle ORM
+↓
+Express REST API
+↓
+React Query
+↓
+React Components
+↓
+UI
+
+Use proper caching and invalidation.
+
+==================================================
+EXCEL DATA
+==================================================
+
+Use the provided University College Details Excel file as INITIAL SEED DATA.
+
+Import its university/program/course information into PostgreSQL.
+
+Do NOT keep the Excel file as the runtime data source.
+
+After import:
+
+PostgreSQL = source of truth.
+
+Admin can edit everything.
+
+==================================================
+SEO
+==================================================
+
+Implement strong SEO.
+
+Each university/program/course/blog page must support:
+
+SEO title
+Meta description
+Canonical URL
+OG title
+OG description
+OG image
+Schema
+
+Use appropriate schema:
+
+Organization
+EducationalOrganization
+Course
+FAQPage
+Article
+BreadcrumbList
+
+Generate:
+
+robots.txt
+sitemap.xml
+
+Use clean URLs.
+
+Examples:
+
+/programs
+/programs/bba-logistics-supply-chain-management
+/universities/sushant-university
+/universities/vgu-jaipur
+/professional-courses/trade-compliance
+/blog/study-in-global-logistics
+
+Use semantic H1/H2/H3 structure.
+
+==================================================
+PERFORMANCE
+==================================================
+
+The website must be fast.
+
+Use:
+
+Lazy loading
+Responsive WebP/AVIF
+Image compression
+Dynamic imports
+Code splitting
+React Query caching
+Optimized fonts
+Minimal JavaScript
+No unnecessary polling
+No unnecessary background services
+
+Do not load large videos immediately on mobile.
+
+Use poster images where appropriate.
+
+Respect:
+
+prefers-reduced-motion
+
+Animations must enhance UX, not hurt performance.
+
+==================================================
+MOBILE FIRST
+==================================================
+
+This is extremely important.
+
+Do NOT simply shrink the desktop website.
+
+Create mobile-specific experiences.
+
+At 320px+ widths:
+
+- No horizontal page overflow
+- Readable typography
+- Touch-friendly buttons
+- Swipeable cards
+- Bottom sheets for filters
+- Stacked course information
+- Mobile navigation
+- Optimized images
+- Lightweight video
+- Sticky Book Counselling CTA where appropriate
+
+Desktop hover interactions must have mobile tap alternatives.
+
+Desktop map must have mobile region selection.
+
+Desktop tables must become cards/horizontal scroll on mobile.
+
+==================================================
+ANIMATION
+==================================================
+
+Use Framer Motion carefully.
+
+Examples:
+
+Hero video transitions
+Program card hover
+University marker animations
+Scroll reveal
+Section transitions
+Logo marquee
+Program journey animation
+Image parallax
+Testimonial carousel
+Course filtering transitions
+
+Avoid excessive animations.
+
+==================================================
+ACAD BOT
+==================================================
+
+Do NOT make ACAD BOT the main CTA.
+
+If implemented, it should be secondary.
+
+The main CTA is:
+
+BOOK COUNSELLING
+
+If ACAD BOT exists, it must only answer from verified 4PL Academy database content.
+
+It must never invent:
+
+Fees
+Eligibility
+Deadlines
+Scholarships
+Placement numbers
+Salary
+Accreditations
+Partnerships
+
+It must never guarantee:
+
+Admission
+Jobs
+Visa
+Placement
+
+If information is unavailable:
+
+"I don't have verified information about that in the 4PL Academy database. I can help you explore available programs or connect you with the admissions team."
+
+It must be read-only.
+
+==================================================
+SECURITY
+==================================================
+
+Admin credentials must NEVER be hardcoded.
+
+Use:
+
+ADMIN_EMAIL
+ADMIN_PASSWORD
+
+from .env.
+
+Hash passwords.
+
+Never store plaintext passwords.
+
+Include:
+
+.env
+.env.example
+
+Add .env to .gitignore.
+
+Never expose secrets through VITE_ variables.
+
+==================================================
+IMPORTANT CONTENT RULE
+==================================================
+
+Use actual existing 4PL Academy content wherever available.
+
+Do not invent:
+
+University facts
+Fees
+Placement statistics
+Accreditations
+Partnerships
+Company relationships
+Salary figures
+Student numbers
+Career guarantees
+Admission requirements
+
+If information conflicts between old pages, flag it for admin verification rather than silently inventing a value.
+
+==================================================
+FINAL UX PRINCIPLE
+==================================================
+
+The website should make a student think:
+
+"I can actually compare universities and programs here."
+
+Not:
+
+"This is just a company brochure."
+
+The most important user journey is:
+
+Homepage
+↓
+Explore Programs
+↓
+Filter/Search
+↓
+Program Details
+↓
+Compare / Understand
+↓
+Book Counselling
+↓
+Lead captured in Admin
+
+The website must feel like:
+
+STUDENT GRAD-LEVEL COURSE DISCOVERY
++
+UPGRAD-LEVEL PREMIUM UI/UX
++
+4PL ACADEMY'S REAL CONTENT
++
+DYNAMIC CMS/BACKEND
+
+Do not compromise on course information density.
+
+Do not hide important course information behind unnecessary clicks.
+
+Do not use "Ask ACAD BOT" as the primary conversion.
+
+Use:
+
+BOOK COUNSELLING
+
+as the main CTA throughout the website.
