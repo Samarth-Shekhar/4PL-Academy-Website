@@ -48,6 +48,7 @@ Degree and institution discovery, professional courses, comparisons, admissions 
 - Keep the public header limited to Home, About Us, Courses, Universities, Blogs and Contact Us. Do not add extra top-level links or action buttons. The owner explicitly retained this header for the education-platform rebuild despite the different header in the uploaded brief.
 - Book Counselling is the main in-page conversion. Keep ACAD BOT secondary and read-only; do not make it the default hero or admissions action.
 - Use premium sans-serif typography and information-rich discovery cards; important program facts should not depend on hover.
+- Use the supplied StudentGrad screenshot as the visual reference for the public-site redesign: white navigation, a dark-overlay photographic hero, bold two-tone headings, rounded actions, consistent outlined icons and compact statistics. Adapt the presentation to 4PL's existing brand and verified content; do not import the reference's claims or numbers.
 
 ## Gotchas
 

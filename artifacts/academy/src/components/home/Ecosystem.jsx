@@ -2,7 +2,7 @@ import { Link } from 'wouter';
 import { usePublicList } from '@/lib/api';
 import { has } from '@/lib/format';
 import { Reveal } from '@/components/ui-kit';
-import { Head, Body, Pic, Count, CtaRow } from './shared';
+import { Head, Body, Pic, CtaRow } from './shared';
 
 export function Ecosystem({ s }) {
   const unis = usePublicList('universities').data || [];
@@ -17,7 +17,15 @@ export function Ecosystem({ s }) {
   ].filter(([n]) => n > 0);
   const items = s.items || [];
   return (
-    <section className="container-x py-20 sm:py-28" aria-labelledby="sec-ecosystem">
+    <>
+    {stats.length > 0 && (
+      <div className="stat-strip" role="region" aria-label="Verified records on 4PL Academy">
+        <dl className="container-x grid grid-cols-2 lg:grid-cols-none lg:grid-flow-col lg:auto-cols-fr">
+          {stats.map(([n, l]) => <div key={l} className="stat-cell"><dd className="font-display text-3xl font-extrabold text-surface sm:text-4xl">{n}</dd><dt className="mt-1 text-xs font-semibold text-surface/85 sm:text-sm">{l}</dt></div>)}
+        </dl>
+      </div>
+    )}
+    <section className="container-x py-14 sm:py-20" aria-labelledby="sec-ecosystem">
       <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <Reveal><div id="sec-ecosystem"><Head s={s} /></div><Body s={s} /><CtaRow s={s} className="mt-7" /></Reveal>
         <ul className="grid gap-3 sm:grid-cols-2">
@@ -35,17 +43,13 @@ export function Ecosystem({ s }) {
             );
             return (
               <Reveal as="li" key={it.name + i} delay={i * 0.07} className={i % 2 ? 'sm:mt-8' : ''}>
-                {has(it.url) && it.url !== 'bot' ? <Link href={it.url} className="group relative block aspect-[4/5] overflow-hidden rounded-lg">{inner}</Link> : <div className="group relative aspect-[4/5] overflow-hidden rounded-lg">{inner}</div>}
+                {has(it.url) && it.url !== 'bot' ? <Link href={it.url} className="group relative block aspect-[4/5] overflow-hidden rounded-2xl">{inner}</Link> : <div className="group relative aspect-[4/5] overflow-hidden rounded-2xl">{inner}</div>}
               </Reveal>
             );
           })}
         </ul>
       </div>
-      {stats.length > 0 && (
-        <dl className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-lg bg-line sm:grid-cols-4">
-          {stats.map(([n, l]) => <div key={l} className="bg-card px-5 py-6"><dd className="font-display text-5xl text-navy"><Count to={n} /></dd><dt className="mt-1 text-xs font-bold uppercase tracking-wider text-gold-deep">{l}</dt></div>)}
-        </dl>
-      )}
     </section>
+    </>
   );
 }

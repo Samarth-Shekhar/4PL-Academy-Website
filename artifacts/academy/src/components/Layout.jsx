@@ -57,7 +57,7 @@ function Header() {
   }, []);
   const active = (h) => loc === h || loc.startsWith(h + '/');
   return (
-    <header ref={header} className={cn('sticky top-0 z-50 bg-surface transition-shadow', scrolled && 'shadow-[0_6px_24px_-14px_hsl(221_76%_17%/.5)]')}>
+    <header ref={header} className={cn('sticky top-0 z-50 bg-white transition-shadow', scrolled && 'shadow-[0_6px_24px_-14px_hsl(221_76%_17%/.5)]')}>
       <div className="container-x flex h-[4.25rem] items-center justify-between gap-2">
         <Link href="/" aria-label="4PL Academy home" className="shrink-0"><Logo className="h-14 sm:h-16 -my-1" /></Link>
         <nav className="hidden items-center gap-2 lg:flex" aria-label="Primary">
