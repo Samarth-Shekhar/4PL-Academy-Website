@@ -1,0 +1,1277 @@
+============================================================
+IMPORTANT VISUAL DIRECTION UPDATE
+============================================================
+
+The homepage should take strong UX/content inspiration from:
+
+https://sot.upgrad.com/
+
+BUT:
+
+DO NOT COPY THE WEBSITE.
+
+DO NOT reproduce its exact layout.
+
+DO NOT reproduce its exact animations.
+
+DO NOT use AI-generated website mockups.
+
+DO NOT create a generic AI-looking education website.
+
+The final website must feel like a professionally designed real education brand website built by a senior UI/UX designer and React developer.
+
+The design should be:
+
+- Premium
+- Cinematic
+- Modern
+- Academic
+- Professional
+- Interactive
+- Human
+- Realistic
+- High-conversion
+- Mobile-first
+
+The visual identity must be uniquely 4PL Academy.
+
+============================================================
+HOMEPAGE DESIGN PHILOSOPHY
+============================================================
+
+Use the general storytelling rhythm of the upGrad SOT website:
+
+Hero
+↓
+Trust / ecosystem
+↓
+Programs
+↓
+University ecosystem
+↓
+Industry ecosystem
+↓
+Practical learning
+↓
+Certifications
+↓
+Career outcomes
+↓
+Student experience
+↓
+Testimonials
+↓
+Admissions
+↓
+Final CTA
+
+But redesign the actual UI specifically for 4PL Academy.
+
+The page should feel like a continuous visual journey rather than a collection of generic cards.
+
+============================================================
+HERO — CINEMATIC PROGRAM SHOWCASE
+============================================================
+
+The hero is one of the most important parts of the website.
+
+DO NOT use one static stock image.
+
+DO NOT use an AI-generated website background.
+
+Create a real multimedia hero.
+
+Concept:
+
+"Education in motion."
+
+Background contains a controlled sequence of REALISTIC PROGRAM VISUALS.
+
+Examples:
+
+Logistics & Supply Chain
+International Trade
+Business Management
+AI / Technology
+Professional Training
+Trade Compliance
+Global Business
+University Education
+
+The visuals can be implemented using:
+
+- Real video clips
+- Approved university footage
+- Real photography
+- Professionally generated realistic video assets
+- Carefully edited short loops
+
+The background should continuously and subtly move.
+
+Example:
+
+┌─────────────────────────────────────────────┐
+│                                             │
+│        4PL ACADEMY                          │
+│                                             │
+│        CREATING                             │
+│        GLOBAL                               │
+│        PROFESSIONALS                        │
+│                                             │
+│        Industry-integrated education        │
+│        for real-world careers.              │
+│                                             │
+│        [ Explore Programs ]                 │
+│        [ Talk to ACAD BOT ]                 │
+│                                             │
+│     ┌──────────┐  ┌──────────┐             │
+│     │ Logistics│  │ Business │             │
+│     │  VIDEO   │  │  VIDEO   │             │
+│     └──────────┘  └──────────┘             │
+│                                             │
+└─────────────────────────────────────────────┘
+
+The program visuals should slowly move, scale, fade and transition.
+
+Do not make them distracting.
+
+The text must remain readable at all times.
+
+============================================================
+HERO VIDEO SYSTEM
+============================================================
+
+Create a reusable React component:
+
+<ProgramVideoHero />
+
+It should support dynamic media from the database.
+
+Each media record can contain:
+
+id
+program_id
+title
+video_url
+poster_url
+thumbnail_url
+duration
+sort_order
+status
+
+Example sequence:
+
+1. Logistics
+2. Supply Chain
+3. Business
+4. International Trade
+5. Professional Learning
+6. Technology
+
+The admin should eventually be able to change the hero media.
+
+Do not hardcode the videos inside the component.
+
+============================================================
+HERO MOBILE VERSION
+============================================================
+
+On mobile:
+
+Do NOT use a large heavy video background if it damages performance.
+
+Use:
+
+- Optimized short video
+OR
+- Poster image
+OR
+- Lightweight image carousel
+
+Mobile should prioritize:
+
+Readable text
+Fast loading
+Strong CTA
+Clean visual
+
+Respect:
+
+prefers-reduced-motion
+
+============================================================
+4PL HERO COLOR TREATMENT
+============================================================
+
+Use:
+
+Deep Navy
++
+Gold
++
+Realistic photography/video
+
+Apply subtle navy overlays to video.
+
+Use gold highlights around:
+
+- CTA
+- Text accent
+- Small labels
+- Program tags
+
+Do NOT apply excessive gradients.
+
+Do NOT make it look like a generic AI SaaS website.
+
+============================================================
+SECTION 2 — TRUST / ECOSYSTEM
+============================================================
+
+Immediately below the hero, create a premium ecosystem section.
+
+Headline:
+
+"Where Education Meets Industry"
+
+Show:
+
+Universities
++
+Industry
++
+Professional Learning
++
+Career Development
+
+Use subtle animated counters ONLY where verified data exists.
+
+Do not invent numbers.
+
+============================================================
+SECTION 3 — UNIVERSITY NETWORK
+============================================================
+
+Create a major interactive section:
+
+"One Academy. A Growing University Network."
+
+Show universities as an interactive ecosystem.
+
+Primary visual:
+
+INDIA MAP
+
+The map should show where 4PL partner universities are located.
+
+Example:
+
+Delhi NCR
+Pune
+Mumbai
+Bangalore
+Uttarakhand
+Other verified locations
+
+The India map should have:
+
+- Navy base
+- Gold university markers
+- Animated connection lines
+- Hover/click interaction
+- University count by region
+- Program availability
+
+Example:
+
+Delhi NCR
+● ● ● ● ●
+
+Pune / Mumbai
+● ● ●
+
+Bangalore
+● ●
+
+Uttarakhand
+● ● ●
+
+Clicking a marker should open:
+
+University name
+City
+Available programs
+View University
+
+============================================================
+INDIA MAP IMPLEMENTATION
+============================================================
+
+Do NOT use a generic static image if an interactive map can be built.
+
+Prefer:
+
+SVG India map
++
+React interactions
+
+Use:
+
+- SVG
+- CSS
+- Framer Motion
+
+Avoid heavy map libraries unless actually necessary.
+
+Each university location should come from the database.
+
+Example:
+
+university.latitude
+university.longitude
+university.region
+
+The frontend calculates the visual marker position.
+
+If multiple universities exist in the same region:
+
+Use clustered markers.
+
+The map must work on mobile.
+
+On mobile:
+
+Map becomes:
+- Smaller interactive map
+OR
+- Region selector + map
+OR
+- Horizontal region navigation
+
+============================================================
+SECTION 4 — EXPLORE PROGRAMS
+============================================================
+
+Create a visually rich program discovery section.
+
+Headline:
+
+"Choose the Path That Moves You Forward"
+
+Program categories:
+
+UNDERGRADUATE
+POSTGRADUATE
+PROFESSIONAL
+CERTIFICATION
+
+Program cards should use REALISTIC images/videos.
+
+Example:
+
+BBA
+Business / campus / students
+
+MBA
+Leadership / corporate environment
+
+Logistics & Supply Chain
+Warehouse / shipping / logistics
+
+International Trade
+Global trade / ports / documentation
+
+Trade Compliance
+Professional compliance / business
+
+Do not use random AI-generated people with unrealistic faces.
+
+Use:
+- Real licensed photography
+- Approved university media
+- High-quality realistic generated media only where appropriate
+
+============================================================
+PROGRAM CARD INTERACTION
+============================================================
+
+Create a custom React interaction.
+
+On hover:
+
+Image/video moves slightly.
+
+Program title remains.
+
+Additional information slides in:
+
+Duration
+Mode
+University
+Location
+
+CTA:
+
+Explore Program
+
+On mobile:
+
+Replace hover with tap/expanded state.
+
+Do NOT depend on hover for functionality.
+
+============================================================
+SECTION 5 — INDUSTRY PARTNERS
+============================================================
+
+Create a premium industry ecosystem section.
+
+Headline:
+
+"Learn With Industry. Build For Industry."
+
+Show company logos ONLY where 4PL has an actual verified partnership, collaboration, client relationship, or approved association.
+
+Potential companies mentioned for this section:
+
+KPMG
+DHL
+IBM
+Microsoft
+Google
+Amazon
+
+IMPORTANT:
+
+Do not automatically claim:
+
+"Partners"
+
+unless the relationship is verified.
+
+The CMS must support relationship types:
+
+Partner
+Hiring Partner
+Training Partner
+Corporate Client
+Industry Association
+Technology Partner
+Featured Company
+Other
+
+The frontend should display the appropriate label.
+
+If a company relationship has not been verified:
+
+Do not display the logo as an official partner.
+
+============================================================
+INDUSTRY LOGO ANIMATION
+============================================================
+
+Use a horizontal moving logo strip.
+
+Example:
+
+KPMG → DHL → IBM → Microsoft → Google → Amazon → ...
+
+The animation should:
+
+- Move slowly
+- Pause on hover
+- Support touch scrolling
+- Be seamless
+- Not cause layout shift
+
+Use CSS animation where possible rather than heavy JavaScript.
+
+============================================================
+SECTION 6 — CERTIFICATIONS
+============================================================
+
+Add a dedicated certification section on the homepage.
+
+Headline:
+
+"Build Skills. Earn Credentials."
+
+Show verified certifications/certification pathways associated with:
+
+- 4PL Academy
+- Professional courses
+- Trade compliance
+- Logistics
+- International trade
+- Relevant university programs
+
+Each certification card:
+
+Certification logo
+Certification name
+Issuing organization
+Course/program
+Duration
+Credential information
+
+CTA:
+
+Explore Certification
+
+Do not invent accreditation or certification status.
+
+Admin must be able to manage certifications.
+
+Database:
+
+certifications
+
+Fields:
+
+id
+name
+slug
+issuer
+logo
+image
+description
+course_id
+program_id
+credential_type
+duration
+status
+featured
+website_url
+seo_title
+seo_description
+
+============================================================
+SECTION 7 — PRACTICAL LEARNING
+============================================================
+
+Create a visually immersive section.
+
+Headline:
+
+"Learn By Doing."
+
+Show realistic visual stories:
+
+Warehouse
+Global shipping
+Trade documentation
+Business meeting
+Supply chain planning
+International logistics
+Professional classroom
+Industry training
+
+Use a horizontal storytelling interaction.
+
+Possible React implementation:
+
+Horizontal scroll
++
+Framer Motion
++
+sticky section
+
+On mobile:
+
+Convert into vertical story cards.
+
+Do not make it unnecessarily heavy.
+
+============================================================
+SECTION 8 — PROGRAM JOURNEY
+============================================================
+
+Create a visual journey:
+
+01
+Learn
+
+02
+Practice
+
+03
+Build
+
+04
+Experience
+
+05
+Certify
+
+06
+Launch
+
+Each stage should have a realistic image/video.
+
+Animate the timeline as the user scrolls.
+
+============================================================
+SECTION 9 — CAREER OUTCOMES
+============================================================
+
+Headline:
+
+"From Learning to Career"
+
+Show career pathways based ONLY on verified 4PL program information.
+
+Examples:
+
+Supply Chain
+Logistics
+International Trade
+Trade Compliance
+Business Management
+Technology
+
+Use realistic workplace visuals.
+
+Avoid unsupported:
+
+"₹XX LPA average package"
+
+unless verified.
+
+============================================================
+SECTION 10 — STUDENT EXPERIENCE
+============================================================
+
+Create an immersive student-life section.
+
+Use real university-approved media wherever available.
+
+Show:
+
+Campus
+Classroom
+Students
+Workshops
+Events
+Industry visits
+Projects
+Clubs
+Learning environments
+
+Use a collage/masonry-style interactive layout.
+
+Cards should slightly move on scroll.
+
+Do not overanimate.
+
+============================================================
+SECTION 11 — REAL MEDIA GALLERY
+============================================================
+
+Create:
+
+"Life at 4PL"
+
+Use:
+
+- Real photos
+- Real videos
+- University-approved images
+- Approved student content
+
+The admin should be able to upload and categorize media.
+
+Categories:
+
+Campus
+Classroom
+Industry
+Events
+Workshops
+Students
+Faculty
+Projects
+Career
+
+============================================================
+SECTION 12 — TESTIMONIALS
+============================================================
+
+Create premium testimonial cards.
+
+Use only real approved testimonials.
+
+Each:
+
+Student photo
+Name
+Program
+University
+Quote
+Optional year
+
+Animation:
+
+Horizontal carousel.
+
+Mobile:
+Swipe.
+
+Desktop:
+Drag/arrow controls.
+
+============================================================
+SECTION 13 — ADMISSIONS
+============================================================
+
+Create a visual admissions journey.
+
+01
+Explore
+
+02
+Choose Program
+
+03
+Get Counselling
+
+04
+Apply
+
+05
+Admission
+
+06
+Start Learning
+
+Use realistic images.
+
+CTA:
+
+Start Your Journey
+
+============================================================
+SECTION 14 — ACAD BOT
+============================================================
+
+ACAD BOT should appear naturally throughout the homepage.
+
+Not just as a floating chat icon.
+
+Examples:
+
+Hero:
+"Ask ACAD BOT"
+
+Programs:
+"Not sure which program fits? Ask ACAD BOT."
+
+University section:
+"Find your university with ACAD BOT."
+
+Admissions:
+"Have an admission question? Ask ACAD BOT."
+
+Floating widget:
+
+ACAD BOT
+
+"How can I help you?"
+
+ACAD BOT must follow the previously defined strict guardrails.
+
+============================================================
+SECTION 15 — FINAL CTA
+============================================================
+
+Create a premium full-width final section.
+
+Headline:
+
+"Your Next Chapter Starts Here."
+
+Supporting text:
+
+"Explore programs, discover universities and build skills for the world of work."
+
+Buttons:
+
+Explore Programs
+
+Find a University
+
+Talk to ACAD BOT
+
+Use a subtle video/image background.
+
+============================================================
+VISUAL MEDIA RULES
+============================================================
+
+VERY IMPORTANT:
+
+Do NOT create an AI-generated "website design".
+
+The website itself must be built using:
+
+React
+Tailwind
+Radix UI
+Custom CSS
+Framer Motion
+
+AI may ONLY be used to create individual visual assets if needed.
+
+The final website must look like a professionally coded website.
+
+============================================================
+REALISTIC IMAGE REQUIREMENT
+============================================================
+
+Every major visual section should use meaningful imagery.
+
+Do NOT use:
+- Random stock photos
+- Repeated generic student images
+- Cartoon illustrations
+- Obviously AI-looking people
+- Fake university campuses
+- Fake corporate logos
+- Generic abstract AI backgrounds everywhere
+
+Prefer:
+
+REAL PHOTOGRAPHY
+REAL UNIVERSITY MEDIA
+REAL INDUSTRY MEDIA
+REAL EVENT MEDIA
+APPROVED VIDEOS
+
+Where unavailable:
+
+Use highly realistic generated imagery that matches the actual subject.
+
+============================================================
+VIDEO REQUIREMENT
+============================================================
+
+Use short, optimized videos where they genuinely improve storytelling.
+
+Examples:
+
+Hero:
+6–12 second loops
+
+Program:
+5–8 second loops
+
+Industry:
+5–10 second loops
+
+Campus:
+5–10 second loops
+
+Do not use video everywhere.
+
+Every video must have:
+
+poster image
+mobile fallback
+lazy loading
+compressed format
+
+============================================================
+MEDIA CMS
+============================================================
+
+Admin should be able to manage:
+
+Images
+Videos
+Logos
+Posters
+Program media
+University media
+Hero media
+Certification media
+Industry media
+Student-life media
+
+Media fields:
+
+id
+title
+type
+url
+poster_url
+thumbnail_url
+category
+university_id
+program_id
+course_id
+section
+alt_text
+caption
+sort_order
+status
+
+============================================================
+CUSTOM REACT COMPONENTS
+============================================================
+
+Create custom components specifically for the 4PL experience.
+
+Required:
+
+ProgramVideoHero
+IndiaUniversityMap
+UniversityNetwork
+ProgramShowcase
+IndustryLogoMarquee
+CertificationShowcase
+LearningJourney
+CareerPathway
+StudentLifeGallery
+MediaMasonry
+TestimonialCarousel
+AdmissionTimeline
+ACADBot
+InteractiveProgramCard
+UniversityCard
+ProgramCard
+
+Do not use generic template components for everything.
+
+============================================================
+REACT ANIMATION SYSTEM
+============================================================
+
+Use Framer Motion carefully.
+
+Animations:
+
+Hero:
+- Text reveal
+- Video transition
+- Floating program cards
+
+India Map:
+- Marker reveal
+- Region highlight
+- Connection animation
+
+Programs:
+- Card image movement
+- Content reveal
+
+Industry:
+- Logo marquee
+
+Certifications:
+- Card entrance
+- Horizontal movement
+
+Learning:
+- Scroll-driven reveal
+
+Admissions:
+- Step progression
+
+Testimonials:
+- Swipe/drag
+
+Avoid excessive parallax.
+
+Avoid animations that continuously consume CPU.
+
+============================================================
+DESKTOP EXPERIENCE
+============================================================
+
+Desktop should feel cinematic.
+
+Use:
+
+Large typography
+Large imagery
+Asymmetric layouts
+Sticky storytelling
+Horizontal sections
+Editorial layouts
+Interactive cards
+Generous whitespace
+
+Do not make every section a 3-column card grid.
+
+Mix:
+
+- Full-width sections
+- Split layouts
+- Horizontal scroll
+- Editorial blocks
+- Image grids
+- Interactive maps
+- Video sections
+- Cards
+
+============================================================
+MOBILE EXPERIENCE
+============================================================
+
+Every custom interaction must have a mobile alternative.
+
+Examples:
+
+Desktop:
+Hover card
+
+Mobile:
+Tap card
+
+Desktop:
+Horizontal scroll
+
+Mobile:
+Swipe carousel
+
+Desktop:
+India map with many markers
+
+Mobile:
+Region selector + map
+
+Desktop:
+Video background
+
+Mobile:
+Poster image or optimized short video
+
+Desktop:
+Large comparison table
+
+Mobile:
+Stacked cards
+
+Do not simply shrink desktop UI.
+
+============================================================
+PERFORMANCE
+============================================================
+
+Because the homepage contains many images/videos:
+
+Performance is critical.
+
+Use:
+
+- Lazy loading
+- Responsive image sizes
+- WebP
+- AVIF
+- Optimized video
+- Poster images
+- IntersectionObserver
+- Dynamic imports
+- React Query caching
+- CSS animation when sufficient
+- Framer Motion only where required
+
+Do not load every video immediately.
+
+Only load media when it approaches the viewport.
+
+Hero media can load immediately, but keep it highly optimized.
+
+============================================================
+SEO
+============================================================
+
+Even though the website is highly visual, SEO must remain strong.
+
+Every major content section must contain real semantic text.
+
+Do not hide all information inside images/videos.
+
+Program pages must have crawlable text.
+
+University pages must have crawlable text.
+
+Course pages must have crawlable text.
+
+Use:
+
+H1
+H2
+H3
+Semantic sections
+Internal links
+Breadcrumbs
+Metadata
+Schema
+
+============================================================
+DATABASE-DRIVEN HOMEPAGE
+============================================================
+
+Homepage content must be editable from Admin.
+
+Admin should eventually be able to control:
+
+Hero media
+Hero text
+Featured programs
+Featured universities
+Industry companies
+Certifications
+Testimonials
+Student-life media
+Learning journey
+Admission steps
+Homepage CTA
+SEO metadata
+
+Do not hardcode these into React.
+
+============================================================
+ADMIN HOMEPAGE CMS
+============================================================
+
+Create:
+
+/admin/homepage
+
+Sections:
+
+Hero
+Featured Programs
+University Network
+Industry Partners
+Certifications
+Learning Journey
+Career Pathways
+Student Life
+Testimonials
+Admissions
+Final CTA
+
+Each section should support:
+
+Enable / Disable
+Reorder
+Edit
+Feature
+Change media
+Change text
+Change CTA
+
+Use sort_order fields.
+
+============================================================
+INDUSTRY COMPANY DATA
+============================================================
+
+Create:
+
+industry_companies
+
+Fields:
+
+id
+name
+logo
+website_url
+relationship_type
+description
+image
+status
+featured
+sort_order
+
+Relationship types:
+
+Partner
+Hiring Partner
+Training Partner
+Corporate Client
+Industry Association
+Technology Partner
+Featured Company
+Other
+
+Do not call a company a "partner" unless verified.
+
+============================================================
+INDIA UNIVERSITY MAP DATA
+============================================================
+
+Use database records.
+
+University fields:
+
+latitude
+longitude
+city
+state
+region
+
+Map should automatically update when universities are added/removed.
+
+If admin adds a university in another city:
+
+The map should automatically display it.
+
+No frontend code changes required.
+
+============================================================
+FINAL VISUAL GOAL
+============================================================
+
+The finished 4PL Academy homepage should feel like:
+
+Premium education platform
++
+University discovery platform
++
+Industry ecosystem
++
+Career platform
++
+Cinematic media experience
+
+It should NOT feel like:
+
+Generic WordPress education website
+Generic AI website
+Template website
+Static college website
+Overloaded dashboard
+Stock-photo website
+
+============================================================
+MOST IMPORTANT DESIGN PRINCIPLE
+============================================================
+
+USE THE STRUCTURE AND VISUAL CONFIDENCE OF MODERN EDUCATION PLATFORMS.
+
+TAKE INSPIRATION FROM upGrad SOT.
+
+BUT CREATE A DISTINCT 4PL ACADEMY EXPERIENCE.
+
+4PL should own the visual language:
+
+NAVY
++
+GOLD
++
+REAL EDUCATION
++
+REAL PEOPLE
++
+REAL UNIVERSITIES
++
+INDUSTRY
++
+GLOBAL CAREERS
++
+CINEMATIC MOTION
+
+The website should look intentionally designed, not AI-generated.
