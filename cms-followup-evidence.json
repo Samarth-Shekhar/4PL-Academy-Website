@@ -1,0 +1,197 @@
+{
+  "environment": "Development",
+  "prefix": "CMS-k40VW5Am",
+  "homepage": {
+    "originalIds": [
+      295,
+      296,
+      297,
+      298,
+      299,
+      300,
+      301,
+      302,
+      303,
+      304,
+      305,
+      306,
+      307,
+      468
+    ],
+    "count": 14,
+    "exactSnapshotMatch": true,
+    "diffIds": [],
+    "heroFinal": {
+      "id": 295,
+      "enabled": true,
+      "sortOrder": 0,
+      "ctaLabel": "Explore Programs",
+      "ctaUrl": "/programs"
+    },
+    "temporaryDisabledProbe": {
+      "id": 654,
+      "slug": "cms-k40vw5am-disabled-homepage",
+      "status": "published",
+      "enabled": false,
+      "sortOrder": 0,
+      "publicHeadingCount": 0,
+      "deleted": true
+    }
+  },
+  "mediaLifecycle": {
+    "baselineIds": [
+      469,
+      470,
+      471,
+      472,
+      473,
+      474
+    ],
+    "autoPost": {
+      "status": 201,
+      "id": 655,
+      "initialSlug": "cms-followup-image-muv81j36"
+    },
+    "finalPatch": {
+      "status": 200,
+      "path": "/api/admin/content/media/655",
+      "id": 655,
+      "slug": "cms-k40vw5am-image-patch"
+    },
+    "counts": {
+      "before": 6,
+      "afterPostAndPatch": 7,
+      "afterCleanup": 6
+    },
+    "finalSlugMatchCount": 0,
+    "signedOutDraftObjectStatus": 404,
+    "temporaryRowDeleted": true
+  },
+  "temporaryRecordIdsCheckedAbsent": true,
+  "deletedTestObjects": [
+    {
+      "purpose": "media 644 image",
+      "uuid": "166474ee-d98e-435c-a344-cb2657029e71"
+    },
+    {
+      "purpose": "media 645 video",
+      "uuid": "1ec0f9ac-99b2-44b7-af6b-9d3260286bfc"
+    },
+    {
+      "purpose": "media 645 poster",
+      "uuid": "da08124c-42fb-42a3-9d7c-d64d1842b89b"
+    },
+    {
+      "purpose": "media 646 image",
+      "uuid": "2768c9b8-c867-4cce-b2f7-5059c61b9da2"
+    },
+    {
+      "purpose": "company 647 logo",
+      "uuid": "3c0ff6ad-1816-45c6-b2c4-d6cc727c8e37"
+    },
+    {
+      "purpose": "university 648 logo",
+      "uuid": "f82f4969-d6c1-4cae-a470-7bac91c524fe"
+    },
+    {
+      "purpose": "homepage row 304 nested story image",
+      "uuid": "79998f8c-4b32-4a6c-b482-7b0aa0a3822e"
+    },
+    {
+      "purpose": "NEW media 655 image",
+      "uuid": "0ff69dca-cdad-46c2-aa9f-f123def3c479"
+    }
+  ],
+  "physicalCleanup": {
+    "complete": true,
+    "method": "Existing private object signer with DELETE; no app deletion route added",
+    "objectCount": 8,
+    "eachDeleteStatus": 204,
+    "eachDirectStorageGetStatusAfterDeletion": 404
+  },
+  "heroSequence": {
+    "before": {
+      "id": 295,
+      "sortOrder": 0,
+      "enabled": true,
+      "ctaLabel": "Explore Programs",
+      "ctaUrl": "/programs"
+    },
+    "temporaryEdit": {
+      "ctaLabel": "CMS follow-up hero CTA",
+      "ctaUrl": "/student-life",
+      "apiAndSignedOutLinkMatched": true
+    },
+    "reorder": {
+      "id296SortOrder": 10,
+      "id295SortOrder": 20,
+      "signedOutHeadingOrder": [
+        "Where Education Meets Industry",
+        "Creating Global Professionals"
+      ]
+    },
+    "disabled": {
+      "apiEnabled": false,
+      "signedOutHeroHeadingCount": 0,
+      "signedOutHeroLinkCount": 0
+    },
+    "restored": {
+      "id": 295,
+      "sortOrder": 0,
+      "enabled": true,
+      "ctaLabel": "Explore Programs",
+      "ctaUrl": "/programs",
+      "signedOutHeroHeadingCount": 1,
+      "signedOutLinkMatched": true
+    }
+  },
+  "temporaryHomepageCheck": {
+    "id": 654,
+    "status": "published",
+    "enabled": false,
+    "sortOrder": 0,
+    "featured": false,
+    "verified": false,
+    "signedOutHeadlineCount": 0,
+    "deleted": true
+  },
+  "faqFlagEvidence": {
+    "id": 653,
+    "status": "draft",
+    "featured": false,
+    "verified": false,
+    "sortOrder": 0,
+    "enabledFieldAbsent": true,
+    "deleted": true
+  },
+  "cleanup": {
+    "temporaryRecordIds": [
+      643,
+      644,
+      645,
+      646,
+      647,
+      648,
+      649,
+      650,
+      651,
+      652,
+      653,
+      654,
+      655
+    ],
+    "allAbsent": true,
+    "mediaIdsRemaining": [
+      469,
+      470,
+      471,
+      472,
+      473,
+      474
+    ],
+    "homepageUiRows": 14,
+    "homepageUiTemp654Count": 0,
+    "homepageFirstRow": 295,
+    "homepageExactSnapshotDiffIds": []
+  }
+}
