@@ -1,44 +1,54 @@
-# [Project name]
+# 4PL Academy
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A portable education discovery website and dynamic CMS connecting students, universities and industry.
 
 ## Run & Operate
 
 - `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
+- `pnpm run check` — plain JavaScript syntax checks
+- `pnpm run build` — build API and website
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
+- `pnpm db:migrate` — explicitly apply checked-in Drizzle migrations
+- `pnpm db:seed` — idempotent initial-content import, never overwrite CMS edits
 - Required env: `DATABASE_URL` — Postgres connection string
 
 ## Stack
 
-- pnpm workspaces, Node.js 24, TypeScript 5.9
+- pnpm workspaces, Node.js 24, plain JavaScript ES modules
 - API: Express 5
 - DB: PostgreSQL + Drizzle ORM
 - Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
+- API codegen: Orval (from OpenAPI spec), compiled to JavaScript runtime modules
 - Build: esbuild (CJS bundle)
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+See README.md for the repository map, local run instructions and data-verification notes.
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Institution-directory inclusion must never be treated as proof of a 4PL partnership.
+- ACAD BOT uses bounded read-only retrieval so it can abstain from unverified admissions facts without an external model.
+- Initial data imports preserve source ambiguity and flag conflicts rather than silently reconciling them.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+Degree and institution discovery, professional courses, comparisons, admissions enquiries, verified informational assistance, and administrator-managed content.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- Do not deploy, configure deployment, assume final hosting, or suggest publishing. Replit is development-only.
+- Keep the requested stack portable: React/Vite/plain JavaScript, Express, PostgreSQL/Drizzle, pnpm.
+- Use the supplied official 4PL logo unchanged. Navy dominates; gold is an accent.
+- Do not fabricate fees, accreditation, eligibility, deadlines, salary/placement claims, facilities or partnerships.
+- Database content is the source of truth; React must not hardcode CMS-managed institution, program or course data.
+- Mobile-first experience must work from 320px; generic imagery must not be presented as a real institution's campus.
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- The initial CMS administrator requires ADMIN_EMAIL and ADMIN_PASSWORD through Secrets or a local environment. Do not insert a default account.
+- SITE_URL is intentionally unset until a canonical origin is approved. Never substitute the development domain.
+- Archive/restore content instead of destroying records.
 
 ## Pointers
 

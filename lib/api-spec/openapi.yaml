@@ -1,36 +1,410 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
-  version: 0.1.0
-  description: API specification
+  version: 1.0.0
+  description: 4PL Academy content and admissions API
 servers:
   - url: /api
-    description: Base API path
-tags:
-  - name: health
-    description: Health operations
 paths:
   /healthz:
     get:
       operationId: healthCheck
-      tags: [health]
-      summary: Health check
-      description: Returns server health status
       responses:
         "200":
-          description: Healthy
+          description: Health
           content:
             application/json:
-              schema:
-                $ref: "#/components/schemas/HealthStatus"
+              schema: { $ref: "#/components/schemas/HealthStatus" }
+  /catalog/{kind}:
+    get:
+      operationId: listContent
+      parameters:
+        - { name: kind, in: path, required: true, schema: { type: string } }
+        - { name: search, in: query, schema: { type: string } }
+        - { name: location, in: query, schema: { type: string } }
+        - { name: degree, in: query, schema: { type: string } }
+        - { name: category, in: query, schema: { type: string } }
+        - { name: featured, in: query, schema: { type: string } }
+        - { name: sort, in: query, schema: { type: string } }
+        - { name: universityId, in: query, schema: { type: integer } }
+      responses:
+        "200":
+          description: Published catalog
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/Content" } }
+  /catalog/{kind}/{slug}:
+    get:
+      operationId: getContent
+      parameters:
+        - { name: kind, in: path, required: true, schema: { type: string } }
+        - { name: slug, in: path, required: true, schema: { type: string } }
+      responses:
+        "200":
+          description: Published detail
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Content" }
+  /discovery:
+    get:
+      operationId: getDiscovery
+      responses:
+        "200":
+          description: Catalog facets and counts
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Discovery" }
+  /leads:
+    post:
+      operationId: submitLead
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/LeadInput" }
+      responses:
+        "201":
+          description: Enquiry saved
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Success" }
+  /chat:
+    post:
+      operationId: askAcadBot
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ChatInput" }
+      responses:
+        "200":
+          description: Approved catalog answer
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/ChatAnswer" }
+  /admin/session:
+    get:
+      operationId: getAdminSession
+      responses:
+        "200":
+          description: Session status
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AdminSession" }
+  /admin/login:
+    post:
+      operationId: adminLogin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/LoginInput" }
+      responses:
+        "200":
+          description: Signed in
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AdminSession" }
+  /admin/logout:
+    post:
+      operationId: adminLogout
+      responses:
+        "200":
+          description: Signed out
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Success" }
+  /admin/password:
+    post:
+      operationId: changeAdminPassword
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/PasswordInput" }
+      responses:
+        "200":
+          description: Password changed
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Success" }
+  /admin/dashboard:
+    get:
+      operationId: getAdminDashboard
+      responses:
+        "200":
+          description: Dashboard aggregates
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Dashboard" }
+  /admin/content/{kind}:
+    get:
+      operationId: listAdminContent
+      parameters:
+        - { name: kind, in: path, required: true, schema: { type: string } }
+      responses:
+        "200":
+          description: All content including drafts and archives
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/Content" } }
+    post:
+      operationId: createContent
+      parameters:
+        - { name: kind, in: path, required: true, schema: { type: string } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ContentInput" }
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Content" }
+  /admin/content/{kind}/{id}:
+    patch:
+      operationId: updateContent
+      parameters:
+        - { name: kind, in: path, required: true, schema: { type: string } }
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/ContentInput" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Content" }
+    delete:
+      operationId: archiveContent
+      parameters:
+        - { name: kind, in: path, required: true, schema: { type: string } }
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        "200":
+          description: Archived; restore by updating status
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Success" }
+  /admin/leads:
+    get:
+      operationId: listAdminLeads
+      responses:
+        "200":
+          description: Private admissions enquiries
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/Lead" } }
+  /admin/leads/{id}:
+    patch:
+      operationId: updateLead
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/LeadUpdate" }
+      responses:
+        "200":
+          description: Updated enquiry
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Lead" }
 components:
   schemas:
     HealthStatus:
       type: object
+      required: [status]
       properties:
-        status:
-          type: string
-      required:
-        - status
-
+        status: { type: string }
+    Success:
+      type: object
+      required: [success, message]
+      properties:
+        success: { type: boolean }
+        message: { type: string }
+    Content:
+      allOf:
+        - { $ref: "#/components/schemas/ContentInput" }
+        - type: object
+          required: [id, kind, name, slug, status, featured, createdAt, updatedAt]
+          properties:
+            id: { type: integer }
+            kind: { type: string }
+            createdAt: { type: string }
+            updatedAt: { type: string }
+    ContentInput:
+      type: object
+      required: [name, slug]
+      properties:
+        name: { type: string, minLength: 1, maxLength: 250 }
+        slug: { type: string, minLength: 1, maxLength: 250 }
+        description: { type: string }
+        shortDescription: { type: string }
+        status: { type: string, enum: [published, draft, archived] }
+        featured: { type: boolean }
+        sortOrder: { type: integer }
+        universityId: { type: [integer, "null"] }
+        universityName: { type: string }
+        city: { type: string }
+        state: { type: string }
+        location: { type: string }
+        degree: { type: string }
+        degreeLevel: { type: string }
+        specialization: { type: string }
+        category: { type: string }
+        duration: { type: string }
+        mode: { type: string }
+        eligibility: { type: string }
+        minimumPercentage: { type: string }
+        fee: { type: string }
+        feeNote: { type: string }
+        batch: { type: string }
+        hours: { type: string }
+        certification: { type: string }
+        targetAudience: { type: string }
+        accreditation: { type: string }
+        establishedYear: { type: string }
+        type: { type: string }
+        country: { type: string }
+        image: { type: string }
+        logo: { type: string }
+        websiteUrl: { type: string }
+        applicationUrl: { type: string }
+        brochureUrl: { type: string }
+        email: { type: string }
+        phone: { type: string }
+        author: { type: string }
+        publishedAt: { type: string }
+        source: { type: string }
+        verified: { type: boolean }
+        verificationNotes: { type: string }
+        partnershipVerified: { type: boolean }
+        seoTitle: { type: string }
+        seoDescription: { type: string }
+        canonical: { type: string }
+        ogTitle: { type: string }
+        ogDescription: { type: string }
+        ogImage: { type: string }
+        robots: { type: string }
+        highlights: { type: array, items: { type: string } }
+        facilities: { type: array, items: { type: string } }
+        curriculum: { type: array, items: { type: string } }
+        outcomes: { type: array, items: { type: string } }
+        careerPaths: { type: array, items: { type: string } }
+        admissionProcess: { type: array, items: { type: string } }
+        documentsRequired: { type: array, items: { type: string } }
+        studentSupport: { type: array, items: { type: string } }
+        industryExposure: { type: array, items: { type: string } }
+        projects: { type: array, items: { type: string } }
+        internships: { type: array, items: { type: string } }
+        placementInformation: { type: array, items: { type: string } }
+        media: { type: array, items: { type: string } }
+        faqs: { type: array, items: { $ref: "#/components/schemas/FaqItem" } }
+    FaqItem:
+      type: object
+      required: [question, answer]
+      properties:
+        question: { type: string }
+        answer: { type: string }
+    Discovery:
+      type: object
+      required: [universities, programs, courses, locations, degrees, categories]
+      properties:
+        universities: { type: integer }
+        programs: { type: integer }
+        courses: { type: integer }
+        locations: { type: array, items: { type: string } }
+        degrees: { type: array, items: { type: string } }
+        categories: { type: array, items: { type: string } }
+    LeadInput:
+      type: object
+      required: [name, email, phone, consent]
+      properties:
+        name: { type: string, minLength: 2, maxLength: 150 }
+        email: { type: string, format: email, maxLength: 250 }
+        phone: { type: string, minLength: 7, maxLength: 25 }
+        consent: { type: boolean }
+        category: { type: string, enum: [contact, counselling, application, partnership, chatbot] }
+        university: { type: string }
+        program: { type: string }
+        course: { type: string }
+        source: { type: string }
+        utm: { type: string }
+        message: { type: string, maxLength: 3000 }
+    Lead:
+      allOf:
+        - { $ref: "#/components/schemas/LeadInput" }
+        - type: object
+          required: [id, status, notes, createdAt]
+          properties:
+            id: { type: integer }
+            status: { type: string }
+            notes: { type: string }
+            createdAt: { type: string }
+    LeadUpdate:
+      type: object
+      properties:
+        status: { type: string, enum: [New, Contacted, Interested, Application Started, Applied, Admission Confirmed, Closed] }
+        notes: { type: string, maxLength: 5000 }
+    ChatInput:
+      type: object
+      required: [message]
+      properties:
+        message: { type: string, minLength: 1, maxLength: 1000 }
+    ChatAnswer:
+      type: object
+      required: [answer, sources]
+      properties:
+        answer: { type: string }
+        sources: { type: array, items: { $ref: "#/components/schemas/ChatSource" } }
+    ChatSource:
+      type: object
+      required: [name, url]
+      properties:
+        name: { type: string }
+        url: { type: string }
+    LoginInput:
+      type: object
+      required: [email, password]
+      properties:
+        email: { type: string, format: email }
+        password: { type: string, minLength: 1, maxLength: 200 }
+    PasswordInput:
+      type: object
+      required: [currentPassword, newPassword]
+      properties:
+        currentPassword: { type: string }
+        newPassword: { type: string, minLength: 12, maxLength: 200 }
+    AdminSession:
+      type: object
+      required: [authenticated, setupRequired]
+      properties:
+        authenticated: { type: boolean }
+        setupRequired: { type: boolean }
+        email: { type: string }
+    Dashboard:
+      type: object
+      required: [universities, programs, courses, blogs, leads, applications, needsVerification, leadStages, recentLeads]
+      properties:
+        universities: { type: integer }
+        programs: { type: integer }
+        courses: { type: integer }
+        blogs: { type: integer }
+        leads: { type: integer }
+        applications: { type: integer }
+        needsVerification: { type: integer }
+        leadStages: { type: array, items: { $ref: "#/components/schemas/StageCount" } }
+        recentLeads: { type: array, items: { $ref: "#/components/schemas/Lead" } }
+    StageCount:
+      type: object
+      required: [status, count]
+      properties:
+        status: { type: string }
+        count: { type: integer }

@@ -1,0 +1,164 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Figtree:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-navy: hsl(var(--brand-navy));
+  --color-navy-2: hsl(var(--brand-navy-2));
+  --color-navy-3: hsl(var(--brand-navy-3));
+  --color-gold: hsl(var(--brand-gold));
+  --color-gold-deep: hsl(var(--brand-gold-deep));
+  --color-gold-soft: hsl(var(--brand-gold-soft));
+  --color-surface: hsl(var(--brand-surface));
+  --color-mist: hsl(var(--brand-mist));
+  --color-ink: hsl(var(--brand-ink));
+  --color-line: hsl(var(--border));
+  --font-sans: 'Figtree', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+}
+
+:root {
+  --brand-navy: 221 76% 17%;
+  --brand-navy-2: 221 58% 24%;
+  --brand-navy-3: 219 45% 33%;
+  --brand-gold: 40 64% 50%;
+  --brand-gold-deep: 38 70% 34%;
+  --brand-gold-soft: 42 72% 91%;
+  --brand-surface: 40 30% 97%;
+  --brand-mist: 215 32% 94%;
+  --brand-ink: 222 42% 12%;
+
+  --background: 40 30% 97%;
+  --foreground: 222 42% 12%;
+  --border: 217 24% 86%;
+  --card: 40 40% 99%;
+  --card-foreground: 222 42% 12%;
+  --popover: 40 40% 99%;
+  --popover-foreground: 222 42% 12%;
+  --primary: 221 76% 17%;
+  --primary-foreground: 40 30% 97%;
+  --secondary: 215 32% 94%;
+  --secondary-foreground: 221 76% 17%;
+  --muted: 215 32% 94%;
+  --muted-foreground: 219 16% 36%;
+  --accent: 40 64% 50%;
+  --accent-foreground: 221 76% 17%;
+  --destructive: 8 66% 42%;
+  --destructive-foreground: 40 30% 97%;
+  --input: 217 22% 74%;
+  --ring: 40 64% 50%;
+  --chart-1: 221 76% 17%;
+  --chart-2: 40 64% 50%;
+  --chart-3: 219 45% 40%;
+  --chart-4: 38 70% 34%;
+  --chart-5: 215 30% 62%;
+  --radius: 0.5rem;
+}
+
+.dark {
+  --background: 221 60% 9%;
+  --foreground: 40 30% 96%;
+  --border: 221 30% 22%;
+  --card: 221 55% 12%;
+  --card-foreground: 40 30% 96%;
+  --popover: 221 55% 12%;
+  --popover-foreground: 40 30% 96%;
+  --primary: 40 64% 50%;
+  --primary-foreground: 221 76% 12%;
+  --secondary: 221 40% 18%;
+  --secondary-foreground: 40 30% 96%;
+  --muted: 221 40% 18%;
+  --muted-foreground: 217 20% 70%;
+  --accent: 40 64% 50%;
+  --accent-foreground: 221 76% 12%;
+  --destructive: 8 66% 52%;
+  --destructive-foreground: 40 30% 97%;
+  --input: 221 30% 30%;
+  --ring: 40 64% 50%;
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body { @apply font-sans antialiased bg-background text-foreground; overflow-x: hidden; min-width: 320px; }
+  h1, h2, h3, h4 { font-family: var(--font-display); letter-spacing: -0.01em; text-wrap: balance; }
+  img { max-width: 100%; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+}
+
+@layer components {
+  .container-x { width: 100%; max-width: 80rem; margin-inline: auto; padding-inline: 1rem; }
+  @media (min-width: 640px) { .container-x { padding-inline: 1.5rem; } }
+  @media (min-width: 1024px) { .container-x { padding-inline: 2rem; } }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 2.75rem; padding: .6rem 1.2rem; border-radius: .375rem; font-weight: 650; font-size: .92rem; line-height: 1.2; text-align: center; cursor: pointer; transition: background-color .2s, color .2s, border-color .2s, transform .2s; border: 1px solid transparent; }
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled { opacity: .55; cursor: not-allowed; }
+  .btn:focus-visible, .input:focus-visible, a:focus-visible, button:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid hsl(var(--brand-gold)); outline-offset: 2px; }
+  .btn-gold { background: hsl(var(--brand-gold)); color: hsl(var(--brand-navy)); }
+  .btn-gold:hover:not(:disabled) { background: hsl(40 72% 58%); }
+  .btn-navy { background: hsl(var(--brand-navy)); color: hsl(var(--brand-surface)); }
+  .btn-navy:hover:not(:disabled) { background: hsl(var(--brand-navy-2)); }
+  .btn-outline { border-color: hsl(var(--brand-navy) / .3); color: hsl(var(--brand-navy)); background: transparent; }
+  .btn-outline:hover:not(:disabled) { border-color: hsl(var(--brand-navy)); background: hsl(var(--brand-navy) / .05); }
+  .btn-light { border-color: hsl(0 0% 100% / .35); color: hsl(var(--brand-surface)); }
+  .btn-light:hover { background: hsl(0 0% 100% / .1); border-color: hsl(var(--brand-gold)); }
+  .btn-sm { min-height: 2.25rem; padding: .35rem .8rem; font-size: .82rem; }
+  .btn-danger { background: hsl(var(--destructive)); color: white; }
+
+  .input { width: 100%; min-height: 2.75rem; border: 1px solid hsl(var(--input)); background: hsl(var(--card)); border-radius: .375rem; padding: .55rem .8rem; font-size: 1rem; color: hsl(var(--foreground)); }
+  textarea.input { min-height: 6rem; resize: vertical; line-height: 1.5; }
+  .input::placeholder { color: hsl(var(--muted-foreground) / .8); }
+  .label { display: block; font-size: .8rem; font-weight: 650; color: hsl(var(--brand-navy)); margin-bottom: .35rem; }
+  .field-err { color: hsl(var(--destructive)); font-size: .8rem; margin-top: .25rem; }
+  .hint { font-size: .75rem; color: hsl(var(--muted-foreground)); margin-top: .25rem; }
+
+  .eyebrow { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 700; color: hsl(var(--brand-gold-deep)); }
+  .on-navy .eyebrow, .eyebrow-light { color: hsl(var(--brand-gold)); }
+  .card-s { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: .5rem; }
+  .chip { display: inline-flex; align-items: center; gap: .3rem; font-size: .72rem; font-weight: 650; padding: .2rem .55rem; border-radius: 999px; background: hsl(var(--brand-mist)); color: hsl(var(--brand-navy)); }
+  .chip-gold { background: hsl(var(--brand-gold-soft)); color: hsl(var(--brand-gold-deep)); }
+  .chip-warn { background: hsl(8 70% 94%); color: hsl(8 66% 34%); }
+  .chip-ok { background: hsl(150 40% 90%); color: hsl(150 50% 22%); }
+
+  .navy-surface { background: hsl(var(--brand-navy)); color: hsl(var(--brand-surface)); position: relative; isolation: isolate; }
+  .navy-surface::before { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; background-image: repeating-linear-gradient(115deg, hsl(var(--brand-gold) / .05) 0 1px, transparent 1px 38px); }
+  .gold-rule { height: 3px; width: 3.5rem; background: hsl(var(--brand-gold)); border-radius: 2px; }
+  .prose-4pl p { margin-bottom: 1rem; line-height: 1.75; color: hsl(var(--foreground) / .85); }
+  .prose-4pl h3 { font-size: 1.35rem; margin: 1.5rem 0 .6rem; color: hsl(var(--brand-navy)); }
+  .logo-blend { mix-blend-mode: multiply; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { scrollbar-width: none; }
+  @keyframes shimmer { 0% { opacity: .55; } 50% { opacity: 1; } 100% { opacity: .55; } }
+  .skel { background: hsl(var(--brand-mist)); border-radius: .375rem; animation: shimmer 1.4s ease-in-out infinite; }
+  @keyframes drift { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+}

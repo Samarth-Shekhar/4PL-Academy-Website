@@ -3,9 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "codegen": "orval --config ./orval.config.ts && pnpm -w run typecheck:libs"
+    "codegen": "orval --config ./orval.config.mjs && CLEAN_CODEGEN=1 node finalize.mjs"
   },
   "devDependencies": {
+    "esbuild": "0.28.2",
     "orval": "^8.30.0"
   }
 }

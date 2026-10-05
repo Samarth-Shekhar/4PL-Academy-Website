@@ -5,11 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "export NODE_ENV=development && pnpm run build && pnpm run start",
+    "local": "WEB_DEV=1 NODE_ENV=development node src/index.js",
     "build": "node ./build.mjs",
     "start": "node --enable-source-maps ./dist/index.mjs",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "seed": "node src/scripts/seed.js",
+    "typecheck": "node --check src/index.js"
   },
   "dependencies": {
+    "helmet": "^8.1.0",
+    "express-rate-limit": "^8.1.0",
+    "vite": "catalog:",
     "@workspace/api-zod": "workspace:*",
     "@workspace/db": "workspace:*",
     "cookie-parser": "^1.4.7",

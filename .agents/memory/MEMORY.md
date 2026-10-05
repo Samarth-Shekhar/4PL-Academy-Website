@@ -1,0 +1,1 @@
+- [API generation in JavaScript projects](javascript-api-generation.md) — treat generated TypeScript as a temporary intermediate and avoid conflicting validator/type barrel exports.
