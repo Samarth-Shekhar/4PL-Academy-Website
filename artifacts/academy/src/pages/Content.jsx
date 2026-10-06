@@ -31,7 +31,6 @@ export function KindPage({ slug }) {
           <div className={slug === 'about' ? 'mx-auto max-w-4xl' : 'grid gap-10 lg:grid-cols-[1fr_22rem]'}>
             <article>
               <img src={img} alt="" loading="lazy" className="mb-8 aspect-[16/7] w-full rounded-2xl object-cover" />
-              {!has(p.image) && <p className="-mt-6 mb-8 text-[0.7rem] uppercase tracking-wider text-muted-foreground">Representative generic imagery</p>}
               <RichText text={p.description} />
               <ListBlock title="Highlights" items={lines(p.highlights)} columns />
               <ListBlock title="Learning pathway" items={lines(p.curriculum)} numbered />
