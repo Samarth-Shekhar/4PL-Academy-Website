@@ -39,7 +39,8 @@ Degree and institution discovery, professional courses, comparisons, admissions 
 
 - Do not deploy, configure deployment, assume final hosting, or suggest publishing. Replit is development-only.
 - Keep the requested stack portable: React/Vite/plain JavaScript, Express, PostgreSQL/Drizzle, pnpm.
-- Use the supplied official 4PL logo unchanged. Navy dominates; gold is an accent.
+- Use the supplied official 4PL logo unchanged. Navy dominates; gold is an accent. Green is only for status/success UI.
+- Use the uploaded 4PL Academy mascot as the official ACAD BOT visual/avatar. Display it consistently; do not invent a replacement mascot or alter the brand identity.
 - Do not fabricate fees, accreditation, eligibility, deadlines, salary/placement claims, facilities or partnerships.
 - Database content is the source of truth; React must not hardcode CMS-managed institution, program or course data.
 - Mobile-first experience must work from 320px; generic imagery must not be presented as a real institution's campus.
@@ -48,7 +49,7 @@ Degree and institution discovery, professional courses, comparisons, admissions 
 - Keep the public header limited to Home, About Us, Courses, Universities, Blogs and Contact Us. Do not add extra top-level links or action buttons. The owner explicitly retained this header for the education-platform rebuild despite the different header in the uploaded brief.
 - Book Counselling is the main in-page conversion. Keep ACAD BOT secondary and read-only; do not make it the default hero or admissions action.
 - Use premium sans-serif typography and information-rich discovery cards; important program facts should not depend on hover.
-- Use the supplied StudentGrad screenshot as the visual reference for the public-site redesign: white navigation, a dark-overlay photographic hero, bold two-tone headings, rounded actions, consistent outlined icons and compact statistics. Adapt the presentation to 4PL's existing brand and verified content; do not import the reference's claims or numbers.
+- The final brief makes Stuveda the primary visual inspiration (https://dribbble.com/shots/27442009-Stuveda-Study-Abroad-Educational-Landing-Page), with Student Grad-style discovery and upGrad-level polish. Create an original 4PL design, not a pixel-for-pixel copy; retain navy/gold branding and verified content. Use ReactBits selectively, with accessible, lightweight motion.
 
 ## Gotchas
 
