@@ -24,12 +24,22 @@ coordinates are explicitly approximate.
 preserve floor/unit details in the displayed postal address.
 
 The contact page should follow the owner's supplied split contact/form
-reference, using 4PL Academy navy and gold rather than the reference's black
-palette.
+reference, with white/light surfaces, navy text and gold accents rather than
+the reference's black palette.
 
-**Why:** The owner requested the same type of contact page with the current
-academy blue and gold contrast.
+**Why:** The owner requested the same type of contact page, then explicitly
+specified white, golden and blue tones.
 
 **How to apply:** Preserve the reference-based layout and readable brand
 contrast when refining the page, while retaining authoritative office details
 and the actual street-address map.
+
+The contact enquiry form should include name, email, mobile, an optional
+course selection, optional subject, and a required “How can we help?” message.
+
+**Why:** The owner supplied the original contact form's field reference and
+requested these sections in the new design.
+
+**How to apply:** Use real published course/program choices, retain consent
+and save all enquiry details. Keep the generic careers enquiry context
+separate from academic course selection and from job applications.

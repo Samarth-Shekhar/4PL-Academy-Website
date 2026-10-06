@@ -10,6 +10,7 @@
 - [Acad Bot scope](acad-bot-scope.md) — academy-focused help; unrelated or unsupported questions should offer human contact.
 - [UI verification quirks](ui-verification-quirks.md) — closed accordion controls and scrollbar widths can cause false browser-check failures.
 - [Contact source priority](contact-source-priority.md) — latest owner-confirmed contacts override legacy values; map the current street address.
+- [Enquiry integrity](enquiry-integrity.md) — qualify same-title programs by university; retain contact subjects and validate combined message length.
 - [University directory scope](university-directory-scope.md) — directory only, no partnerships mode; listing cards use matching ratios and basic supplied facts.
 - [Institution imagery verification](logo-verification.md) — confirm actual logo/campus identity; valid image URLs may show unrelated brands or event portraits.
 - [Public footer scope](public-footer-scope.md) — compact public footer without the admissions notice or staff sign-in link; preserve authentication.

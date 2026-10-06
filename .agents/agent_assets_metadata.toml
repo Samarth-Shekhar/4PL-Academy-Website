@@ -1,0 +1,30 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "_N4tsbutoBMmZX3RnLvTI"
+uri = "file://attached_assets/4pl-academy-transparent-logo.png"
+type = "image"
+title = "Transparent 4PL Academy logo"
+description = "Your supplied logo with the white background removed."
+logical_id = "2556e562-583f-4fb8-9973-5eba8e09473f"
+content_hash = "sha256:3c031c7622aff9cc367e976b7541dd7bf00663e6d2fc7187bcbeaed648cd6177"
+size = 86270
+mtime_ms = 1791291195163
+storage_uri = "gcs://replit-rams-assets-sisko/rams/assets/repl:5dacc939-c66c-4592-9696-6c46fe4df0f6/2556e562-583f-4fb8-9973-5eba8e09473f/241f7972-e051-490e-95cd-3e3f47b77ab9"
+storage_version_token = "1791291492481370"
+content_type = "image/png"
+
+[[outputs]]
+id = "8cp7ijsfv-70uJFCKicR-"
+uri = "file://artifacts/academy/public/favicon.png"
+type = "image"
+title = "4PL Academy favicon"
+description = "Transparent favicon using the main 4PL mark, now applied to the website."
+logical_id = "9a4042f5-f5e0-49f6-a24e-a22990c5f64e"
+content_hash = "sha256:d02da2af68fd403152a13dace92d56d463abdb2611cf60332f32d88e8681cfb3"
+size = 5098
+mtime_ms = 1791291195218
+storage_uri = "gcs://replit-rams-assets-sisko/rams/assets/repl:5dacc939-c66c-4592-9696-6c46fe4df0f6/9a4042f5-f5e0-49f6-a24e-a22990c5f64e/ad033d3c-8c15-4cc7-98b0-51a844796d35"
+storage_version_token = "1791291493974545"
+content_type = "image/png"

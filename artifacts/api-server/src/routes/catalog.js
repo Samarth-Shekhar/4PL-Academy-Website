@@ -43,7 +43,19 @@ async function saveLead(req, res) {
   let contentId = null;
   const name = data.program || data.course || data.university;
   if (name) {
-    const [content] = await db.select({ id: contentTable.id }).from(contentTable).where(and(eq(contentTable.name, name), eq(contentTable.status,'published'))).limit(1);
+    const conditions = [eq(contentTable.name, name), eq(contentTable.status, 'published')];
+    if (data.program) {
+      conditions.push(eq(contentTable.kind, 'programs'));
+      if (data.university) {
+        const [university] = await db.select({ id: contentTable.id }).from(contentTable).where(and(eq(contentTable.kind, 'universities'), eq(contentTable.name, data.university), eq(contentTable.status, 'published'))).limit(1);
+        // Same degree title can belong to several universities. Never associate
+        // an enquiry with a different institution just because its name matches.
+        conditions.push(eq(contentTable.universityId, university?.id ?? -1));
+      }
+    } else {
+      conditions.push(eq(contentTable.kind, data.course ? 'courses' : 'universities'));
+    }
+    const [content] = await db.select({ id: contentTable.id }).from(contentTable).where(and(...conditions)).limit(1);
     contentId = content?.id || null;
   }
   await db.insert(leadsTable).values({ ...data, name: data.name.trim(), email: data.email.trim().toLowerCase(), contentId });
