@@ -43,7 +43,7 @@ export function Pic({ src, alt = '', className, imgClassName, label, ...rest }) 
   if (!u || bad) return <div className={cn('navy-surface grid place-items-center overflow-hidden p-4 text-center', className)} role={alt ? 'img' : undefined} aria-label={alt || undefined}><span className="font-display text-xl text-gold">{label ? initials(label) : ''}</span></div>;
   return <img src={u} alt={alt} loading="lazy" decoding="async" onError={() => setBad(true)} className={cn('h-full w-full object-cover', imgClassName, className)} {...rest} />;
 }
-export const Illustrative = ({ light, className }) => <p className={cn('text-[0.68rem] uppercase tracking-wider', light ? 'text-surface/60' : 'text-muted-foreground', className)}>Illustrative imagery. Not an actual institution or 4PL event.</p>;
+export const Illustrative = () => null;
 export function Count({ to, className }) {
   const [ref, vis] = useInView();
   const reduce = useReducedMotion();

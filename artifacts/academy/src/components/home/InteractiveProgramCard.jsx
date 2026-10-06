@@ -16,7 +16,6 @@ export function InteractiveProgramCard({ item, className }) {
       <button type="button" className="absolute inset-0 z-10 w-full cursor-pointer" aria-expanded={open} aria-label={`${open ? 'Hide' : 'Show'} details for ${item.title}`} onClick={() => setOpen((o) => !o)} />
       <div className="pointer-events-none relative flex h-full min-h-[18rem] flex-col justify-end p-5">
         {has(item.tag) && <span className="chip chip-gold mb-2 self-start">{item.tag}</span>}
-        {has(item.image) && <span className="mb-2 text-[0.6rem] uppercase tracking-wider text-surface/70">Illustrative learning imagery</span>}
         <h3 className="text-2xl leading-tight text-surface">{item.title}</h3>
         {has(item.sub) && <p className="mt-1 text-sm text-surface/75">{item.sub}</p>}
         {has(item.line) && <p className="mt-2 text-xs text-surface/85">{item.line}</p>}

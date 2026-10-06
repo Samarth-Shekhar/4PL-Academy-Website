@@ -1,0 +1,97 @@
+{
+  "changes": [
+    {
+      "id": 469,
+      "name": "BBA in Artificial Intelligence (AI)",
+      "expected_updated_at": "2026-10-05T10:30:29.238Z",
+      "data": {
+        "image": "/images/program-hero/bba-ai-4k.webp",
+        "url": "/images/program-hero/bba-ai-4k.webp",
+        "posterUrl": "/images/program-hero/bba-ai-1920.webp",
+        "thumbnailUrl": "/images/program-hero/bba-ai-thumb.webp",
+        "altText": "Learners collaborating on Artificial Intelligence (AI) in a learning setting",
+        "caption": "Explore artificial intelligence and business education.",
+        "source": "AI-generated program concept artwork; 1024px source, upscaled/cropped 3840×2160 exports. Not verified campus or event photography."
+      }
+    },
+    {
+      "id": 470,
+      "name": "BBA in Global Logistics",
+      "expected_updated_at": "2026-10-05T10:30:29.240Z",
+      "data": {
+        "image": "/images/program-hero/bba-global-logistics-4k.webp",
+        "url": "/images/program-hero/bba-global-logistics-4k.webp",
+        "posterUrl": "/images/program-hero/bba-global-logistics-1920.webp",
+        "thumbnailUrl": "/images/program-hero/bba-global-logistics-thumb.webp",
+        "altText": "Learners collaborating on Global Logistics in a learning setting",
+        "caption": "Discover the global logistics degree pathway.",
+        "source": "AI-generated program concept artwork; 1024px source, upscaled/cropped 3840×2160 exports. Not verified campus or event photography."
+      }
+    },
+    {
+      "id": 471,
+      "name": "BBA in Digital Marketing",
+      "expected_updated_at": "2026-10-05T10:30:29.244Z",
+      "data": {
+        "image": "/images/program-hero/bba-digital-marketing-4k.webp",
+        "url": "/images/program-hero/bba-digital-marketing-4k.webp",
+        "posterUrl": "/images/program-hero/bba-digital-marketing-1920.webp",
+        "thumbnailUrl": "/images/program-hero/bba-digital-marketing-thumb.webp",
+        "altText": "Learners collaborating on Digital Marketing in a learning setting",
+        "caption": "Explore the digital marketing degree pathway.",
+        "source": "AI-generated program concept artwork; 1024px source, upscaled/cropped 3840×2160 exports. Not verified campus or event photography."
+      }
+    },
+    {
+      "id": 472,
+      "name": "MBA / PGDM in International Supply Chain Management",
+      "expected_updated_at": "2026-10-05T10:30:29.249Z",
+      "data": {
+        "image": "/images/program-hero/mba-supply-chain-4k.webp",
+        "url": "/images/program-hero/mba-supply-chain-4k.webp",
+        "posterUrl": "/images/program-hero/mba-supply-chain-1920.webp",
+        "thumbnailUrl": "/images/program-hero/mba-supply-chain-thumb.webp",
+        "altText": "Learners collaborating on International Supply Chain Management in a learning setting",
+        "caption": "Discover international supply chain management.",
+        "source": "AI-generated program concept artwork; 1024px source, upscaled/cropped 3840×2160 exports. Not verified campus or event photography."
+      }
+    },
+    {
+      "id": 473,
+      "name": "BBA in Logistics & Supply Chain Management",
+      "expected_updated_at": "2026-10-05T10:30:29.252Z",
+      "data": {
+        "image": "/images/program-hero/bba-supply-chain-4k.webp",
+        "url": "/images/program-hero/bba-supply-chain-4k.webp",
+        "posterUrl": "/images/program-hero/bba-supply-chain-1920.webp",
+        "thumbnailUrl": "/images/program-hero/bba-supply-chain-thumb.webp",
+        "altText": "Learners collaborating on Logistics & Supply Chain Management in a learning setting",
+        "caption": "Explore undergraduate logistics and supply chain learning.",
+        "source": "AI-generated program concept artwork; 1024px source, upscaled/cropped 3840×2160 exports. Not verified campus or event photography."
+      }
+    },
+    {
+      "id": 474,
+      "name": "MBA + PGPM in Global Logistics & Trade Compliance",
+      "expected_updated_at": "2026-10-05T10:30:29.254Z",
+      "data": {
+        "image": "/images/program-hero/mba-trade-compliance-4k.webp",
+        "url": "/images/program-hero/mba-trade-compliance-4k.webp",
+        "posterUrl": "/images/program-hero/mba-trade-compliance-1920.webp",
+        "thumbnailUrl": "/images/program-hero/mba-trade-compliance-thumb.webp",
+        "altText": "Learners collaborating on Global Logistics & Trade Compliance in a learning setting",
+        "caption": "Discover postgraduate global logistics and trade compliance.",
+        "source": "AI-generated program concept artwork; 1024px source, upscaled/cropped 3840×2160 exports. Not verified campus or event photography."
+      }
+    }
+  ],
+  "writeResult": {
+    "exitCode": 0,
+    "exitReason": null,
+    "output": "id,name\n469,BBA in Artificial Intelligence (AI)\n470,BBA in Global Logistics\n471,BBA in Digital Marketing\n472,MBA / PGDM in International Supply Chain Management\n473,BBA in Logistics & Supply Chain Management\n474,MBA + PGPM in Global Logistics & Trade Compliance\n295,Creating Global Professionals\n",
+    "success": true
+  },
+  "originalDimensions": "1024×1024",
+  "exports": "3840×2160,1920×1080,960×540,480×270",
+  "qualityNote": "Generated photographs exported at 4K size through upscaling; not native 4K."
+}
