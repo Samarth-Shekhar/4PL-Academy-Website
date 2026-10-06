@@ -19,9 +19,9 @@ export function Ecosystem({ s }) {
   return (
     <>
     {stats.length > 0 && (
-      <div className="stat-strip" role="region" aria-label="Verified records on 4PL Academy">
+      <div className="stat-strip container-x pt-4" role="region" aria-label="Verified records on 4PL Academy">
         <dl className="container-x grid grid-cols-2 lg:grid-cols-none lg:grid-flow-col lg:auto-cols-fr">
-          {stats.map(([n, l]) => <div key={l} className="stat-cell"><dd className="font-display text-3xl font-extrabold text-surface sm:text-4xl">{n}</dd><dt className="mt-1 text-xs font-semibold text-surface/85 sm:text-sm">{l}</dt></div>)}
+          {stats.map(([n, l]) => <div key={l} className="stat-cell"><dd className="font-display text-3xl font-extrabold text-navy sm:text-5xl">{n}</dd><dt className="mt-1 text-xs font-semibold text-foreground/70 sm:text-sm">{l}</dt></div>)}
         </dl>
       </div>
     )}

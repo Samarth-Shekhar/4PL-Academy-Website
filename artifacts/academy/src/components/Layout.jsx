@@ -118,6 +118,11 @@ function Footer() {
   );
   return (
     <footer className="navy-surface on-navy mt-20">
+      <div className="container-x flex flex-wrap gap-5 pt-8 text-sm text-surface/75" aria-label="Policy and contact links">
+        <Link href="/privacy" className="hover:text-gold hover:underline">Privacy Policy</Link>
+        <Link href="/terms" className="hover:text-gold hover:underline">Terms and Conditions</Link>
+        <Link href="/contact" className="hover:text-gold hover:underline">Contact</Link>
+      </div>
       <div className="container-x py-14">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_2fr]">
           <div>
@@ -128,7 +133,7 @@ function Footer() {
           </div>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-3">
             {col('Learn', [{ href: '/programs/undergraduate', label: 'Undergraduate' }, { href: '/programs/postgraduate', label: 'Postgraduate' }, { href: '/compare', label: 'Compare Programs' }, { href: '/professional-courses', label: 'Professional Courses' }, { href: '/certifications', label: 'Certifications' }])}
-            {col('Discover', [{ href: '/universities', label: 'University Directory' }, { href: '/career-industry', label: 'Career & Industry' }, { href: '/student-life', label: 'Student Life' }, { href: '/blogs', label: 'Blogs' }])}
+            {col('Discover', [{ href: '/universities', label: 'University Directory' }, { href: '/career', label: 'Career & Industry' }, { href: '/student-life', label: 'Student Life' }, { href: '/blogs', label: 'Blogs' }])}
             {col('4PL Academy', [{ href: '/about', label: 'About' }, { href: '/for-universities', label: 'For Universities' }, { href: '/faq', label: 'FAQ' }, { href: '/contact', label: 'Contact' }, { href: '/apply', label: 'Apply' }, { href: '/book-counselling', label: 'Book Counselling' }])}
           </div>
         </div>

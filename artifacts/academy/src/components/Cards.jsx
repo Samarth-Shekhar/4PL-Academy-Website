@@ -112,16 +112,16 @@ export function CourseCard({ c }) {
 
 export function BlogCard({ b }) {
   return (
-    <Link href={`/blogs/${b.slug}`} className="card-s group flex h-full flex-col overflow-hidden transition hover:border-gold" data-testid={`card-blog-${b.id}`}>
-      <div className="h-44 overflow-hidden"><Cover src={b.image} label={b.category || 'Insights'} className="transition-transform duration-500 group-hover:scale-105" /></div>
-      <div className="flex flex-1 flex-col p-5">
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+    <Link href={`/blogs/${b.slug}`} className="story-card group flex h-full flex-col" data-testid={`card-blog-${b.id}`}>
+      <div className="aspect-[4/3] overflow-hidden rounded-2xl"><Cover src={b.image} label={b.category || 'Insights'} className="transition-transform duration-700 group-hover:scale-105" /></div>
+      <div className="flex flex-1 flex-col px-1 pb-1 pt-4">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
           {has(b.category) && <span className="chip chip-gold">{b.category}</span>}
-          <span className="flex items-center gap-1"><CalendarDays className="h-3.5 w-3.5" aria-hidden="true" />{fmtDate(b.publishedAt || b.createdAt)}</span>
+          {has(b.publishedAt) && <span className="flex items-center gap-1"><CalendarDays className="h-3.5 w-3.5" aria-hidden="true" />{fmtDate(b.publishedAt)}</span>}
         </div>
-        <h3 className="mt-3 text-xl leading-snug text-navy">{b.name}</h3>
+        <h3 className="mt-3 text-xl font-bold leading-snug text-navy group-hover:underline">{b.name}</h3>
         {has(b.shortDescription) && <p className="mt-2 line-clamp-3 text-sm text-foreground/75">{b.shortDescription}</p>}
-        <span className="mt-auto pt-4 text-sm font-semibold text-gold-deep">Read article</span>
+        <span className="mt-auto inline-flex items-center gap-1 pt-4 text-sm font-bold text-navy">Read article <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" /></span>
       </div>
     </Link>
   );

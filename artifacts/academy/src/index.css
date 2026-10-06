@@ -233,3 +233,27 @@
   .display-lg { font-weight: 800; letter-spacing: -.025em; }
   section .gold-rule { height: 4px; width: 3rem; }
 }
+
+/* ---- Editorial education system (Stuveda-inspired, 4PL navy/gold) ---- */
+@layer components {
+  body { background: hsl(40 33% 98%); }
+  .hero-card { margin: .75rem .75rem 0; border-radius: 1.75rem; }
+  @media (min-width: 640px) { .hero-card { margin: 1rem 1.25rem 0; border-radius: 2rem; } }
+  .stat-strip { background: transparent; color: inherit; border: 0; }
+  .stat-grid { background: hsl(var(--brand-mist)); border-radius: 1.5rem; overflow: hidden; }
+  .stat-cell { text-align: left; padding: 1.5rem 1.5rem; border-color: hsl(var(--brand-navy) / .1); }
+  .stat-cell dd, .stat-cell dt { color: inherit; }
+  .stat-cell dt { color: hsl(var(--brand-navy) / .7); }
+  .stat-cell dd { color: hsl(var(--brand-navy)); }
+  .page-hero::after { content: ''; position: absolute; right: -6rem; top: -6rem; width: 22rem; height: 22rem; border-radius: 999px; background: radial-gradient(circle, hsl(var(--brand-gold) / .28), transparent 65%); pointer-events: none; }
+  .story-card { transition: transform .3s; }
+  .story-card:hover { transform: translateY(-3px); }
+  .card-s { border-color: hsl(var(--brand-navy) / .08); border-radius: 1.25rem; }
+  .btn-navy { box-shadow: 0 10px 24px -14px hsl(var(--brand-navy) / .8); }
+  .section-soft { background: hsl(var(--brand-mist) / .7); border-radius: 2rem; }
+  .num-xl { font-family: var(--font-display); font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+  .pill-tab { display: inline-flex; align-items: center; min-height: 2.5rem; padding: .4rem 1rem; border-radius: 999px; font-size: .85rem; font-weight: 700; border: 1.5px solid hsl(var(--brand-navy) / .18); color: hsl(var(--brand-navy)); background: hsl(0 0% 100%); transition: background-color .2s, color .2s, border-color .2s; }
+  .pill-tab:hover { border-color: hsl(var(--brand-navy)); }
+  .pill-tab[aria-pressed="true"] { background: hsl(var(--brand-navy)); color: hsl(var(--brand-surface)); border-color: hsl(var(--brand-navy)); }
+  .story-body img { height: auto; width: 100%; border-radius: 1rem; }
+}

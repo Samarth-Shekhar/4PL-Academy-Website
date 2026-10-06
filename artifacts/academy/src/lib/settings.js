@@ -6,7 +6,7 @@ export function useContactSettings() {
   const list = Array.isArray(q.data) ? q.data : [];
   const offices = list.filter((s) => /contact/i.test(s.slug || '') && (has(s.email) || has(s.phone) || has(s.location)))
     .sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0))
-    .map((s) => ({ id: s.id, name: s.name, email: s.email, address: s.location, phones: String(s.phone || '').split(/[\/;,|]/).map((x) => x.trim()).filter((x) => /\d{6,}/.test(x)) }));
+    .map((s) => ({ id: s.id, name: s.name, email: s.email, address: s.location, website: s.websiteUrl || '', phones: String(s.phone || '').split(/[\/;,|]/).map((x) => x.trim()).filter((x) => /\d{6,}/.test(x)) }));
   const first = (k) => { for (const o of offices) { const v = k === 'phone' ? o.phones[0] : o[k]; if (has(v)) return v; } return ''; };
   return { isLoading: q.isLoading, isError: q.isError, offices, email: first('email'), phone: first('phone'), address: first('address') };
 }

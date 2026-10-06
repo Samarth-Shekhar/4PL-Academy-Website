@@ -3,12 +3,19 @@ import { Link } from 'wouter';
 import { X } from 'lucide-react';
 import { asset } from '@/lib/format';
 import { cn } from '@/lib/cn';
+import { useState, useEffect } from 'react';
+import { useIndiaOffice } from '@/components/OfficeLocationMap';
 
 export const W = 600; export const H = 640;
 export const project = (lat, lon) => ({ x: ((lon - 68) / 30) * W, y: ((38 - lat) / 32) * H });
 
 export function IndiaUniversityMap({ regions, selected, onSelect, activeUni, onUni, programsOf, partnerMode }) {
   const reduce = useReducedMotion();
+  const office = useIndiaOffice();
+  const [officeOpen, setOfficeOpen] = useState(false);
+  useEffect(() => { setOfficeOpen(false); }, [selected]);
+  useEffect(() => { if (activeUni) setOfficeOpen(false); }, [activeUni]);
+  const officePoint = office && Number.isFinite(office.latitude) && Number.isFinite(office.longitude) ? project(office.latitude, office.longitude) : null;
   const sel = regions.find((r) => r.key === selected);
   const au = activeUni && sel?.unis.find((u) => u.id === activeUni);
   const pop = au ? au.pt : null;
@@ -41,7 +48,28 @@ export function IndiaUniversityMap({ regions, selected, onSelect, activeUni, onU
             <circle cx={u.pt.x} cy={u.pt.y} r="18" fill="transparent" />
           </g>
         ))}
+        {officePoint && (
+          <g className="map-marker" role="button" tabIndex={0} aria-label="4PL Academy Noida office, approximate location. View contact information" aria-pressed={officeOpen}
+            onClick={() => { setOfficeOpen(v => !v); onUni(null); }}
+            onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOfficeOpen(v => !v); onUni(null); } }}>
+            <title>4PL Academy, Noida — approximate office area</title>
+            <line x1={officePoint.x} y1={officePoint.y} x2={officePoint.x + 48} y2={officePoint.y - 44} stroke="hsl(40 64% 50%)" strokeWidth="2" />
+            <circle cx={officePoint.x} cy={officePoint.y} r="4" fill="white" />
+            <path d={`M${officePoint.x + 48},${officePoint.y - 62} l18,18 l-18,18 l-18,-18 Z`} fill="hsl(40 64% 50%)" stroke="white" strokeWidth="2" />
+            <text x={officePoint.x + 48} y={officePoint.y - 40} textAnchor="middle" fill="hsl(221 76% 17%)" fontSize="10" fontWeight="800" pointerEvents="none">4PL</text>
+            <text x={officePoint.x + 48} y={officePoint.y - 69} textAnchor="middle" fill="white" fontSize="12" fontWeight="700" stroke="hsl(221 76% 17%)" strokeWidth="3" paintOrder="stroke" pointerEvents="none">4PL Academy · Noida</text>
+            <circle cx={officePoint.x + 48} cy={officePoint.y - 44} r="26" fill="transparent" />
+          </g>
+        )}
       </svg>
+      {officeOpen && office && (
+        <div className="absolute inset-x-2 bottom-2 z-20 rounded-xl bg-surface p-4 text-navy shadow-xl" role="region" aria-label="4PL Academy Noida office details">
+          <button type="button" onClick={() => setOfficeOpen(false)} className="absolute right-2 top-2 grid h-8 w-8 place-items-center" aria-label="Close office details"><X className="h-4 w-4" /></button>
+          <h4 className="pr-8 text-lg">4PL Academy</h4><p className="mt-1 whitespace-pre-line text-xs">{office.location}</p>
+          <p className="mt-2 text-xs text-muted-foreground">Approximate Sector-62 location, not a surveyed building pin.</p>
+          <Link href="/contact" className="btn btn-navy btn-sm mt-3">View Contact</Link>
+        </div>
+      )}
       {au && (
         <div className={cn('absolute inset-x-2 bottom-2 z-10 rounded-lg bg-surface p-4 text-navy shadow-xl sm:inset-x-auto sm:w-64 sm:-translate-x-1/2 sm:-translate-y-full')} style={{ ...(typeof window !== 'undefined' && window.innerWidth >= 640 ? { left: `${left}%`, top: `calc(${(pop.y / H) * 100}% - 14px)` } : {}) }} role="dialog" aria-label={au.name}>
           <button type="button" className="absolute right-1 top-1 grid h-8 w-8 place-items-center rounded text-navy hover:bg-mist" onClick={() => onUni(null)} aria-label="Close"><X className="h-4 w-4" /></button>

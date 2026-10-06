@@ -6,6 +6,7 @@ import { bySection, mediaUrl, saveData, useInView, useMatch, useMedia, useTabVis
 import { has } from '@/lib/format';
 import { cn } from '@/lib/cn';
 import { Cta } from './shared';
+import BlurText from '../reactbits/BlurText';
 
 const secs = (d) => { const n = parseInt(String(d || ''), 10); return Number.isFinite(n) && n > 2 ? Math.min(n, 14) : 9; };
 
@@ -35,7 +36,7 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
   const words = String(section?.name || fallbackTitle || '4PL Academy').split(/\s+/);
   const label = cur ? (cur.caption || cur.name) : '';
   return (
-    <section ref={wrap} className="navy-surface on-navy grain relative min-h-[34rem] sm:min-h-[36rem] lg:min-h-[40rem] overflow-hidden" aria-label="Featured programs in motion">
+    <section ref={wrap} className="hero-card navy-surface on-navy grain relative min-h-[34rem] sm:min-h-[36rem] lg:min-h-[40rem] overflow-hidden" aria-label="Featured programs in motion">
       <div className="absolute inset-0 -z-10 bg-navy" aria-hidden="true">
         <AnimatePresence initial={false}>
           {cur && (
@@ -58,7 +59,9 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
               </span>
             ))}
           </h1>
-          <motion.p initial={reduce || light ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-4 max-w-xl text-base leading-relaxed text-surface/85 sm:text-lg">{section?.shortDescription || fallbackBody}</motion.p>
+          {BlurText && !reduce && !light && has(section?.shortDescription || fallbackBody) && String(section?.shortDescription || fallbackBody).length < 220
+            ? <div className="mt-4 max-w-xl text-base leading-relaxed text-surface/85 sm:text-lg"><span className="sr-only">{section?.shortDescription || fallbackBody}</span><span aria-hidden="true"><BlurText text={String(section?.shortDescription || fallbackBody)} delay={40} animateBy="words" direction="top" className="flex-wrap" /></span></div>
+            : <motion.p initial={reduce || light ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="mt-4 max-w-xl text-base leading-relaxed text-surface/85 sm:text-lg">{section?.shortDescription || fallbackBody}</motion.p>}
           <motion.div initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             {(() => {
               const a = { label: section?.ctaLabel || (section ? '' : 'Explore programs'), url: section?.ctaUrl || '/programs', testid: 'link-hero-programs' };
@@ -80,9 +83,9 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
           <div className="mt-6 border-t border-surface/15 pt-3">
             <div className="flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-1.5" role="group" aria-label="Hero media controls">
-                <button type="button" className="grid h-8 w-8 place-items-center rounded-full border border-surface/40 text-surface hover:border-gold hover:text-gold disabled:opacity-40" onClick={() => go(-1)} disabled={n < 2} aria-label="Previous visual"><ChevronLeft className="h-5 w-5" /></button>
-                <button type="button" className="grid h-8 w-8 place-items-center rounded-full bg-gold text-navy disabled:opacity-40" onClick={() => setPlaying((p) => !p)} disabled={n < 1} aria-label={playing ? 'Pause motion' : 'Play motion'} aria-pressed={!playing} data-testid="button-hero-playpause">{playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}</button>
-                <button type="button" className="grid h-8 w-8 place-items-center rounded-full border border-surface/40 text-surface hover:border-gold hover:text-gold disabled:opacity-40" onClick={() => go(1)} disabled={n < 2} aria-label="Next visual"><ChevronRight className="h-5 w-5" /></button>
+                <button type="button" className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-surface/40 text-surface hover:border-gold hover:text-gold disabled:opacity-40" onClick={() => go(-1)} disabled={n < 2} aria-label="Previous visual"><ChevronLeft className="h-5 w-5" /></button>
+                <button type="button" className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-gold text-navy disabled:opacity-40" onClick={() => setPlaying((p) => !p)} disabled={n < 1} aria-label={playing ? 'Pause motion' : 'Play motion'} aria-pressed={!playing} data-testid="button-hero-playpause">{playing ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}</button>
+                <button type="button" className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-surface/40 text-surface hover:border-gold hover:text-gold disabled:opacity-40" onClick={() => go(1)} disabled={n < 2} aria-label="Next visual"><ChevronRight className="h-5 w-5" /></button>
               </div>
               <details className="min-w-0 flex-1 text-xs text-surface/70">
                 <summary className="min-h-8 cursor-pointer list-none leading-relaxed">

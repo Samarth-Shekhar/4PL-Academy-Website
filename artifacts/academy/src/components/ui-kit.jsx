@@ -45,7 +45,7 @@ export function SectionHead({ eyebrow, title, body, light, align = 'left', child
     <div className={cn('mb-8 sm:mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between', align === 'center' && 'items-center text-center sm:flex-col sm:items-center')}>
       <div className="max-w-2xl">
         {eyebrow && <p className={cn('eyebrow mb-3', light && 'eyebrow-light')}>{eyebrow}</p>}
-        <h2 className={cn('text-3xl leading-[1.1] sm:text-4xl lg:text-[2.75rem]', light ? 'text-surface' : 'text-navy')}>{title}</h2>
+        <h2 className={cn('text-3xl font-extrabold leading-[1.08] tracking-tight sm:text-4xl lg:text-5xl', light ? 'text-surface' : 'text-navy')}>{title}</h2>
         {body && <p className={cn('mt-4 text-base leading-relaxed sm:text-lg', light ? 'text-surface/75' : 'text-muted-foreground')}>{body}</p>}
       </div>
       {children}
@@ -54,17 +54,18 @@ export function SectionHead({ eyebrow, title, body, light, align = 'left', child
 }
 export function PageHero({ eyebrow, title, body, crumbs, children }) {
   return (
-    <header className="navy-surface on-navy">
-      <div className="container-x pb-10 pt-6 sm:pb-14 sm:pt-8">
-        {crumbs && <Breadcrumbs items={crumbs} light />}
-        <div className="mt-6 max-w-3xl">
-          {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
-          <h1 className="text-[2rem] leading-[1.08] sm:text-5xl">{title}</h1>
-          {body && <p className="mt-4 text-base leading-relaxed text-surface/75 sm:text-lg">{body}</p>}
-          {children}
+    <header className="px-3 pt-3 sm:px-5">
+      <div className="page-hero navy-surface on-navy relative overflow-hidden rounded-[1.75rem]">
+        <div className="container-x relative pb-10 pt-6 sm:pb-16 sm:pt-8">
+          {crumbs && <Breadcrumbs items={crumbs} light />}
+          <div className="mt-8 max-w-3xl">
+            {eyebrow && <p className="hero-pill mb-4">{eyebrow}</p>}
+            <h1 className="text-[2rem] font-extrabold leading-[1.06] tracking-tight sm:text-5xl lg:text-6xl">{title}</h1>
+            {body && <p className="mt-4 max-w-2xl text-base leading-relaxed text-surface/80 sm:text-lg">{body}</p>}
+            {children}
+          </div>
         </div>
       </div>
-      <div className="h-1 bg-gradient-to-r from-gold via-gold/40 to-transparent" />
     </header>
   );
 }

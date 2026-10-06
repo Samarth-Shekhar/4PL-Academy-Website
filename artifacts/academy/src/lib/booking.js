@@ -7,7 +7,7 @@ export function bookHref({ program, university, course, interestedIn } = {}) {
   const s = p.toString();
   return `/book-counselling${s ? `?${s}` : ''}`;
 }
-export const INTERESTS = ['Undergraduate program', 'Postgraduate program', 'Professional course', 'Certification', 'Not sure yet'];
+export const INTERESTS = ['Undergraduate program', 'Postgraduate program', 'Professional course', 'Certification', 'Career pathway', 'Not sure yet'];
 export const QUALIFICATIONS = ['10th pass', '12th pass', 'Diploma', 'Bachelor degree (pursuing)', 'Bachelor degree', 'Master degree', 'Working professional', 'Other'];
 
 const UTM_KEYS = ['utm_source','utm_medium','utm_campaign','utm_term','utm_content'];

@@ -2,12 +2,13 @@ import { db, contentTable } from '@workspace/db';
 import { eq, and } from 'drizzle-orm';
 import { siteUrl } from './config.js';
 const escape = value => String(value || '').replace(/[<>&"']/g, c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#39;'}[c]));
-const fixedRoutes = ['','programs','programs/undergraduate','programs/postgraduate','universities','professional-courses','professional-courses/short-term','professional-courses/long-term','certifications','about','career-industry','student-life','for-universities','blogs','faq','contact','apply','counselling'];
-const canonicalPath = pathname => pathname.replace(/^\/courses(?=\/|$)/,'/professional-courses').replace(/^\/blog(?=\/)/,'/blogs');
+const fixedRoutes = ['','programs','programs/undergraduate','programs/postgraduate','universities','professional-courses','professional-courses/short-term','professional-courses/long-term','certifications','about','career','student-life','for-universities','blogs','faq','contact','apply','book-counselling'];
+const canonicalPath = pathname => pathname.replace(/^\/courses(?=\/|$)/,'/professional-courses').replace(/^\/blog(?=\/)/,'/blogs').replace(/^\/career-industry\/?$/,'/career').replace(/^\/counselling\/?$/,'/book-counselling');
 export async function sitemap() {
   if (!siteUrl) return null;
   const rows = await db.select().from(contentTable).where(eq(contentTable.status,'published'));
   const dynamic = rows.filter(r=>['universities','programs','courses','blogs'].includes(r.kind)).map(r=>({path:`${r.kind==='courses'?'professional-courses':r.kind}/${r.slug}`,updated:r.updatedAt.toISOString()}));
+  dynamic.push(...rows.filter(r => r.kind === 'pages' && ['privacy','terms'].includes(r.slug)).map(r => ({ path: r.slug, updated: r.updatedAt.toISOString() })));
   return `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${[...fixedRoutes.map(path=>({path})),...dynamic].map(r=>`<url><loc>${escape(siteUrl+'/'+r.path)}</loc>${r.updated?`<lastmod>${r.updated}</lastmod>`:''}</url>`).join('')}</urlset>`;
 }
 export function robots() {
@@ -25,7 +26,7 @@ export async function renderMetadata(html, pathname) {
   if (parts[0] === 'admin') robotsTag = 'noindex, nofollow';
   const collection = parts[0] === 'professional-courses' ? 'courses' : parts[0];
   const kind = ['universities','programs','courses','blogs'].includes(collection) && parts[1] ? collection : 'pages';
-  const slug = kind === 'pages' ? (parts[0] || 'home') : parts[1];
+  const slug = kind === 'pages' ? (parts[0] === 'career' ? 'career-industry' : parts[0] || 'home') : parts[1];
   const [row] = await db.select().from(contentTable).where(and(eq(contentTable.slug,slug),eq(contentTable.kind,kind))).limit(1);
   if (row?.status === 'published' && row.kind === kind) {
     title = row.data.seoTitle || `${row.name} | 4PL Academy`;
@@ -47,6 +48,7 @@ export async function renderMetadata(html, pathname) {
     ogDescription=value.ogDescription||ogDescription;
     if(parts[0]!=='admin')robotsTag=value.robots||robotsTag;
   }
+  if (['privacy','terms'].includes(parts[0]) && row?.status !== 'published') robotsTag = 'noindex, follow';
   const structured = [];
   if (pathname === '/') structured.push({'@context':'https://schema.org','@type':'EducationalOrganization',name:'4PL Academy',description:'The learning arm of 4PL Consultancy Ltd.',...(siteUrl?{url:siteUrl}:{})});
   if (row?.status === 'published' && row.verified && ['programs','courses'].includes(row.kind)) structured.push({'@context':'https://schema.org','@type':'Course',name:row.name,description:row.data.shortDescription||row.data.description||'',provider:{'@type':'Organization',name:'4PL Academy'}});

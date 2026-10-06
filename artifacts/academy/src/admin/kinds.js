@@ -94,7 +94,7 @@ export const KINDS = {
   },
   settings: {
     label: 'Setting', plural: 'Site settings', descLabel: 'Value', slugHint: 'Setting key, for example contact-details or footer-note.',
-    groups: [['Contact values', [T('email', 'Email', { type: 'email' }), T('phone', 'Phone', { type: 'tel' }), T('location', 'Address'), T('websiteUrl', 'Website URL', { type: 'url' })]]],
+    groups: [['Contact values', [T('email', 'Email', { type: 'email' }), T('phone', 'Phone', { type: 'tel' }), T('location', 'Address'), T('websiteUrl', 'Website URL', { type: 'url' })]], ['Map location', [T('city', 'City'), T('state', 'State'), T('latitude', 'Approximate map latitude', { type: 'number', step: 'any' }), T('longitude', 'Approximate map longitude', { type: 'number', step: 'any' })]]],
     arrays: [['highlights', 'List values']], faqs: false,
   },
 };

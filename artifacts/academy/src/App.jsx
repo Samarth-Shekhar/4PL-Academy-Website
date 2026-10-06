@@ -13,6 +13,8 @@ import Courses from '@/pages/Courses';
 import NotFound from '@/pages/NotFound';
 import { ProgramDetail, UniversityDetail, CourseDetail } from '@/pages/Details';
 import Certifications from '@/pages/Certifications';
+import Career from '@/pages/Career';
+import Legal from '@/pages/Legal';
 import { KindPage, Blogs, BlogDetail, Faq, FormPage } from '@/pages/Content';
 
 const AdminLayout = lazy(() => import('@/admin/AdminLayout').then((m) => ({ default: m.AdminLayout })));
@@ -52,6 +54,7 @@ function AdminApp() {
       <Switch>
         <Route path="/admin/login"><Login /></Route>
         {ADMIN.map(([p, t, el]) => <Route key={p} path={`/admin/${p}`}><AdminLayout title={t}>{el()}</AdminLayout></Route>)}
+        <Route path="/admin/companies"><Redirect to="/admin/industry-companies" /></Route>
         <Route path="/admin"><Redirect to="/admin/dashboard" /></Route>
         <Route><NotFound /></Route>
       </Switch>
@@ -84,7 +87,10 @@ function PublicApp() {
         <Route path="/blog/:slug" component={BlogDetail} />
         <Route path="/book-counselling"><FormPage kind="book" /></Route>
         <Route path="/about"><KindPage slug="about" /></Route>
-        <Route path="/career-industry"><KindPage slug="career-industry" /></Route>
+        <Route path="/career" component={Career} />
+        <Route path="/career-industry" component={Career} />
+        <Route path="/privacy"><Legal slug="privacy" title="Privacy Policy" /></Route>
+        <Route path="/terms"><Legal slug="terms" title="Terms and Conditions" /></Route>
         <Route path="/student-life"><KindPage slug="student-life" /></Route>
         <Route path="/for-universities"><KindPage slug="for-universities" /></Route>
         <Route path="/blogs" component={Blogs} />
