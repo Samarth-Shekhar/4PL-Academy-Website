@@ -1,0 +1,1127 @@
+{
+  "sourceUrls": [
+    "https://4placademy.com/about-us.php",
+    "https://4placademy.com/undergradute-courses.php",
+    "https://4placademy.com/postgraduate-courses.php",
+    "https://4placademy.com/long-courses.php",
+    "https://4placademy.com/short-courses.php"
+  ],
+  "linkedCourseUrls": [
+    "https://4placademy.com/logistics-trade-compliance-courses.php",
+    "https://4placademy.com/trade-compliance-courses.php",
+    "https://4placademy.com/certified-tariff-classification-professional.php",
+    "https://4placademy.com/logistics-management-courses.php",
+    "https://4placademy.com/foundation-to-trade-compliance.php",
+    "https://4placademy.com/customs-valuation.php",
+    "https://4placademy.com/coo-fta.php",
+    "https://4placademy.com/foundation-course-in-global-logistics.php",
+    "https://4placademy.com/foundation-course-in-export-import-and-international-trade.php",
+    "https://4placademy.com/foundation-course-in-incoterms-2020.php",
+    "https://4placademy.com/foundation-course-in-letter-of-credit.php",
+    "https://4placademy.com/foundation-course-in-shipping-and-trade-documentation.php"
+  ],
+  "workbookFile": "University_College_Details_(Student_grad)_1791269323875.xlsx",
+  "workbookAlreadyMatched": true,
+  "plan": {
+    "checked": "2026-10-06",
+    "entries": [
+      {
+        "kind": "courses",
+        "name": "Master Course",
+        "slug": "master-course",
+        "verified": true,
+        "existingId": 130,
+        "expectedUpdatedAt": "2026-10-05T09:47:03.877+00:00",
+        "data": {
+          "description": "This is our best designed course which is the combination of both Trade Compliance Course and Logistics Management Course. This course has been designed for professionals who needs to learn most intense aspects of engaging in international trade and supply chain management. By end of this detailed course, you would be well versified with below topics.\n",
+          "shortDescription": "This is our best designed course which is the combination of both Trade Compliance Course and Logistics Management Course. This course has been designed for professionals who needs to learn most intense aspects of engaging in international trade and supply chain management. By end of this detailed course, you would be ",
+          "curriculum": [
+            "Trade Compliance: Factors influencing Global Trade",
+            "Trade Compliance: Political and economic agreements on trade",
+            "Trade Compliance: HTS, ECCN, Country of Origin, INCOTERMS",
+            "Trade Compliance: Free trade agreements, effective screening techniques",
+            "Trade Compliance: Duty assessments and valuation",
+            "Logistic Management: Overview of end to end shipping management",
+            "Logistic Management: Documentations, shipping terms, roles and responsibilities.",
+            "Logistic Management: Key concepts – transportation, freight forwarding, warehousing & inventory management",
+            "Logistic Management: Covid-19 and logistics",
+            "Logistic Management: End to end management"
+          ],
+          "source": "https://4placademy.com/logistics-trade-compliance-courses.php",
+          "feeNote": "Local taxes applicable. The professional-course price does not specify a currency on the source page; confirm currency and the final payable amount with 4PL Academy.",
+          "seoDescription": "This is our best designed course which is the combination of both Trade Compliance Course and Logistics Management Course. This course has been designed fo",
+          "eligibility": "Basics of logistics and supply chain managements; Basics of manufacturing and products.; Trade Knowledge.",
+          "certification": "Diploma in Master Course (Trade Compliance + Logistics Management) (source course title; external accreditation is not asserted)",
+          "fee": "80,000",
+          "hours": "70 hrs",
+          "duration": "70 hours of instruction"
+        }
+      },
+      {
+        "kind": "courses",
+        "name": "Trade Compliance",
+        "slug": "trade-compliance",
+        "verified": true,
+        "existingId": 131,
+        "expectedUpdatedAt": "2026-10-05T09:47:03.882+00:00",
+        "data": {
+          "description": "Trade compliance represents one of the most intense aspects of engaging in international trade, and failure to maintain it leads to multiple negative consequences of non-compliance. Those consequences can include hefty monetary fines, civil penalties, and seized shipments.\n\nEffective trade compliance ensures that goods are classified correctly, and the origin and valuation of goods are accurately declared according to the laws, sanctions, and regulations.\n\nYou must also ensure that the appropriate duties and taxes are paid. However, this is only a tiny part of the bigger picture.\n\nThe next time you ask yourself how vital trade compliance is, think about what would happen if your company could not ship any product to any foreign destination!\n\nAn effective trade compliance professional protects the company and country from any potential danger.\n\nThe Professional Diploma in International Trade Compliance aims to educate existing and aspiring international trade professionals around the world. We offer the most current and practical education and training on all aspects of international trade; compliance and regulations - taught by Trade compliance professional experts. Our training focuses on the practical side of business to ensure that our learners are adequately supported and skilled to kick start or enhance their career opportunities and growth.",
+          "shortDescription": "Trade compliance represents one of the most intense aspects of engaging in international trade, and failure to maintain it leads to multiple negative consequences of non-compliance. Those consequences can include hefty monetary fines, civil penalties, and seized shipments.",
+          "curriculum": [
+            "Classification and Tariffs",
+            "Export Classification",
+            "Origin of Goods",
+            "Free Trade Agreements",
+            "Prohibition, Restrictions and Sanctions",
+            "Incoterms",
+            "Customs for Business"
+          ],
+          "outcomes": [
+            "Understanding the concept of International Trade and Trade Compliance",
+            "Understanding all aspects of the classification of goods - application, validation and the use of online databases.",
+            "Sound technical knowledge of Exports and different Export regulatory agencies",
+            "Understanding on the origin of goods which determines their economic nationality",
+            "Identification and management of prohibitive and restricted goods, people and entity and keeping the safety and standards of WCO.",
+            "Key concepts – Free trade Agreement, Incoterms, Import/Export documentation",
+            "Recognize multiple ways to solve problems and embrace divergent thinking"
+          ],
+          "source": "https://4placademy.com/trade-compliance-courses.php",
+          "feeNote": "Local taxes applicable. The professional-course price does not specify a currency on the source page; confirm currency and the final payable amount with 4PL Academy.",
+          "seoDescription": "Trade compliance represents one of the most intense aspects of engaging in international trade, and failure to maintain it leads to multiple negative conse",
+          "certification": "Diploma in Trade Compliance (source course title; external accreditation is not asserted)",
+          "fee": "50,000",
+          "hours": "40 hrs",
+          "duration": "40 hours of instruction"
+        }
+      },
+      {
+        "kind": "courses",
+        "name": "CTCP",
+        "slug": "ctcp",
+        "verified": true,
+        "existingId": 132,
+        "expectedUpdatedAt": "2026-10-05T09:47:03.885+00:00",
+        "data": {
+          "description": "Classification of products plays a very pivotal role in the consideration of duties, restrictions and licensing which would initiate a successful import & export leading to conclusion of tariffs and compliant in terms of trade. Gaining expertise in the field has not been easy and takes consistent effort & resource over a period to achieve perfection leading to correct classification & performance improvement.\n\nTrade Compliance has become an important deliverable for any company involved in import-export as well as auxiliary firms. Diligently prepared course on the HTS classification covers major marketplaces, laying out rules and following the legal & compliant definitions for an accurate classification. It is a game changer and provides a competitive edge in terms of best practices.",
+          "shortDescription": "Classification of products plays a very pivotal role in the consideration of duties, restrictions and licensing which would initiate a successful import & export leading to conclusion of tariffs and compliant in terms of trade. Gaining expertise in the field has not been easy and takes consistent effort & resource over",
+          "curriculum": [
+            "Trade Compliance",
+            "Understanding Harmonized Tariffs",
+            "Harmonized Tariff Classification",
+            "Country of Origin",
+            "International Terms & Documentations"
+          ],
+          "outcomes": [
+            "Thorough session of trade and trade compliance",
+            "Understanding of tariff classification",
+            "HS Practice & implementation",
+            "Learning of marketplaces and duties.",
+            "Knowledge on Country of origin and its rules",
+            "Introduction to Denied Party Screening, Incoterms, and Documentations"
+          ],
+          "source": "https://4placademy.com/certified-tariff-classification-professional.php",
+          "feeNote": "Local taxes applicable. The professional-course price does not specify a currency on the source page; confirm currency and the final payable amount with 4PL Academy.",
+          "seoDescription": "Classification of products plays a very pivotal role in the consideration of duties, restrictions and licensing which would initiate a successful import & ",
+          "certification": "Diploma in CTCP (Certified Tariff Classification Professional) (source course title; external accreditation is not asserted)",
+          "fee": "50,000",
+          "hours": "32 hrs",
+          "duration": "32 hours of instruction"
+        }
+      },
+      {
+        "kind": "courses",
+        "name": "Logistics Management",
+        "slug": "logistics-management",
+        "verified": true,
+        "existingId": 133,
+        "expectedUpdatedAt": "2026-10-05T09:47:03.888+00:00",
+        "data": {
+          "description": "4PL Academy is a premier business and management training and consulting service provider. We cater to both individual and organisational clients from all over the world.\n\nLogistics being the backbone of any growth in the industry be it manufacturing, production, retail or service, so Supply chain management has to now be stronger to meet the increasing expectations of the customers/consumers, which are usually zero defects, faster delivery and at lower cost.\n\nOur course provides an in-depth knowledge on logistics operations, supply chain models, warehouse operations, and other mandatory requirements in Imports and Exports. The course is designed by renowned logistics professionals which ensures that our students are well equipped with knowledge to shoulder the responsibilities of a logistics professional.\n\nWe take the time to understand your goals, providing personalised and flexible learning solutions driven by passionate mentors and support teams. The faculty makes sure that the students are given the opportunity to improve their skills through real-time industry situations. This makes our certification unique and prestigious and enhances the employability of a candidate many folds and open career opportunities in a vast range of sectors like aviation, customer service, eCommerce, logistics, shipping and supply chain.",
+          "shortDescription": "4PL Academy is a premier business and management training and consulting service provider. We cater to both individual and organisational clients from all over the world.",
+          "curriculum": [
+            "Overview of Supply Chain and Logistics Management",
+            "Understanding International Trade and International Logistics",
+            "Key points in the import & export, shipping industry, warehousing, and their challenges",
+            "How shipping companies work, processing documentation, shipping terms, Customs procedures",
+            "Analyse various strategies adopted to manage shipping",
+            "Impact of globalization and liberalization",
+            "What are the innovations & trends in Logistics industry",
+            "What is the future"
+          ],
+          "outcomes": [
+            "Understanding the End-to-End Management of goods and services",
+            "Understanding roles, responsibilities, and various strategies in the Shipping world",
+            "Key concepts –Transportation, Types of Logistics, Freight forwarding, Reverse Logistics, Warehousing & Inventory management",
+            "Sound technical knowledge and practical exposure",
+            "Recognize multiple ways to solve problems and embrace divergent thinking",
+            "Better Job opportunities in supply chain and logistics"
+          ],
+          "source": "https://4placademy.com/logistics-management-courses.php",
+          "feeNote": "Local taxes applicable. The professional-course price does not specify a currency on the source page; confirm currency and the final payable amount with 4PL Academy.",
+          "seoDescription": "4PL Academy is a premier business and management training and consulting service provider. We cater to both individual and organisational clients from all ",
+          "eligibility": "Passion to learn; Basic understanding of Logistics; But don’t worry we will cover right from the scratch",
+          "certification": "Diploma in Logistics Management (source course title; external accreditation is not asserted)",
+          "careerPaths": [
+            "Career sectors described by the source: aviation, customer service, eCommerce, logistics, shipping and supply chain. These are areas to explore, not guaranteed jobs."
+          ],
+          "fee": "40,000",
+          "hours": "30 hrs",
+          "duration": "30 hours of instruction"
+        }
+      },
+      {
+        "kind": "courses",
+        "name": "Foundation To Trade Compliance",
+        "slug": "foundation-to-trade-compliance",
+        "verified": true,
+        "existingId": 122,
+        "expectedUpdatedAt": "2026-10-05T09:47:03.852+00:00",
+        "data": {
+          "description": "An array of regulations is being inculcated to run a harmonious, impeccable, and substantial trade environment that caters to the world's exhaustive demand and supply.\n\nSuccessful trade compliance ensures that classification, export control, agreements, country of origin, international trade terms, and documentation are aligned and exquisitely to have a smooth transition of goods.\n\nThe course aims to set up roots for the basis of Trade Compliance in a profound content that imparts essentiality of the process orientation and its significance in the space of regulations. The course includes topics with an introductory note on compliance, its significance, history, leading to participants involved, and the regulatory bodies that are principal to the functioning. It expands on the Harmonized Tariff System, Export administrative regulation, trade agreements & country of origin. The framework equips individuals to derive an understanding of trade and establish a foundation to tap career opportunities.",
+          "shortDescription": "An array of regulations is being inculcated to run a harmonious, impeccable, and substantial trade environment that caters to the world's exhaustive demand and supply.",
+          "curriculum": [
+            "Trade Compliance",
+            "Harmonized Tariffs",
+            "Export Control Classification",
+            "Trade Agreements",
+            "Country of Origin",
+            "International Terms & Documentations"
+          ],
+          "outcomes": [
+            "Thorough session of trade and trade compliance",
+            "Understanding of tariff classification",
+            "Explanation of Export control classification and determinants",
+            "Learning of Trade Agreements and its types",
+            "Knowledge of Country of origin and its rules",
+            "Introduction to Denied Party Screening, Incoterms, and Documentations"
+          ],
+          "source": "https://4placademy.com/foundation-to-trade-compliance.php",
+          "feeNote": "Local taxes applicable. The professional-course price does not specify a currency on the source page; confirm currency and the final payable amount with 4PL Academy.",
+          "seoDescription": "An array of regulations is being inculcated to run a harmonious, impeccable, and substantial trade environment that caters to the world's exhaustive demand",
+          "fee": "16,000",
+          "hours": "16 hrs",
+          "duration": "16 hours of instruction"
+        }
+      },
+      {
+        "kind": "courses",
+        "name": "Customs Valuation",
+        "slug": "customs-valuation",
+        "verified": true,
+        "existingId": 123,
+        "expectedUpdatedAt": "2026-10-05T09:47:03.855+00:00",
+        "data": {
+          "description": "Universally accepted valuation is widely known and followed as its incremental to the flow of trade and takes into consideration several indexes such as market, competition, development, and fair market neutrality.\n\nPrice determination is an expansive factor while launching up a product in the market which are depended on various variable factors such as Demand, supply, lifecycle, marketing, cost inculcated, market scenarios and competitiveness although not limited to. Valuation of the specific price on which duty will be availed is a more complex and intricate process leading to significant efforts of discussions among trading nations to derive a conclusion. The course aims to highlight the methods used in progressing goods cost with additional variables to reach an appropriate and universally accepted computation.",
+          "shortDescription": "Universally accepted valuation is widely known and followed as its incremental to the flow of trade and takes into consideration several indexes such as market, competition, development, and fair market neutrality.",
+          "curriculum": [
+            "Customs Valuation",
+            "Country of Origin",
+            "Harmonized Schedule",
+            "Methods of Valuation"
+          ],
+          "outcomes": [
+            "Explanation on customs valuation",
+            "Importance of country of origin, harmonized tariff in valuation",
+            "Description on methods of valuation",
+            "Detailed elaboration of various methods with illustration"
+          ],
+          "source": "https://4placademy.com/customs-valuation.php",
+          "feeNote": "Local taxes applicable. The professional-course price does not specify a currency on the source page; confirm currency and the final payable amount with 4PL Academy.",
+          "seoDescription": "Universally accepted valuation is widely known and followed as its incremental to the flow of trade and takes into consideration several indexes such as ma",
+          "fee": "6,000",
+          "hours": "6 hrs",
+          "duration": "6 hours of instruction"
+        }
+      },
+      {
+        "kind": "courses",
+        "name": "COO & FTA",
+        "slug": "coo-fta",
+        "verified": true,
+        "existingId": 124,
+        "expectedUpdatedAt": "2026-10-05T09:47:03.858+00:00",
+        "data": {
+          "description": "Application of trade policies, measures & regulations are pivotal part of a pact, group and an agreement brought into place for establishment of transitioning activities.\n\nProduct orientation becomes a vital scenario when considering tariff calculation which is inclusive of auxiliary costs creating a value addition and change in the valuation which could inadvertently lead to different computation.\n\nThe course is perfectly placed to give a summarisation of relative origin determination and agreements in place in order to have a fair valuation and consideration of all the applicable variable factors.",
+          "shortDescription": "Application of trade policies, measures & regulations are pivotal part of a pact, group and an agreement brought into place for establishment of transitioning activities.",
+          "curriculum": [
+            "Country of Origin",
+            "Detrimental factors in origin",
+            "Types of Origins",
+            "Trade Agreements",
+            "Types of Trade Agreements",
+            "International Terms & Documentations"
+          ],
+          "outcomes": [
+            "Significance of country of origin",
+            "Variables in determining COO.",
+            "Trade Agreements, applicability, and usage.",
+            "Discussion on contemporary examples of trade agreement.",
+            "Introduction to Denied Party Screening, Incoterms, and Documentations"
+          ],
+          "source": "https://4placademy.com/coo-fta.php",
+          "feeNote": "Local taxes applicable. The professional-course price does not specify a currency on the source page; confirm currency and the final payable amount with 4PL Academy.",
+          "seoDescription": "Application of trade policies, measures & regulations are pivotal part of a pact, group and an agreement brought into place for establishment of transition",
+          "fee": "8,000",
+          "hours": "8 hrs",
+          "duration": "8 hours of instruction"
+        }
+      },
+      {
+        "kind": "courses",
+        "name": "Foundation Course in Global Logistics",
+        "slug": "foundation-course-in-global-logistics",
+        "verified": true,
+        "existingId": 125,
+        "expectedUpdatedAt": "2026-10-05T09:47:03.861+00:00",
+        "data": {
+          "description": "The Foundation course in Global Logistics aims to equip students with the fundamentals of Logistics. This course is for the ones who are new to the logistics industry or have basic knowledge or aspire to work in Logistics, Warehousing, Inventory management, Transportation & operations.\nThe logistics and supply chain aspects are vital for any business in terms of supply of quality raw materials, efficient manufacturing process, as well as tracking, transport and storage of the finished goods. Companies implementing well-designed supply chain practices can meet consumer needs in a more swift and timely manner.\nThe course will take students through a range of logistics functions to help them understand the concept better.\nThe course includes introduction to various logistics concepts, how to manage transportation, inventory, warehousing.\nThis course also touches on the concept of reverse logistics, further it also highlights current scenarios in the global industry accompanied with major trends in logistics.\nThe training focuses on the concept that learners are adequately supported and skilled to start and maximize their career opportunities in logistics sectors.\n\n## What makes this course different\n\nThis course will prove to be a boon to you and help you boost your logistics management knowledge. It is a base for enhancing and becoming a certified Logistics Specialist which can lead you to multiple job opportunities in fields of Warehousing, Transportation, Distribution, Inventory Management.",
+          "shortDescription": "The Foundation course in Global Logistics aims to equip students with the fundamentals of Logistics. This course is for the ones who are new to the logistics industry or have basic knowledge or aspire to work in Logistics, Warehousing, Inventory management, Transportation & operations.\nThe logistics and supply chain as",
+          "curriculum": [
+            "Overview, definitions, functions, and objectives of Logistics",
+            "7 Rights of Logistics, 5 Ps of Logistics",
+            "Transportation, Modes & Selection criteria’s",
+            "Characteristics and highlights of each transport mode",
+            "Advantages and disadvantages of Air, Water, Rail, Road modes of transport",
+            "Challenges in Transport logistics, concept of consolidation and economies of scale,",
+            "Benefits of Transport Management System (TMS) and how it works.",
+            "Warehouse Management, Types, Process, Design and Storage system",
+            "Technology and Trends in warehouse management systems (WMS) and how it works.",
+            "Inventory Management, Types, planning, distribution, concepts",
+            "Cost associated with Inventory, inventory planning. distribution patterns, concepts, Audits, Trends, and technology in Inventory Management systems (IMS) and how it works.",
+            "Overview of Reverse Logistics and its importance",
+            "Reasons for returns, 5 Rs of reverse logistics, Future of Reverse logistics",
+            "Best practices and how to determine the right logistics model."
+          ],
+          "highlights": [
+            "Overview, Definitions, Functions, and objectives of Global Logistics",
+            "Transportation, Modes & Selection criteria’s, TMS",
+            "Warehouse Management, Types, Process, Design and Storage system, WMS",
+            "Inventory Management, Types, planning, distribution, concepts, IMS",
+            "Overview of Reverse Logistics and its importance",
+            "E-Business, AI in logistics, Robotics, challenges & latest trends in E-Logistics."
+          ],
+          "source": "https://4placademy.com/foundation-course-in-global-logistics.php",
+          "feeNote": "Local taxes applicable. The professional-course price does not specify a currency on the source page; confirm currency and the final payable amount with 4PL Academy.",
+          "seoDescription": "The Foundation course in Global Logistics aims to equip students with the fundamentals of Logistics. This course is for the ones who are new to the logisti",
+          "targetAudience": "This is necessary course for beginners and intermediate students/professionals in logistics, supply chain and operations management who want to improve and broaden their scope of knowledge on the subject.\n\nAnyone interested in learning about the latest practices in Global Logistics operations.\n\nSuitable for all types of businesses, students and everyone interested in logistics operations.",
+          "fee": "10,000",
+          "hours": "10 hrs",
+          "duration": "10 hours of instruction"
+        }
+      },
+      {
+        "kind": "courses",
+        "name": "Foundation Course in Export Import & International Trade",
+        "slug": "foundation-course-in-export-import-international-trade",
+        "verified": true,
+        "existingId": 126,
+        "expectedUpdatedAt": "2026-10-05T09:47:03.864+00:00",
+        "data": {
+          "description": "The Foundation course in Export Import and International trade aims to equip students with the fundamentals of Exports and Imports in International Trade.\nThis course is for the ones who are working in or aspire to work in Logistics Supply Chain, Export and Import part of international trade industry, freight forwarding, & operations.\nThe course will take students through a range of international logistics functions to help them understand the concept better with the fundamentals of international trade, the modes of getting into international trade with emphasis on Export Import, its advantages, and disadvantages.\nThis course explains the step-by-step procedure to do an international trade, it could be export or import or buy from one country and sell in another country. All the process has been explained with the right examples. The opportunities and challenges are well explained.\nOur training focuses on the practical side of business to ensure that our learners are adequately supported and skilled to maximize their career opportunities in international trade.\nBy the end of the course the learner will have a complete understanding of International Business and its relevance to international business Logistics Management, from a day-to-day operational point of view.\n\n## What makes this course different\n\nIt is a transformative journey into the heart of international trade, where you'll gain the expertise needed to navigate and excel in the complex world of exports and imports.\n\nThe course embarks on a journey that equips you with the knowledge, insights, and strategies to excel in the world of international trade. With guidance, real-world applications, and a dedication to your success, you will be ready to unlock global opportunities and build lasting business relationships.\n\nWhether you are an aspiring exporter, a seasoned professional, or an international business enthusiast, this course empowers you with the knowledge and skills to thrive in global trade.\n\nReady to simplify export operations, reduce risks, and boost your trade ventures.",
+          "shortDescription": "The Foundation course in Export Import and International trade aims to equip students with the fundamentals of Exports and Imports in International Trade.\nThis course is for the ones who are working in or aspire to work in Logistics Supply Chain, Export and Import part of international trade industry, freight forwardin",
+          "curriculum": [
+            "Overview, Functions, and objectives of International Trade",
+            "Fundamentals of International trade",
+            "Modes of entering international trade",
+            "How to trade in an International Market.",
+            "How to overcome the operational challenges in International Trade.",
+            "International trade agreements and its importance in international trade",
+            "Advantages & disadvantages, challenges in international trade",
+            "Importance of Export Imports in arriving at a country GDP",
+            "How to Export/Import your products to other countries.",
+            "Update on the top twenty importing and exporting countries.",
+            "International Trade Agreements and its objectives",
+            "Export and Imports importance on country’s GDP",
+            "Ascertaining Trade surplus and deficit.",
+            "Pros and cons of imports & exports on a country’s economy"
+          ],
+          "highlights": [
+            "Overview, Functions, and objectives of International Trade",
+            "Fundamentals of International trade",
+            "Modes of entering international trade",
+            "Import & Export objectives.",
+            "Advantages and significance of Exports",
+            "Update on the top twenty importing and exporting countries.",
+            "International Trade Agreements and its objectives",
+            "Export and Imports importance on country’s GDP",
+            "Ascertaining Trade surplus and deficit."
+          ],
+          "source": "https://4placademy.com/foundation-course-in-export-import-and-international-trade.php",
+          "feeNote": "Local taxes applicable. The professional-course price does not specify a currency on the source page; confirm currency and the final payable amount with 4PL Academy.",
+          "seoDescription": "The Foundation course in Export Import and International trade aims to equip students with the fundamentals of Exports and Imports in International Trade.\n",
+          "targetAudience": "This is necessary course for beginners and intermediate students/professionals in logistics, supply chain and operations management who want to improve and broaden their scope of knowledge on export imports in international trade.\n\nWhether you are an aspiring exporter, a seasoned professional, or an international business enthusiast, this course empowers you with the knowledge and skills to thrive in global trade.\n\nExporters and Importers, Individuals or professionals involved in exporting or importing goods, who want to gain a comprehensive understanding of export and import procedures to ensure compliance and efficiency in their operations.\n\nOwners or employees of SMEs engaged in international trade, looking to enhance their knowledge and skills in export and import procedures to expand their business globally.\n\nProfessionals working in logistics, freight forwarding, or supply chain management, who want to deepen their understanding of international trade to improve the flow of goods across borders and optimize supply chain operations.\n\nInternational Trade Consultants or advisors specializing in international trade, who wish to broaden their expertise and offer comprehensive guidance to their clients on export documentation and procedures.\n\nCustoms Brokers and Compliance Professionals involved in customs brokerage or compliance roles, who need to have an understanding of export and import requirements and procedures to facilitate smooth customs clearance processes.\n\nEntrepreneurial Professionals or Individuals aspiring to start their own export-oriented business or those interested in working in the international trade industry, who want to build a solid foundation in international trade.\n\nStudents and Academic Students pursuing degrees or courses in international trade, logistics, or related fields, who want to supplement their theoretical knowledge with practical insights into export and import procedures.\n\nIt is important to note that the course can cater to individuals with varying levels of expertise, from beginners to those with some prior knowledge of international business.\n\nSuitable for all types of businesses, Freight Forwarders, Logistics service providers, students and everyone interested in international trade.\n\nAnyone who is interested in starting an export business and improving international business skills.",
+          "fee": "4,000",
+          "hours": "4 hrs",
+          "duration": "4 hours of instruction"
+        }
+      },
+      {
+        "kind": "courses",
+        "name": "Foundation Course in Incoterms 2020",
+        "slug": "foundation-course-in-incoterms-2020",
+        "verified": true,
+        "existingId": 127,
+        "expectedUpdatedAt": "2026-10-05T09:47:03.867+00:00",
+        "data": {
+          "description": "This foundation course takes you through the concepts of International commercial terms, emphasizing the existing eleven types of International Commercial Terms – Incoterms 2020it includes the use of each incoterm in different modes of transport, its suitable for all to have a clear understanding of the procedures required to ensure to apply the appropriate Incoterm.\nIncoterms are widely used but often misunderstood within international trade. They can impact on several areas of a business including sales, accounts, shipping, operations, compliance, and customer service. If used correctly, they can help you to avoid uncertainty, minimize delays and facilitate smooth operations, transport, and payment.\nAn introduction to Incoterms and their importance to international trade. Understand the history and purpose of Incoterms, how they are used, the practical issues to be considered, as well as practical topics such why EXW is not suitable for international trade.\nAn understanding of Incoterms is fundamental to international trade. Our training focuses on our learners are adequately supported and skilled to have a clear understanding of the procedures required to ensure to apply the appropriate Incoterm in international trade.\nThe problem with international trade contracts is that they end up having different meanings in different countries with respect to obligation of the seller and the buyer in the form of unanticipated disputes occur, the parties get stuck, to help avoid misunderstanding between the parties to these contracts as well as promote uniformity in law, the International Chamber of Commerce (ICC) has published INCOTERMS.\nContracts for the international sale of goods should indicate the terms of sale, preferable with one of the 11 incoterms.\n\n## What makes this course different\n\nThis course provides a comprehensive understanding of the INCOTERMS 2020 rules, which are internationally recognized terms used in international trade contracts. The course focuses on the assessment test and certification of participants, ensuring they have a thorough knowledge of the INCOTERMS 2020 rules and their application in real-world scenarios.\n\nThroughout the course, participants will learn about the various terms and conditions that govern the responsibilities and obligations of buyers and sellers in international trade. They will gain an in-depth understanding of the latest changes and updates introduced in the INCOTERMS 2020 edition.\n\nThe course is designed to equip learners with the necessary skills to effectively apply the INCOTERMS 2020 rules in their daily business operations. Learners will have the opportunity to enhance their knowledge through practical exercises, case studies, and interactive discussions.",
+          "shortDescription": "This foundation course takes you through the concepts of International commercial terms, emphasizing the existing eleven types of International Commercial Terms – Incoterms 2020it includes the use of each incoterm in different modes of transport, its suitable for all to have a clear understanding of the procedures requ",
+          "curriculum": [
+            "What international commercial terms are",
+            "Why incoterms?",
+            "What incoterms rules don’t do?",
+            "How to you use incoterms rules",
+            "Duties of the parties involved.",
+            "Application of the existing eleven incoterms under Incoterm – 2020",
+            "Objectives and importance of each individual Incoterm",
+            "Obligations of buyer and seller under each Incoterm",
+            "Interpretation with the ready reckoner reference table",
+            "Learn about the roles and responsibilities of different parties involved in the export process, including exporters, freight forwarders, customs brokers."
+          ],
+          "outcomes": [
+            "Understand the purpose and significance of the INCOTERMS 2020 rules.",
+            "Identify and apply the appropriate INCOTERMS rule for specific trade transactions.",
+            "Interpret the rights, obligations, and liabilities of buyers and sellers under each INCOTERMS rule.",
+            "Analyse real-world scenarios to determine the most suitable INCOTERMS rule.",
+            "Mitigate risks and avoid disputes through proper utilization of the INCOTERMS 2020 rules."
+          ],
+          "highlights": [
+            "History and definition of International Commercial Terms – Incoterms – 2020",
+            "What international commercial terms are",
+            "Why incoterms?",
+            "What incoterms rules don’t do?",
+            "How to you use incoterms rules",
+            "Duties of the parties involved.",
+            "Application of the existing eleven incoterms under Incoterm – 2020",
+            "Objectives and importance of each individual Incoterm",
+            "Obligations of buyer and seller under each Incoterm",
+            "Interpretation with the ready reckoner reference table"
+          ],
+          "source": "https://4placademy.com/foundation-course-in-incoterms-2020.php",
+          "feeNote": "Local taxes applicable. The professional-course price does not specify a currency on the source page; confirm currency and the final payable amount with 4PL Academy.",
+          "seoDescription": "This foundation course takes you through the concepts of International commercial terms, emphasizing the existing eleven types of International Commercial ",
+          "targetAudience": "Importers and exporters involved in international trade.\n\nAcademic Students pursuing degrees or courses in international trade, logistics, or related fields, who want to supplement their theoretical knowledge with practical insights into export and import procedures in international trade.\n\nEntrepreneurial Professionals or Individuals aspiring to start their own export-oriented business or those interested in working in the international trade industry, who want to build a strong foundation in international trade.\n\nSuitable for all types of businesses, Freight Forwarders, Logistics service providers, students and everyone interested in international trade.\n\nAnyone who is interested in starting an export business and improving international business skills.\n\nTrade finance and international salesperson",
+          "fee": "3,000",
+          "hours": "3 hrs",
+          "duration": "3 hours of instruction"
+        }
+      },
+      {
+        "kind": "courses",
+        "name": "Foundation Course in Letter of Credit",
+        "slug": "foundation-course-in-letter-of-credit",
+        "verified": true,
+        "existingId": 128,
+        "expectedUpdatedAt": "2026-10-05T09:47:03.871+00:00",
+        "data": {
+          "description": "The Foundation course in international payment term (LC) Letter of Credit aims to equip students with the fundamentals of payment terms in International Trade.\nThis course is for the ones who are working in or aspire to work in Export Import, Logistics, Supply Chain, Export and Import part of Supply Chain industry, freight forwarding, &operations.\nThe course will take students through a range of processes involved in letter of credit and to help them understand the concept better.\nOur training ensures that our learners are adequately supported and skilled to maximize their career opportunities and growth in related logistics functions.\nDifferent methods of receiving international payments in exports.\nRole of international banks in international trade financing and documentary credit\nTypes of International Letter of credit\nPrecautions to be taken by the beneficiary before accepting a letter of credit.\nCommon discrepancies in LC documentation presentations.\n\n## What makes this course different\n\nComprehensive journey through the intricate world of trade finance. \"Letter of Credit, \" is your gateway to mastering the art of documentary credit by banks, understanding, and navigating the complexities of Types of LCs, Discrepancies, Frauds, Precautions, and Online processes.\n\nGain a profound understanding of what LCs are and how they work.\n\nTypes of LCs Explored: Explore the diverse range of LC types, from Revocable to Confirmed, and more.\n\nPreventing Discrepancies and Frauds by equipping yourself with the knowledge to safeguard your transactions.\n\nLearn the essential precautions to ensure seamless LC processes with the process representation.",
+          "shortDescription": "The Foundation course in international payment term (LC) Letter of Credit aims to equip students with the fundamentals of payment terms in International Trade.\nThis course is for the ones who are working in or aspire to work in Export Import, Logistics, Supply Chain, Export and Import part of Supply Chain industry, fre",
+          "curriculum": [
+            "Letter of credit and its importance",
+            "Parties involved in a letter of credit.",
+            "Process flow of Letter of credit",
+            "Types of Letters of credit",
+            "Beginner's concepts on how does a traditional overseas letter of credit work",
+            "What are the typical parties and banks in a simple letter of credit cycle?",
+            "What are the different types of letters of credit?",
+            "What is the basic framework of a typical export’s transaction involving a letter of credit?",
+            "What are the different costs and fees associated with letter of credit and who pays what part."
+          ],
+          "highlights": [
+            "Letter of credit and its importance",
+            "Parties involved in a letter of credit.",
+            "Process flow of Letter of credit",
+            "Types of Letters of credit",
+            "Beginner's concepts on how does a traditional overseas letter of credit work",
+            "What are the typical parties and banks in a simple letter of credit cycle?",
+            "What are the different types of letters of credit?",
+            "What is the basic framework of a typical export’s transaction involving a letter of credit?",
+            "What are the different costs and fees associated with letter of credit and who pays what part."
+          ],
+          "source": "https://4placademy.com/foundation-course-in-letter-of-credit.php",
+          "feeNote": "Local taxes applicable. The professional-course price does not specify a currency on the source page; confirm currency and the final payable amount with 4PL Academy.",
+          "seoDescription": "The Foundation course in international payment term (LC) Letter of Credit aims to equip students with the fundamentals of payment terms in International Tr",
+          "targetAudience": "Exporters and importers who want to refresh and update their complete knowledge about LCs.\n\nStudents looking for careers in global business.\n\nInternational banks professionals or bank job seekers\n\nWorking professionals in international trading companies\n\nSenior managers managing global operations.\n\nExporters and importers\n\nWorking executives in exports, imports, letter of credit, international payments roles\n\nAnyone interested in understanding the role of documentary credit.",
+          "fee": "3,000",
+          "hours": "3 hrs",
+          "duration": "3 hours of instruction"
+        }
+      },
+      {
+        "kind": "courses",
+        "name": "Foundation Course in Shipping & Trade Documentation",
+        "slug": "foundation-course-in-shipping-trade-documentation",
+        "verified": true,
+        "existingId": 129,
+        "expectedUpdatedAt": "2026-10-05T09:47:03.874+00:00",
+        "data": {
+          "description": "The Foundation course in documentation course aims to equip students with the fundamentals of documentation in International Trade.\nThis course is for the ones who are working in or aspire to work in Logistics, Export and Import, freight forwarding, & operations.\nFamiliarize yourself with the importance of accurate and complete documentation to ensure compliance with international trade regulations and minimize the risk.\nUnderstand the fundamental concepts of export documentation and procedures, regardless of the country of origin.\nLearn about the various types of export documentation required for international trade, including commercial invoices, packing lists, and certificates of origin.\nGain knowledge of the specific documentation requirements for different modes of transportation, such as air, sea, and land shipments.\nDevelop the skills to accurately complete export-related documents, such as bills of lading, certificates of insurance, export packing declarations.\nDevelop an awareness of the potential challenges, risks, and solutions related to export documentation, such as document discrepancies, non-compliance issues.\n\n## What makes this course different\n\nAll Export Documentation & Procedures is your definitive guide to unlocking the secrets of successful exporting through comprehensive documentation, procedural finesse.\n\nThis course aims to equip students with the fundamental skills and knowledge to prepare and process the documents required for exporting goods overseas. It is fully supported with user-friendly and up-to-date notes (including copies of completed documents) to ensure the skills learned can be used effectively back in the workplace.\n\nDuring the process they will understand the documents required for international shipments and transportation and where to go for further help introducing to the Chamber of commerce and its importance.\n\nIt is important to note that while the course is designed to accommodate learners with a basic understanding of export documentation, our training focuses on our learners are adequately supported and skilled to maximize their career opportunities and growth in logistics related functions.",
+          "shortDescription": "The Foundation course in documentation course aims to equip students with the fundamentals of documentation in International Trade.\nThis course is for the ones who are working in or aspire to work in Logistics, Export and Import, freight forwarding, & operations.\nFamiliarize yourself with the importance of accurate and",
+          "curriculum": [
+            "Importance of accurate and timely exports documentation and procedures.",
+            "Understanding the typical usage of each document within its framework",
+            "Types of documents used in international trade.",
+            "Potential challenges, risks, and solutions related to export documentation, such as document discrepancies, non-compliance issues.",
+            "Importance of accurate and complete documentation to ensure compliance with international trade regulations and minimize the risk.",
+            "Introduction, definition, and history to Chamber of Commerce",
+            "Types of chambers of commerce",
+            "Highlights, advantages, and objectives of chamber of commerce"
+          ],
+          "highlights": [
+            "Overview and importance of documentation",
+            "Documentation and its implications",
+            "Types of documents used in international trade.",
+            "Potential challenges, risks, and solutions related to export documentation, such as document discrepancies, non-compliance issues.",
+            "Importance of accurate and complete documentation to ensure compliance with international trade regulations and minimize the risk.",
+            "Introduction to Chamber of Commerce",
+            "Types of chambers of commerce",
+            "Highlights, advantages, and objectives of chamber of commerce."
+          ],
+          "source": "https://4placademy.com/foundation-course-in-shipping-and-trade-documentation.php",
+          "feeNote": "Local taxes applicable. The professional-course price does not specify a currency on the source page; confirm currency and the final payable amount with 4PL Academy.",
+          "seoDescription": "The Foundation course in documentation course aims to equip students with the fundamentals of documentation in International Trade.\nThis course is for the ",
+          "targetAudience": "Whether you are an aspiring exporter, a seasoned professional, or an international business enthusiast, this course empowers you with the knowledge and skills to thrive in global trade documentation.\n\nExporters and Importers, Individuals or professionals involved in exporting or importing goods, who want to gain a comprehensive understanding of export documentation and procedures to ensure compliance and efficiency in their operations.\n\nOwners or employees of SMEs engaged in international trade, looking to enhance their knowledge and skills in export documentation and procedures to expand their business globally.\n\nProfessionals working in logistics, freight forwarding, or supply chain management, who want to deepen their understanding of export documentation to improve the flow of goods across borders and optimize supply chain operations.\n\nTrade Consultants or advisors specializing in international trade, who wish to broaden their expertise and offer comprehensive guidance to their clients on export documentation and procedures.\n\nCustoms Brokers and Compliance Professionals involved in customs brokerage or compliance roles, who need to have a solid understanding of export documentation requirements and procedures to facilitate smooth customs clearance processes.\n\nIndividuals aspiring to start their own export-oriented business or those interested in working in the international trade industry, who want to build a solid foundation in export documentation and procedures.\n\nStudents pursuing degrees or courses in international trade, logistics, or related fields, who want to supplement their theoretical knowledge with practical insights into export documentation and procedures.\n\nIt is important to note that the course can cater to individuals with varying levels of expertise, from beginners to those with some prior knowledge of export documentation.\n\nThe course can serve as a valuable resource for anyone seeking a comprehensive understanding of export documentation and procedures, regardless of their industry or profession.",
+          "fee": "3,000",
+          "hours": "3 hrs",
+          "duration": "3 hours of instruction"
+        }
+      },
+      {
+        "kind": "universities",
+        "name": "Sushant University",
+        "slug": "sushant-university",
+        "verified": true,
+        "location": "Gurugram",
+        "category": "Delhi NCR",
+        "featured": true,
+        "existingId": 58,
+        "expectedUpdatedAt": "2026-10-05T09:47:03.632+00:00",
+        "data": {
+          "source": "https://4placademy.com/undergradute-courses.php",
+          "description": "Sushant University is listed by 4PL Academy in Gurugram for the 2026-27 intake. The linked program pages show the source-published eligibility, duration, delivery mode and fees. Directory inclusion is not independent confirmation of a 4PL partnership.",
+          "shortDescription": "Source-published degree program listings in Gurugram for 2026-27.",
+          "image": "https://4placademy.com/assets/images/SU-thumbnail.jpg",
+          "logo": "https://4placademy.com/assets/images/SU-logo.png"
+        }
+      },
+      {
+        "kind": "programs",
+        "name": "BBA in Logistics & Supply Chain Management",
+        "slug": "sushant-university-bba-in-logistics-supply-chain-management",
+        "verified": true,
+        "location": "Gurugram",
+        "degree": "BBA",
+        "featured": true,
+        "universitySlug": "sushant-university",
+        "existingId": null,
+        "expectedUpdatedAt": null,
+        "data": {
+          "source": "https://4placademy.com/undergradute-courses.php",
+          "degreeLevel": "Undergraduate",
+          "specialization": "Logistics & Supply Chain Management",
+          "duration": "3 Years Full Time",
+          "mode": "On Campus",
+          "batch": "2026-27",
+          "eligibility": "10+2 from any stream with minimum 50% marks. Science, Commerce or Arts — all eligible.",
+          "fee": "₹7,95,800",
+          "highlights": [
+            "Industry-Aligned Curriculum",
+            "Practical Learning & Live Projects",
+            "Industrial Visits & Field Exposure",
+            "Internship Opportunities",
+            "Skill Development Workshops",
+            "Placement Assistance"
+          ],
+          "shortDescription": "BBA in Logistics & Supply Chain Management at Sushant University, Gurugram. 3 Years Full Time, on campus, 2026-27 intake.",
+          "description": "BBA in Logistics & Supply Chain Management is listed at Sushant University in Gurugram on the 4PL Academy undergraduate page for 2026-27. Its published highlights and entry requirements are shown below. Internship opportunities and placement assistance are support provisions, not guarantees of admission, employment or salary.",
+          "feeNote": "Total course fee published for 2026-27; checked 2026-10-06. Confirm the current fee, inclusions and availability with the admissions team.",
+          "projects": [
+            "Practical Learning & Live Projects"
+          ],
+          "internships": [
+            "Internship Opportunities"
+          ],
+          "industryExposure": [
+            "Industry-Aligned Curriculum",
+            "Industrial Visits & Field Exposure"
+          ],
+          "image": "https://4placademy.com/assets/images/SU-thumbnail.jpg",
+          "applicationUrl": "https://bit.ly/489bY3k",
+          "seoDescription": "BBA in Logistics & Supply Chain Management at Sushant University: published eligibility, fees, duration and 2026-27 intake information."
+        }
+      },
+      {
+        "kind": "universities",
+        "name": "Vivekananda Global University",
+        "slug": "vivekananda-global-university",
+        "verified": true,
+        "location": "Jaipur",
+        "category": "Rajasthan",
+        "featured": true,
+        "existingId": null,
+        "expectedUpdatedAt": null,
+        "data": {
+          "city": "Jaipur",
+          "country": "India",
+          "source": "https://4placademy.com/undergradute-courses.php",
+          "region": "Rajasthan",
+          "partnershipVerified": false,
+          "coordinateAccuracy": "unlocated",
+          "description": "Vivekananda Global University is listed by 4PL Academy in Jaipur for the 2026-27 intake. The linked program pages show the source-published eligibility, duration, delivery mode and fees. Directory inclusion is not independent confirmation of a 4PL partnership.",
+          "shortDescription": "Source-published degree program listings in Jaipur for 2026-27.",
+          "image": "https://4placademy.com/assets/images/VGU-thumbnail.jpg",
+          "logo": "https://4placademy.com/assets/images/VGU-logo.png"
+        }
+      },
+      {
+        "kind": "programs",
+        "name": "BBA in Logistics & Supply Chain Management",
+        "slug": "vivekananda-global-university-bba-in-logistics-supply-chain-management",
+        "verified": true,
+        "location": "Jaipur",
+        "degree": "BBA",
+        "featured": true,
+        "universitySlug": "vivekananda-global-university",
+        "existingId": null,
+        "expectedUpdatedAt": null,
+        "data": {
+          "source": "https://4placademy.com/undergradute-courses.php",
+          "degreeLevel": "Undergraduate",
+          "specialization": "Logistics & Supply Chain Management",
+          "duration": "3 Years Full Time",
+          "mode": "On Campus",
+          "batch": "2026-27",
+          "eligibility": "10+2 from any stream with minimum 50% marks. Science, Commerce or Arts — all eligible.",
+          "fee": "₹3,90,000",
+          "highlights": [
+            "Industry-Aligned Curriculum",
+            "Practical Learning & Live Projects",
+            "Industrial Visits & Field Exposure",
+            "Internship Opportunities",
+            "Skill Development Workshops",
+            "Placement Assistance"
+          ],
+          "shortDescription": "BBA in Logistics & Supply Chain Management at Vivekananda Global University, Jaipur. 3 Years Full Time, on campus, 2026-27 intake.",
+          "description": "BBA in Logistics & Supply Chain Management is listed at Vivekananda Global University in Jaipur on the 4PL Academy undergraduate page for 2026-27. Its published highlights and entry requirements are shown below. Internship opportunities and placement assistance are support provisions, not guarantees of admission, employment or salary.",
+          "feeNote": "Total course fee published for 2026-27; checked 2026-10-06. Confirm the current fee, inclusions and availability with the admissions team.",
+          "projects": [
+            "Practical Learning & Live Projects"
+          ],
+          "internships": [
+            "Internship Opportunities"
+          ],
+          "industryExposure": [
+            "Industry-Aligned Curriculum",
+            "Industrial Visits & Field Exposure"
+          ],
+          "image": "https://4placademy.com/assets/images/VGU-thumbnail.jpg",
+          "seoDescription": "BBA in Logistics & Supply Chain Management at Vivekananda Global University: published eligibility, fees, duration and 2026-27 intake information."
+        }
+      },
+      {
+        "kind": "universities",
+        "name": "IBMR Group of Institutions",
+        "slug": "ibmr-group-of-institutions",
+        "verified": true,
+        "location": "Gurugram",
+        "category": "Delhi NCR",
+        "featured": true,
+        "existingId": null,
+        "expectedUpdatedAt": null,
+        "data": {
+          "city": "Gurugram",
+          "country": "India",
+          "source": "https://4placademy.com/undergradute-courses.php",
+          "region": "Delhi NCR",
+          "partnershipVerified": false,
+          "coordinateAccuracy": "unlocated",
+          "description": "IBMR Group of Institutions is listed by 4PL Academy in Gurugram for the 2026-27 intake. The linked program pages show the source-published eligibility, duration, delivery mode and fees. Directory inclusion is not independent confirmation of a 4PL partnership.",
+          "shortDescription": "Source-published degree program listings in Gurugram for 2026-27.",
+          "image": "https://4placademy.com/assets/images/IBMR-thumbnail.jpg",
+          "logo": "https://4placademy.com/assets/images/IBMR-logo.png"
+        }
+      },
+      {
+        "kind": "programs",
+        "name": "BBA + UGPM in Global Logistics & International Trade",
+        "slug": "ibmr-group-of-institutions-bba-ugpm-in-global-logistics-international-trade",
+        "verified": true,
+        "location": "Gurugram",
+        "degree": "BBA",
+        "featured": true,
+        "universitySlug": "ibmr-group-of-institutions",
+        "existingId": null,
+        "expectedUpdatedAt": null,
+        "data": {
+          "source": "https://4placademy.com/undergradute-courses.php",
+          "degreeLevel": "Undergraduate",
+          "specialization": "Global Logistics & International Trade",
+          "duration": "3 Years Full Time",
+          "mode": "On Campus",
+          "batch": "2026-27",
+          "eligibility": "10+2 from any stream with minimum 50% marks. Science, Commerce or Arts — all eligible.",
+          "fee": "₹4,50,000",
+          "highlights": [
+            "Industry-Oriented Curriculum",
+            "Global Trade & Logistics Exposure",
+            "Skill Development Workshops",
+            "Practical Learning & Live Projects",
+            "Internship Opportunities",
+            "Placement Assistance"
+          ],
+          "shortDescription": "BBA + UGPM in Global Logistics & International Trade at IBMR Group of Institutions, Gurugram. 3 Years Full Time, on campus, 2026-27 intake.",
+          "description": "BBA + UGPM in Global Logistics & International Trade is listed at IBMR Group of Institutions in Gurugram on the 4PL Academy undergraduate page for 2026-27. Its published highlights and entry requirements are shown below. Internship opportunities and placement assistance are support provisions, not guarantees of admission, employment or salary.",
+          "feeNote": "Total course fee published for 2026-27; checked 2026-10-06. Confirm the current fee, inclusions and availability with the admissions team.",
+          "projects": [
+            "Practical Learning & Live Projects"
+          ],
+          "internships": [
+            "Internship Opportunities"
+          ],
+          "industryExposure": [
+            "Industry-Oriented Curriculum",
+            "Global Trade & Logistics Exposure"
+          ],
+          "image": "https://4placademy.com/assets/images/IBMR-thumbnail.jpg",
+          "seoDescription": "BBA + UGPM in Global Logistics & International Trade at IBMR Group of Institutions: published eligibility, fees, duration and 2026-27 intake information."
+        }
+      },
+      {
+        "kind": "programs",
+        "name": "MBA in Logistics & Supply Chain Management",
+        "slug": "vivekananda-global-university-mba-in-logistics-supply-chain-management",
+        "verified": true,
+        "location": "Jaipur",
+        "degree": "MBA",
+        "featured": true,
+        "universitySlug": "vivekananda-global-university",
+        "existingId": null,
+        "expectedUpdatedAt": null,
+        "data": {
+          "source": "https://4placademy.com/postgraduate-courses.php",
+          "degreeLevel": "Postgraduate",
+          "specialization": "Logistics & Supply Chain Management",
+          "duration": "2 Years Full Time",
+          "mode": "On Campus",
+          "batch": "2026-27",
+          "eligibility": "Minimum 50% in undergraduate degree. Engineering, management, commerce, logistics — all welcome.",
+          "fee": "₹5,00,000",
+          "highlights": [
+            "Industry-Driven Learning",
+            "Leadership in Supply Chain",
+            "Leadership & Management Skills",
+            "Corporate Live Projects",
+            "Internship Opportunities",
+            "100% Placement Assistance"
+          ],
+          "shortDescription": "MBA in Logistics & Supply Chain Management at Vivekananda Global University, Jaipur. 2 Years Full Time, on campus, 2026-27 intake.",
+          "description": "MBA in Logistics & Supply Chain Management is listed at Vivekananda Global University in Jaipur on the 4PL Academy postgraduate page for 2026-27. Its published highlights and entry requirements are shown below. Internship opportunities and placement assistance are support provisions, not guarantees of admission, employment or salary.",
+          "feeNote": "Total course fee published for 2026-27; checked 2026-10-06. Confirm the current fee, inclusions and availability with the admissions team.",
+          "projects": [
+            "Corporate Live Projects"
+          ],
+          "internships": [
+            "Internship Opportunities"
+          ],
+          "industryExposure": [
+            "Industry-Driven Learning"
+          ],
+          "image": "https://4placademy.com/assets/images/VGU-thumbnail.jpg",
+          "seoDescription": "MBA in Logistics & Supply Chain Management at Vivekananda Global University: published eligibility, fees, duration and 2026-27 intake information."
+        }
+      },
+      {
+        "kind": "programs",
+        "name": "MBA + PGPM in Global Logistics & Trade Compliance",
+        "slug": "ibmr-group-of-institutions-mba-pgpm-in-global-logistics-trade-compliance",
+        "verified": true,
+        "location": "Gurugram",
+        "degree": "MBA",
+        "featured": true,
+        "universitySlug": "ibmr-group-of-institutions",
+        "existingId": null,
+        "expectedUpdatedAt": null,
+        "data": {
+          "source": "https://4placademy.com/postgraduate-courses.php",
+          "degreeLevel": "Postgraduate",
+          "specialization": "Global Logistics & Trade Compliance",
+          "duration": "2 Years Full Time",
+          "mode": "On Campus",
+          "batch": "2026-27",
+          "eligibility": "Minimum 50% in undergraduate degree. Engineering, management, commerce, logistics — all welcome.",
+          "fee": "₹7,00,000",
+          "highlights": [
+            "Industry-Driven Learning",
+            "Global Trade & Compliance Exposure",
+            "Leadership & Management Skills",
+            "Corporate Live Projects",
+            "Internship Opportunities",
+            "100% Placement Assistance"
+          ],
+          "shortDescription": "MBA + PGPM in Global Logistics & Trade Compliance at IBMR Group of Institutions, Gurugram. 2 Years Full Time, on campus, 2026-27 intake.",
+          "description": "MBA + PGPM in Global Logistics & Trade Compliance is listed at IBMR Group of Institutions in Gurugram on the 4PL Academy postgraduate page for 2026-27. Its published highlights and entry requirements are shown below. Internship opportunities and placement assistance are support provisions, not guarantees of admission, employment or salary.",
+          "feeNote": "Total course fee published for 2026-27; checked 2026-10-06. Confirm the current fee, inclusions and availability with the admissions team.",
+          "projects": [
+            "Corporate Live Projects"
+          ],
+          "internships": [
+            "Internship Opportunities"
+          ],
+          "industryExposure": [
+            "Industry-Driven Learning",
+            "Global Trade & Compliance Exposure"
+          ],
+          "image": "https://4placademy.com/assets/images/IBMR-thumbnail.jpg",
+          "seoDescription": "MBA + PGPM in Global Logistics & Trade Compliance at IBMR Group of Institutions: published eligibility, fees, duration and 2026-27 intake information."
+        }
+      },
+      {
+        "kind": "pages",
+        "name": "About 4PL Academy",
+        "slug": "about",
+        "verified": true,
+        "existingId": 135,
+        "expectedUpdatedAt": "2026-10-05T09:47:03.894+00:00",
+        "data": {
+          "source": "https://4placademy.com/about-us.php",
+          "description": "## Who We Are\n\n4PL Academy is the education and training arm of 4PL Consultancy Ltd, dedicated to developing industry-ready professionals across logistics, global trade compliance, supply chain management, marketing, and AI technology through immersive, real-world learning.\n\n\n4PL Consultancy Ltd, a UK-based firm with a strong presence in India, specialises in logistics, supply chain, and global trade compliance. We partner with organisations to simplify operations, ensure regulatory compliance, and optimise performance across global markets.\n\n\nOur close collaboration with industry revealed a critical gap — the shortage of job-ready talent. In response, we established 4PL Academy to integrate industry expertise with education, creating programs that prepare individuals to perform from day one.\n\n\nBy bridging the gap between industry and workforce development, we are committed to creating real, measurable impact for both students and organisations.\n\nFrom Learning to Leading — Built for the Real World.\n\n\n## Our Areas of Expertise\n\nWe combine deep industry expertise with workforce development to deliver practical and scalable solutions.\n\n\n## Consulting & Industry Solutions\n\n- Logistics and supply chain operations\n- Trade compliance (HS Code, COO, ECCN, GTS)\n- Process optimisation and outsourcing\n- Technology-led operational solutions\n\n## Workforce Development\n\n- Industry-aligned training programs\n- Skill development for real-world roles\n- Academic collaborations and capability building\n\n## How We Work\n\nOur approach is built around practical execution, technology integration, and delivering measurable results.\n\n\nFocus on practical, real-world outcomes\n\nUse technology and AI in everyday operations\n\nDeliver solutions that create measurable impact\n\nWe believe that knowledge is only valuable when it can be applied effectively.\n\n\n## Operating Across Borders\n\nWith headquarters in the UK and operational teams in India, 4PL Consultancy combines global expertise with strong execution capabilities.\n\n\nThis allows us to:\n\n\n- Support international clients\n- Navigate cross-border trade environments\n- Deliver scalable and efficient solutions\n\n## Our Vision\n\nTo become a global leader in integrating industry expertise with workforce development.\n\n\n## Our Mission\n\n- To simplify global logistics and trade compliance\n- To build industry-ready talent\n- To create long-term value for businesses and individuals\n\n## Why 4PL Consultancy\n\nWe combine deep industry expertise with a strong execution approach to deliver measurable and long-term impact.\n\n\nDeep expertise in logistics and trade compliance\n\nStrong industry network and partnerships\n\nTechnology-driven approach with AI integration\n\nProven consulting and execution capability\n\nCommitment to quality, ethics, and long-term impact\n\n## Leadership Perspective\n\nAt 4PL Consultancy, we believe that success lies in the ability to connect knowledge with real-world application.\n\n\nOur focus has always been on creating meaningful impact — for businesses, partners, and individuals building their careers.\n\n\n## Enabling Growth Through Expertise\n\nFrom consulting to capability building, 4PL Consultancy continues to deliver solutions that are practical, scalable, and future-ready.\n\n## University Alliance program\n\n4PL Academy connects universities, students and industry through the University Alliance Program. Its Admission–Training–Placement model combines academic learning with practical training, live projects and career support.",
+          "shortDescription": "The education and training arm of 4PL Consultancy Ltd, developing industry-ready professionals through immersive, real-world learning.",
+          "seoDescription": "Discover 4PL Academy, the education and training arm of 4PL Consultancy Ltd, and its vision, mission, expertise and practical learning approach."
+        }
+      }
+    ],
+    "institutionPrograms": [
+      {
+        "university": "Sushant University",
+        "name": "BBA in Logistics & Supply Chain Management",
+        "fee": "₹7,95,800",
+        "source": "https://4placademy.com/undergradute-courses.php"
+      },
+      {
+        "university": "Vivekananda Global University",
+        "name": "BBA in Logistics & Supply Chain Management",
+        "fee": "₹3,90,000",
+        "source": "https://4placademy.com/undergradute-courses.php"
+      },
+      {
+        "university": "IBMR Group of Institutions",
+        "name": "BBA + UGPM in Global Logistics & International Trade",
+        "fee": "₹4,50,000",
+        "source": "https://4placademy.com/undergradute-courses.php"
+      },
+      {
+        "university": "Vivekananda Global University",
+        "name": "MBA in Logistics & Supply Chain Management",
+        "fee": "₹5,00,000",
+        "source": "https://4placademy.com/postgraduate-courses.php"
+      },
+      {
+        "university": "IBMR Group of Institutions",
+        "name": "MBA + PGPM in Global Logistics & Trade Compliance",
+        "fee": "₹7,00,000",
+        "source": "https://4placademy.com/postgraduate-courses.php"
+      }
+    ],
+    "workbookCoverage": [
+      {
+        "row": 3,
+        "institution": "Accurate Institute",
+        "matchedSlug": "accurate-institute",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 4,
+        "institution": "I Business Institute",
+        "matchedSlug": "i-business-institute",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 5,
+        "institution": "GIMS / GNIOT",
+        "matchedSlug": "gims-gniot",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 6,
+        "institution": "K R Mangalam University",
+        "matchedSlug": "k-r-mangalam-university",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 7,
+        "institution": "FIIB",
+        "matchedSlug": "fiib",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 8,
+        "institution": "IMM",
+        "matchedSlug": "imm",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 9,
+        "institution": "GNIM (GN Group)",
+        "matchedSlug": "gnim-gn-group",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 10,
+        "institution": "IILM University",
+        "matchedSlug": "iilm-university",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 11,
+        "institution": "JKBS",
+        "matchedSlug": "jkbs",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 12,
+        "institution": "IIBS",
+        "matchedSlug": "iibs-delhi-bangalore",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 13,
+        "institution": "Fostima (Vivek Ji Bitly)",
+        "matchedSlug": "fostima-vivek-ji-bitly",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 14,
+        "institution": "NDIM",
+        "matchedSlug": "ndim",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 15,
+        "institution": "G.D Goenka University (Studentgrad)",
+        "matchedSlug": "g-d-goenka-university-studentgrad",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 16,
+        "institution": "GD Goenka (With DIVI)",
+        "matchedSlug": "gd-goenka-with-divi",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 17,
+        "institution": "Noida International University",
+        "matchedSlug": "noida-international-university",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 18,
+        "institution": "Bennett University",
+        "matchedSlug": "bennett-university",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 19,
+        "institution": "JIMS",
+        "matchedSlug": "jims",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 20,
+        "institution": "SOIL",
+        "matchedSlug": "soil",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 21,
+        "institution": "Sparsh Institute",
+        "matchedSlug": "sparsh-institute",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 22,
+        "institution": "St. Andrews",
+        "matchedSlug": "st-andrews",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 23,
+        "institution": "Jaipuria Ghaziabad",
+        "matchedSlug": "jaipuria-ghaziabad",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 24,
+        "institution": "SGT University",
+        "matchedSlug": "sgt-university",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 25,
+        "institution": "Apeejay Stya University",
+        "matchedSlug": "apeejay-stya-university",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 26,
+        "institution": "Mangalmay College",
+        "matchedSlug": "mangalmay-college",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 27,
+        "institution": "Sushant University",
+        "matchedSlug": "sushant-university",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 28,
+        "institution": "Lalita Devi",
+        "matchedSlug": "lalita-devi",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 29,
+        "institution": "NDIM UG",
+        "matchedSlug": "ndim-ug",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 30,
+        "institution": "GN Group",
+        "matchedSlug": "gn-group",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 32,
+        "institution": "RIIM",
+        "matchedSlug": "riim",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 33,
+        "institution": "Lexicon Mile",
+        "matchedSlug": "lexicon-mile",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 34,
+        "institution": "ISMS",
+        "matchedSlug": "isms",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 35,
+        "institution": "Indus",
+        "matchedSlug": "indus",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 36,
+        "institution": "PCU",
+        "matchedSlug": "pcu",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 37,
+        "institution": "Universal AI",
+        "matchedSlug": "universal-ai",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 38,
+        "institution": "Atlas Skilltech",
+        "matchedSlug": "atlas-skilltech",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 39,
+        "institution": "Pune Business School",
+        "matchedSlug": "pune-business-school",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 41,
+        "institution": "IIBS",
+        "matchedSlug": "iibs-bangalore",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 42,
+        "institution": "GIBS",
+        "matchedSlug": "gibs",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 45,
+        "institution": "RIT",
+        "matchedSlug": "rit",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 46,
+        "institution": "UPES",
+        "matchedSlug": "upes",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 47,
+        "institution": "Graphic Era",
+        "matchedSlug": "graphic-era",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 48,
+        "institution": "DBS",
+        "matchedSlug": "dbs",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 49,
+        "institution": "Devbhoomi Uttarakhand University",
+        "matchedSlug": "devbhoomi-uttarakhand-university",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 51,
+        "institution": "Emversity",
+        "matchedSlug": "emversity",
+        "linkedPrograms": 2
+      },
+      {
+        "row": 52,
+        "institution": "Intellipat",
+        "matchedSlug": "intellipat",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 53,
+        "institution": "NIAT",
+        "matchedSlug": "niat",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 54,
+        "institution": "Upgrad",
+        "matchedSlug": "upgrad",
+        "linkedPrograms": 1
+      },
+      {
+        "row": 55,
+        "institution": "4PL",
+        "matchedSlug": "4pl",
+        "linkedPrograms": 1
+      }
+    ],
+    "conflicts": [],
+    "excludedClaims": [
+      "Unverified salary ranges and named employer/placement claims",
+      "Invalid workbook links and private coupon codes remain excluded from public catalog responses"
+    ],
+    "unchanged": "Existing identifiers, slugs, generic degree listings, owner-edited fields, publishing controls and partnership verification are preserved."
+  },
+  "writeResult": {
+    "exitCode": 0,
+    "exitReason": null,
+    "output": "id,kind,slug\n58,universities,sushant-university\n815,universities,vivekananda-global-university\n816,universities,ibmr-group-of-institutions\n130,courses,master-course\n131,courses,trade-compliance\n132,courses,ctcp\n133,courses,logistics-management\n122,courses,foundation-to-trade-compliance\n123,courses,customs-valuation\n124,courses,coo-fta\n125,courses,foundation-course-in-global-logistics\n126,courses,foundation-course-in-export-import-international-trade\n127,courses,foundation-course-in-incoterms-2020\n128,courses,foundation-course-in-letter-of-credit\n129,courses,foundation-course-in-shipping-trade-documentation\n829,programs,sushant-university-bba-in-logistics-supply-chain-management\n830,programs,vivekananda-global-university-bba-in-logistics-supply-chain-management\n831,programs,ibmr-group-of-institutions-bba-ugpm-in-global-logistics-international-trade\n832,programs,vivekananda-global-university-mba-in-logistics-supply-chain-management\n833,programs,ibmr-group-of-institutions-mba-pgpm-in-global-logistics-trade-compliance\n135,pages,about\n",
+    "success": true
+  }
+}

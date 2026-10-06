@@ -7,7 +7,11 @@ export function RichText({ text, className = '' }) {
   return (
     <div className={`prose-4pl ${className}`}>
       {ps.map((p, i) => {
-        if (p.startsWith('## ')) return <h3 key={i}>{p.slice(3)}</h3>;
+        if (/^#{2,3} /.test(p)) return <h3 key={i}>{p.replace(/^#{2,3} /, '')}</h3>;
+        const list = p.split('\n').filter((line) => line.trim());
+        if (list.length && list.every((line) => line.trim().startsWith('- '))) {
+          return <ul key={i} className="list-disc space-y-2 pl-5">{list.map((line, j) => <li key={j}>{line.trim().slice(2)}</li>)}</ul>;
+        }
         return <p key={i} className="whitespace-pre-line">{p}</p>;
       })}
     </div>

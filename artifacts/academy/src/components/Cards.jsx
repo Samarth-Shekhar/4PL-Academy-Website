@@ -104,6 +104,7 @@ export function CourseCard({ c }) {
           <Fact icon={Monitor} label="Mode" value={val(c.mode)} />
           <Fact icon={Users2} label="Hours" value={val(c.hours)} />
         </div>
+        {has(c.feeNote) && <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{c.feeNote}</p>}
         <div className="mt-5 flex flex-wrap gap-2"><Link href={`/professional-courses/${c.slug}`} className="btn btn-navy btn-sm flex-1">Course details <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></Link><BookButton ctx={{ course: c.name, interestedIn: 'Professional course' }} className="flex-1" /></div>
       </div>
     </article>

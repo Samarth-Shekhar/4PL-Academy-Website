@@ -230,7 +230,8 @@ export function CourseDetail() {
             </Hero>
             <div className="container-x grid gap-10 py-10 pb-24 sm:py-14 lg:grid-cols-[1fr_22rem]">
               <div>
-                {has(co.targetAudience) && <div className="mb-8 rounded-lg border-l-4 border-gold bg-card p-4"><p className="eyebrow">Who it is for</p><p className="mt-1 text-navy">{co.targetAudience}</p></div>}
+                {has(co.feeNote) && <p className="mb-6 rounded-lg bg-gold-soft p-4 text-sm text-navy">{co.feeNote}</p>}
+                {has(co.targetAudience) && <details className="mb-8 rounded-lg border-l-4 border-gold bg-card p-4"><summary className="cursor-pointer font-semibold text-navy">Who it is for</summary><RichText text={co.targetAudience} className="mt-4" /></details>}
                 <Body c={co} sections={[['Modules', lines(co.curriculum), true], ['Highlights', lines(co.highlights), false, true], ['Outcomes', lines(co.outcomes)]]} />
               </div>
               <Sidebar c={co} kind="course" ctx={ctx} extraLinks={<Link href="/professional-courses" className="btn btn-outline w-full">All courses</Link>} />

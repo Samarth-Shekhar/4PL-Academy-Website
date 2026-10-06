@@ -1,3 +1,4 @@
 - [API generation in JavaScript projects](javascript-api-generation.md) — treat generated TypeScript as a temporary intermediate and avoid conflicting validator/type barrel exports.
 - [Environment-file guard](environment-file-guard.md) — direct .env creation is blocked even for comments; retain portable examples and use secure configuration tools.
 - [CMS verification evidence](cms-verification-evidence.md) — persist scrubbed acceptance evidence and cleanup manifests during long browser runs.
+- [Unicode-safe content ingestion](unicode-content-ingestion.md) — preserve whole code points; lone UTF-16 surrogates serialize in JavaScript but fail PostgreSQL JSONB.
