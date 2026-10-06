@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import { Link, useLocation } from 'wouter';
+import { Link } from 'wouter';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { ArrowUpRight, ChevronLeft, ChevronRight, Search } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { bySection, mediaUrl, saveData, useInView, useMatch, useMedia, useTabVisible, useVerified } from '@/lib/home';
 import { bookHref } from '@/lib/booking';
 import { has } from '@/lib/format';
@@ -20,8 +20,6 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
   const mobile = useMatch('(max-width: 767px)');
   const tab = useTabVisible();
   const [wrap, inView] = useInView();
-  const [, nav] = useLocation();
-  const [q, setQ] = useState('');
   const hero = bySection(list, 'hero');
   const slides = hero.length ? hero : has(section?.image) ? [{ id: 'cover', name: section.name, type: 'image', url: section.image, altText: '' }] : [];
   const light = mobile || reduce || saveData();
@@ -38,7 +36,6 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
   const motionAllowed = playing && inView && tab && !hovering && !focused;
   const running = motionAllowed && n > 1;
   const go = useCallback((d) => setIdx((i) => (i + d + n) % n), [n]);
-  const pick = (d) => { setPlaying(false); go(d); };
   useEffect(() => { if (reduce) setPlaying(false); }, [reduce]);
   useEffect(() => { if (!running) return undefined; const t = setTimeout(() => go(1), cur?.type === 'video' && !light ? secs(cur.duration) * 1000 : 6800); return () => clearTimeout(t); }, [running, idx, cur, light, go]);
   useEffect(() => { const v = vid.current; if (!v) return; if (motionAllowed) v.play?.().catch(() => {}); else v.pause?.(); }, [motionAllowed, idx]);
@@ -82,20 +79,11 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
               return <><Cta {...first} url={isBook(first) && first.url !== 'bot' ? book : first.url} className="btn-hero" /><Cta {...second} url={isBook(second) && second.url !== 'bot' ? book : second.url} variant="light" className="btn-hero" /></>;
             })()}
           </motion.div>
-          <form onSubmit={(e) => { e.preventDefault(); nav(`/programs${q ? `?search=${encodeURIComponent(q)}` : ''}`); }} className="mt-5 flex max-w-lg gap-2 rounded-full bg-surface/10 p-1.5 ring-1 ring-surface/30 backdrop-blur-sm" role="search">
-            <label htmlFor="hero-search" className="sr-only">Search programs and universities</label>
-            <input id="hero-search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search MBA, BBA, logistics" className="input rounded-full border-transparent bg-surface" />
-            <button type="submit" className="btn btn-gold px-4 !rounded-full" aria-label="Search programs"><Search className="h-5 w-5" /></button>
-          </form>
           <p className="mt-3 max-w-xl text-xs text-surface/60">Admission, training and placement support. Outcomes are never guaranteed.</p>
         </div>
         {n > 0 && (
           <div className="mt-8 pt-2">
             <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-1.5" role="group" aria-label="Hero media controls">
-                <button type="button" className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-surface/40 text-surface hover:border-gold hover:text-gold disabled:opacity-40" onClick={() => pick(-1)} disabled={n < 2} aria-label="Previous visual"><ChevronLeft className="h-5 w-5" /></button>
-                <button type="button" className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-surface/40 text-surface hover:border-gold hover:text-gold disabled:opacity-40" onClick={() => pick(1)} disabled={n < 2} aria-label="Next visual"><ChevronRight className="h-5 w-5" /></button>
-              </div>
               <div className="min-w-0 flex-1 text-sm text-surface/85" aria-live={running ? 'off' : 'polite'}>
                 <span className="text-xs font-bold uppercase tracking-wider text-gold">{String(idx % n + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}</span>
                 <AnimatePresence mode="wait" initial={false}><motion.span key={cur?.id} className="ml-2 inline-block font-bold text-surface" initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }} transition={{ duration: 0.35 }}>{cur?.name}</motion.span></AnimatePresence>

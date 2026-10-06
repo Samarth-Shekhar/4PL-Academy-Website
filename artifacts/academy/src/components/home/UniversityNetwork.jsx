@@ -16,11 +16,10 @@ const valid = (u) => Number.isFinite(num(u.latitude)) && Number.isFinite(num(u.l
 export function UniversityNetwork({ s }) {
   const uq = usePublicList('universities', undefined, { refetchOnWindowFocus: true });
   const pq = usePublicList('programs', undefined, { refetchOnWindowFocus: true });
-  const [mode, setMode] = useState('directory');
   const [selected, setSelected] = useState(null);
   const [activeUni, setActiveUni] = useState(null);
   const all = uq.data || [];
-  const pool = mode === 'partners' ? all.filter((u) => u.partnershipVerified) : all;
+  const pool = all;
   const mapped = pool.filter(valid);
   const unmapped = pool.length - mapped.length;
   const programsOf = (u) => (pq.data || []).filter((p) => (p.universityId != null && p.universityId === u.id) || (p.universityId == null && has(p.universityName) && p.universityName === u.name));
@@ -43,10 +42,7 @@ export function UniversityNetwork({ s }) {
           <div id="sec-universities" className="min-w-0 lg:pt-6">
             <Head s={s} light />
             <Body s={s} light />
-            <div className="mt-7 grid w-full grid-cols-2 rounded-md bg-surface/10 p-1 sm:inline-flex sm:w-auto" role="group" aria-label="Map mode">
-              {[['directory', 'University directory'], ['partners', 'Verified partnerships']].map(([k, l]) => <button key={k} type="button" aria-pressed={mode === k} onClick={() => { setMode(k); pick(null); }} className={cn('min-h-10 min-w-0 whitespace-normal rounded px-2 py-2 text-sm font-bold transition sm:px-4', mode === k ? 'bg-gold text-navy' : 'text-surface/80 hover:text-surface')}>{l}</button>)}
-            </div>
-            <p className="mt-3 max-w-md text-xs leading-relaxed text-surface/65">{mode === 'directory' ? 'Directory mode shows every listed institution. Listing does not imply a partnership with 4PL Academy. Markers show city centres, not campus locations.' : 'Partnership mode shows only institutions whose partnership with 4PL Academy has been verified.'}</p>
+            <p className="mt-7 max-w-md text-xs leading-relaxed text-surface/65">This map shows the university directory. Listing does not imply a partnership with 4PL Academy. Markers show city centres, not campus locations.</p>
             <CtaRow s={s} light className="mt-7 max-w-full [&_.btn]:max-w-full [&_.btn]:whitespace-normal" />
             {regions.length > 0 && (
               <div className="no-scrollbar -mx-4 mt-8 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label="Choose a region">
@@ -56,12 +52,12 @@ export function UniversityNetwork({ s }) {
           </div>
           <div className="min-w-0">
             {uq.isLoading ? <Skeleton className="mx-auto aspect-[600/640] w-full max-w-[34rem]" /> : (
-              <IndiaUniversityMap regions={regions} selected={selected} onSelect={pick} activeUni={activeUni} onUni={setActiveUni} programsOf={programsOf} partnerMode={mode === 'partners'} />
+              <IndiaUniversityMap regions={regions} selected={selected} onSelect={pick} activeUni={activeUni} onUni={setActiveUni} programsOf={programsOf} />
             )}
             {!uq.isLoading && !regions.length && (
-              <div className="mt-5 text-surface"><Pending title={mode === 'partners' ? 'No partnerships have been verified yet' : 'No mapped locations yet'} body={mode === 'partners' ? 'Partner universities appear here only after 4PL Academy verifies the relationship. Meanwhile you can browse the directory.' : 'Universities appear on the map once their city location is added.'}><Link href="/universities" className="btn btn-gold">Browse the directory</Link></Pending></div>
+              <div className="mt-5 text-surface"><Pending title="No mapped locations yet" body="Universities appear on the map once their city location is added."><Link href="/universities" className="btn btn-gold">Browse the directory</Link></Pending></div>
             )}
-            {unmapped > 0 && <p className="mt-3 text-center text-xs text-surface/60">{unmapped} {mode === 'partners' ? 'partner' : 'listed'} {unmapped === 1 ? 'institution has' : 'institutions have'} no map location and {unmapped === 1 ? 'is' : 'are'} not shown. <Link href="/universities" className="underline">See the full directory</Link>.</p>}
+            {unmapped > 0 && <p className="mt-3 text-center text-xs text-surface/60">{unmapped} listed {unmapped === 1 ? 'institution has' : 'institutions have'} no map location and {unmapped === 1 ? 'is' : 'are'} not shown. <Link href="/universities" className="underline">See the full directory</Link>.</p>}
           </div>
         </div>
         {sel && (

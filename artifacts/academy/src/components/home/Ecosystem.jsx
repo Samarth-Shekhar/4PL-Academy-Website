@@ -2,19 +2,17 @@ import { Link } from 'wouter';
 import { usePublicList } from '@/lib/api';
 import { has } from '@/lib/format';
 import { Reveal } from '@/components/ui-kit';
-import { Head, Body, Pic, CtaRow } from './shared';
+import { Count, Head, Body, Pic, CtaRow } from './shared';
 
 export function Ecosystem({ s }) {
   const unis = usePublicList('universities').data || [];
   const programs = usePublicList('programs').data || [];
   const courses = usePublicList('courses').data || [];
-  const partners = unis.filter((u) => u.verified && u.partnershipVerified).length;
   const stats = [
     [unis.length, 'Institutions in the directory'],
     [unis.filter(u=>u.verified).length, 'Verified university records'],
     [programs.filter(p=>p.verified).length, 'Verified program titles'],
     [courses.filter(c=>c.verified).length, 'Verified course titles'],
-    [partners, 'Verified university partners'],
   ].filter(([n]) => n > 0);
   const items = s.items || [];
   return (
@@ -22,7 +20,7 @@ export function Ecosystem({ s }) {
     {stats.length > 0 && (
       <div id="academy-overview" className="eco-strip scroll-mt-20" role="region" aria-label="4PL Academy catalogue at a glance">
         <dl className="container-x grid grid-cols-2 lg:grid-cols-none lg:grid-flow-col lg:auto-cols-fr">
-          {stats.map(([n, l]) => <div key={l} className="stat-cell"><dd className="font-display text-4xl font-extrabold sm:text-6xl">{n}</dd><dt className="mt-2 text-xs font-semibold sm:text-sm">{l}</dt></div>)}
+          {stats.map(([n, l]) => <div key={l} className="stat-cell"><dd className="font-display text-4xl font-extrabold sm:text-6xl"><Count to={n} /></dd><dt className="mt-2 text-xs font-semibold sm:text-sm">{l}</dt></div>)}
         </dl>
       </div>
     )}

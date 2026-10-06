@@ -1,0 +1,29 @@
+{
+  "retrievedOn": "2026-10-06",
+  "images": [
+    {
+      "university": "Sushant University",
+      "slug": "sushant-university",
+      "file": "sushant.jpg",
+      "sourceUrl": "https://4placademy.com/assets/images/SU-thumbnail.jpg",
+      "sourceType": "Existing academy university record",
+      "checked": "Campus building with visible Sushant University signage; not the tree-planting event photo returned by search."
+    },
+    {
+      "university": "Vivekananda Global University",
+      "slug": "vivekananda-global-university",
+      "file": "vgu.webp",
+      "sourceUrl": "https://vgu.ac.in/assets/images/faculty/faq/faq1(2).webp",
+      "sourceType": "Official university website",
+      "checked": "Aerial campus building photograph."
+    },
+    {
+      "university": "IBMR Group of Institutions",
+      "slug": "ibmr-group-of-institutions",
+      "file": "ibmr.webp",
+      "sourceUrl": "https://static.boostmytalent.com/img/univ/ibmr-gurgaon-campus-building.webp",
+      "sourceType": "Public education directory",
+      "checked": "Gurgaon campus facade with visible IBMR signage."
+    }
+  ]
+}

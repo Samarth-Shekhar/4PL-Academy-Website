@@ -1,6 +1,7 @@
 import { getCatalog } from './content.js';
 
-export const unavailable = "I don't have verified information about that in the 4PL Academy database. Please contact the 4PL Academy team for more information.";
+export const unavailable = "I can help with verified 4PL Academy programs, courses and admissions information. Please contact our team for help with this question.";
+const academyTopic = /\b(?:4pl|academy|programs?|courses?|degrees?|admissions?|apply|applications?|training|placements?|universit\w*|colleges?|campus|bba|mba|pgdm|btech|bca|undergraduate|postgraduate|logistics|supply.chain|trade|customs|incoterms|ai|artificial intelligence|digital marketing|certificat\w*|credential\w*|eligibility|fees?|curriculum|scholarships?|counselling|counseling|internships?|contact|phone|telephone|email|address|office|mission|vision|careers?|jobs?|modules?|semesters?|projects?|outcomes?|duration|batches|batch|deadlines?|blogs?|articles?)\b/i;
 const deny = /ignore (?:all|previous)|system prompt|internal instructions|api.?key|password|(?:api|admin|login|database|private|authentication).?credentials?|secret|sql|database (?:dump|schema|structure)|delete|update.+database|execute|run.+command|guarantee|visa|immigration|legal advice|financial advice/i;
 const stopwords = new Set('what which is are the a an at in of to for me please tell about do you have does and with can how programs program course courses university universities fee fees cost price eligibility eligible qualification percentage duration long take takes deadline batch start date much it its study studying'.split(' '));
 for (const word of 'show explain give available approved information details curriculum module modules semester semesters learning outcomes outcome skills skill career careers pathway pathways role roles project projects internship internships industry exposure practical training admission admissions process certification certifications certificate certificates credentials credential issuer issued faq faqs questions contact phone telephone email address office where located your 4pl academy team total requirements prerequisite prerequisites target audience who this diploma provided provides provide after completion'.split(' ')) stopwords.add(word);
@@ -22,8 +23,15 @@ export function storedDetails(c, intent) {
   return (detailFields[intent] || []).map(k => readable(c[k])).filter(Boolean).join('\n').slice(0, 5000);
 }
 export async function answerQuestion(message) {
+  if (/^(?:hi|hello|hey|good morning|good afternoon|good evening)[!. ]*$/i.test(message.trim())) {
+    return { answer: "Hi, my name is Acad Bot. I can help with 4PL Academy programs, courses, universities and admissions. What would you like to know?", sources: [] };
+  }
   if (deny.test(message)) return { answer: unavailable, sources: [] };
   const catalog = (await Promise.all(['programs','universities','courses','faqs','pages','certifications','blogs','settings'].map(kind => getCatalog(kind)))).flat();
+  // Do not let incidental words such as "India" or "world" match unrelated
+  // questions to a university listing or a general academy description.
+  const namesAcademyRecord = catalog.some(c => c.verified && c.name.length > 4 && message.toLowerCase().includes(c.name.toLowerCase()));
+  if (!academyTopic.test(message) && !namesAcademyRecord) return { answer: unavailable, sources: [] };
   const tokens = message.toLowerCase().replace(/[^a-z0-9 ]/g, ' ').split(/\s+/).filter(t => t.length > 1 && !stopwords.has(t));
   const intent = /scholarship|salary|package|placement (?:statistic|percentage|rate)|accreditation|refund|policy/i.test(message) ? 'restricted'
     : /fees?|cost|price/i.test(message) ? 'fee' : /eligible|eligibility|qualification|percentage|prerequisites?|requirements?/i.test(message) ? 'eligibility'
@@ -36,6 +44,14 @@ export async function answerQuestion(message) {
     : /issuer|issued by/i.test(message) ? 'issuer'
     : /certificat|credential|diploma/i.test(message) ? 'certification' : null;
   if (intent === 'restricted') return { answer: unavailable, sources: [] };
+  if ((!intent || intent === 'admissions') && /\badmissions?\b/i.test(message) &&
+      /\b(?:how|support|model|work)\b/i.test(message) &&
+      !/\b(?:bba|mba|pgdm|btech|bca|undergraduate|postgraduate)\b/i.test(message)) {
+    const faq = catalog.find(c => c.kind === 'faqs' && c.verified && /admission.+training.+placement/i.test(c.name));
+    return faq?.description
+      ? { answer: readable(faq.description), sources: [sourceOf(faq)] }
+      : { answer: unavailable, sources: [] };
+  }
   if (/\b(?:4pl|academy|your)\b/i.test(message) &&
       /(?:about|who|what is).*4pl|4pl.*(?:mission|vision)|(?:mission|vision).*(?:academy|4pl)|your (?:mission|vision)/i.test(message) && !intent) {
     const about = catalog.find(c => c.kind === 'pages' && c.slug === 'about' && c.verified);

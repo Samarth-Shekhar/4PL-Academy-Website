@@ -278,3 +278,9 @@
   .logo-flow-track { animation: none !important; width: auto; flex-wrap: wrap; justify-content: center; row-gap: 1rem; padding-inline: 1rem; }
   .logo-flow-item[aria-hidden="true"] { display: none; }
 }
+
+.moving-cards { scrollbar-width: none; }
+.moving-cards::-webkit-scrollbar { display: none; }
+.mc-item { transition: transform .35s cubic-bezier(.2,.7,.2,1); }
+.mc-item:hover, .mc-item:focus-within { transform: scale(1.04); position: relative; z-index: 2; }
+@media (prefers-reduced-motion: reduce) { .mc-item { transition: none; } .mc-item:hover, .mc-item:focus-within { transform: none; } .moving-cards { scroll-snap-type: x proximity; } }

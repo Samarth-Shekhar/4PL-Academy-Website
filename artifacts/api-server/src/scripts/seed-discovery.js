@@ -10,7 +10,7 @@ export async function seedDiscovery() {
     {
       slug:'contact-india',name:'India Office',
       location:'4PL Academy\nUnit 907, 9th Floor, C-27,\nTrapezoid IT Park,\nSector 62, Noida,\nUttar Pradesh 201309',
-      phone:'+91 8448398180',email:'admission@4plconsultancy.co.uk',
+      phone:'+91 8448398180',email:'contact@4placademy.com',
     },
     {
       slug:'contact-uk',name:'UK Office',

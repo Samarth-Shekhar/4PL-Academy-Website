@@ -30,7 +30,7 @@ export function CertificationShowcase({ s }) {
         <div className="mt-10">
           <CompanyLogoStrip />
           {!list.length ? (
-            <p className="mt-4 text-sm text-muted-foreground">Credentials are listed only after the issuer and course details are verified. <Link href="/courses" className="font-semibold text-navy underline underline-offset-4">Explore professional courses</Link></p>
+            <p className="mt-4 text-sm"><Link href="/courses" className="font-semibold text-navy underline underline-offset-4">Explore professional courses</Link></p>
           ) : (
             <div ref={row} className="snap-row mt-8 -mx-4 px-4 pb-3 sm:mx-0 sm:px-0" tabIndex={0} role="region" aria-label="Certifications">
               {list.map((c, i) => {

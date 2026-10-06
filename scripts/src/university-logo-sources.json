@@ -1,0 +1,533 @@
+{
+  "note": "Reviewed original brand assets, not evidence of an academic partnership.",
+  "results": [
+    {
+      "ids": [
+        1
+      ],
+      "name": "Accurate Institute",
+      "website": "https://www.accurate.in/",
+      "pageTitle": "Accurate Institute - Modern Landing",
+      "sourceUrl": "https://www.accurate.in/img/accurate-logo-new-1.webp?v=69",
+      "logo": "/images/university-logos/1.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        3
+      ],
+      "name": "I Business Institute",
+      "website": "https://www.ibusinessinstitute.org/",
+      "pageTitle": "AI-Driven Top B-School in Delhi NCR | I Business Institute",
+      "sourceUrl": "https://www.ibusinessinstitute.org/LOGO_update_1.png",
+      "logo": "/images/university-logos/3.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        5
+      ],
+      "name": "GNIOT",
+      "website": "https://www.gniotgroup.edu.in/",
+      "pageTitle": "Best Engineering College in Greater Noida NCR",
+      "sourceUrl": "https://www.gniotgroup.edu.in/img/gniot-logo-new-2026.webp?v=11",
+      "logo": "/images/university-logos/5.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        7
+      ],
+      "name": "K R Mangalam",
+      "website": "https://www.krmangalam.edu.in/",
+      "pageTitle": "K.R. Mangalam University | Top Private University in Gurugram",
+      "sourceUrl": "https://www.krmangalam.edu.in/krmu/KRMU_LOGO.webp",
+      "logo": "/images/university-logos/7.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        10
+      ],
+      "name": "FIIB",
+      "website": "https://www.fiib.edu.in/",
+      "error": "No official logo image found",
+      "pageTitle": "Fortune Institute of International Business | Top B-School in Delhi | FIIB",
+      "sourceUrl": "https://www.fiib.edu.in/_next/static/media/logo.ffa15629.png",
+      "logo": "/images/university-logos/10.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        12
+      ],
+      "name": "IMM",
+      "website": "https://www.immindia.edu.in/",
+      "pageTitle": "Best MBA Colleges in Delhi NCR | PGDM Colleges in India | IMM ",
+      "sourceUrl": "https://urbanstudy.in/wp-content/uploads/2024/08/logo-new.webp",
+      "logo": "/images/university-logos/12.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        14,
+        67
+      ],
+      "name": "GN Group",
+      "website": "https://www.gngroup.org/",
+      "pageTitle": "GN Group of Institutes - Best Campus Life College in Greater Noida",
+      "sourceUrl": "https://www.gngroup.org/assets/img/logo/logo.png",
+      "logo": "/images/university-logos/14.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        16
+      ],
+      "name": "IILM",
+      "website": "https://iilm.edu/greater-noida",
+      "pageTitle": "IILM University Greater Noida | Top Private University",
+      "sourceUrl": "https://iilm.edu/greater-noida/wp-content/uploads/sites/3/2026/01/f_logo.png",
+      "logo": "/images/university-logos/16.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        18
+      ],
+      "name": "JK Business School",
+      "website": "https://jkbschool.org/",
+      "pageTitle": "Best Business School in Gurugram & Delhi NCR| JK Business Schoo",
+      "sourceUrl": "https://jkbschool.org/wp-content/uploads/2025/02/JKBSLogo-White.png",
+      "logo": "/images/university-logos/18.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        21,
+        89
+      ],
+      "name": "IIBS",
+      "website": "https://www.iibs.edu.in/",
+      "pageTitle": "IIBS Bangalore MBA Top Colleges - Rated A+++ B-Schools Equivalent to Baby IIMs in India",
+      "sourceUrl": "https://www.iibs.edu.in/newimage/IIBSEDU_Final.jpeg",
+      "logo": "/images/university-logos/21.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        23
+      ],
+      "name": "Fostima",
+      "website": "https://www.fostiima.org/",
+      "error": "fetch failed",
+      "pageTitle": "FOSTIIMA Business School | PGDM & Management Education",
+      "sourceUrl": "https://www.fostiima.org/_next/image?url=%2Flogo.jpeg&w=384&q=75",
+      "logo": "/images/university-logos/23.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        25
+      ],
+      "name": "NDIM",
+      "website": "https://www.ndimdelhi.org/",
+      "pageTitle": "Best PGDM College in Delhi | Top Management College in Delhi",
+      "sourceUrl": "https://www.ndimdelhi.org/wp-content/uploads/2024/09/LOGO-NDIM.webp",
+      "logo": "/images/university-logos/25.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        27,
+        30
+      ],
+      "name": "GD Goenka University",
+      "website": "https://www.gdgoenkauniversity.com/",
+      "pageTitle": " Best University in Gurgaon, Top Colleges in Gurgaon, Delhi NCR, India   ",
+      "sourceUrl": "https://cdn.universitykart.com//Content/upload/admin/yfjct31q.jnv.jpg",
+      "logo": "/images/university-logos/27.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        33
+      ],
+      "name": "Noida International University",
+      "website": "https://niu.edu.in/",
+      "pageTitle": "Noida International University: Best Private University in India",
+      "sourceUrl": "https://niu.edu.in/wp-content/uploads/2024/06/Asset-1-2.svg",
+      "logo": "/images/university-logos/33.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        35
+      ],
+      "name": "Bennett University",
+      "website": "https://www.bennett.edu.in/",
+      "pageTitle": "Best UG/PG College for Engineering, Management, Law & Journalism - Bennett University",
+      "sourceUrl": "https://www.bennett.edu.in/wp-content/themes/twentysixteen/images/bu-logo.jpg",
+      "logo": "/images/university-logos/35.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        38
+      ],
+      "name": "JIMS",
+      "website": "https://www.jimsgn.org/",
+      "pageTitle": "Best Engineering College in Delhi NCR",
+      "sourceUrl": "https://www.jimsgn.org/images/logo/jims_log.png",
+      "logo": "/images/university-logos/38.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        40
+      ],
+      "name": "SOIL",
+      "website": "https://www.soil.edu.in/",
+      "pageTitle": "SOIL Institute of Management Gurgaon | PGDM, PGPM & PGPM-HR",
+      "sourceUrl": "https://www.soil.edu.in/wp-content/uploads/2025/08/logo.png",
+      "logo": "/images/university-logos/40.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        42
+      ],
+      "name": "Sparsh",
+      "website": "https://www.sparshgbs.in/",
+      "pageTitle": "Best PGDM Institute in Delhi NCR, India – Sparsh Global Business School",
+      "sourceUrl": "https://www.sparshgbs.in/img/sparsh-logo.png?v=01",
+      "logo": "/images/university-logos/42.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        44
+      ],
+      "name": "St Andrews",
+      "website": "https://saitm.ac.in/",
+      "pageTitle": "St. Andrews Institute of Technology & Management, SAITM Gurgaon",
+      "sourceUrl": "https://saitm.ac.in/static/assets/img/logo.png",
+      "logo": "/images/university-logos/44.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        47
+      ],
+      "name": "Jaipuria Ghaziabad",
+      "website": "https://jsb.jaipuria.edu.in/",
+      "error": "Not an image",
+      "pageTitle": "Top PGDM Colleges in Delhi NCR | Best PGDM College in Delhi NCR",
+      "sourceUrl": "https://jsb.jaipuria.edu.in/storage/logos/jsb-logo-dark_1773060695.webp",
+      "logo": "/images/university-logos/47.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        49
+      ],
+      "name": "SGT University",
+      "website": "https://sgtuniversity.ac.in/",
+      "pageTitle": "SGT University - Best Private University in Gurgaon & Haryana ",
+      "sourceUrl": "https://sgtuniversity.ac.in/assets/images/sgtu-updated.png",
+      "logo": "/images/university-logos/49.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        52
+      ],
+      "name": "Apeejay Stya University",
+      "website": "https://university.apeejay.edu/",
+      "error": "HTTP 403",
+      "pageTitle": "Apeejay Stya University | Leading Multidisciplinary University in Gurugram",
+      "sourceUrl": "https://university.apeejay.edu/wp-content/uploads/2024/05/apeejay_stya_university_logo1.png",
+      "logo": "/images/university-logos/52.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        55
+      ],
+      "name": "Mangalmay",
+      "website": "https://www.mangalmay.org/",
+      "error": "No official logo image found",
+      "pageTitle": "Top College in Greater Noida for Management & Engineering",
+      "sourceUrl": "https://www.mangalmay.org/image/mimt/best-college-logo.webp",
+      "logo": "/images/university-logos/55.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        58
+      ],
+      "name": "Sushant University",
+      "website": "https://sushantuniversity.edu.in/",
+      "pageTitle": "Top Private Colleges & Universities in Gurgaon | Sushant University",
+      "sourceUrl": "https://sushantuniversity.edu.in/front-assets/images/Su-Logo-sh.png",
+      "logo": "/images/university-logos/58.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        61
+      ],
+      "name": "Lalita Devi",
+      "website": "https://lldims.edu.in/",
+      "pageTitle": "LLDIMS – Best Private College in Delhi NCR Affiliated to GGSIPU",
+      "sourceUrl": "https://lldims.edu.in/wp-content/uploads/2023/11/LLDIMS-Logo-Circle.png",
+      "logo": "/images/university-logos/61.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        64
+      ],
+      "name": "NDIM undergraduate",
+      "website": "https://www.ndimdelhi.in/",
+      "pageTitle": "NDIM: New Delhi Institute of Management | BBA Admission in IP University",
+      "sourceUrl": "https://www.ndimdelhi.in/assets/img/logo-left.png",
+      "logo": "/images/university-logos/64.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        70
+      ],
+      "name": "RIIM",
+      "website": "https://riimpune.edu.in/",
+      "pageTitle": "RIIM",
+      "sourceUrl": "https://riimpune.edu.in/_next/image?url=%2Fimages%2Flogo.png&w=384&q=75",
+      "logo": "/images/university-logos/70.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        72
+      ],
+      "name": "Lexicon MILE",
+      "website": "https://lexiconmile.com/",
+      "pageTitle": "Top 10 Ranked MBA and PGDM Colleges in Pune",
+      "sourceUrl": "https://lexiconmile.com/wp-content/uploads/2020/03/black_Logo.svg",
+      "logo": "/images/university-logos/72.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        74
+      ],
+      "name": "ISMS",
+      "website": "https://ismspune.in/",
+      "error": "No official logo image found",
+      "pageTitle": "International School of Management Studies — original logo reproduced by CollegeDunia",
+      "sourceUrl": "https://d13loartjoc1yn.cloudfront.net/upload/institute/logo/medium/221214063714_ISMS_logo.webp",
+      "logo": "/images/university-logos/74.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        76
+      ],
+      "name": "Indus IIEBM",
+      "website": "https://iiebm.com/",
+      "pageTitle": "IIEBM Pune PGDM B School",
+      "sourceUrl": "https://iiebm.com/wp-content/uploads/2025/10/image-1.png",
+      "logo": "/images/university-logos/76.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        78
+      ],
+      "name": "PCU",
+      "website": "https://pcu.edu.in/",
+      "pageTitle": "Pimpri Chinchwad University — original header logo",
+      "sourceUrl": "https://pcu.edu.in/images/icons/pcuLogo.webp",
+      "logo": "/images/university-logos/78.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        81
+      ],
+      "name": "Universal AI",
+      "website": "https://www.universalai.in/",
+      "pageTitle": "Universal AI University — original logo from Wikimedia Commons",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/7/78/Universal_AI_University_Logo.png",
+      "logo": "/images/university-logos/81.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        84
+      ],
+      "name": "ATLAS SkillTech",
+      "website": "https://atlasuniversity.edu.in/",
+      "pageTitle": "ATLAS SkillTech University in Mumbai – Explore Programs & Admissions",
+      "sourceUrl": "https://cdn.prod.website-files.com/6846c77f346415bfcbb813b6/6908c8ec043d7bb791bfd372_atlas-logo-new.png",
+      "logo": "/images/university-logos/84.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        87
+      ],
+      "name": "Pune Business School",
+      "website": "https://punebusinessschool.com/",
+      "pageTitle": "Top PGDM College in Pune | Pune Business School (PBS) – AICTE Approved",
+      "sourceUrl": "https://punebusinessschool.com/img/pbs-logo-2023.png",
+      "logo": "/images/university-logos/87.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        91
+      ],
+      "name": "GIBS",
+      "website": "https://gibs.edu.in/",
+      "pageTitle": "Top 10 PGDM, MBA & BBA Colleges in India | GIBS Bangalore",
+      "sourceUrl": "https://gibs.edu.in/wp-content/uploads/2024/08/gibs-bangalore-logo.png",
+      "logo": "/images/university-logos/91.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        93
+      ],
+      "name": "RIT Roorkee",
+      "website": "https://ritroorkee.com/",
+      "error": "No official logo image found",
+      "pageTitle": "RIT Roorkee | NAAC A++ Engineering College in Uttarakhand",
+      "sourceUrl": "https://ritroorkee.com/wp-content/uploads/2024/01/RIT-NAAC-LOGO-1.pdf-1.png",
+      "logo": "/images/university-logos/93.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        95
+      ],
+      "name": "UPES",
+      "website": "https://www.upes.ac.in/",
+      "pageTitle": "UPES: Ranked #1 in Academic Reputation",
+      "sourceUrl": "https://www.upes.ac.in/assets/images/UPES-logo.svg",
+      "logo": "/images/university-logos/95.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        98
+      ],
+      "name": "Graphic Era",
+      "website": "https://geu.ac.in/",
+      "pageTitle": "Best University in Uttarakhand, India | Admissions Open 2026 - Graphic Era University",
+      "sourceUrl": "https://geu.ac.in/frontend/assets/images/geu-logo.webp",
+      "logo": "/images/university-logos/98.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        101
+      ],
+      "name": "DBS",
+      "website": "https://www.doonbusinessschool.com/",
+      "pageTitle": "Doon Business School Dehradun | MBA, BBA & B.Com Programs at DBS",
+      "sourceUrl": "https://www.doonbusinessschool.com/images/dbs-logo.png",
+      "logo": "/images/university-logos/101.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        104
+      ],
+      "name": "Dev Bhoomi",
+      "website": "https://www.dbuu.ac.in/",
+      "pageTitle": "Dev Bhoomi Uttarakhand University - Best University in Dehradun",
+      "sourceUrl": "https://www.dbuu.ac.in/assets/images/logo/new-22-years-logo.png",
+      "logo": "/images/university-logos/104.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        107
+      ],
+      "name": "Emversity",
+      "website": "https://emversity.com/",
+      "pageTitle": "Home | Emversity - The Future of Education",
+      "sourceUrl": "https://emversity.com/ (original inline header SVG)",
+      "logo": "/images/university-logos/107.svg",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        110
+      ],
+      "name": "Intellipaat",
+      "website": "https://intellipaat.com/",
+      "pageTitle": "Online Professional Training Courses and Certification - Intellipaat",
+      "sourceUrl": "https://intellipaat.com/wp-content/themes/intellipaat/images/intellipaat_logo.svg",
+      "logo": "/images/university-logos/110.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        112
+      ],
+      "name": "NIAT",
+      "website": "https://www.niatindia.com/",
+      "error": "No official logo image found",
+      "pageTitle": "NIAT | NxtWave of Innovation in Advanced Technologies",
+      "sourceUrl": "https://cdn.prod.website-files.com/5fa61cbbf0d432b3230f62b1/67bdcc67213636727abf6e23_Group%20760938%20%281%29.avif",
+      "logo": "/images/university-logos/112.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        114
+      ],
+      "name": "upGrad",
+      "website": "https://www.upgrad.com/",
+      "pageTitle": "upGrad® Online Courses - India’s Top Upskilling Platform",
+      "sourceUrl": "https://assets.upgrad.com/3628/_next/static/media/upgrad-header-logo.325f003e.svg",
+      "logo": "/images/university-logos/114.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        116
+      ],
+      "name": "4PL",
+      "website": "https://4placademy.com/",
+      "sourceUrl": "Existing owner-provided academy brand logo",
+      "logo": "/images/4pl-logo-trimmed.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        815
+      ],
+      "name": "Vivekananda Global University",
+      "website": "https://vgu.ac.in/",
+      "pageTitle": "Top Private University in Rajasthan | VGU Jaipur",
+      "sourceUrl": "https://vgu.ac.in/assets/images/vgu-logo-n.png",
+      "logo": "/images/university-logos/815.webp",
+      "reviewed": true
+    },
+    {
+      "ids": [
+        816
+      ],
+      "name": "IBMR",
+      "website": "https://ibmrbschool.com/",
+      "pageTitle": "Best Management College in Gurgaon | IBMR B-School Delhi NCR",
+      "sourceUrl": "https://ibmrbschool.com/wp-content/uploads/2023/12/IBMR-Logo.png",
+      "logo": "/images/university-logos/816.webp",
+      "reviewed": true
+    }
+  ],
+  "failures": []
+}

@@ -9,7 +9,7 @@ import { Skeleton, ErrorState, Fact, Reveal } from '@/components/ui-kit';
 import { RichText, ListBlock } from '@/components/RichText';
 import { FaqList } from '@/components/FaqList';
 import { LeadForm } from '@/components/LeadForm';
-import { ProgramCard } from '@/components/Cards';
+import { ProgramCard, LogoBadge } from '@/components/Cards';
 import { bookHref } from '@/lib/booking';
 import { BookButton, StickyBook } from '@/components/BookCta';
 import { useUniMap } from '@/components/Cards';
@@ -180,7 +180,7 @@ export function UniversityDetail() {
         return (
           <>
             <Hero c={u} eyebrow="University" crumbs={[{ label: 'Home', href: '/' }, { label: 'Universities', href: '/universities' }, { label: u.name }]}
-              logo={<div className="grid h-16 w-16 shrink-0 place-items-center overflow-hidden rounded-md bg-surface sm:h-20 sm:w-20">{u.verified && has(u.logo) ? <img src={u.logo} alt={`${u.name} logo`} className="h-full w-full object-contain p-1" /> : <span className="font-display text-xl text-navy">{initials(u.name)}</span>}</div>}
+              logo={<div className="grid h-16 w-16 shrink-0 place-items-center overflow-hidden rounded-md bg-surface sm:h-20 sm:w-20"><LogoBadge u={u} className="h-full w-full p-1" /></div>}
               facts={<>
                 <Fact icon={MapPin} label="Location" value={val(u.location || [u.city, u.state].filter(has).join(', '))} /><Fact icon={Users2} label="Type" value={val(u.type)} /><Fact icon={CalendarDays} label="Established" value={val(u.establishedYear)} />
                 <Fact icon={Award} label="Accreditation" value={val(u.accreditation)} /><Fact icon={Globe} label="Country" value={val(u.country)} />

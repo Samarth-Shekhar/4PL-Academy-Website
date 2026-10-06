@@ -5,6 +5,7 @@ import { useSeo } from '@/lib/seo';
 import { asset, has } from '@/lib/format';
 import { openBot } from '@/lib/events';
 import { Skeleton, CardSkeletons, SectionHead, EmptyState } from '@/components/ui-kit';
+import { MovingCards } from '@/components/home/MovingCards';
 import { BlogCard } from '@/components/Cards';
 import { ProgramVideoHero } from '@/components/home/ProgramVideoHero';
 import { Ecosystem } from '@/components/home/Ecosystem';
@@ -25,13 +26,13 @@ const MAP = { ecosystem: Ecosystem, universities: UniversityNetwork, programs: P
 
 function Blogs() {
   const q = usePublicList('blogs');
-  const list = (q.data || []).slice(0, 3);
+  const list = (q.data || []).slice(0, 6);
   if (q.isLoading) return <section className="container-x py-16"><CardSkeletons n={3} /></section>;
   if (!list.length) return null;
   return (
-    <section className="container-x py-16 sm:py-24">
-      <SectionHead eyebrow="Insights" title="From the 4PL Academy desk"><Link href="/blogs" className="btn btn-outline self-start">All articles</Link></SectionHead>
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{list.map((b) => <BlogCard key={b.id} b={b} />)}</div>
+    <section className="py-16 sm:py-24" aria-label="Blogs and Insights of 4PL Academy">
+      <div className="container-x"><SectionHead eyebrow="Insights" title="Blogs and Insights of 4PL Academy"><Link href="/blogs" className="btn btn-outline self-start">All articles</Link></SectionHead></div>
+      <MovingCards label="Blogs and Insights" items={list} render={(b) => <div className="w-[min(80vw,21rem)] sm:w-[21rem]"><BlogCard b={b} /></div>} />
     </section>
   );
 }
@@ -44,7 +45,7 @@ export default function Home() {
     description: home?.seoDescription || 'Industry-integrated education built for real-world careers. Explore degree programs, professional courses and a university directory.',
     jsonLd: { '@context': 'https://schema.org', '@type': 'EducationalOrganization', name: '4PL Academy', slogan: 'Creating Global Professionals', parentOrganization: { '@type': 'Organization', name: '4PL Consultancy Ltd' }, logo: new URL(asset('images/4pl-logo.jpg'), window.location.origin).href, url: window.location.origin },
   });
-  const sections = (hp.data || []).filter((x) => x.enabled !== false && x.status !== 'archived' && x.status !== 'draft').sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0) || a.id - b.id);
+  const sections = (hp.data || []).filter((x) => x.enabled !== false && x.status !== 'archived' && x.status !== 'draft' && (x.section || x.slug) !== 'gallery').sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0) || a.id - b.id);
   const finalIdx = sections.findIndex((x) => (x.section || x.slug) === 'final-cta');
   if (hp.isLoading) return <div><Skeleton className="h-[100svh] rounded-none" /></div>;
   if (!sections.length) {

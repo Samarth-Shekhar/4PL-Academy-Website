@@ -4,14 +4,14 @@ description: No visible illustrative captions; homepage imagery focuses on progr
 ---
 
 Do not show “Representative generic imagery”, “Illustrative imagery · Details”,
-or equivalent illustrative/generic-image captions beneath images or in the hero
+“Illustrative photography…” or equivalent illustrative/generic-image captions beneath images or in the hero
 across this website.
 
 **Why:** The user asked to remove these labels all over the website, then pointed
 out additional hero labels that had been missed.
 
 **How to apply:** Check shared image-caption components and hero controls as well
-as individual pages. Keep factual source/provenance metadata and do not describe
+as individual pages and CMS-sourced descriptions. Keep factual source/provenance metadata and do not describe
 generic artwork as a verified campus, person or event.
 
 For the homepage, use program subjects and objects rather than human-focused
@@ -23,3 +23,31 @@ the images should be of programs, not humans, and supplied the intended style.
 
 **How to apply:** Show subjects such as AI hardware, logistics infrastructure,
 digital marketing equipment and trade materials rather than learner portraits.
+
+Keep hero navigation minimal: no hero search field or previous/next arrow
+buttons; retain small clickable slide indicators for manual selection.
+
+**Why:** The owner explicitly requested removing the search bar and arrows,
+leaving only small pointers to choose slides.
+
+**How to apply:** Preserve indicator selection and automatic hero transitions
+when refining the hero; do not reintroduce those removed controls.
+
+Keep the homepage's "Your Next Chapter Starts Here" closing call-to-action
+on a plain white background, with navy-blue text and gold accents.
+
+**Why:** The owner explicitly requested replacing that section's dark image
+background with white and blue/gold styling.
+
+**How to apply:** Keep this exception distinct from the image-based hero and
+the owner's supplied footer artwork; preserve its existing CTA destinations.
+
+Do not show the “Life at 4PL” gallery section on the homepage. Keep the
+“Learning Happens Together” images large rather than restricting them to
+a narrow column beside the heading.
+
+**Why:** The owner asked to remove the gallery block and enlarge the learning
+images shown in their screenshots.
+
+**How to apply:** Preserve gallery records and the student-life route, but
+omit that homepage block. Keep the learning images prominent and responsive.

@@ -48,7 +48,7 @@ export function Count({ to, className }) {
   const [ref, vis] = useInView();
   const reduce = useReducedMotion();
   const [n, setN] = useState(reduce ? to : 0);
-  useEffect(() => { if (!vis) return undefined; if (reduce) { setN(to); return undefined; } const c = animate(0, to, { duration: 1.4, ease: 'easeOut', onUpdate: (v) => setN(Math.round(v)) }); return () => c.stop(); }, [vis, to, reduce]);
+  useEffect(() => { if (!vis) return undefined; if (reduce) { setN(to); return undefined; } const c = animate(0, to, { duration: 0.7, ease: 'easeOut', onUpdate: (v) => setN(Math.round(v)), onComplete: () => setN(to) }); return () => c.stop(); }, [vis, to, reduce]);
   return <span ref={ref} className={className}>{n}</span>;
 }
 export const Pending = ({ title, body, children }) => (

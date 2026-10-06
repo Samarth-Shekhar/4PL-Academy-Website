@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { Link } from 'wouter';
 import { useVerified, REL_LABEL, mediaUrl } from '@/lib/home';
 import { has } from '@/lib/format';
-import { Head, Body, CtaRow, Pending, Pic } from './shared';
+import { Head, Body, CtaRow, Pic } from './shared';
+import { CompanyLogoStrip } from './CompanyLogoStrip';
 import { Skeleton } from '@/components/ui-kit';
 
 function Logo({ c, hidden }) {
@@ -31,10 +31,10 @@ export function IndustryLogoMarquee({ s }) {
         {items.length > 0 && <ul className="mt-12 grid gap-px overflow-hidden rounded-lg bg-line sm:grid-cols-3">{items.map((it, i) => <li key={it.name + i} className="bg-card p-5"><h3 className="text-lg text-navy">{it.name}</h3>{has(it.description) && <p className="mt-1.5 text-sm text-muted-foreground">{it.description}</p>}</li>)}</ul>}
       </div>
       <div className="mt-12">
-        {isLoading ? <div className="container-x"><Skeleton className="h-28" /></div> : !list.length ? (
-          <div className="container-x"><Pending title="Industry relationships are being verified" body="Company logos appear here only after 4PL Academy verifies the relationship and labels it accurately, for example hiring partner or corporate client."><Link href="/career-industry" className="btn btn-navy">Career and industry</Link><Link href="/for-universities" className="btn btn-outline">Work with 4PL</Link></Pending></div>
-        ) : (
+        {isLoading ? <div className="container-x"><Skeleton className="h-28" /></div> : (
           <>
+            <div className="container-x mb-10"><CompanyLogoStrip label="Industry brand examples" /></div>
+            {list.length > 0 && <>
             <div className={`marquee relative overflow-hidden ${paused ? 'marquee-paused' : ''}`} role="region" aria-label="Verified industry companies" tabIndex={0} onKeyDown={(e) => { if (e.key === ' ') { e.preventDefault(); setPaused((p) => !p); } }}>
               <div className="marquee-track gap-4 pr-4" style={{ animationDuration: `${Math.max(list.length * 7, 28)}s` }}>
                 {list.map((c) => <Logo key={c.id} c={c} />)}
@@ -43,6 +43,7 @@ export function IndustryLogoMarquee({ s }) {
               </div>
             </div>
             <div className="container-x mt-3 flex items-center justify-between"><p className="text-xs text-muted-foreground">Each company is shown with its verified relationship type.</p><button type="button" className="text-xs font-bold uppercase tracking-wider text-navy underline-offset-4 hover:underline" onClick={() => setPaused((p) => !p)} aria-pressed={paused}>{paused ? 'Resume motion' : 'Pause motion'}</button></div>
+          </>}
           </>
         )}
       </div>

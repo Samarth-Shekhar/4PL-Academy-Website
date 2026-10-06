@@ -20,7 +20,7 @@ const schema = z.object({
   consent: z.literal(true, { errorMap: () => ({ message: 'Consent is required so we can contact you' }) }),
 });
 
-export function LeadForm({ category = 'counselling', program, university, course, interestedIn, defaultMessage = '', submitLabel = 'Book Counselling', showMessage = true, careers = false, onDone, idPrefix = 'lead' }) {
+export function LeadForm({ category = 'counselling', program, university, course, interestedIn, defaultMessage = '', submitLabel = 'Book Counselling', showMessage = true, careers = false, compact = false, onDone, idPrefix = 'lead' }) {
   const [done, setDone] = useState(null);
   const submit = useSubmitLead();
   const unis = usePublicList('universities', undefined, { staleTime: 120000 }).data || [];
@@ -64,13 +64,13 @@ export function LeadForm({ category = 'counselling', program, university, course
         <div><label className="label" htmlFor={f('email')}>Email</label><input id={f('email')} type="email" inputMode="email" className="input" autoComplete="email" aria-invalid={!!errors.email} {...register('email')} /><Err n="email" /></div>
         <div><label className="label" htmlFor={f('phone')}>Phone</label><input id={f('phone')} type="tel" inputMode="tel" className="input" autoComplete="tel" aria-invalid={!!errors.phone} {...register('phone')} /><Err n="phone" /></div>
       </div>
-      {!careers && <div className="grid gap-4 sm:grid-cols-2">
+      {!careers && !compact && <div className="grid gap-4 sm:grid-cols-2">
         <div><label className="label" htmlFor={f('interest')}>Interested in</label><select id={f('interest')} className="input" {...register('interestedIn')}><option value="">Select</option>{INTERESTS.map((x) => <option key={x}>{x}</option>)}</select></div>
         <div><label className="label" htmlFor={f('qual')}>Highest qualification</label><select id={f('qual')} className="input" {...register('qualification')}><option value="">Select</option>{QUALIFICATIONS.map((x) => <option key={x}>{x}</option>)}</select></div>
         <div><label className="label" htmlFor={f('uni')}>Preferred university</label><select id={f('uni')} className="input" {...register('university')}><option value="">No preference</option>{withCurrent(unis, university).map((u) => <option key={u.id} value={u.name}>{u.name}</option>)}</select></div>
         <div><label className="label" htmlFor={f('prog')}>Preferred program</label><select id={f('prog')} className="input" {...register('program')}><option value="">No preference</option>{withCurrent(progs, program).map((p) => <option key={p.id} value={p.name}>{p.name}</option>)}</select></div>
       </div>}
-      {!careers && <div><label className="label" htmlFor={f('city')}>City</label><input id={f('city')} className="input" autoComplete="address-level2" {...register('city')} /></div>}
+      {!careers && !compact && <div><label className="label" htmlFor={f('city')}>City</label><input id={f('city')} className="input" autoComplete="address-level2" {...register('city')} /></div>}
       {showMessage && (
         <div><label className="label" htmlFor={f('message')}>Message <span className="font-normal text-muted-foreground">(optional)</span></label><textarea id={f('message')} className="input" {...register('message')} /><Err n="message" /></div>
       )}

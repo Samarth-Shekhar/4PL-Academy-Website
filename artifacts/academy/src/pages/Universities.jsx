@@ -9,10 +9,10 @@ import { FilterLayout, SelectField, SearchField } from '@/components/FilterLayou
 import { UniversityCard } from '@/components/Cards';
 
 export default function Universities() {
-  const empty={ search: '', location: '', degree: '', region:'', program:'', specialization:'', duration:'', mode:'', eligibility:'', fee:'', type: '', verified: '', sort: 'featured' };
+  const empty={ search: '', location: '', degree: '', region:'', program:'', specialization:'', duration:'', mode:'', eligibility:'', fee:'', type: '', sort: 'featured' };
   const [f, setF] = useState(empty);
   const set = (k) => (v) => setF((x) => ({ ...x, [k]: v }));
-  useSeo({ title: 'University Directory', description: 'Discover universities and colleges by city, state and degree. Directory entries are discovery records; verified 4PL partners are clearly marked.' });
+  useSeo({ title: 'University Directory', description: 'Discover universities and colleges by city, state and degree. Directory entries are discovery records only.' });
   const disc = useGetDiscovery({ query: { queryKey: getGetDiscoveryQueryKey(), staleTime: 30000, refetchOnMount: true } }).data;
   const q = usePublicList('universities', { search: f.search.trim(), location: f.location, degree: f.degree });
   const programs=usePublicList('programs');
@@ -21,7 +21,7 @@ export default function Universities() {
   const all = q.data || [];
   const list = useMemo(() => {
     const hasProgramFilter=['program','specialization','duration','mode','eligibility','fee'].some(k=>f[k]);
-    let r = all.filter((u) => (!f.region||u.category===f.region) && (!f.type || (u.type || '').toLowerCase() === f.type.toLowerCase()) && (!f.verified || (f.verified === 'yes' ? u.partnershipVerified : !u.partnershipVerified)) && (!hasProgramFilter || linked.some(p=>{
+    let r = all.filter((u) => (!f.region||u.category===f.region) && (!f.type || (u.type || '').toLowerCase() === f.type.toLowerCase()) && (!hasProgramFilter || linked.some(p=>{
       if(p.universityId!==u.id)return false;
       if(['specialization','duration','mode','eligibility'].some(k=>f[k]&&p[k]!==f[k]))return false;
       if(f.program&&p.name!==f.program)return false;
@@ -30,14 +30,14 @@ export default function Universities() {
     })));
     r = [...r];
     if (f.sort === 'az') r.sort((a, b) => a.name.localeCompare(b.name));
-    else r.sort((a, b) => Number(b.partnershipVerified) - Number(a.partnershipVerified) || Number(b.featured) - Number(a.featured) || (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
+    else r.sort((a, b) => Number(b.featured) - Number(a.featured) || (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
     return r;
   }, [all, linked, f]);
-  const active = ['location', 'degree', 'region','program','specialization','duration','mode','eligibility','fee','type', 'verified'].filter((k) => f[k]).length;
+  const active = ['location', 'degree', 'region','program','specialization','duration','mode','eligibility','fee','type'].filter((k) => f[k]).length;
   const reset = () => setF(x=>({...empty,search:x.search,sort:x.sort}));
   const panel = (
     <>
-      <SelectField id="u-sort" label="Sort by" value={f.sort} onChange={set('sort')} any="Default" options={[{ value: 'featured', label: 'Verified and featured first' }, { value: 'az', label: 'Name A to Z' }]} />
+      <SelectField id="u-sort" label="Sort by" value={f.sort} onChange={set('sort')} any="Default" options={[{ value: 'featured', label: 'Featured first' }, { value: 'az', label: 'Name A to Z' }]} />
       <SelectField id="u-loc" label="Location" value={f.location} onChange={set('location')} options={disc?.locations || []} />
       <SelectField id="u-deg" label="Degree" value={f.degree} onChange={set('degree')} options={disc?.degrees || []} />
       <SelectField id="u-region" label="Region" value={f.region} onChange={set('region')} options={uniq(all.map(u=>u.category))} />
@@ -48,14 +48,13 @@ export default function Universities() {
       <SelectField id="u-eligibility" label="Eligibility" value={f.eligibility} onChange={set('eligibility')} options={programOptions('eligibility')} />
       <SelectField id="u-fee" label="Fee range" value={f.fee} onChange={set('fee')} options={FEE_RANGES.map(r=>({value:r.id,label:r.label}))} />
       <SelectField id="u-type" label="Institution type" value={f.type} onChange={set('type')} options={uniq(all.map((u) => u.type))} />
-      <SelectField id="u-ver" label="Partnership" value={f.verified} onChange={set('verified')} options={[{ value: 'yes', label: 'Verified 4PL partners' }, { value: 'no', label: 'Directory records' }]} />
     </>
   );
   return (
     <>
-      <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Universities' }]} eyebrow="University discovery" title="Explore universities and colleges" body="A discovery directory of institutions. A listing here is not a confirmed 4PL partnership; confirmed partners carry a verified badge and their logo." />
+      <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Universities' }]} eyebrow="University discovery" title="Explore universities and colleges" body="A discovery directory of institutions. A listing here does not imply a partnership with 4PL Academy." />
       <FilterLayout search={<SearchField value={f.search} onChange={set('search')} placeholder="Search by university, city or state" />} panel={panel} activeCount={active} onReset={reset} count={q.isLoading ? 'Loading universities' : `${list.length} institution${list.length === 1 ? '' : 's'} found`}>
-        {q.isLoading || (programs.isLoading&&active>0) ? <CardSkeletons n={6} className="h-48" /> : q.isError ? <ErrorState onRetry={q.refetch} /> : !list.length ? <EmptyState icon={Landmark} title="No universities match" body="Try a different city, degree or search term." action={<button type="button" className="btn btn-navy" onClick={() => setF(empty)}>Clear everything</button>} /> : <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">{list.map((u) => <UniversityCard key={u.id} u={u} />)}</div>}
+        {q.isLoading || (programs.isLoading&&active>0) ? <CardSkeletons n={6} className="h-48" /> : q.isError ? <ErrorState onRetry={q.refetch} /> : !list.length ? <EmptyState icon={Landmark} title="No universities match" body="Try a different city, degree or search term." action={<button type="button" className="btn btn-navy" onClick={() => setF(empty)}>Clear everything</button>} /> : <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 xl:grid-cols-3">{list.map((u) => <UniversityCard key={u.id} u={u} />)}</div>}
       </FilterLayout>
     </>
   );

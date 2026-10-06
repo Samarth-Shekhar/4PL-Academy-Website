@@ -12,9 +12,10 @@ function Item({ n, f, hidden }) {
   );
 }
 
-export function CompanyLogoStrip() {
+export function CompanyLogoStrip({ label }) {
   return (
     <div data-testid="company-logo-strip">
+      {label && <p className="eyebrow mb-2">{label}</p>}
       <h3 className="text-xl text-navy sm:text-2xl">Examples of business, logistics, technology and retail companies</h3>
       <div className="logo-flow mt-6 rounded-lg border border-line bg-card py-7" role="group" aria-label="Company logos">
         <ul className="logo-flow-track">
@@ -22,7 +23,6 @@ export function CompanyLogoStrip() {
           {LOGOS.map(([n, f]) => <Item key={`d${n}`} n={n} f={f} hidden />)}
         </ul>
       </div>
-      <p className="mt-3 text-xs text-muted-foreground">Displaying these logos does not imply partnership, endorsement, employment opportunities or certification by these companies.</p>
     </div>
   );
 }
