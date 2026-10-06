@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { lazy, Suspense, useMemo, useState } from 'react';
 import { Link, useParams, useSearch } from 'wouter';
 import { ArrowRight, CalendarDays, User, Mail, Phone, MapPin, Search } from 'lucide-react';
 import { useContactSettings, telHref } from '@/lib/settings';
@@ -17,6 +17,7 @@ import NotFound from './NotFound';
 
 const PAGE_IMG = { 'career-industry': 'images/industry-logistics.webp', 'student-life': 'images/student-life.webp', about: 'images/hero-students.webp', 'for-universities': 'images/industry-logistics.webp' };
 const EYEBROW = { about: 'About 4PL Academy', 'career-industry': 'Career & industry', 'student-life': 'Student life', 'for-universities': 'For universities' };
+const BlogBody = lazy(() => import('@/components/BlogBody').then((m) => ({ default: m.BlogBody })));
 
 export function KindPage({ slug }) {
   const q = usePublicItem('pages', slug);
@@ -69,7 +70,7 @@ export function Blogs() {
   const rows = feature ? filtered.slice(1) : filtered;
   return (
     <>
-      <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Blogs' }]} eyebrow="Insights" title="Blogs and insights" body="Reviewed articles on careers, universities and global trade." />
+      <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Blogs' }]} eyebrow="Insights" title="Blogs and insights" body="Articles from 4PL Academy on logistics, supply chains and global trade." />
       <div className="container-x py-10 sm:py-14">
         {q.isLoading ? <CardSkeletons n={3} /> : q.isError ? <ErrorState onRetry={q.refetch} /> : !all.length ? <EmptyState title="No articles published yet" body="We only publish reviewed articles. Explore programs or ask ACAD BOT in the meantime." action={<Link href="/programs" className="btn btn-navy">Explore programs</Link>} /> : (
           <>
@@ -82,7 +83,7 @@ export function Blogs() {
             </div>
             {feature && (
               <Link href={`/blogs/${feature.slug}`} className="story-card group mt-8 grid overflow-hidden rounded-[1.75rem] bg-mist/70 lg:grid-cols-2" data-testid="card-blog-featured">
-                <div className="min-h-[14rem] overflow-hidden bg-navy">{has(feature.image) ? <img src={feature.image} alt="" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" /> : <div className="navy-surface grid h-full min-h-[14rem] place-items-center p-6 text-center"><span className="font-display text-2xl text-gold">{feature.category || 'Featured story'}</span></div>}</div>
+                <div className="flex items-center bg-mist">{has(feature.image) ? <img src={feature.image} alt="" width={feature.imageWidth} height={feature.imageHeight} className="h-auto w-full object-contain" /> : <div className="navy-surface grid w-full min-h-[14rem] place-items-center p-6 text-center"><span className="font-display text-2xl text-gold">{feature.category || 'Featured story'}</span></div>}</div>
                 <div className="flex min-w-0 flex-col justify-center p-6 sm:p-10">
                   <p className="eyebrow">Featured story</p>
                   <h2 className="mt-3 text-2xl font-extrabold leading-tight text-navy sm:text-4xl">{feature.name}</h2>
@@ -96,7 +97,7 @@ export function Blogs() {
               <ul className="mt-10 divide-y divide-line">
                 {rows.map((b) => (
                   <li key={b.id}><Link href={`/blogs/${b.slug}`} className="story-card group grid min-w-0 gap-4 py-6 sm:grid-cols-[14rem_minmax(0,1fr)] sm:gap-8" data-testid={`card-blog-${b.id}`}>
-                    <div className="aspect-[4/3] overflow-hidden rounded-2xl bg-navy">{has(b.image) ? <img src={b.image} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" /> : <div className="navy-surface grid h-full place-items-center p-3 text-center"><span className="font-display text-gold">{b.category || 'Insights'}</span></div>}</div>
+                    <div className="self-center overflow-hidden rounded-2xl bg-mist">{has(b.image) ? <img src={b.image} alt="" loading="lazy" width={b.imageWidth} height={b.imageHeight} className="h-auto w-full object-contain" /> : <div className="navy-surface grid aspect-[9/5] place-items-center p-3 text-center"><span className="font-display text-gold">{b.category || 'Insights'}</span></div>}</div>
                     <div className="min-w-0 self-center">
                       <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">{has(b.category) && <span className="chip chip-gold">{b.category}</span>}{has(b.publishedAt) && <span>{fmtDate(b.publishedAt)}</span>}{has(b.author) && <span>{b.author}</span>}</div>
                       <h3 className="mt-2 text-xl font-bold leading-snug text-navy group-hover:underline sm:text-2xl">{b.name}</h3>
@@ -139,8 +140,8 @@ export function BlogDetail() {
         <div className="mt-8 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">{has(b.category) && <span className="chip chip-gold">{b.category}</span>}{has(b.publishedAt) && <span className="flex items-center gap-1"><CalendarDays className="h-4 w-4" aria-hidden="true" />{fmtDate(b.publishedAt)}</span>}{has(b.author) && <span className="flex items-center gap-1"><User className="h-4 w-4" aria-hidden="true" />{b.author}</span>}</div>
         <h1 className="mt-4 text-4xl font-extrabold leading-[1.08] tracking-tight text-navy sm:text-5xl">{b.name}</h1>
         {has(b.shortDescription) && <p className="mt-4 text-lg text-foreground/75">{b.shortDescription}</p>}
-        {has(b.image) && <img src={b.image} alt="" className="mt-8 h-auto w-full rounded-2xl" />}
-        <div className="story-body mt-8"><RichText text={b.description} /></div>
+        {has(b.image) && <img src={b.image} alt="" width={b.imageWidth} height={b.imageHeight} className="mt-8 h-auto w-full rounded-2xl" />}
+        <div className="story-body mt-8"><Suspense fallback={<Skeleton className="h-64" />}><BlogBody text={b.description} /></Suspense></div>
         <FaqList faqs={b.faqs} />
         <div className="navy-surface on-navy mt-12 rounded-[1.5rem] p-6 sm:flex sm:items-center sm:justify-between sm:gap-6 sm:p-8">
           <div><p className="font-display text-xl font-bold">Questions about your own options?</p><p className="mt-1 text-sm text-surface/75">Talk to an admissions counsellor about programs and next steps.</p></div>
@@ -189,9 +190,10 @@ const FORMS = {
   counselling: { title: 'Request counselling', eyebrow: 'Counselling', body: 'A one-to-one conversation about programs, universities and admission support. No guarantees, only honest guidance.', cat: 'counselling', label: 'Request counselling' },
 };
 export function FormPage({ kind }) {
-  const c = FORMS[kind];
   const sp = new URLSearchParams(useSearch());
-  const ctx = { program: sp.get('program') || undefined, university: sp.get('university') || undefined, course: sp.get('course') || undefined, interestedIn: sp.get('interestedIn') || undefined };
+  const careers = kind === 'contact' && sp.get('intent') === 'careers';
+  const c = careers ? { ...FORMS.contact, title: 'Contact the 4PL Academy team', eyebrow: 'Careers enquiry', body: 'Tell us about your background and how you would like to contribute to 4PL Academy.', label: 'Send careers enquiry' } : FORMS[kind];
+  const ctx = careers ? { careers: true, interestedIn: 'Careers enquiry', defaultMessage: 'Careers enquiry: ' } : { program: sp.get('program') || undefined, university: sp.get('university') || undefined, course: sp.get('course') || undefined, interestedIn: sp.get('interestedIn') || undefined };
   const st = useContactSettings();
   useSeo({ title: c.title, description: c.body });
   const page = usePublicItem('pages', kind === 'contact' ? 'contact' : '__none__', { enabled: kind === 'contact' }).data;
@@ -215,8 +217,8 @@ export function FormPage({ kind }) {
           )}
           {kind === 'contact' && <OfficeLocationMap />}
           {page && has(page.description) && <RichText text={page.description} />}
-          <div className="navy-surface on-navy rounded-lg p-6"><p className="eyebrow">What happens next</p><ol className="mt-4 space-y-4">{['We review your request', 'An admissions advisor contacts you', 'You get verified information and next steps'].map((s, i) => <li key={s} className="flex gap-3"><span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-gold text-sm font-bold text-navy">{i + 1}</span><span className="text-sm text-surface/90">{s}</span></li>)}</ol></div>
-          <p className="text-xs text-muted-foreground">Admission, training and placement support is provided. Admission, jobs and salaries are never guaranteed.</p>
+          <div className="navy-surface on-navy rounded-lg p-6"><p className="eyebrow">What happens next</p><ol className="mt-4 space-y-4">{(careers ? ['Your message is sent to the 4PL Academy team', 'The team reviews your enquiry', 'Keep your contact details accurate for any follow-up'] : ['We review your request', 'An admissions advisor contacts you', 'You get verified information and next steps']).map((s, i) => <li key={s} className="flex gap-3"><span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-gold text-sm font-bold text-navy">{i + 1}</span><span className="text-sm text-surface/90">{s}</span></li>)}</ol></div>
+          <p className="text-xs text-muted-foreground">{careers ? 'This is a general enquiry to the team, not a job application.' : 'Admission, training and placement support is provided. Admission, jobs and salaries are never guaranteed.'}</p>
         </div>
       </div>
     </>

@@ -14,6 +14,7 @@ import NotFound from '@/pages/NotFound';
 import { ProgramDetail, UniversityDetail, CourseDetail } from '@/pages/Details';
 import Certifications from '@/pages/Certifications';
 import Career from '@/pages/Career';
+import Careers from '@/pages/Careers';
 import Legal from '@/pages/Legal';
 import { KindPage, Blogs, BlogDetail, Faq, FormPage } from '@/pages/Content';
 
@@ -87,6 +88,7 @@ function PublicApp() {
         <Route path="/blog/:slug" component={BlogDetail} />
         <Route path="/book-counselling"><FormPage kind="book" /></Route>
         <Route path="/about"><KindPage slug="about" /></Route>
+        <Route path="/careers" component={Careers} />
         <Route path="/career" component={Career} />
         <Route path="/career-industry" component={Career} />
         <Route path="/privacy"><Legal slug="privacy" title="Privacy Policy" /></Route>

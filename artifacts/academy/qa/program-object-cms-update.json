@@ -1,0 +1,344 @@
+{
+  "changes": [
+    {
+      "id": 295,
+      "expected_updated_at": "2026-10-06 07:32:59.110878+00",
+      "data": {
+        "image": "/images/program-hero/bba-ai-objects-1920.webp"
+      }
+    },
+    {
+      "id": 296,
+      "expected_updated_at": "2026-10-05 11:13:47.686+00",
+      "data": {
+        "items": [
+          {
+            "url": "/universities",
+            "name": "Universities",
+            "description": "Discover institutions and explore the available directory information.",
+            "image": "/images/program-hero/bba-ai-objects-1920.webp",
+            "altText": "AI processor hardware and data centre server racks"
+          },
+          {
+            "url": "/career-industry",
+            "name": "Industry",
+            "description": "Connect learning with the practical challenges of business.",
+            "image": "/images/program-hero/bba-global-logistics-objects-1920.webp",
+            "altText": "Container vessel, cargo cranes and a global logistics port"
+          },
+          {
+            "url": "/courses",
+            "name": "Professional Learning",
+            "description": "Explore focused courses for the world of work.",
+            "image": "/images/program-hero/bba-digital-marketing-objects-1920.webp",
+            "altText": "Digital marketing monitors and equipment in an empty creative workspace"
+          },
+          {
+            "url": "/counselling",
+            "name": "Career Development",
+            "description": "Understand career pathways and admissions support.",
+            "image": "/images/program-hero/mba-trade-compliance-objects-1920.webp",
+            "altText": "Trade documentation, cargo container models and a globe"
+          }
+        ]
+      }
+    },
+    {
+      "id": 299,
+      "expected_updated_at": "2026-10-05 11:13:47.694+00",
+      "data": {
+        "image": "/images/program-hero/bba-digital-marketing-objects-1920.webp"
+      }
+    },
+    {
+      "id": 300,
+      "expected_updated_at": "2026-10-05 11:13:47.7+00",
+      "data": {
+        "items": [
+          {
+            "url": "/programs",
+            "name": "Supply chain in practice",
+            "image": "/images/program-hero/mba-supply-chain-objects-1920.webp",
+            "description": "See how goods, information and people move together.",
+            "altText": "Automated distribution warehouse with sorting conveyors"
+          },
+          {
+            "url": "/courses",
+            "name": "Across borders",
+            "image": "/images/program-hero/mba-trade-compliance-objects-1920.webp",
+            "description": "Explore the systems behind shipping and global trade.",
+            "altText": "Trade documentation, cargo container models and a globe"
+          },
+          {
+            "url": "/programs",
+            "name": "Business decisions",
+            "image": "/images/program-hero/bba-digital-marketing-objects-1920.webp",
+            "description": "Understand how teams plan, collaborate and solve problems.",
+            "altText": "Digital marketing monitors and equipment in an empty creative workspace"
+          },
+          {
+            "url": "/programs",
+            "name": "Technology at work",
+            "image": "/images/program-hero/bba-ai-objects-1920.webp",
+            "description": "Discover where technology meets business and professional learning.",
+            "altText": "AI processor hardware and data centre server racks"
+          }
+        ]
+      }
+    },
+    {
+      "id": 302,
+      "expected_updated_at": "2026-10-05 11:13:47.708+00",
+      "data": {
+        "items": [
+          {
+            "url": "",
+            "name": "Learn",
+            "image": "/images/program-hero/bba-supply-chain-objects-1920.webp",
+            "description": "Build your understanding.",
+            "altText": "Logistics models, warehouse layout, laptop and a globe"
+          },
+          {
+            "url": "",
+            "name": "Practice",
+            "image": "/images/program-hero/mba-supply-chain-objects-1920.webp",
+            "description": "Apply ideas to practical situations.",
+            "altText": "Automated distribution warehouse with sorting conveyors"
+          },
+          {
+            "url": "",
+            "name": "Build",
+            "image": "/images/program-hero/bba-ai-objects-1920.webp",
+            "description": "Turn learning into projects.",
+            "altText": "AI processor hardware and data centre server racks"
+          },
+          {
+            "url": "",
+            "name": "Experience",
+            "image": "/images/program-hero/mba-trade-compliance-objects-1920.webp",
+            "description": "Explore industry contexts.",
+            "altText": "Trade documentation, cargo container models and a globe"
+          },
+          {
+            "url": "/counselling",
+            "name": "Certify",
+            "image": "/images/program-hero/bba-digital-marketing-objects-1920.webp",
+            "description": "Confirm the credentials offered by your chosen pathway.",
+            "altText": "Digital marketing monitors and equipment in an empty creative workspace"
+          },
+          {
+            "url": "/career-industry",
+            "name": "Launch",
+            "image": "/images/program-hero/bba-global-logistics-objects-1920.webp",
+            "description": "Prepare for your next professional step.",
+            "altText": "Container vessel, cargo cranes and a global logistics port"
+          }
+        ]
+      }
+    },
+    {
+      "id": 303,
+      "expected_updated_at": "2026-10-05 11:13:47.72+00",
+      "data": {
+        "image": "/images/program-hero/mba-supply-chain-objects-1920.webp",
+        "items": [
+          {
+            "url": "/programs/bba-in-digital-marketing",
+            "name": "Digital Marketing",
+            "image": "/images/program-hero/bba-digital-marketing-objects-1920.webp",
+            "altText": "Digital marketing monitors and equipment in an empty creative workspace",
+            "description": "An industry-integrated BBA pathway connecting business education with digital marketing."
+          },
+          {
+            "url": "/programs/bba-in-artificial-intelligence-ai",
+            "name": "Artificial Intelligence",
+            "image": "/images/program-hero/bba-ai-objects-1920.webp",
+            "altText": "AI processor hardware and data centre server racks",
+            "description": "An industry-integrated BBA pathway combining business learning with artificial intelligence."
+          },
+          {
+            "url": "/programs/bba-in-global-logistics",
+            "name": "Global Logistics",
+            "image": "/images/program-hero/bba-global-logistics-objects-1920.webp",
+            "altText": "Container vessel, cargo cranes and a global logistics port",
+            "description": "An industry-integrated BBA pathway focused on global logistics and practical learning."
+          },
+          {
+            "url": "/programs/mba-pgdm-in-international-supply-chain-management",
+            "name": "International Supply Chain Management",
+            "image": "/images/program-hero/mba-supply-chain-objects-1920.webp",
+            "altText": "Automated distribution warehouse with sorting conveyors",
+            "description": "A career-focused postgraduate pathway connecting academic learning with industry exposure."
+          }
+        ]
+      }
+    },
+    {
+      "id": 304,
+      "expected_updated_at": "2026-10-05 11:13:47.711+00",
+      "data": {
+        "image": "/images/program-hero/bba-supply-chain-objects-1920.webp",
+        "items": [
+          {
+            "url": "",
+            "name": "Shared ideas",
+            "image": "/images/program-hero/bba-supply-chain-objects-1920.webp",
+            "description": "Learning through conversation.",
+            "altText": "Logistics models, warehouse layout, laptop and a globe"
+          },
+          {
+            "url": "",
+            "name": "Professional perspectives",
+            "image": "/images/program-hero/bba-digital-marketing-objects-1920.webp",
+            "description": "Connect with the subjects behind business.",
+            "altText": "Digital marketing monitors and equipment in an empty creative workspace"
+          },
+          {
+            "url": "",
+            "name": "Projects and possibilities",
+            "image": "/images/program-hero/bba-ai-objects-1920.webp",
+            "description": "Explore technology and practical thinking.",
+            "altText": "AI processor hardware and data centre server racks"
+          }
+        ]
+      }
+    },
+    {
+      "id": 307,
+      "expected_updated_at": "2026-10-05 11:13:47.716+00",
+      "data": {
+        "items": [
+          {
+            "url": "/programs",
+            "name": "Explore",
+            "image": "/images/program-hero/bba-global-logistics-objects-1920.webp",
+            "description": "Discover institutions, programs and professional courses.",
+            "altText": "Container vessel, cargo cranes and a global logistics port"
+          },
+          {
+            "url": "/counselling",
+            "name": "Book Counselling",
+            "image": "/images/program-hero/bba-digital-marketing-objects-1920.webp",
+            "description": "Confirm eligibility, availability and current details.",
+            "altText": "Digital marketing monitors and equipment in an empty creative workspace"
+          },
+          {
+            "url": "/programs",
+            "name": "Choose Program",
+            "image": "/images/program-hero/bba-supply-chain-objects-1920.webp",
+            "description": "Compare the pathways that interest you.",
+            "altText": "Logistics models, warehouse layout, laptop and a globe"
+          },
+          {
+            "url": "/apply",
+            "name": "Apply",
+            "image": "/images/program-hero/bba-ai-objects-1920.webp",
+            "description": "Submit an enquiry and follow the confirmed application process.",
+            "altText": "AI processor hardware and data centre server racks"
+          },
+          {
+            "url": "/counselling",
+            "name": "Admission",
+            "image": "/images/program-hero/bba-supply-chain-objects-1920.webp",
+            "description": "Complete the institution’s requirements and await its decision.",
+            "altText": "Logistics models, warehouse layout, laptop and a globe"
+          },
+          {
+            "url": "/student-life",
+            "name": "Start Learning",
+            "image": "/images/program-hero/mba-supply-chain-objects-1920.webp",
+            "description": "Begin after admission and enrolment are confirmed.",
+            "altText": "Automated distribution warehouse with sorting conveyors"
+          }
+        ]
+      }
+    },
+    {
+      "id": 468,
+      "expected_updated_at": "2026-10-05 11:13:47.718+00",
+      "data": {
+        "image": "/images/program-hero/mba-trade-compliance-objects-1920.webp"
+      }
+    },
+    {
+      "id": 469,
+      "expected_updated_at": "2026-10-06 07:32:59.110878+00",
+      "data": {
+        "image": "/images/program-hero/bba-ai-objects-4k.webp",
+        "url": "/images/program-hero/bba-ai-objects-4k.webp",
+        "posterUrl": "/images/program-hero/bba-ai-objects-1920.webp",
+        "thumbnailUrl": "/images/program-hero/bba-ai-objects-thumb.webp",
+        "altText": "AI processor hardware and data centre server racks",
+        "source": "AI-generated people-free program concept artwork: not verified campus or event photography. 1024×1024 source; upscaled/cropped 3840×2160 exports."
+      }
+    },
+    {
+      "id": 470,
+      "expected_updated_at": "2026-10-06 07:32:59.110878+00",
+      "data": {
+        "image": "/images/program-hero/bba-global-logistics-objects-4k.webp",
+        "url": "/images/program-hero/bba-global-logistics-objects-4k.webp",
+        "posterUrl": "/images/program-hero/bba-global-logistics-objects-1920.webp",
+        "thumbnailUrl": "/images/program-hero/bba-global-logistics-objects-thumb.webp",
+        "altText": "Container vessel, cargo cranes and a global logistics port",
+        "source": "AI-generated people-free program concept artwork: not verified campus or event photography. 1024×1024 source; upscaled/cropped 3840×2160 exports."
+      }
+    },
+    {
+      "id": 471,
+      "expected_updated_at": "2026-10-06 07:32:59.110878+00",
+      "data": {
+        "image": "/images/program-hero/bba-digital-marketing-objects-4k.webp",
+        "url": "/images/program-hero/bba-digital-marketing-objects-4k.webp",
+        "posterUrl": "/images/program-hero/bba-digital-marketing-objects-1920.webp",
+        "thumbnailUrl": "/images/program-hero/bba-digital-marketing-objects-thumb.webp",
+        "altText": "Digital marketing monitors and equipment in an empty creative workspace",
+        "source": "AI-generated people-free program concept artwork: not verified campus or event photography. 1024×1024 source; upscaled/cropped 3840×2160 exports."
+      }
+    },
+    {
+      "id": 472,
+      "expected_updated_at": "2026-10-06 07:32:59.110878+00",
+      "data": {
+        "image": "/images/program-hero/mba-supply-chain-objects-4k.webp",
+        "url": "/images/program-hero/mba-supply-chain-objects-4k.webp",
+        "posterUrl": "/images/program-hero/mba-supply-chain-objects-1920.webp",
+        "thumbnailUrl": "/images/program-hero/mba-supply-chain-objects-thumb.webp",
+        "altText": "Automated distribution warehouse with sorting conveyors",
+        "source": "AI-generated people-free program concept artwork: not verified campus or event photography. 1024×1024 source; upscaled/cropped 3840×2160 exports."
+      }
+    },
+    {
+      "id": 473,
+      "expected_updated_at": "2026-10-06 07:32:59.110878+00",
+      "data": {
+        "image": "/images/program-hero/bba-supply-chain-objects-4k.webp",
+        "url": "/images/program-hero/bba-supply-chain-objects-4k.webp",
+        "posterUrl": "/images/program-hero/bba-supply-chain-objects-1920.webp",
+        "thumbnailUrl": "/images/program-hero/bba-supply-chain-objects-thumb.webp",
+        "altText": "Logistics models, warehouse layout, laptop and a globe",
+        "source": "AI-generated people-free program concept artwork: not verified campus or event photography. 1024×1024 source; upscaled/cropped 3840×2160 exports."
+      }
+    },
+    {
+      "id": 474,
+      "expected_updated_at": "2026-10-06 07:32:59.110878+00",
+      "data": {
+        "image": "/images/program-hero/mba-trade-compliance-objects-4k.webp",
+        "url": "/images/program-hero/mba-trade-compliance-objects-4k.webp",
+        "posterUrl": "/images/program-hero/mba-trade-compliance-objects-1920.webp",
+        "thumbnailUrl": "/images/program-hero/mba-trade-compliance-objects-thumb.webp",
+        "altText": "Trade documentation, cargo container models and a globe",
+        "source": "AI-generated people-free program concept artwork: not verified campus or event photography. 1024×1024 source; upscaled/cropped 3840×2160 exports."
+      }
+    }
+  ],
+  "result": {
+    "exitCode": 0,
+    "exitReason": null,
+    "output": "id,kind,name\n295,homepage,Creating Global Professionals\n296,homepage,Where Education Meets Industry\n299,homepage,Learn With Industry. Build For Industry.\n300,homepage,Learn By Doing.\n302,homepage,A Journey Built Around Growth\n303,homepage,From Learning to Career\n304,homepage,Learning Happens Together\n307,homepage,Your Journey Starts With a Conversation\n468,homepage,Your Next Chapter Starts Here.\n469,media,BBA in Artificial Intelligence (AI)\n470,media,BBA in Global Logistics\n471,media,BBA in Digital Marketing\n472,media,MBA / PGDM in International Supply Chain Management\n473,media,BBA in Logistics & Supply Chain Management\n474,media,MBA + PGPM in Global Logistics & Trade Compliance\n",
+    "success": true
+  },
+  "source": "Generated subject/object imagery without people",
+  "quality": "1024px source; larger 3840×2160 exports upscaled"
+}

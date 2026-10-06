@@ -45,25 +45,24 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
   const still = cur ? (cur.type === 'video' ? mediaUrl(cur.posterUrl || cur.thumbnailUrl) : mediaUrl(cur.url)) : '';
   const asVideo = cur?.type === 'video' && !light;
   const words = String(section?.name || fallbackTitle || '4PL Academy').split(/\s+/);
-  const label = cur ? (cur.caption || cur.name) : '';
   return (
-    <section ref={wrap} className="hero-card navy-surface on-navy grain relative min-h-[34rem] sm:min-h-[36rem] lg:min-h-[40rem] overflow-hidden" aria-label="Featured programs in motion" onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} onFocusCapture={() => setFocused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
+    <section ref={wrap} className="navy-surface on-navy relative min-h-[min(88svh,54rem)] overflow-hidden" aria-label="Featured programs in motion" onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} onFocusCapture={() => setFocused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
       <div className="absolute inset-0 -z-10 bg-navy" aria-hidden="true">
         <AnimatePresence initial={false}>
           {cur && (
-            <motion.div key={`${cur.id}-${idx}`} className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 1.4, ease: 'easeInOut' }}>
+            <motion.div key={`${cur.id}-${idx}`} className="absolute inset-0" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduce ? 0 : 1.8, ease: 'easeInOut' }}>
               {asVideo ? <video ref={vid} src={mediaUrl(cur.url)} poster={still || undefined} muted loop playsInline preload="metadata" className="h-full w-full object-cover" />
-                : still ? <img {...(cur.type === 'video' ? { src: still } : srcs(cur.url))} sizes="100vw" alt={cur.altText || ''} className={cn('h-full w-full object-cover', idx % 2 ? 'kb-b' : 'kb-a', !running && 'kb-paused')} fetchPriority={idx === 0 ? 'high' : undefined} decoding="async" /> : null}
+                : still ? <img {...(cur.type === 'video' ? { src: still } : srcs(cur.url))} sizes="100vw" alt={cur.altText || ''} className={cn('h-full w-full object-cover object-[65%_center] sm:object-center', idx % 2 ? 'kb-b' : 'kb-a', !running && 'kb-paused')} fetchPriority={idx === 0 ? 'high' : undefined} decoding="async" /> : null}
             </motion.div>
           )}
         </AnimatePresence>
-        <div className="absolute inset-0 bg-gradient-to-r from-navy/85 via-navy/35 to-transparent" />
-        <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-navy via-navy/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy/80 via-navy/40 to-navy/10" />
+        <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-navy/70 via-navy/25 to-transparent" />
       </div>
-      <div className="container-x flex min-h-[34rem] sm:min-h-[36rem] lg:min-h-[40rem] flex-col justify-end pb-5 pt-14 sm:pt-16">
+      <div className="container-x flex min-h-[min(88svh,54rem)] flex-col justify-center pb-10 pt-20">
         <div className="max-w-4xl">
-          <motion.p initial={reduce || light ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="hero-pill mb-4">4PL Academy</motion.p>
-          <h1 className="hero-title text-surface text-[clamp(2rem,8vw,3.6rem)] sm:text-6xl lg:text-7xl">
+          <motion.p key={cur?.id || 'brand'} initial={reduce || light ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="hero-pill mb-4">{String(cur?.name || '4PL Academy').replace(/^(?:BBA in |MBA \/ PGDM in |MBA \+ PGPM in )/, '')}</motion.p>
+          <h1 className="hero-title text-surface text-[clamp(1.9rem,10vw,4.5rem)] sm:text-7xl lg:text-[6rem]">
             {words.map((w, i) => (
               <span key={i} className="mr-[0.22em] inline-block overflow-visible align-bottom sm:overflow-hidden">
                 <motion.span className={cn('inline-block', i === words.length - 1 && 'text-gold')} initial={reduce || light ? false : { y: '105%' }} animate={{ y: 0 }} transition={{ delay: 0.1 + i * 0.09, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>{w}</motion.span>
@@ -91,7 +90,7 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
           <p className="mt-3 max-w-xl text-xs text-surface/60">Admission, training and placement support. Outcomes are never guaranteed.</p>
         </div>
         {n > 0 && (
-          <div className="mt-6 border-t border-surface/15 pt-3">
+          <div className="mt-8 pt-2">
             <div className="flex flex-wrap items-center gap-3">
               <div className="flex items-center gap-1.5" role="group" aria-label="Hero media controls">
                 <button type="button" className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-surface/40 text-surface hover:border-gold hover:text-gold disabled:opacity-40" onClick={() => pick(-1)} disabled={n < 2} aria-label="Previous visual"><ChevronLeft className="h-5 w-5" /></button>
@@ -99,22 +98,15 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
               </div>
               <div className="min-w-0 flex-1 text-sm text-surface/85" aria-live={running ? 'off' : 'polite'}>
                 <span className="text-xs font-bold uppercase tracking-wider text-gold">{String(idx % n + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}</span>
-                <span className="ml-2 font-bold text-surface">{cur?.name}</span>
-                {has(cur?.caption) && <span className="ml-2 text-surface/75">{cur.caption}</span>}
+                <AnimatePresence mode="wait" initial={false}><motion.span key={cur?.id} className="ml-2 inline-block font-bold text-surface" initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }} transition={{ duration: 0.35 }}>{cur?.name}</motion.span></AnimatePresence>
                 {prog && has(prog.universityName) && <span className="ml-2 text-xs text-surface/60">{prog.universityName}</span>}
                 {prog?.slug && <Link href={`/programs/${prog.slug}`} className="ml-3 inline-flex items-center gap-1 text-xs font-bold text-gold underline underline-offset-2">Program details<ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" /></Link>}
               </div>
             </div>
             {n > 1 && (
-              <ul className="no-scrollbar mt-2 flex gap-2 overflow-x-auto pb-1" aria-label="Choose a program visual">
+              <ul className="mt-3 flex flex-wrap gap-2" aria-label="Choose a program visual">
                 {slides.map((m, i) => (
-                  <li key={m.id} className="shrink-0">
-                    <button type="button" onClick={() => { setPlaying(false); setIdx(i); }} aria-current={i === idx % n} className={cn('group relative block w-36 overflow-hidden rounded-lg border text-left sm:w-44', i === idx % n ? 'border-gold' : 'border-surface/25 hover:border-surface/60')}>
-                      <span className="block h-14 bg-navy-2 sm:h-20">{(m.thumbnailUrl || m.posterUrl || m.type === 'image') && <img src={mediaUrl(m.thumbnailUrl || m.posterUrl || m.url)} alt="" loading="lazy" className="h-full w-full object-cover opacity-90 group-hover:opacity-100" />}</span>
-                      <span className="block min-h-[2.4rem] bg-navy/90 px-2 py-1 text-[0.68rem] font-bold leading-tight text-surface">{m.name}</span>
-                      {i === idx % n && <motion.span key={`${idx}-${running}`} className="absolute inset-x-0 top-0 h-0.5 origin-left bg-gold" initial={{ scaleX: 0 }} animate={{ scaleX: running ? 1 : 0 }} transition={{ duration: running ? 6.8 : 0, ease: 'linear' }} />}
-                    </button>
-                  </li>
+                  <li key={m.id}><button type="button" onClick={() => { setPlaying(false); setIdx(i); }} aria-current={i === idx % n} aria-label={m.name} title={m.name} className="grid h-8 w-8 place-items-center"><span className={cn('block h-1 rounded-full transition-all duration-500', i === idx % n ? 'w-8 bg-gold' : 'w-4 bg-surface/40')} /></button></li>
                 ))}
               </ul>
             )}

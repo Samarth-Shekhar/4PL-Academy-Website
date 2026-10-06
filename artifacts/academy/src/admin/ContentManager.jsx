@@ -66,6 +66,20 @@ const buildSchema = (cfg) => z.object({
     if (f.type === 'number') { const n = Number(x); if (Number.isNaN(n)) ctx.addIssue({ code: 'custom', path: [f.name], message: 'Enter a number' }); else if ((f.min !== undefined && n < f.min) || (f.max !== undefined && n > f.max)) ctx.addIssue({ code: 'custom', path: [f.name], message: `Must be between ${f.min} and ${f.max}` }); }
   });
   (v.faqs || []).forEach((f, i) => { if (!!f.question.trim() !== !!f.answer.trim()) ctx.addIssue({ code: 'custom', path: ['faqs', i, f.question.trim() ? 'answer' : 'question'], message: 'Provide both a question and an answer' }); });
+  if (cfg.itemsLabel === 'Job openings') {
+    (v.items || []).forEach((job, i) => {
+      if (!job.name?.trim()) ctx.addIssue({ code: 'custom', path: ['items', i, 'name'], message: 'Enter a job title or remove this opening' });
+      const link = (job.url || '').trim();
+      if (link && !/^\/(?![\/\\])[^\\\u0000-\u001f]*$/.test(link)) {
+        try {
+          const url = new URL(link);
+          if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password) throw new Error();
+        } catch {
+          ctx.addIssue({ code: 'custom', path: ['items', i, 'url'], message: 'Use a safe https:// URL or a local route' });
+        }
+      }
+    });
+  }
 });
 
 function RelSelect({ id, rel, value, onChange }) {
@@ -98,6 +112,8 @@ function Field({ f, form, onUploaded }) {
 const Group = ({ title, children }) => <fieldset className="rounded-lg border border-line p-4"><legend className="px-2 text-sm font-bold text-navy">{title}</legend><div className="grid gap-4 sm:grid-cols-2">{children}</div></fieldset>;
 
 export function EditorForm({ kind, cfg, item, onClose, universities = [] }) {
+  const careers = kind === 'pages' && item?.slug === 'careers';
+  if (careers) cfg = { ...cfg, items: true, itemsLabel: 'Job openings' };
   const qc = useQueryClient();
   const create = useCreateContent();
   const update = useUpdateContent();
@@ -191,14 +207,15 @@ export function EditorForm({ kind, cfg, item, onClose, universities = [] }) {
       )}
       {cfg.items && (
         <fieldset className="rounded-lg border border-line p-4"><legend className="px-2 text-sm font-bold text-navy">{cfg.itemsLabel || 'Items'}</legend>
+          {careers && <p className="mb-4 text-sm text-muted-foreground">Add only real, available positions. Leave this list empty to show “No open positions right now.” Remove a position when it closes.</p>}
           <div className="space-y-3">
             {itemsArr.fields.map((fi, i) => (
               <div key={fi.id} className="grid gap-3 rounded-md bg-mist/60 p-3 sm:grid-cols-2">
-                <div><label className="label" htmlFor={`it-n-${i}`}>Title {i + 1}</label><input id={`it-n-${i}`} className="input" {...register(`items.${i}.name`)} /></div>
-                <div><label className="label" htmlFor={`it-u-${i}`}>Link (route, URL or bot)</label><input id={`it-u-${i}`} className="input" {...register(`items.${i}.url`)} /></div>
-                <div className="sm:col-span-2"><label className="label" htmlFor={`it-d-${i}`}>Description</label><textarea id={`it-d-${i}`} rows={2} className="input" {...register(`items.${i}.description`)} /></div>
-                <div className="sm:col-span-2"><label className="label" htmlFor={`it-i-${i}`}>Image</label><UploadField id={`it-i-${i}`} accept="image" value={watch(`items.${i}.image`)} register={register(`items.${i}.image`)} onChange={(x) => setValue(`items.${i}.image`, x, { shouldDirty: true })} onBusyChange={onUploading} /></div>
-                <div className="sm:col-span-2"><label className="label" htmlFor={`it-a-${i}`}>Image alt text</label><input id={`it-a-${i}`} className="input" {...register(`items.${i}.altText`)} /></div>
+                <div><label className="label" htmlFor={`it-n-${i}`}>{careers ? 'Job title' : `Title ${i + 1}`}</label><input id={`it-n-${i}`} className="input" {...register(`items.${i}.name`)} />{errors.items?.[i]?.name && <p className="field-err">{errors.items[i].name.message}</p>}</div>
+                <div><label className="label" htmlFor={`it-u-${i}`}>{careers ? 'Details or application link (optional)' : 'Link (route, URL or bot)'}</label><input id={`it-u-${i}`} className="input" {...register(`items.${i}.url`)} />{errors.items?.[i]?.url && <p className="field-err">{errors.items[i].url.message}</p>}</div>
+                <div className="sm:col-span-2"><label className="label" htmlFor={`it-d-${i}`}>{careers ? 'Details, location and job type' : 'Description'}</label><textarea id={`it-d-${i}`} rows={careers ? 4 : 2} className="input" {...register(`items.${i}.description`)} /></div>
+                {!careers && <><div className="sm:col-span-2"><label className="label" htmlFor={`it-i-${i}`}>Image</label><UploadField id={`it-i-${i}`} accept="image" value={watch(`items.${i}.image`)} register={register(`items.${i}.image`)} onChange={(x) => setValue(`items.${i}.image`, x, { shouldDirty: true })} onBusyChange={onUploading} /></div>
+                <div className="sm:col-span-2"><label className="label" htmlFor={`it-a-${i}`}>Image alt text</label><input id={`it-a-${i}`} className="input" {...register(`items.${i}.altText`)} /></div></>}
                 <div className="flex gap-2 sm:col-span-2">
                   <button type="button" disabled={i === 0} onClick={() => itemsArr.move(i, i - 1)} className="btn btn-outline btn-sm">Move up</button>
                   <button type="button" disabled={i === itemsArr.fields.length - 1} onClick={() => itemsArr.move(i, i + 1)} className="btn btn-outline btn-sm">Move down</button>
@@ -206,7 +223,7 @@ export function EditorForm({ kind, cfg, item, onClose, universities = [] }) {
                 </div>
               </div>
             ))}
-            <button type="button" onClick={() => itemsArr.append({ ...EMPTY_ITEM })} className="btn btn-outline btn-sm"><Plus className="h-4 w-4" aria-hidden="true" /> Add item</button>
+            <button type="button" onClick={() => itemsArr.append({ ...EMPTY_ITEM })} className="btn btn-outline btn-sm"><Plus className="h-4 w-4" aria-hidden="true" /> {careers ? 'Add job opening' : 'Add item'}</button>
           </div>
         </fieldset>
       )}

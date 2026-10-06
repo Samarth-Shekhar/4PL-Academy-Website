@@ -8,6 +8,8 @@ import { ProgramCard, CourseCard, CertCard } from '@/components/Cards';
 import { programLevel } from '@/lib/format';
 import { Link } from 'wouter';
 
+const ART = [[/\b(ai|artificial|data|analytics)\b/i, 'bba-ai'], [/trade|compliance|customs|law/i, 'mba-trade-compliance'], [/marketing|brand|media/i, 'bba-digital-marketing'], [/mba|supply|operations|warehouse/i, 'mba-supply-chain'], [/global|international|port|shipping|maritime/i, 'bba-global-logistics'], [/logistic|bba|business/i, 'bba-supply-chain']];
+const art = (it) => { const k = (ART.find(([r]) => r.test(String(it.name || it.title || '')))||[])[1] || 'bba-supply-chain'; return `/images/program-hero/${k}-objects-960.webp`; };
 const TABS = [['ug', 'Undergraduate'], ['pg', 'Postgraduate'], ['pro', 'Professional'], ['cert', 'Certification']];
 
 export function ProgramShowcase({ s }) {
@@ -23,10 +25,10 @@ export function ProgramShowcase({ s }) {
   const avail = TABS.filter(([k]) => groups[k].length);
   const active = tab && groups[tab]?.length ? tab : avail[0]?.[0];
   const items = (groups[active] || []).slice(0, 8);
-  const card = (it) => active === 'pro' ? <CourseCard c={it} /> : active === 'cert' ? <CertCard c={it} course={(cq.data || []).find((x) => x.id === it.courseId)} program={(pq.data || []).find((x) => x.id === it.programId)} /> : <ProgramCard p={it} />;
+  const card = (it) => active === 'pro' ? <CourseCard c={{ ...it, image: art(it) }} /> : active === 'cert' ? <CertCard c={it} course={(cq.data || []).find((x) => x.id === it.courseId)} program={(pq.data || []).find((x) => x.id === it.programId)} /> : <ProgramCard p={{ ...it, image: art(it) }} />;
   const loading = pq.isLoading || cq.isLoading;
   return (
-    <section className="overflow-x-clip bg-mist/70 py-20 sm:py-28" aria-labelledby="sec-programs">
+    <section className="overflow-x-clip bg-mist/70 py-24 sm:py-32" aria-labelledby="sec-programs">
       <div className="container-x min-w-0">
         <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div id="sec-programs"><Head s={s} /><Body s={s} /></div>

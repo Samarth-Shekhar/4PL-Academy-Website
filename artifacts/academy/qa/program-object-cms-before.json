@@ -1,0 +1,506 @@
+[
+  {
+    "id": 295,
+    "data": {
+      "image": "/images/program-hero/bba-ai-1920.webp",
+      "ctaUrl": "/programs",
+      "source": "Owner-approved education discovery brief.",
+      "enabled": true,
+      "section": "hero",
+      "ctaLabel": "Explore Programs",
+      "description": "Explore degree pathways and professional learning shaped by the world of work.",
+      "secondaryCtaUrl": "/counselling",
+      "shortDescription": "Industry-integrated education designed to connect academic learning with practical skills, industry exposure and career opportunities.",
+      "secondaryCtaLabel": "Book Counselling"
+    },
+    "kind": "homepage",
+    "name": "Creating Global Professionals",
+    "revision": "2026-10-06 07:32:59.110878+00"
+  },
+  {
+    "id": 296,
+    "data": {
+      "items": [
+        {
+          "url": "/universities",
+          "name": "Universities",
+          "description": "Discover institutions and explore the available directory information."
+        },
+        {
+          "url": "/career-industry",
+          "name": "Industry",
+          "description": "Connect learning with the practical challenges of business."
+        },
+        {
+          "url": "/courses",
+          "name": "Professional Learning",
+          "description": "Explore focused courses for the world of work."
+        },
+        {
+          "url": "/counselling",
+          "name": "Career Development",
+          "description": "Understand career pathways and admissions support."
+        }
+      ],
+      "source": "Owner-approved education discovery brief.",
+      "enabled": true,
+      "section": "ecosystem",
+      "description": "Institution directory counts are not a count of confirmed 4PL partnerships.",
+      "shortDescription": "One place to explore education, professional learning and career development."
+    },
+    "kind": "homepage",
+    "name": "Where Education Meets Industry",
+    "revision": "2026-10-05 11:13:47.686+00"
+  },
+  {
+    "id": 297,
+    "data": {
+      "ctaUrl": "/programs",
+      "source": "Owner-approved education discovery brief.",
+      "enabled": true,
+      "section": "programs",
+      "ctaLabel": "Explore all programs",
+      "description": "Confirm current duration, mode, eligibility and fees with admissions before applying.",
+      "secondaryCtaUrl": "/counselling",
+      "shortDescription": "Start with your ambition. Discover a pathway to match.",
+      "secondaryCtaLabel": "Book Counselling"
+    },
+    "kind": "homepage",
+    "name": "Choose the Path That Moves You Forward",
+    "revision": "2026-10-05 11:13:47.689+00"
+  },
+  {
+    "id": 298,
+    "data": {
+      "ctaUrl": "/universities",
+      "source": "Owner-approved education discovery brief.",
+      "enabled": true,
+      "section": "universities",
+      "ctaLabel": "Explore universities",
+      "description": "Directory entries do not confirm a 4PL partnership. Map pins show approximate city centres, not campus addresses. Confirmed partners are identified separately.",
+      "secondaryCtaUrl": "/counselling",
+      "shortDescription": "Explore institutions across India, one region at a time.",
+      "secondaryCtaLabel": "Book Counselling"
+    },
+    "kind": "homepage",
+    "name": "One Academy. A Growing University Network.",
+    "revision": "2026-10-05 11:13:47.691+00"
+  },
+  {
+    "id": 299,
+    "data": {
+      "image": "/images/editorial/business.webp",
+      "ctaUrl": "/career-industry",
+      "source": "Owner-approved education discovery brief.",
+      "enabled": true,
+      "section": "industry",
+      "ctaLabel": "Explore career & industry",
+      "description": "Company logos appear only after the relationship has been verified. Partners, clients and industry associations are labelled separately.",
+      "shortDescription": "Professional learning grounded in the work that moves the world."
+    },
+    "kind": "homepage",
+    "name": "Learn With Industry. Build For Industry.",
+    "revision": "2026-10-05 11:13:47.694+00"
+  },
+  {
+    "id": 300,
+    "data": {
+      "items": [
+        {
+          "url": "/programs",
+          "name": "Supply chain in practice",
+          "image": "/images/editorial/warehouse.webp",
+          "description": "See how goods, information and people move together."
+        },
+        {
+          "url": "/courses",
+          "name": "Across borders",
+          "image": "/images/editorial/trade.webp",
+          "description": "Explore the systems behind shipping and global trade."
+        },
+        {
+          "url": "/programs",
+          "name": "Business decisions",
+          "image": "/images/editorial/business.webp",
+          "description": "Understand how teams plan, collaborate and solve problems."
+        },
+        {
+          "url": "/programs",
+          "name": "Technology at work",
+          "image": "/images/editorial/technology.webp",
+          "description": "Discover where technology meets business and professional learning."
+        }
+      ],
+      "ctaUrl": "/courses",
+      "source": "Owner-approved education discovery brief.",
+      "enabled": true,
+      "section": "practical",
+      "ctaLabel": "Explore professional courses",
+      "description": "Illustrative learning environments—not footage of a specific 4PL program, campus or event. Delivery and activities vary by program.",
+      "shortDescription": "A closer look at the subjects behind professional learning."
+    },
+    "kind": "homepage",
+    "name": "Learn By Doing.",
+    "revision": "2026-10-05 11:13:47.7+00"
+  },
+  {
+    "id": 301,
+    "data": {
+      "ctaUrl": "/counselling",
+      "source": "Owner-approved education discovery brief.",
+      "enabled": true,
+      "section": "certifications",
+      "ctaLabel": "Ask about credentials",
+      "description": "Issuers, credential requirements and duration appear only when approved information is available. A course listing alone does not establish certification or accreditation.",
+      "shortDescription": "Explore verified certifications and credential pathways."
+    },
+    "kind": "homepage",
+    "name": "Build Skills. Earn Credentials.",
+    "revision": "2026-10-05 11:13:47.703+00"
+  },
+  {
+    "id": 302,
+    "data": {
+      "items": [
+        {
+          "url": "",
+          "name": "Learn",
+          "image": "/images/editorial/classroom.webp",
+          "description": "Build your understanding."
+        },
+        {
+          "url": "",
+          "name": "Practice",
+          "image": "/images/editorial/warehouse.webp",
+          "description": "Apply ideas to practical situations."
+        },
+        {
+          "url": "",
+          "name": "Build",
+          "image": "/images/editorial/technology.webp",
+          "description": "Turn learning into projects."
+        },
+        {
+          "url": "",
+          "name": "Experience",
+          "image": "/images/editorial/trade.webp",
+          "description": "Explore industry contexts."
+        },
+        {
+          "url": "/counselling",
+          "name": "Certify",
+          "image": "/images/editorial/business.webp",
+          "description": "Confirm the credentials offered by your chosen pathway."
+        },
+        {
+          "url": "/career-industry",
+          "name": "Launch",
+          "image": "/images/editorial/port.webp",
+          "description": "Prepare for your next professional step."
+        }
+      ],
+      "source": "Owner-approved education discovery brief.",
+      "enabled": true,
+      "section": "journey",
+      "description": "An illustrative learning journey. Projects, industry exposure, internships and credentials depend on the selected program; employment is not guaranteed.",
+      "shortDescription": "From understanding a subject to exploring the next step."
+    },
+    "kind": "homepage",
+    "name": "A Journey Built Around Growth",
+    "revision": "2026-10-05 11:13:47.708+00"
+  },
+  {
+    "id": 303,
+    "data": {
+      "image": "/images/editorial/warehouse.webp",
+      "items": [
+        {
+          "url": "/programs/bba-in-digital-marketing",
+          "name": "Digital Marketing",
+          "image": "/images/editorial/technology.webp",
+          "altText": "Illustrative professional learning environment.",
+          "description": "An industry-integrated BBA pathway connecting business education with digital marketing."
+        },
+        {
+          "url": "/programs/bba-in-artificial-intelligence-ai",
+          "name": "Artificial Intelligence",
+          "image": "/images/editorial/technology.webp",
+          "altText": "Illustrative professional learning environment.",
+          "description": "An industry-integrated BBA pathway combining business learning with artificial intelligence."
+        },
+        {
+          "url": "/programs/bba-in-global-logistics",
+          "name": "Global Logistics",
+          "image": "/images/editorial/warehouse.webp",
+          "altText": "Illustrative professional learning environment.",
+          "description": "An industry-integrated BBA pathway focused on global logistics and practical learning."
+        },
+        {
+          "url": "/programs/mba-pgdm-in-international-supply-chain-management",
+          "name": "International Supply Chain Management",
+          "image": "/images/editorial/warehouse.webp",
+          "altText": "Illustrative professional learning environment.",
+          "description": "A career-focused postgraduate pathway connecting academic learning with industry exposure."
+        }
+      ],
+      "ctaUrl": "/career-industry",
+      "source": "Owner-approved education discovery brief.",
+      "enabled": true,
+      "section": "careers",
+      "ctaLabel": "Explore career pathways",
+      "description": "Career pathways are areas to explore—not a guarantee of placement, employment or salary.",
+      "secondaryCtaUrl": "/counselling",
+      "shortDescription": "Explore the fields connected to approved 4PL degree pathways.",
+      "secondaryCtaLabel": "Talk to a counsellor"
+    },
+    "kind": "homepage",
+    "name": "From Learning to Career",
+    "revision": "2026-10-05 11:13:47.72+00"
+  },
+  {
+    "id": 304,
+    "data": {
+      "image": "/images/editorial/classroom.webp",
+      "items": [
+        {
+          "url": "",
+          "name": "Shared ideas",
+          "image": "/images/editorial/classroom.webp",
+          "description": "Learning through conversation."
+        },
+        {
+          "url": "",
+          "name": "Professional perspectives",
+          "image": "/images/editorial/business.webp",
+          "description": "Connect with the subjects behind business."
+        },
+        {
+          "url": "",
+          "name": "Projects and possibilities",
+          "image": "/images/editorial/technology.webp",
+          "description": "Explore technology and practical thinking."
+        }
+      ],
+      "ctaUrl": "/student-life",
+      "source": "Owner-approved education discovery brief.",
+      "enabled": true,
+      "section": "student-life",
+      "ctaLabel": "Explore student life",
+      "description": "Illustrative photography, not a specific 4PL campus or student event. Approved campus and event media can be added through the CMS.",
+      "shortDescription": "Conversations, collaboration and ideas beyond the timetable."
+    },
+    "kind": "homepage",
+    "name": "Learning Happens Together",
+    "revision": "2026-10-05 11:13:47.711+00"
+  },
+  {
+    "id": 305,
+    "data": {
+      "ctaUrl": "/student-life",
+      "source": "Owner-approved education discovery brief.",
+      "enabled": true,
+      "section": "gallery",
+      "ctaLabel": "Explore student life",
+      "description": "Only approved 4PL, student or university media is shown here. No stock photography is presented as a real event.",
+      "shortDescription": "Approved moments from classrooms, workshops, projects and events."
+    },
+    "kind": "homepage",
+    "name": "Life at 4PL",
+    "revision": "2026-10-05 11:13:47.682+00"
+  },
+  {
+    "id": 306,
+    "data": {
+      "ctaUrl": "/counselling",
+      "source": "Owner-approved education discovery brief.",
+      "enabled": true,
+      "section": "testimonials",
+      "ctaLabel": "Speak with admissions",
+      "description": "Testimonials appear here only after approval. No sample quotes, fictional students or fabricated outcomes are used.",
+      "shortDescription": "Real experiences, shared with permission."
+    },
+    "kind": "homepage",
+    "name": "In Their Own Words",
+    "revision": "2026-10-05 11:13:47.713+00"
+  },
+  {
+    "id": 307,
+    "data": {
+      "items": [
+        {
+          "url": "/programs",
+          "name": "Explore",
+          "image": "/images/editorial/port.webp",
+          "description": "Discover institutions, programs and professional courses."
+        },
+        {
+          "url": "/counselling",
+          "name": "Book Counselling",
+          "image": "/images/editorial/business.webp",
+          "description": "Confirm eligibility, availability and current details."
+        },
+        {
+          "url": "/programs",
+          "name": "Choose Program",
+          "image": "/images/editorial/classroom.webp",
+          "description": "Compare the pathways that interest you."
+        },
+        {
+          "url": "/apply",
+          "name": "Apply",
+          "image": "/images/editorial/technology.webp",
+          "description": "Submit an enquiry and follow the confirmed application process."
+        },
+        {
+          "url": "/counselling",
+          "name": "Admission",
+          "image": "/images/editorial/classroom.webp",
+          "description": "Complete the institution’s requirements and await its decision."
+        },
+        {
+          "url": "/student-life",
+          "name": "Start Learning",
+          "image": "/images/editorial/warehouse.webp",
+          "description": "Begin after admission and enrolment are confirmed."
+        }
+      ],
+      "ctaUrl": "/counselling",
+      "source": "Owner-approved education discovery brief.",
+      "enabled": true,
+      "section": "admissions",
+      "ctaLabel": "Book Counselling",
+      "description": "Admissions requirements and final decisions belong to the relevant institution. Counselling and an enquiry do not guarantee admission.",
+      "secondaryCtaUrl": "/counselling",
+      "shortDescription": "Explore your options. Ask questions. Make an informed choice.",
+      "secondaryCtaLabel": "Book Counselling"
+    },
+    "kind": "homepage",
+    "name": "Your Journey Starts With a Conversation",
+    "revision": "2026-10-05 11:13:47.716+00"
+  },
+  {
+    "id": 468,
+    "data": {
+      "image": "/images/editorial/trade.webp",
+      "items": [
+        {
+          "url": "bot",
+          "name": "Talk to ACAD BOT"
+        }
+      ],
+      "ctaUrl": "/counselling",
+      "source": "Owner-approved education discovery brief.",
+      "enabled": true,
+      "section": "final-cta",
+      "ctaLabel": "Book Counselling",
+      "secondaryCtaUrl": "/universities",
+      "shortDescription": "Explore programs, discover universities and build skills for the world of work.",
+      "secondaryCtaLabel": "Find a University"
+    },
+    "kind": "homepage",
+    "name": "Your Next Chapter Starts Here.",
+    "revision": "2026-10-05 11:13:47.718+00"
+  },
+  {
+    "id": 469,
+    "data": {
+      "url": "/images/program-hero/bba-ai-4k.webp",
+      "type": "image",
+      "image": "/images/program-hero/bba-ai-4k.webp",
+      "source": "AI-generated program concept artwork; 1024px source, upscaled/cropped 3840×2160 exports. Not verified campus or event photography.",
+      "altText": "Learners collaborating on Artificial Intelligence (AI) in a learning setting",
+      "caption": "Explore artificial intelligence and business education.",
+      "section": "hero",
+      "posterUrl": "/images/program-hero/bba-ai-1920.webp",
+      "thumbnailUrl": "/images/program-hero/bba-ai-thumb.webp"
+    },
+    "kind": "media",
+    "name": "BBA in Artificial Intelligence (AI)",
+    "revision": "2026-10-06 07:32:59.110878+00"
+  },
+  {
+    "id": 470,
+    "data": {
+      "url": "/images/program-hero/bba-global-logistics-4k.webp",
+      "type": "image",
+      "image": "/images/program-hero/bba-global-logistics-4k.webp",
+      "source": "AI-generated program concept artwork; 1024px source, upscaled/cropped 3840×2160 exports. Not verified campus or event photography.",
+      "altText": "Learners collaborating on Global Logistics in a learning setting",
+      "caption": "Discover the global logistics degree pathway.",
+      "section": "hero",
+      "posterUrl": "/images/program-hero/bba-global-logistics-1920.webp",
+      "thumbnailUrl": "/images/program-hero/bba-global-logistics-thumb.webp"
+    },
+    "kind": "media",
+    "name": "BBA in Global Logistics",
+    "revision": "2026-10-06 07:32:59.110878+00"
+  },
+  {
+    "id": 471,
+    "data": {
+      "url": "/images/program-hero/bba-digital-marketing-4k.webp",
+      "type": "image",
+      "image": "/images/program-hero/bba-digital-marketing-4k.webp",
+      "source": "AI-generated program concept artwork; 1024px source, upscaled/cropped 3840×2160 exports. Not verified campus or event photography.",
+      "altText": "Learners collaborating on Digital Marketing in a learning setting",
+      "caption": "Explore the digital marketing degree pathway.",
+      "section": "hero",
+      "posterUrl": "/images/program-hero/bba-digital-marketing-1920.webp",
+      "thumbnailUrl": "/images/program-hero/bba-digital-marketing-thumb.webp"
+    },
+    "kind": "media",
+    "name": "BBA in Digital Marketing",
+    "revision": "2026-10-06 07:32:59.110878+00"
+  },
+  {
+    "id": 472,
+    "data": {
+      "url": "/images/program-hero/mba-supply-chain-4k.webp",
+      "type": "image",
+      "image": "/images/program-hero/mba-supply-chain-4k.webp",
+      "source": "AI-generated program concept artwork; 1024px source, upscaled/cropped 3840×2160 exports. Not verified campus or event photography.",
+      "altText": "Learners collaborating on International Supply Chain Management in a learning setting",
+      "caption": "Discover international supply chain management.",
+      "section": "hero",
+      "posterUrl": "/images/program-hero/mba-supply-chain-1920.webp",
+      "thumbnailUrl": "/images/program-hero/mba-supply-chain-thumb.webp"
+    },
+    "kind": "media",
+    "name": "MBA / PGDM in International Supply Chain Management",
+    "revision": "2026-10-06 07:32:59.110878+00"
+  },
+  {
+    "id": 473,
+    "data": {
+      "url": "/images/program-hero/bba-supply-chain-4k.webp",
+      "type": "image",
+      "image": "/images/program-hero/bba-supply-chain-4k.webp",
+      "source": "AI-generated program concept artwork; 1024px source, upscaled/cropped 3840×2160 exports. Not verified campus or event photography.",
+      "altText": "Learners collaborating on Logistics & Supply Chain Management in a learning setting",
+      "caption": "Explore undergraduate logistics and supply chain learning.",
+      "section": "hero",
+      "posterUrl": "/images/program-hero/bba-supply-chain-1920.webp",
+      "thumbnailUrl": "/images/program-hero/bba-supply-chain-thumb.webp"
+    },
+    "kind": "media",
+    "name": "BBA in Logistics & Supply Chain Management",
+    "revision": "2026-10-06 07:32:59.110878+00"
+  },
+  {
+    "id": 474,
+    "data": {
+      "url": "/images/program-hero/mba-trade-compliance-4k.webp",
+      "type": "image",
+      "image": "/images/program-hero/mba-trade-compliance-4k.webp",
+      "source": "AI-generated program concept artwork; 1024px source, upscaled/cropped 3840×2160 exports. Not verified campus or event photography.",
+      "altText": "Learners collaborating on Global Logistics & Trade Compliance in a learning setting",
+      "caption": "Discover postgraduate global logistics and trade compliance.",
+      "section": "hero",
+      "posterUrl": "/images/program-hero/mba-trade-compliance-1920.webp",
+      "thumbnailUrl": "/images/program-hero/mba-trade-compliance-thumb.webp"
+    },
+    "kind": "media",
+    "name": "MBA + PGPM in Global Logistics & Trade Compliance",
+    "revision": "2026-10-06 07:32:59.110878+00"
+  }
+]

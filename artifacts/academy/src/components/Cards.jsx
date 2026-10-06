@@ -114,7 +114,7 @@ export function CourseCard({ c }) {
 export function BlogCard({ b }) {
   return (
     <Link href={`/blogs/${b.slug}`} className="story-card group flex h-full flex-col" data-testid={`card-blog-${b.id}`}>
-      <div className="aspect-[4/3] overflow-hidden rounded-2xl"><Cover src={b.image} label={b.category || 'Insights'} className="transition-transform duration-700 group-hover:scale-105" /></div>
+      <div className="overflow-hidden rounded-2xl bg-mist">{has(b.image) ? <img src={b.image} alt="" loading="lazy" width={b.imageWidth} height={b.imageHeight} className="h-auto w-full object-contain" /> : <div className="aspect-[9/5]"><Cover label={b.category || 'Insights'} /></div>}</div>
       <div className="flex flex-1 flex-col px-1 pb-1 pt-4">
         <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
           {has(b.category) && <span className="chip chip-gold">{b.category}</span>}

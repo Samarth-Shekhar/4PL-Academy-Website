@@ -10,6 +10,7 @@ export function Ecosystem({ s }) {
   const courses = usePublicList('courses').data || [];
   const partners = unis.filter((u) => u.verified && u.partnershipVerified).length;
   const stats = [
+    [unis.length, 'Institutions in the directory'],
     [unis.filter(u=>u.verified).length, 'Verified university records'],
     [programs.filter(p=>p.verified).length, 'Verified program titles'],
     [courses.filter(c=>c.verified).length, 'Verified course titles'],
@@ -19,37 +20,31 @@ export function Ecosystem({ s }) {
   return (
     <>
     {stats.length > 0 && (
-      <div className="stat-strip container-x pt-4" role="region" aria-label="Verified records on 4PL Academy">
+      <div id="academy-overview" className="eco-strip scroll-mt-20" role="region" aria-label="4PL Academy catalogue at a glance">
         <dl className="container-x grid grid-cols-2 lg:grid-cols-none lg:grid-flow-col lg:auto-cols-fr">
-          {stats.map(([n, l]) => <div key={l} className="stat-cell"><dd className="font-display text-3xl font-extrabold text-navy sm:text-5xl">{n}</dd><dt className="mt-1 text-xs font-semibold text-foreground/70 sm:text-sm">{l}</dt></div>)}
+          {stats.map(([n, l]) => <div key={l} className="stat-cell"><dd className="font-display text-4xl font-extrabold sm:text-6xl">{n}</dd><dt className="mt-2 text-xs font-semibold sm:text-sm">{l}</dt></div>)}
         </dl>
       </div>
     )}
-    <section className="container-x py-14 sm:py-20" aria-labelledby="sec-ecosystem">
-      <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-        <Reveal><div id="sec-ecosystem"><Head s={s} /></div><Body s={s} /><CtaRow s={s} className="mt-7" /></Reveal>
-        <ul className="grid gap-3 sm:grid-cols-2">
-          {items.map((it, i) => {
-            const inner = (
-              <>
-                <Pic src={it.image} alt={it.altText || ''} label={it.name} className="absolute inset-0 transition-transform duration-700 group-hover:scale-105" />
-                <span className="absolute inset-0 bg-gradient-to-t from-navy via-navy/55 to-navy/10" aria-hidden="true" />
-                <span className="absolute inset-x-0 bottom-0 p-5">
-                  <span className="font-display text-sm text-gold">0{i + 1}</span>
-                  <span className="mt-1 block font-display text-2xl leading-tight text-surface">{it.name}</span>
-                  {has(it.description) && <span className="mt-1.5 block text-sm leading-snug text-surface/80">{it.description}</span>}
-                </span>
-              </>
-            );
-            return (
-              <Reveal as="li" key={it.name + i} delay={i * 0.07} className={i % 2 ? 'sm:mt-8' : ''}>
-                {has(it.url) && it.url !== 'bot' ? <Link href={it.url} className="group relative block aspect-[4/5] overflow-hidden rounded-2xl">{inner}</Link> : <div className="group relative aspect-[4/5] overflow-hidden rounded-2xl">{inner}</div>}
-              </Reveal>
-            );
-          })}
-        </ul>
-      </div>
-    </section>
+    <section className="eco-ground" aria-labelledby="sec-ecosystem"><div className="container-x py-20 sm:py-32">
+      <Reveal className="mx-auto flex max-w-3xl flex-col items-center text-center"><div id="sec-ecosystem" className="[&_.gold-rule]:mx-auto [&_header]:max-w-none"><Head s={s} /></div><div className="[&_p]:mx-auto"><Body s={s} /></div><CtaRow s={s} className="mt-8 justify-center" /></Reveal>
+      <ul className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {items.map((it, i) => {
+          const inner = (
+            <>
+              <span className="block aspect-[4/3] overflow-hidden rounded-2xl bg-mist"><Pic src={it.image} alt={it.altText || ''} label={it.name} className="transition-transform duration-[900ms] ease-out group-hover:scale-105" /></span>
+              <span className="mt-5 block font-display text-2xl leading-tight text-navy">{it.name}</span>
+              {has(it.description) && <span className="mt-2 block text-base leading-snug text-muted-foreground">{it.description}</span>}
+            </>
+          );
+          return (
+            <Reveal as="li" key={it.name + i} delay={i * 0.08}>
+              {has(it.url) && it.url !== 'bot' ? <Link href={it.url} className="group block">{inner}</Link> : <div className="group">{inner}</div>}
+            </Reveal>
+          );
+        })}
+      </ul>
+    </div></section>
     </>
   );
 }

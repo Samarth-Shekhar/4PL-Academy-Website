@@ -2,5 +2,8 @@
 - [Environment-file guard](environment-file-guard.md) — direct .env creation is blocked even for comments; retain portable examples and use secure configuration tools.
 - [CMS verification evidence](cms-verification-evidence.md) — persist scrubbed acceptance evidence and cleanup manifests during long browser runs.
 - [Unicode-safe content ingestion](unicode-content-ingestion.md) — preserve whole code points; lone UTF-16 surrogates serialize in JavaScript but fail PostgreSQL JSONB.
-- [Website image labels](website-image-labels.md) — no generic/illustrative imagery captions beneath images or in the hero; preserve honest source metadata.
+- [Website imagery](website-image-labels.md) — no visible illustrative/generic captions; homepage uses program subjects, not people, with honest source metadata.
 - [Generated image dimensions](generated-image-dimensions.md) — verify actual dimensions; high-quality/wide prompts may return square 1024px files, not native 4K.
+- [Employer careers scope](careers-page-scope.md) — separate employer careers from learner pathways; editable openings section with an explicit empty state and no invented roles.
+- [Legacy blog fidelity](legacy-blog-content.md) — original artwork and proportions; listing titles resolve erroneous detail headings; isolate legacy-source TLS issues.
+- [Industry brand references](industry-brand-references.md) — logos shown near credentials are not evidence of partners, issuers, endorsements or employers.

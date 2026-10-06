@@ -5,7 +5,8 @@ import { ArrowUpRight, ChevronLeft, ChevronRight, Clock, Award } from 'lucide-re
 import { usePublicList } from '@/lib/api';
 import { REFRESH, mediaUrl, useVerified } from '@/lib/home';
 import { has, initials } from '@/lib/format';
-import { Head, Body, CtaRow, Pending } from './shared';
+import { Head, Body, CtaRow } from './shared';
+import { CompanyLogoStrip } from './CompanyLogoStrip';
 
 function Mark({ c }) {
   const [bad, setBad] = useState(false);
@@ -27,10 +28,11 @@ export function CertificationShowcase({ s }) {
           <div className="flex items-center gap-3"><CtaRow s={s} />{list.length > 2 && <div className="hidden gap-2 sm:flex"><button type="button" className="grid h-11 w-11 place-items-center rounded-full border border-navy/30 text-navy hover:border-navy" onClick={() => by(-1)} aria-label="Previous certifications"><ChevronLeft className="h-5 w-5" /></button><button type="button" className="grid h-11 w-11 place-items-center rounded-full border border-navy/30 text-navy hover:border-navy" onClick={() => by(1)} aria-label="Next certifications"><ChevronRight className="h-5 w-5" /></button></div>}</div>
         </div>
         <div className="mt-10">
+          <CompanyLogoStrip />
           {!list.length ? (
-            <Pending title="Certification pathways are being confirmed" body="Credentials are listed only after the issuer and course details are verified. Explore the professional courses available now."><Link href="/courses" className="btn btn-navy">Professional courses</Link></Pending>
+            <p className="mt-4 text-sm text-muted-foreground">Credentials are listed only after the issuer and course details are verified. <Link href="/courses" className="font-semibold text-navy underline underline-offset-4">Explore professional courses</Link></p>
           ) : (
-            <div ref={row} className="snap-row -mx-4 px-4 pb-3 sm:mx-0 sm:px-0" tabIndex={0} role="region" aria-label="Certifications">
+            <div ref={row} className="snap-row mt-8 -mx-4 px-4 pb-3 sm:mx-0 sm:px-0" tabIndex={0} role="region" aria-label="Certifications">
               {list.map((c, i) => {
                 const co = courses.find((x) => x.id === c.courseId); const pr = programs.find((x) => x.id === c.programId);
                 const link = co ? { to: `/courses/${co.slug}`, ext: false } : pr ? { to: `/programs/${pr.slug}`, ext: false } : has(c.websiteUrl) ? { to: c.websiteUrl, ext: true } : null;

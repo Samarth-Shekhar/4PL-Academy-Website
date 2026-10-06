@@ -7,6 +7,7 @@ const keys = [
   'mba-supply-chain', 'bba-supply-chain', 'mba-trade-compliance',
 ];
 const target = 'artifacts/academy/public/images/program-hero';
+const objectScenes = process.argv.includes('--objects');
 const variants = [
   ['4k', 3840, 2160, 84],
   ['1920', 1920, 1080, 82],
@@ -16,19 +17,20 @@ const variants = [
 fs.mkdirSync(target, { recursive: true });
 const exports = [];
 for (const key of keys) {
-  const input = `attached_assets/generated_images/4pl-${key}-hero.jpg`;
+  const input = `attached_assets/generated_images/4pl-${key}-${objectScenes ? 'objects' : 'hero'}.jpg`;
   if (!fs.existsSync(input)) throw new Error(`Missing generated artwork: ${input}`);
+  const [sourceWidth, sourceHeight] = execFileSync('identify', ['-format', '%w %h', input], { encoding: 'utf8' }).trim().split(' ').map(Number);
   for (const [suffix, width, height, quality] of variants) {
-    const output = path.join(target, `${key}-${suffix}.webp`);
-    execFileSync('convert', [
+    const output = path.join(target, `${key}${objectScenes ? '-objects' : ''}-${suffix}.webp`);
+    execFileSync('magick', [
       input, '-auto-orient', '-filter', 'Lanczos',
       '-resize', `${width}x${height}^`, '-gravity', 'center',
       '-extent', `${width}x${height}`, '-strip', '-quality', String(quality), output,
     ]);
-    exports.push({ key, file: output, width, height, bytes: fs.statSync(output).size });
+    exports.push({ key, file: output, sourceWidth, sourceHeight, width, height, upscaled: sourceWidth < width || sourceHeight < height, bytes: fs.statSync(output).size });
   }
 }
 console.log(JSON.stringify({
-  note: 'AI-generated 1024px source artwork; 3840×2160 exports are upscaled, not native 4K.',
+  note: 'Generated concept artwork. Dimensions and upscaling are recorded per export; do not describe upscaled exports as native 4K.',
   exports,
 }, null, 2));

@@ -60,7 +60,7 @@ export default function Home() {
   }
   const blogsAt = finalIdx === -1 ? sections.length : finalIdx;
   return (
-    <>
+    <div className="home-page">
       {sections.map((s, i) => {
         const sectionType = s.section || s.slug;
         const C = MAP[sectionType] || GenericSection;
@@ -69,6 +69,6 @@ export default function Home() {
           : <C s={s} />}</div>;
       })}
       {blogsAt === sections.length && <Blogs />}
-    </>
+    </div>
   );
 }

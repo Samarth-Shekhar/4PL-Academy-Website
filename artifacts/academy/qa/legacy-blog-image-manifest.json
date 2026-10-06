@@ -1,0 +1,362 @@
+[
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-39.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-39.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 71894,
+    "sha256": "5bf934b7466764b7f657844ce318a5dfc1f6688607a2cce5a9bc6bf1468e7d82",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-40.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-40.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 99407,
+    "sha256": "e556043a4cf5ceab5ae1ce251c28a25eefa2c56dbe1d8cf2a723f352de8e3116",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-38.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-38.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 80682,
+    "sha256": "2535fde6d48aaf747d3159590fc556fb34c92aea7b4d304787eacd0545340c26",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-37.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-37.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 103828,
+    "sha256": "137d184a55a2a857d4e047a4a49f5d2759765a8acb9e2e49b41fd03a94341328",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-36.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-36.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 116953,
+    "sha256": "db499c3e5c187fd7d69712cecb18c2cc95dd54ee0b778389b3eaa016dbe4b35d",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-35.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-35.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 97605,
+    "sha256": "0e6e66268e84a7397d990421d33f9f744c1a1a840a0b403e58546a2e21b5d869",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-34.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-34.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 61015,
+    "sha256": "521db6ae8f02fc616f619d0babd04b8bf4f20a48e78951c658635db3ac67e50f",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-33.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-33.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 102487,
+    "sha256": "e81e5885e76a11f5c73a5f60af7ea0c9407dbdcd8f900f56547e44efa8d10844",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-32.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-32.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 62859,
+    "sha256": "fc14f5e3053e50f4e54b5e7f76e4264bf1bba860d714918a25f7bfa2634273b2",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-31.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-31.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 62312,
+    "sha256": "f523f34eba595eb7b706098d368b912f333a4e617bd1ce2e214dafbe0f10701f",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-30.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-30.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 71073,
+    "sha256": "1286de4353f051fd14087d77c2b8bdcae8af5333dd62ab721e20484f0e247b0f",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-29.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-29.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 64391,
+    "sha256": "e360b6d41bab8901f9862be61af89f5031e9c9f01b40534c34d3d28606703e06",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-28.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-28.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 112823,
+    "sha256": "df704a63f974f09d74a148a7065b02d3f3f0e084622efd80e7ede18a06ebd80b",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-27.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-27.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 85547,
+    "sha256": "66be953c531ce723bfead65cbf657e17e37082cb9f444b2d42d39d94c429dfbf",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-26.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-26.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 81348,
+    "sha256": "48918a1f3101a9e720decba60ff2a92c167947e572ebc2b9f560e3aca83c6412",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-25.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-25.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 56498,
+    "sha256": "37dd215220d5ec4623d9373c588ae7f44f5bc1d43ecc1e924d9bbead7ce9f42b",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-24.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-24.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 62351,
+    "sha256": "2914070c1c757deef9d5be07614c01f3770ba5a0e038493599dc1e3e0b4c70c0",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-23.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-23.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 53236,
+    "sha256": "4c4895441efec95bb9c528ca1e18f5ef282a772f06c62919490c8796afc2a00d",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-22.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-22.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 114328,
+    "sha256": "6f2208346a5c416055d77e0efd8f79b0429d1eb2b141ed266e77179eb0770364",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-21.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-21.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 55218,
+    "sha256": "d3870686ababf8908f693b9c988d75aac45e6a151ec7814d80b75f6c32727e74",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-20.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-20.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 107281,
+    "sha256": "3b21734e9b5f2a03c8a79d85974d672bfc4976265b618329a34516d40d8729ff",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-19.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-19.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 109528,
+    "sha256": "7e0fbd90d0d3d6d2d0a5bc579a5e4de8e719f47aefaaa25a394ef30c297ac72b",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-18.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-18.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 59374,
+    "sha256": "0e2fc4efcc60eda2f859794893d8955d7997e09335b8f3c2c5d4210763c8d847",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-17.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-17.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 86489,
+    "sha256": "796c16aab8d5bc826d3e92dc77b04a909b5490584db02ef7228df652cb9f07a3",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-16.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-16.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 93018,
+    "sha256": "ff7a05aa86bf3c241b83f54524c3f5becb77f1fe34ae2260e17ceb96505d2a06",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-15.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-15.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 150703,
+    "sha256": "da2fd23af9fabe0e42bb18f0575a4737002cb493faa09f05c03a984de3c3ae52",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-14.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-14.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 302293,
+    "sha256": "ebc40e82b021afc67467f93291b2f58e058566d57cb00be8b4a212d621d701a4",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-13.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-13.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 253572,
+    "sha256": "64a265137fc50b59a212b9b40e7d90cb2320be4852ee3a6b17c1db37dcfeea46",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-12.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-12.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 276680,
+    "sha256": "887390771075162dfc92bcae7183ee8979d0c3520b15d1e31394c8fff2d30243",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-11.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-11.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 315272,
+    "sha256": "c7489ffad851b24bedd48c34bf5c825bc457f930b690e42dd77010ac1ab0cf16",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-10.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-10.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 584577,
+    "sha256": "a95ce43b194235dd8f52ce8530fb4754e30c79e2ea3625c6d302e6b5a379c045",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-9.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-9.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 304896,
+    "sha256": "842743c4a4b1328d910ab1324c076f83eec1804c603e12ef70b08300031524bb",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-8.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-8.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 334093,
+    "sha256": "4d1f769a6b16d19162d8b4d12d7c4a78c7b0efe297b59dbfada8ca456f189f3d",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-7.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-7.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 237978,
+    "sha256": "72f13d0d5189962114a6c4b168d0001dbf8360b373828eabfc111607b0349b7c",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-6.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-6.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 232109,
+    "sha256": "ac89bc363767ab27074264c695c99826847ba209691e6ff6a8987d016ff7d5e0",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-5.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-5.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 332342,
+    "sha256": "af5244902eebc6fa415baa1d9b9550c3fd2d4aaadfd937db77b8d41f83611558",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-4.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-4.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 354988,
+    "sha256": "390134c1b58b3dce454ae58c563dfef00587ddfdc60fd382fa9b7fa9125731bb",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-3.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-3.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 248204,
+    "sha256": "245585f74c0b3544015f37c00e91b5f115055246853d220682702d74a07352df",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-2.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-2.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 315628,
+    "sha256": "5177fedcca962dadbe3376c1709c1a456121db0c71882bf77396d74d34f0be55",
+    "legacyCertificateFallback": true
+  },
+  {
+    "source": "https://4placademy.com/assets/images/categories/blog-1.jpg",
+    "local": "artifacts/academy/public/images/blogs/legacy/blog-1.jpg",
+    "width": 900,
+    "height": 500,
+    "bytes": 375681,
+    "sha256": "016d093872d3689ca4924ec5a647d2773f5cdbcd89e013304b13bc9fde974466",
+    "legacyCertificateFallback": true
+  }
+]
