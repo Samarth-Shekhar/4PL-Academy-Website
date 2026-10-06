@@ -28,7 +28,7 @@ export function KindPage({ slug }) {
       <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: p?.name || EYEBROW[slug] || slug }]} eyebrow={EYEBROW[slug]} title={p?.name || EYEBROW[slug] || 'Loading'} body={p?.shortDescription} />
       <div className="container-x py-10 sm:py-14">
         {q.isLoading ? <div className="space-y-3"><Skeleton className="h-8 w-1/2" /><Skeleton className="h-40" /></div> : q.isError ? <ErrorState onRetry={q.refetch} /> : !p ? <EmptyState title="Content coming soon" body="This page is being prepared." /> : (
-          <div className="grid gap-10 lg:grid-cols-[1fr_22rem]">
+          <div className={slug === 'about' ? 'mx-auto max-w-4xl' : 'grid gap-10 lg:grid-cols-[1fr_22rem]'}>
             <article>
               <img src={img} alt="" loading="lazy" className="mb-8 aspect-[16/7] w-full rounded-2xl object-cover" />
               {!has(p.image) && <p className="-mt-6 mb-8 text-[0.7rem] uppercase tracking-wider text-muted-foreground">Representative generic imagery</p>}
@@ -41,13 +41,13 @@ export function KindPage({ slug }) {
               <FaqList faqs={p.faqs} />
               {lines(p.media).length > 0 && <section className="mt-10"><h2 className="text-2xl text-navy">Media</h2><ul className="mt-3 space-y-1 text-sm">{lines(p.media).map((m, i) => <li key={i}><a className="text-gold-deep underline" href={m} target="_blank" rel="noopener noreferrer">{m}</a></li>)}</ul></section>}
             </article>
-            <aside className="lg:sticky lg:top-24 lg:self-start">
+            {slug !== 'about' && <aside className="lg:sticky lg:top-24 lg:self-start">
               <div className="card-s p-5">
                 <h2 className="text-xl text-navy">{slug === 'for-universities' ? 'Partner with 4PL Academy' : 'Speak with our team'}</h2>
                 <p className="mb-4 mt-1 text-sm text-muted-foreground">{slug === 'for-universities' ? 'Tell us about your institution and we will be in touch.' : 'Questions about programs or admissions? Leave your details.'}</p>
                 <LeadForm category={slug === 'for-universities' ? 'partnership' : 'counselling'} idPrefix={`kp-${slug}`} submitLabel="Get in touch" />
               </div>
-            </aside>
+            </aside>}
           </div>
         )}
       </div>
