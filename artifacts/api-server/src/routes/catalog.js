@@ -4,6 +4,8 @@ import { and, eq } from 'drizzle-orm';
 import { ListContentQueryParams, GetContentResponse, ListContentResponse, SubmitLeadBody, AskAcadBotBody, GetDiscoveryResponse } from '@workspace/api-zod';
 import { getCatalog, checkKind, publicContent } from '../lib/content.js';
 import { answerQuestion } from '../lib/chat.js';
+import { sendLeadNotification } from '../lib/lead-email.js';
+import { logger } from '../lib/log.js';
 import { rateLimit } from 'express-rate-limit';
 
 const router = Router();
@@ -58,8 +60,22 @@ async function saveLead(req, res) {
     const [content] = await db.select({ id: contentTable.id }).from(contentTable).where(and(...conditions)).limit(1);
     contentId = content?.id || null;
   }
-  await db.insert(leadsTable).values({ ...data, name: data.name.trim(), email: data.email.trim().toLowerCase(), contentId });
-  res.status(201).json({ success: true, message: data.category === 'application' ? 'Your application enquiry has been received. The admissions team will review it. This does not confirm admission.' : 'Thank you. Your enquiry has been saved for the 4PL admissions team.' });
+  const [savedLead] = await db.insert(leadsTable)
+    .values({ ...data, name: data.name.trim(), email: data.email.trim().toLowerCase(), contentId })
+    .returning({ id: leadsTable.id });
+  const notification = await sendLeadNotification(data);
+  if (!notification.sent) {
+    logger.warn({ leadId: savedLead.id, category: data.category || 'counselling', reason: notification.reason }, 'Lead saved, but email notification was not sent');
+  }
+  const baseMessage = data.category === 'application'
+    ? 'Your application enquiry has been received. The admissions team will review it. This does not confirm admission.'
+    : 'Thank you. Your enquiry has been saved for the 4PL admissions team.';
+  const message = notification.sent
+    ? baseMessage
+    : `${baseMessage} ${notification.reason === 'not_configured'
+      ? 'The enquiry is saved, but email notifications are not configured yet.'
+      : 'The enquiry is saved, but we could not email the team just now. Please contact us if your request is urgent.'}`;
+  res.status(201).json({ success: true, message });
 }
 router.post('/leads', submissionLimit, saveLead);
 router.post('/applications', submissionLimit, (req,res,next) => { req.body.category = 'application'; return saveLead(req,res).catch(next); });

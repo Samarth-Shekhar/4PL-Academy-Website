@@ -54,6 +54,7 @@ function SelectField({ name, label, control, options, error }) {
 
 export function PartnerForm() {
   const [done, setDone] = useState(false);
+  const [doneMessage, setDoneMessage] = useState('');
   const submit = useSubmitLead();
   const { register, control, handleSubmit, reset, watch, setError, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
@@ -74,13 +75,13 @@ export function PartnerForm() {
     ].filter((line) => line !== false && line !== undefined).join('\n');
     if (message.length > 3000) { setError('message', { message: 'Please shorten your message so all your organisation details can be included.' }); return; }
     submit.mutate({ data: { name: v.name, email: v.email, phone: v.phone, category: 'partnership', consent: true, interestedIn: focus, city: v.city || undefined, message, source: window.location.pathname, utm: captureAttribution() } },
-      { onSuccess: () => { setDone(true); reset(); } });
+      { onSuccess: (r) => { setDoneMessage(r?.message || 'Thank you. Your partnership enquiry has been saved.'); setDone(true); reset(); } });
   };
   if (done) return <div className="rounded-2xl bg-gold-soft p-6 text-center" role="status" data-testid="partner-success">
     <CheckCircle2 className="mx-auto h-10 w-10 text-gold-deep" aria-hidden="true" />
     <h3 className="mt-4 text-2xl font-bold text-navy">Enquiry received</h3>
-    <p className="mt-3 text-sm leading-relaxed text-navy/80">Thank you for reaching out. Our team will review your collaboration goals and contact you using the details provided.</p>
-    <button type="button" className="btn btn-outline mt-5" onClick={() => { submit.reset(); setDone(false); }}>Send another enquiry</button>
+    <p className="mt-3 text-sm leading-relaxed text-navy/80">{doneMessage}</p>
+    <button type="button" className="btn btn-outline mt-5" onClick={() => { submit.reset(); setDoneMessage(''); setDone(false); }}>Send another enquiry</button>
   </div>;
   return <form noValidate onSubmit={handleSubmit(onSubmit)} className="space-y-5" data-testid="form-partner">
     <div className="grid gap-4 sm:grid-cols-2">
