@@ -1,0 +1,13 @@
+Please note that these Terms and Conditions of Use may be amended from time to time, so please ensure that you check them each time you use our site.
+
+Definitions
+In the context of these Terms and Conditions of Use, the following words shall have the following meanings: “Website” means the pages of information, data, text, images, graphics, hyperlinks, or computer code published on, or available via the world wide web, which are under the ownership or control of 4PL Academy and from which a hyperlink has been created to these terms and conditions; “User” means any individual, company or organization accessing the Website.
+
+Applicable terms and conditions
+This Website is owned by 4PL Academy and any uses made of the Website (including any registrations and transactions entered via the Website), are subject to these terms and conditions. 4PL Academy may, at its sole discretion, modify or revise these terms and conditions at any time by updating the text of this page. 4PL Academy staff, candidates and students must read these terms and conditions in conjunction with Academic / Examination Regulations, Regulations Concerning Students & General Regulations.
+
+Log Files
+We or our hosting provider may collect traffic information from visitors for statistical analysis and site improvement. When you access a site, we or our hosting provider may collect information about your visit in a log file on a server. Log file information may include, but is not limited to, internet protocol (IP) addresses, browser type, internet service provider (ISP), referring/exit pages, platform type, date/time stamp, and number of clicks. We or our hosting provider use this information to analyse trends, administer the site, track users movements in the aggregate, and gather demographic information for aggregate use. IP addresses and other log file information are not linked to personally identifiable information. We do not try to track users or to identify users individually, but we or our hosting provider do review this information to understand overall trends and to determine what kinds of content are popular and useful to users.
+
+Security Violations
+Violations of system or network security are prohibited and may result in criminal and civil liability. Examples include but are not limited to the following: unauthorized access, use, probing, or scanning of systems security or authentication measures, data, or traffic; interference with service to any user, host, or network including, without limitation, mail bombing, flooding, deliberate attempts to overload a system, broadcast attacks; forging of any TCP-IP packet header or any part of the header information in an email or a newsgroup posting.

@@ -34,3 +34,9 @@ Keep submission acceptance separate from notification delivery: an email outage 
 **Why:** Mail-provider failures should not lose leads or encourage duplicate submissions.
 
 **How to apply:** Save the enquiry before attempting email delivery, and report notification failures truthfully while keeping the saved record intact.
+
+Use the academy's existing email provider for lead notifications without requiring an API key.
+
+**Why:** The user declined the API-key setup and asked for the existing-provider option “without any api key.”
+
+**How to apply:** Prefer an authenticated mailbox connection where available. Account authorization is still required; do not reintroduce a transactional-email API-key requirement.
