@@ -63,7 +63,7 @@ async function saveLead(req, res) {
   const [savedLead] = await db.insert(leadsTable)
     .values({ ...data, name: data.name.trim(), email: data.email.trim().toLowerCase(), contentId })
     .returning({ id: leadsTable.id });
-  const notification = await sendLeadNotification(data);
+  const notification = await sendLeadNotification(data, savedLead.id);
   if (!notification.sent) {
     logger.warn({ leadId: savedLead.id, category: data.category || 'counselling', reason: notification.reason }, 'Lead saved, but email notification was not sent');
   }

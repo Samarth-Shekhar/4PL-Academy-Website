@@ -1,3 +1,5 @@
+import { randomUUID } from 'node:crypto';
+
 const RECIPIENT = 'contact@4placademy.com';
 const DEFAULT_SENDER = '4PL Academy <contact@4placademy.com>';
 
@@ -22,7 +24,7 @@ function display(value) {
   return String(value);
 }
 
-export async function sendLeadNotification(lead) {
+export async function sendLeadNotification(lead, submissionId = randomUUID()) {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return { sent: false, reason: 'not_configured' };
 
@@ -42,6 +44,7 @@ export async function sendLeadNotification(lead) {
         headers: {
           Authorization: `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
+          'Idempotency-Key': `academy-lead-${submissionId}`,
         },
         body: JSON.stringify({
           from: process.env.LEAD_NOTIFICATION_FROM || DEFAULT_SENDER,

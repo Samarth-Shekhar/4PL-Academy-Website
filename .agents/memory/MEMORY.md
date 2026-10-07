@@ -13,7 +13,7 @@
 - [About page visibility](about-page-visibility.md) — show every section name and full content; use the original site's open image-and-text approach, not clipped tabs or all cards.
 - [Public browsing scope](public-browsing-scope.md) — listing filters belong above results, not in a left sidebar; omit the public Apply section and links.
 - [Contact source priority](contact-source-priority.md) — latest owner-confirmed contacts override legacy values; map the current street address.
-- [Enquiry integrity](enquiry-integrity.md) — qualify same-title programs by university; retain contact subjects and validate combined message length.
+- [Enquiry integrity](enquiry-integrity.md) — preserve complete submissions, notify the contact inbox, retain subjects, and qualify same-title programs by university.
 - [University directory scope](university-directory-scope.md) — directory only, no partnerships mode; listing cards use matching ratios and basic supplied facts.
 - [Institution imagery verification](logo-verification.md) — confirm actual logo/campus identity; valid image URLs may show unrelated brands or event portraits.
 - [Image-tooling defaults](image-tooling-defaults.md) — ImageMagick needs an explicit available font for text/montage; unlabelled contact sheets can avoid font dependencies.

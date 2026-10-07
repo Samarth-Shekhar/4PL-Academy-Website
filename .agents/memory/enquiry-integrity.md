@@ -1,6 +1,6 @@
 ---
 name: Enquiry integrity
-description: Preserve contact subjects and disambiguate university-specific program enquiries.
+description: Complete lead capture and email notification, preserved contact subjects, and university-specific program enquiries.
 ---
 
 Resolve program enquiries by institution as well as title whenever the
@@ -22,3 +22,15 @@ while ensuring the new subject is not discarded by the public API.
 **How to apply:** Check the combined subject/message against the API length
 limit. If introducing a dedicated subject field later, migrate the entire
 capture and staff-view flow, not just the form input.
+
+All public enquiry and callback forms must save their complete submissions in the backend and email the academy's designated contact inbox.
+
+**Why:** The user requested both backend storage and the whole form's details by email after submission.
+
+**How to apply:** Include contact and careers enquiries, counselling, partnerships and chatbot callbacks. When adding fields, preserve them in backend capture, staff views and notifications.
+
+Keep submission acceptance separate from notification delivery: an email outage must not discard a saved enquiry or imply it was never received.
+
+**Why:** Mail-provider failures should not lose leads or encourage duplicate submissions.
+
+**How to apply:** Save the enquiry before attempting email delivery, and report notification failures truthfully while keeping the saved record intact.
