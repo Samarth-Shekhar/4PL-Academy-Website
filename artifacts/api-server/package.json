@@ -8,6 +8,7 @@
     "local": "WEB_DEV=1 NODE_ENV=development node src/index.js",
     "build": "node ./build.mjs",
     "start": "node --enable-source-maps ./dist/index.mjs",
+    "test:lead-email": "node --test src/lib/lead-email.test.js",
     "seed": "node src/scripts/seed.js",
     "typecheck": "node --check src/index.js"
   },
