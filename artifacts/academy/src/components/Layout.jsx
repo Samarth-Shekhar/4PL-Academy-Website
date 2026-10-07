@@ -40,6 +40,12 @@ function Header() {
   const header = useRef(null);
   const ptr = useRef('');
   const [scrolled, setScrolled] = useState(false);
+  const onLogoClick = (event) => {
+    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    setOpen(false);
+    setDropdown(null);
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  };
   useEffect(() => { setOpen(false); setDropdown(null); }, [loc]);
   useEffect(() => {
     if (!dropdown) return undefined;
@@ -62,7 +68,7 @@ function Header() {
   return (
     <header ref={header} className={cn('sticky top-0 z-50 bg-white font-bold transition-shadow', scrolled && 'shadow-[0_6px_24px_-14px_hsl(221_76%_17%/.5)]')}>
       <div className="container-x flex h-[4.75rem] items-center justify-between gap-2">
-        <Link href="/" aria-label="4PL Academy home" className="shrink-0"><Logo className="h-16 sm:h-[4.5rem] -my-2" /></Link>
+        <Link href="/" aria-label="4PL Academy home" className="shrink-0" onClick={onLogoClick}><Logo className="h-16 sm:h-[4.5rem] -my-2" /></Link>
         <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
           {NAV.map((n) => {
             const selected = active(n.href) || (n.children || []).some(c => active(c.href));
