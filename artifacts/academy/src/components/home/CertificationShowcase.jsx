@@ -6,7 +6,6 @@ import { usePublicList } from '@/lib/api';
 import { REFRESH, mediaUrl, useVerified } from '@/lib/home';
 import { has, initials } from '@/lib/format';
 import { Head, Body, CtaRow } from './shared';
-import { CompanyLogoStrip } from './CompanyLogoStrip';
 
 function Mark({ c }) {
   const [bad, setBad] = useState(false);
@@ -28,7 +27,6 @@ export function CertificationShowcase({ s }) {
           <div className="flex items-center gap-3"><CtaRow s={s} />{list.length > 2 && <div className="hidden gap-2 sm:flex"><button type="button" className="grid h-11 w-11 place-items-center rounded-full border border-navy/30 text-navy hover:border-navy" onClick={() => by(-1)} aria-label="Previous certifications"><ChevronLeft className="h-5 w-5" /></button><button type="button" className="grid h-11 w-11 place-items-center rounded-full border border-navy/30 text-navy hover:border-navy" onClick={() => by(1)} aria-label="Next certifications"><ChevronRight className="h-5 w-5" /></button></div>}</div>
         </div>
         <div className="mt-10">
-          <CompanyLogoStrip />
           {!list.length ? (
             <p className="mt-4 text-sm"><Link href="/courses" className="font-semibold text-navy underline underline-offset-4">Explore professional courses</Link></p>
           ) : (

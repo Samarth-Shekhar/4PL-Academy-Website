@@ -18,7 +18,7 @@ export function StudentLifeGallery({ s }) {
           <div id="sec-student-life"><Head s={copy} /><Body s={copy} /></div>
           <CtaRow s={s} />
         </div>
-        {tiles.length ? <MediaMasonry items={tiles} className="columns-1 sm:columns-2 lg:columns-3" /> : <Pending title="Student stories are being gathered" body="We publish only university-approved campus and student media."><Link href="/student-life" className="btn btn-navy">Student life</Link></Pending>}
+        {tiles.length ? <MediaMasonry items={tiles} className="columns-1 sm:columns-2 lg:columns-3" /> : <Pending title="Explore student life" body="Discover learning, collaboration and shared ideas."><Link href="/student-life" className="btn btn-navy">Student life</Link></Pending>}
       </div>
     </section>
   );

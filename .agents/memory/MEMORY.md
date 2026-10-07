@@ -2,16 +2,19 @@
 - [Environment-file guard](environment-file-guard.md) — direct .env creation is blocked even for comments; retain portable examples and use secure configuration tools.
 - [CMS verification evidence](cms-verification-evidence.md) — persist scrubbed acceptance evidence and cleanup manifests during long browser runs.
 - [Unicode-safe content ingestion](unicode-content-ingestion.md) — preserve whole code points; lone UTF-16 surrogates serialize in JavaScript but fail PostgreSQL JSONB.
-- [Website imagery](website-image-labels.md) — no visible illustrative/generic captions; homepage uses program subjects, not people, with honest source metadata.
+- [Website imagery](website-image-labels.md) — no illustrative captions; program imagery is subject-focused, student-life uses student photos; retain honest source metadata.
 - [Generated image dimensions](generated-image-dimensions.md) — verify actual dimensions; high-quality/wide prompts may return square 1024px files, not native 4K.
+- [Transparent logo verification](logo-transparency.md) — verify internal cutouts as well as the outer background; background removal may retain white pixels inside flat marks.
 - [Employer careers scope](careers-page-scope.md) — separate employer careers from learner pathways; editable openings section with an explicit empty state and no invented roles.
 - [Legacy blog fidelity](legacy-blog-content.md) — original artwork and proportions; listing titles resolve erroneous detail headings; isolate legacy-source TLS issues.
 - [Industry brand references](industry-brand-references.md) — logos shown near credentials are not evidence of partners, issuers, endorsements or employers.
 - [Acad Bot scope](acad-bot-scope.md) — academy-focused help; unrelated or unsupported questions should offer human contact.
-- [UI verification quirks](ui-verification-quirks.md) — closed accordion controls and scrollbar widths can cause false browser-check failures.
+- [UI verification quirks](ui-verification-quirks.md) — controls, viewport coordinates, motion preferences and debug sessions can cause false browser failures.
 - [Contact source priority](contact-source-priority.md) — latest owner-confirmed contacts override legacy values; map the current street address.
 - [Enquiry integrity](enquiry-integrity.md) — qualify same-title programs by university; retain contact subjects and validate combined message length.
 - [University directory scope](university-directory-scope.md) — directory only, no partnerships mode; listing cards use matching ratios and basic supplied facts.
 - [Institution imagery verification](logo-verification.md) — confirm actual logo/campus identity; valid image URLs may show unrelated brands or event portraits.
+- [Image-tooling defaults](image-tooling-defaults.md) — ImageMagick needs an explicit available font for text/montage; unlabelled contact sheets can avoid font dependencies.
 - [Public footer scope](public-footer-scope.md) — compact public footer without the admissions notice or staff sign-in link; preserve authentication.
+- [Public verification copy](public-copy-scope.md) — no visitor-facing verification/disclaimer notices; retain internal checks, omit missing facts and preserve legal consent.
 - [Learner story authenticity](learner-stories.md) — use academy thoughts about students instead of fictional examples; genuine reviews remain separately approved.

@@ -1,15 +1,13 @@
 import { useState } from 'react';
 import { SlidersHorizontal, Search, X } from 'lucide-react';
 import { Modal } from './Modal';
+import { BrandSelect } from './BrandSelect';
 
 export function SelectField({ label, value, onChange, options, any = 'Any', id }) {
   return (
     <div>
       <label className="label" htmlFor={id}>{label}</label>
-      <select id={id} className="input" value={value} onChange={(e) => onChange(e.target.value)}>
-        <option value="">{any}</option>
-        {options.map((o) => (typeof o === 'string' ? <option key={o} value={o}>{o}</option> : <option key={o.value} value={o.value}>{o.label}</option>))}
-      </select>
+      <BrandSelect id={id} value={value} onChange={onChange} placeholder={any} options={[{ value: '', label: any }, ...options]} />
     </div>
   );
 }

@@ -15,6 +15,7 @@ const PROMPTS = ['Which degree programs does 4PL Academy offer?', 'How does admi
 
 export function AcadBot({ raised = false }) {
   const [open, setOpen] = useState(false);
+  const [welcomeSeen, setWelcomeSeen] = useState(false);
   const [msgs, setMsgs] = useState([]);
   const [text, setText] = useState('');
   const [lead, setLead] = useState(false);
@@ -33,6 +34,7 @@ export function AcadBot({ raised = false }) {
   const sendRef = useRef(send); sendRef.current = send;
   useEffect(() => {
     if (!open) return undefined;
+    setWelcomeSeen(true);
     document.getElementById('bot-input')?.focus({ preventScroll: true });
     const escape = (e) => { if (e.key === 'Escape') setOpen(false); };
     window.addEventListener('keydown', escape);
@@ -49,8 +51,9 @@ export function AcadBot({ raised = false }) {
     <>
       <AnimatePresence>
         {!open && (
-          <motion.button initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.8, opacity: 0 }} type="button" onClick={() => setOpen(true)} className={`fixed bottom-4 right-4 z-40 grid h-[4.5rem] w-[4.5rem] place-items-center rounded-full border border-gold/60 bg-white p-1 shadow-lg transition-shadow hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy ${raised ? 'max-md:bottom-24' : ''}`} aria-label="Open Acad Bot assistant" aria-haspopup="dialog" data-testid="button-bot-launch">
+          <motion.button initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.8, opacity: 0 }} type="button" onClick={() => setOpen(true)} className={`fixed bottom-4 right-4 z-40 grid h-[4.5rem] w-[4.5rem] place-items-center rounded-full border border-gold/60 bg-white p-1 shadow-lg transition-shadow hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-navy ${!welcomeSeen ? 'acad-bot-attention' : ''} ${raised ? 'max-md:bottom-24' : ''}`} aria-label={welcomeSeen ? 'Open Acad Bot assistant' : 'Open Acad Bot assistant, 1 welcome message'} aria-haspopup="dialog" data-testid="button-bot-launch">
             <img src={MASCOT} alt="" width="640" height="585" onError={hideOnError} className="h-full w-full object-contain" />
+            {!welcomeSeen && <span aria-hidden="true" data-testid="badge-bot-welcome" className="absolute -right-1 -top-1 grid h-6 w-6 place-items-center rounded-full border-2 border-white bg-gold text-xs font-extrabold text-navy shadow-md">1</span>}
           </motion.button>
         )}
       </AnimatePresence>

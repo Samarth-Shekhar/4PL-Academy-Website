@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { CheckCircle2, Loader2, ShieldCheck } from 'lucide-react';
 import { useSubmitLead } from '@workspace/api-client-react';
+import { BrandSelect } from '@/components/BrandSelect';
 import { errMsg, usePublicList } from '@/lib/api';
 import { INTERESTS, QUALIFICATIONS, captureAttribution } from '@/lib/booking';
 
@@ -26,6 +27,10 @@ const contactSchema = schema.extend({
   message: z.string().trim().min(1, 'Please tell us how we can help').max(2800, 'Please keep this under 2800 characters'),
 });
 
+function Sel({ control, name, id, options, placeholder, disabled }) {
+  return <Controller name={name} control={control} render={({ field }) => <BrandSelect id={id} name={field.name} ref={field.ref} value={field.value ?? ''} onChange={field.onChange} onBlur={field.onBlur} options={options} placeholder={placeholder} disabled={disabled} />} />;
+}
+
 export function LeadForm({ category = 'counselling', program, university, course, interestedIn, defaultMessage = '', submitLabel = 'Book Counselling', showMessage = true, careers = false, compact = false, contactFields = false, onDone, idPrefix = 'lead' }) {
   const [done, setDone] = useState(null);
   const submit = useSubmitLead();
@@ -39,7 +44,7 @@ export function LeadForm({ category = 'counselling', program, university, course
     })),
     ...(cq.data || []).filter((c) => c.name).map((c) => ({ value: `course:${c.id}`, type: 'course', name: c.name })),
   ] : [];
-  const { register, handleSubmit, formState: { errors, dirtyFields }, reset, setValue } = useForm({
+  const { register, handleSubmit, formState: { errors, dirtyFields }, reset, setValue, control } = useForm({
     resolver: zodResolver(contactFields ? contactSchema : schema),
     defaultValues: { name: '', email: '', phone: '', interestedIn: interestedIn || '', university: university || '', program: program || '', qualification: '', city: '', subject: '', selection: '', message: defaultMessage, consent: false },
   });
@@ -57,10 +62,15 @@ export function LeadForm({ category = 'counselling', program, university, course
   }, [contactFields, careers, course, program, university, cq.data, progs, unis, dirtyFields.selection, setValue]);
   const onSubmit = (v) => {
     const o = (x) => (x && String(x).trim() ? String(x).trim() : undefined);
+    const other = contactFields && v.selection === 'other';
     const selected = choices.find((c) => c.value === v.selection);
     const message = contactFields && o(v.subject) ? `Subject: ${o(v.subject)}\n\n${o(v.message)}` : o(v.message);
     submit.mutate(
-      { data: { name: v.name, email: v.email, phone: v.phone, consent: true, category, university: selected ? (selected.type === 'program' ? o(selected.university) : undefined) : o(v.university), program: selected ? (selected.type === 'program' ? selected.name : undefined) : o(v.program), course: selected ? (selected.type === 'course' ? selected.name : undefined) : course, interestedIn: o(v.interestedIn), qualification: o(v.qualification), city: o(v.city), message, source: window.location.pathname, utm: captureAttribution() } },
+      { data: { name: v.name, email: v.email, phone: v.phone, consent: true, category,
+        university: other ? undefined : selected ? (selected.type === 'program' ? o(selected.university) : undefined) : o(v.university),
+        program: other ? undefined : selected ? (selected.type === 'program' ? selected.name : undefined) : o(v.program),
+        course: other ? undefined : selected ? (selected.type === 'course' ? selected.name : undefined) : course,
+        interestedIn: other ? 'Other' : o(v.interestedIn), qualification: o(v.qualification), city: o(v.city), message, source: window.location.pathname, utm: captureAttribution() } },
       { onSuccess: (r) => { setDone(r?.message || 'Thank you. Our admissions team will reach out to you.'); reset(); onDone?.(); } },
     );
   };
@@ -87,15 +97,15 @@ export function LeadForm({ category = 'counselling', program, university, course
           <div><label className="label" htmlFor={f('email')}>Email{contactFields && requiredMark}</label><input id={f('email')} type="email" inputMode="email" className="input" autoComplete="email" required={contactFields} aria-invalid={!!errors.email} {...register('email')} /><Err n="email" /></div>
           <div><label className="label" htmlFor={f('phone')}>{contactFields ? 'Mobile' : 'Phone'}{contactFields && requiredMark}</label><input id={f('phone')} type="tel" inputMode="tel" className="input" autoComplete="tel" required={contactFields} aria-invalid={!!errors.phone} {...register('phone')} /><Err n="phone" /></div>
         </div>
-        {contactFields && !careers && <div><label className="label" htmlFor={f('course')}>Courses</label><select id={f('course')} className="input" disabled={cq.isLoading} {...register('selection')}><option value="">{cq.isLoading ? 'Loading courses…' : 'Please select a course'}</option>{choices.map((c) => <option key={c.value} value={c.value}>{c.name}{c.university ? ` — ${c.university}` : ''}</option>)}</select>{cq.isError && <p className="field-err">Courses could not be loaded. <button type="button" className="underline" onClick={() => cq.refetch()}>Retry</button> or mention your course in the message.</p>}</div>}
+        {contactFields && !careers && <div><label className="label" htmlFor={f('course')}>Courses</label><Sel control={control} name="selection" id={f('course')} disabled={cq.isLoading} placeholder={cq.isLoading ? 'Loading courses…' : 'Please select a course'} options={[{ value: '', label: cq.isLoading ? 'Loading courses…' : 'Please select a course' }, ...choices.map((c) => ({ value: c.value, label: `${c.name}${c.university ? ` — ${c.university}` : ''}` })), { value: 'other', label: 'Other' }]} />{cq.isError && <p className="field-err">Courses could not be loaded. <button type="button" className="underline" onClick={() => cq.refetch()}>Retry</button> or mention your course in the message.</p>}</div>}
         {contactFields && <div><label className="label" htmlFor={f('subject')}>Subject</label><input id={f('subject')} className="input" maxLength={150} aria-invalid={!!errors.subject} {...register('subject')} /><Err n="subject" /></div>}
         {contactFields && <div className={careers ? 'sm:col-span-2' : ''}><label className="label" htmlFor={f('message')}>How can we help?{requiredMark}</label><textarea id={f('message')} className="input min-h-32" required maxLength={2800} aria-invalid={!!errors.message} {...register('message')} /><Err n="message" /></div>}
       </div>
       {!careers && !compact && <div className="grid gap-4 sm:grid-cols-2">
-        <div><label className="label" htmlFor={f('interest')}>Interested in</label><select id={f('interest')} className="input" {...register('interestedIn')}><option value="">Select</option>{INTERESTS.map((x) => <option key={x}>{x}</option>)}</select></div>
-        <div><label className="label" htmlFor={f('qual')}>Highest qualification</label><select id={f('qual')} className="input" {...register('qualification')}><option value="">Select</option>{QUALIFICATIONS.map((x) => <option key={x}>{x}</option>)}</select></div>
-        <div><label className="label" htmlFor={f('uni')}>Preferred university</label><select id={f('uni')} className="input" {...register('university')}><option value="">No preference</option>{withCurrent(unis, university).map((u) => <option key={u.id} value={u.name}>{u.name}</option>)}</select></div>
-        <div><label className="label" htmlFor={f('prog')}>Preferred program</label><select id={f('prog')} className="input" {...register('program')}><option value="">No preference</option>{withCurrent(progs, program).map((p) => <option key={p.id} value={p.name}>{p.name}</option>)}</select></div>
+        <div><label className="label" htmlFor={f('interest')}>Interested in</label><Sel control={control} name="interestedIn" id={f('interest')} placeholder="Select" options={[{ value: '', label: 'Select' }, ...INTERESTS]} /></div>
+        <div><label className="label" htmlFor={f('qual')}>Highest qualification</label><Sel control={control} name="qualification" id={f('qual')} placeholder="Select" options={[{ value: '', label: 'Select' }, ...QUALIFICATIONS]} /></div>
+        <div><label className="label" htmlFor={f('uni')}>Preferred university</label><Sel control={control} name="university" id={f('uni')} placeholder="No preference" options={[{ value: '', label: 'No preference' }, ...withCurrent(unis, university).map((u) => u.name)]} /></div>
+        <div><label className="label" htmlFor={f('prog')}>Preferred program</label><Sel control={control} name="program" id={f('prog')} placeholder="No preference" options={[{ value: '', label: 'No preference' }, ...withCurrent(progs, program).map((p) => p.name)]} /></div>
       </div>}
       {!careers && !compact && <div><label className="label" htmlFor={f('city')}>City</label><input id={f('city')} className="input" autoComplete="address-level2" {...register('city')} /></div>}
       {showMessage && !contactFields && (
@@ -104,7 +114,7 @@ export function LeadForm({ category = 'counselling', program, university, course
       <div>
         <label className="flex items-start gap-3 text-sm leading-snug text-foreground/80">
           <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 accent-[hsl(221_76%_17%)]" {...register('consent')} />
-          <span>{careers ? 'I agree to be contacted by 4PL Academy about my careers enquiry.' : contactFields ? 'I agree to be contacted by 4PL Academy about my enquiry.' : 'I agree to be contacted by 4PL Academy about admissions, programs and courses. Support is provided for admission, training and placement; outcomes are never guaranteed.'}</span>
+          <span>{careers ? 'I agree to be contacted by 4PL Academy about my careers enquiry.' : contactFields ? 'I agree to be contacted by 4PL Academy about my enquiry.' : 'I agree to be contacted by 4PL Academy about admissions, programs and courses.'}</span>
         </label>
         <Err n="consent" />
       </div>

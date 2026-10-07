@@ -39,3 +39,10 @@ export function useTabVisible() {
 }
 export const saveData = () => typeof navigator !== 'undefined' && !!navigator.connection?.saveData;
 export const REL_LABEL = { Partner: 'Partner', 'Hiring Partner': 'Hiring partner', 'Training Partner': 'Training partner', 'Corporate Client': 'Corporate client', 'Industry Association': 'Industry association', 'Technology Partner': 'Technology partner', 'Featured Company': 'Featured company', Other: 'Associated company' };
+
+/* Photos from the homepage CMS record whose section is student-life (items[]). */
+export function useStudentLifePhotos() {
+  const q = usePublicList('homepage', undefined, { refetchOnWindowFocus: true });
+  const row = (q.data || []).find((r) => (r.section || r.slug) === 'student-life');
+  return (Array.isArray(row?.items) ? row.items : []).filter((i) => has(i.image)).map((i) => ({ src: mediaUrl(i.image), alt: i.altText || i.name || '' }));
+}

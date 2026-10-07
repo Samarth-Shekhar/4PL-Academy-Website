@@ -15,6 +15,8 @@ Campus-image search results also need visual identity and subject checks.
 than a building photograph; another correctly named result was a very small
 panorama. A recognizable building image was available from the academy's
 existing university source.
+Official marketing assets can also be raster masks or student photographs
+rather than views of the institution. Successful decoding is not enough.
 
 **How to apply:** Check the actual image before displaying it as a campus.
 Prefer visible institution signage or official aerial/building photography

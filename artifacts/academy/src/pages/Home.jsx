@@ -20,9 +20,10 @@ import { StudentLifeGallery, GalleryShowcase } from '@/components/home/StudentLi
 import { TestimonialCarousel } from '@/components/home/TestimonialCarousel';
 import { AdmissionTimeline } from '@/components/home/AdmissionTimeline';
 import { FinalCta } from '@/components/home/FinalCta';
+import { UniversityLogoCarousel } from '@/components/home/UniversityLogoCarousel';
 import { GenericSection } from '@/components/home/GenericSection';
 
-const MAP = { ecosystem: Ecosystem, universities: UniversityNetwork, programs: ProgramShowcase, industry: IndustryLogoMarquee, practical: PracticalLearning, certifications: CertificationShowcase, journey: LearningJourney, careers: CareerPathway, 'student-life': StudentLifeGallery, gallery: GalleryShowcase, testimonials: TestimonialCarousel, admissions: AdmissionTimeline, 'final-cta': FinalCta };
+const MAP = { 'university-logos': UniversityLogoCarousel, ecosystem: Ecosystem, universities: UniversityNetwork, programs: ProgramShowcase, industry: IndustryLogoMarquee, practical: PracticalLearning, certifications: CertificationShowcase, journey: LearningJourney, careers: CareerPathway, 'student-life': StudentLifeGallery, gallery: GalleryShowcase, testimonials: TestimonialCarousel, admissions: AdmissionTimeline, 'final-cta': FinalCta };
 
 function Blogs() {
   const q = usePublicList('blogs');
@@ -32,7 +33,7 @@ function Blogs() {
   return (
     <section className="py-16 sm:py-24" aria-label="Blogs and Insights of 4PL Academy">
       <div className="container-x"><SectionHead eyebrow="Insights" title="Blogs and Insights of 4PL Academy"><Link href="/blogs" className="btn btn-outline self-start">All articles</Link></SectionHead></div>
-      <MovingCards label="Blogs and Insights" items={list} render={(b) => <div className="w-[min(80vw,21rem)] sm:w-[21rem]"><BlogCard b={b} /></div>} />
+      <MovingCards label="Blogs and Insights" items={list} render={(b) => <div className="w-[min(80vw,21rem)] sm:w-[21rem]"><BlogCard b={b} compact /></div>} />
     </section>
   );
 }
@@ -45,7 +46,8 @@ export default function Home() {
     description: home?.seoDescription || 'Industry-integrated education built for real-world careers. Explore degree programs, professional courses and a university directory.',
     jsonLd: { '@context': 'https://schema.org', '@type': 'EducationalOrganization', name: '4PL Academy', slogan: 'Creating Global Professionals', parentOrganization: { '@type': 'Organization', name: '4PL Consultancy Ltd' }, logo: new URL(asset('images/4pl-logo.jpg'), window.location.origin).href, url: window.location.origin },
   });
-  const sections = (hp.data || []).filter((x) => x.enabled !== false && x.status !== 'archived' && x.status !== 'draft' && (x.section || x.slug) !== 'gallery').sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0) || a.id - b.id);
+  const live = (y) => y.enabled !== false && y.status !== 'archived' && y.status !== 'draft';
+  const sections = (hp.data || []).filter((x, _i, all) => !((x.section || x.slug) === 'certifications' && all.some((y) => (y.section || y.slug) === 'industry' && live(y))) && !((x.section || x.slug) === 'journey' && all.some((y) => (y.section || y.slug) === 'practical' && y.enabled !== false && y.status !== 'archived' && y.status !== 'draft')) && x.enabled !== false && x.status !== 'archived' && x.status !== 'draft' && (x.section || x.slug) !== 'gallery').sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0) || a.id - b.id);
   const finalIdx = sections.findIndex((x) => (x.section || x.slug) === 'final-cta');
   if (hp.isLoading) return <div><Skeleton className="h-[100svh] rounded-none" /></div>;
   if (!sections.length) {

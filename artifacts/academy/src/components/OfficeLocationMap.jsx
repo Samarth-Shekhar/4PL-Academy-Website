@@ -13,11 +13,16 @@ export function OfficeLocationMap() {
   if (!office?.location) return null;
   // Locate the current street address, not an approximate city-centre pin
   // or an older Google business listing.
-  const streetAddress = office.location.split('\n')
+  const streetParts = office.location.split('\n')
     .map(line => line.replace(/^.*\bfloor\b,?\s*/i, '').trim())
     .filter(line => line && !/^4PL Academy$/i.test(line))
-    .join(', ');
-  const query = encodeURIComponent(streetAddress);
+    .flatMap(line => line.split(','))
+    .map(part => part.trim())
+    .filter(Boolean);
+  // Keep the lookup to building/street/locality: verbose administrative
+  // tails and repeated commas can leave Google's embedded search blank.
+  // The complete postal address remains displayed above the map.
+  const query = encodeURIComponent(streetParts.slice(0, 4).join(', '));
   return (
     <section className="card-s overflow-hidden p-5" aria-labelledby="office-map-title">
       <h2 id="office-map-title" className="flex items-center gap-2 text-xl text-navy"><MapPin className="h-5 w-5 text-gold-deep" aria-hidden="true" />4PL Academy, {office.city || 'Noida'}</h2>
@@ -26,7 +31,7 @@ export function OfficeLocationMap() {
         <button type="button" className="btn btn-outline btn-sm" aria-expanded={show} onClick={() => setShow(v => !v)}>{show ? 'Hide map' : 'Show office map'}</button>
         <a href={`https://www.google.com/maps/dir/?api=1&destination=${query}`} target="_blank" rel="noopener noreferrer" className="btn btn-navy btn-sm" data-testid="link-office-directions">Open directions <ExternalLink className="h-4 w-4" aria-hidden="true" /></a>
       </div>
-      {show && <iframe title="Google Maps: 4PL Academy Noida office" src={`https://maps.google.com/maps?q=${query}&z=16&output=embed`} loading="eager" referrerPolicy="no-referrer-when-downgrade" className="mt-4 h-72 w-full rounded-xl border-0" data-testid="map-office" />}
+      {show && <iframe title="Google Maps: 4PL Academy Noida office" src={`https://www.google.com/maps?q=${query}&z=16&output=embed`} loading="eager" referrerPolicy="no-referrer-when-downgrade" className="mt-4 h-72 w-full rounded-xl border-0" data-testid="map-office" />}
       <p className="mt-3 text-xs text-muted-foreground">Map results are provided by Google. Confirm the building entrance with the team before visiting.</p>
     </section>
   );

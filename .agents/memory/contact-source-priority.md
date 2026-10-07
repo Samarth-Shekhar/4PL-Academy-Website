@@ -23,16 +23,17 @@ coordinates are explicitly approximate.
 **How to apply:** Verify that the map resolves to the current building and
 preserve floor/unit details in the displayed postal address.
 
-The contact page should follow the owner's supplied split contact/form
-reference, with white/light surfaces, navy text and gold accents rather than
-the reference's black palette.
+Use the owner's latest official contact-us.php page reference when refining
+the contact layout, rather than the earlier dark split-form screenshot.
+Keep the current academy's white/light surfaces, navy text and gold accents,
+not the legacy site's green accents.
 
-**Why:** The owner requested the same type of contact page, then explicitly
-specified white, golden and blue tones.
+**Why:** The owner requested white, golden and blue tones, then on 2026-10-07
+again asked for a contact page similar to the official contact-us.php page.
 
-**How to apply:** Preserve the reference-based layout and readable brand
-contrast when refining the page, while retaining authoritative office details
-and the actual street-address map.
+**How to apply:** The latest reference takes priority when older visual
+references conflict. Retain readable brand contrast, authoritative contact
+details and the actual street-address map.
 
 The contact enquiry form should include name, email, mobile, an optional
 course selection, optional subject, and a required “How can we help?” message.

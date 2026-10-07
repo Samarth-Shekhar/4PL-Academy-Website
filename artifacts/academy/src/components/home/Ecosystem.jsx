@@ -10,9 +10,9 @@ export function Ecosystem({ s }) {
   const courses = usePublicList('courses').data || [];
   const stats = [
     [unis.length, 'Institutions in the directory'],
-    [unis.filter(u=>u.verified).length, 'Verified university records'],
-    [programs.filter(p=>p.verified).length, 'Verified program titles'],
-    [courses.filter(c=>c.verified).length, 'Verified course titles'],
+    [unis.filter(u=>u.verified).length, 'University records'],
+    [programs.filter(p=>p.verified).length, 'Program titles'],
+    [courses.filter(c=>c.verified).length, 'Course titles'],
   ].filter(([n]) => n > 0);
   const items = s.items || [];
   return (

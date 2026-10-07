@@ -5,6 +5,7 @@ import { usePublicList } from '@/lib/api';
 import { cn } from '@/lib/cn';
 import { CardSkeletons } from '@/components/ui-kit';
 import { Head, Body, Cta, Pending } from './shared';
+import { mediaUrl } from '@/lib/home';
 import { asset, has, programLevel, initials } from '@/lib/format';
 
 const TABS = [['ug', 'Undergraduate'], ['pg', 'Postgraduate']];
@@ -44,6 +45,7 @@ export function ProgramShowcase({ s }) {
       .sort((a, b) => (a.p.sortOrder ?? 0) - (b.p.sortOrder ?? 0));
     return { ug: rows.filter((r) => programLevel(r.p) === 'ug'), pg: rows.filter((r) => programLevel(r.p) === 'pg') };
   }, [pq.data, uq.data]);
+  const discover = useMemo(() => (uq.data || []).filter((u) => has(u.image) && has(u.slug) && has(u.name) && u.status !== 'archived' && u.status !== 'draft'), [uq.data]);
   const avail = TABS.filter(([k]) => groups[k].length);
   const active = tab && groups[tab]?.length ? tab : avail[0]?.[0];
   const items = groups[active] || [];
@@ -75,6 +77,26 @@ export function ProgramShowcase({ s }) {
             </>
           )}
         </div>
+        {!loading && !error && discover.length > 0 && (
+          <div className="mt-16 border-t border-navy/10 pt-12" data-testid="discover-universities">
+            <h3 className="font-display text-2xl font-bold text-navy sm:text-3xl">Discover Universities</h3>
+            <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
+              {discover.map((u) => (
+                <li key={u.id} className="min-w-0">
+                  <Link href={`/universities/${u.slug}`} className="group flex h-full flex-col overflow-hidden rounded-lg border border-navy/10 bg-surface transition duration-300 hover:-translate-y-0.5 hover:border-gold hover:shadow-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold" data-testid={`card-discover-${u.id}`}>
+                    <div className="aspect-video w-full overflow-hidden bg-navy"><img src={mediaUrl(u.image)} alt={`${u.name} campus`} loading="lazy" decoding="async" className="h-full w-full object-cover transition duration-500 group-hover:scale-105" /></div>
+                    <div className="flex flex-1 flex-col gap-1 p-3">
+                      <p className="line-clamp-2 text-sm font-semibold leading-snug text-navy">{u.name}</p>
+                      {has(u.location) && <p className="line-clamp-1 text-xs text-muted-foreground">{u.location}</p>}
+                      <span className="mt-auto inline-flex items-center gap-1 pt-2 text-xs font-bold text-gold-deep">View university <ArrowRight className="h-3.5 w-3.5" aria-hidden="true" /></span>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-8 flex justify-center"><Link href="/universities" className="btn btn-outline" data-testid="link-view-all-universities">View all universities<ArrowRight className="h-4 w-4" aria-hidden="true" /></Link></div>
+          </div>
+        )}
       </div>
     </section>
   );

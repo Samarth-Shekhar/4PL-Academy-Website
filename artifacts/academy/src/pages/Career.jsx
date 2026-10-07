@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { BrandSelect } from '@/components/BrandSelect';
 import { Link } from 'wouter';
 import { Briefcase, GraduationCap, BookOpen, Award, Search, Layers, ArrowRight, Info } from 'lucide-react';
 import { usePublicItem, usePublicList } from '@/lib/api';
@@ -40,13 +41,13 @@ function Result({ item, kind }) {
           ))}
         </div>
       ) : (
-        <p className="mt-6 flex gap-2 rounded-2xl bg-gold-soft p-4 text-sm text-navy"><Info className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />Career and outcome details for this {kind} are not published yet. Our counsellors can share verified information directly.</p>
+        <p className="mt-6 flex gap-2 rounded-2xl bg-gold-soft p-4 text-sm text-navy"><Info className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />Speak to our counsellors for career guidance on this {kind}.</p>
       )}
       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
         <BookButton ctx={ctx} size="" className="btn-hero" />
         <Link href={`/${kind === 'program' ? 'programs' : 'courses'}/${item.slug}`} className="btn btn-outline">Full details <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
       </div>
-      <p className="mt-4 text-xs text-muted-foreground">Pathways are listed as stored for this {kind}. Admission, jobs and salaries are never guaranteed.</p>
+      <p className="mt-4 text-xs text-muted-foreground">Pathways are listed as stored for this {kind}.</p>
     </div>
   );
 }
@@ -100,10 +101,7 @@ export default function Career() {
               )}
               {mode === 'program' && skills.length > 0 && (
                 <label className="mt-4 block text-sm font-semibold text-navy">Skill area
-                  <select className="input mt-2 w-full" value={skill} onChange={e => { setSkill(e.target.value); setSel(null); }}>
-                    <option value="">All published areas</option>
-                    {skills.map(s => <option key={s} value={s}>{s}</option>)}
-                  </select>
+                  <span className="mt-2 block"><BrandSelect value={skill} onChange={(v) => { setSkill(v); setSel(null); }} placeholder="All published areas" options={[{ value: '', label: 'All published areas' }, ...skills]} /></span>
                 </label>
               )}
               <div className="relative mt-4"><label htmlFor="career-q" className="label">Interest</label><Search className="pointer-events-none absolute bottom-3.5 left-3.5 h-4 w-4 text-muted-foreground" aria-hidden="true" /><input id="career-q" value={term} onChange={(e) => setTerm(e.target.value)} placeholder="Logistics, management, supply chain" className="input pl-10" /></div>
@@ -121,7 +119,7 @@ export default function Career() {
                 <div className="section-soft grid min-h-[20rem] place-items-center p-8 text-center">
                   <div className="max-w-sm"><span className="mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full bg-navy text-gold"><Briefcase className="h-6 w-6" aria-hidden="true" /></span>
                     <h3 className="text-xl font-bold text-navy">Select an option to see its pathway</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">Only verified, published information is shown. If something is missing, we say so.</p></div>
+                    <p className="mt-2 text-sm text-muted-foreground">Speak to a counsellor for guidance on your options.</p></div>
                 </div>
               )}
             </div>
@@ -142,7 +140,7 @@ export default function Career() {
         </section>
       )}
       <section className="container-x pb-16"><div className="navy-surface on-navy rounded-[1.75rem] p-8 sm:p-12 sm:flex sm:items-center sm:justify-between sm:gap-8">
-        <div><h2 className="text-2xl font-extrabold sm:text-4xl">Not sure which path fits you?</h2><p className="mt-2 max-w-xl text-surface/75">An admissions counsellor will walk through options using verified information only.</p></div>
+        <div><h2 className="text-2xl font-extrabold sm:text-4xl">Not sure which path fits you?</h2><p className="mt-2 max-w-xl text-surface/75">An admissions counsellor will walk through options around your goals.</p></div>
         <div className="mt-6 sm:mt-0"><BookButton size="" className="btn-hero" ctx={{ interestedIn: 'Career pathway' }} /></div>
       </div></section>
     </>

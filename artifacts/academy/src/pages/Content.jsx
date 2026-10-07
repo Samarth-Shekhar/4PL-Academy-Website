@@ -1,4 +1,4 @@
-import { lazy, Suspense, useMemo, useState } from 'react';
+import { lazy, Suspense, useMemo, useRef, useState } from 'react';
 import { Link, useParams, useSearch } from 'wouter';
 import { ArrowRight, CalendarDays, User, Search } from 'lucide-react';
 import { useContactSettings } from '@/lib/settings';
@@ -7,6 +7,8 @@ import { useSeo, seoFrom } from '@/lib/seo';
 import { has, lines, fmtDate, asset, uniq } from '@/lib/format';
 import { PageHero, Skeleton, ErrorState, EmptyState, CardSkeletons } from '@/components/ui-kit';
 import { RichText, ListBlock } from '@/components/RichText';
+import { useStudentLifePhotos } from '@/lib/home';
+import { AboutSections } from '@/components/AboutSections';
 import { FaqList } from '@/components/FaqList';
 import { BlogCard } from '@/components/Cards';
 import { BookButton } from '@/components/BookCta';
@@ -23,16 +25,17 @@ export function KindPage({ slug }) {
   const q = usePublicItem('pages', slug);
   const p = q.data;
   useSeo({ ...seoFrom(p, { title: EYEBROW[slug] || slug, description: 'Information from 4PL Academy.' }) });
-  const img = has(p?.image) ? p.image : asset(PAGE_IMG[slug] || 'images/hero-students.webp');
+  const photos = useStudentLifePhotos();
+  const img = has(p?.image) ? p.image : asset(PAGE_IMG[slug] || 'images/industry-logistics.webp');
   return (
     <>
       <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: p?.name || EYEBROW[slug] || slug }]} eyebrow={EYEBROW[slug]} title={p?.name || EYEBROW[slug] || 'Loading'} body={p?.shortDescription} />
       <div className="container-x py-10 sm:py-14">
         {q.isLoading ? <div className="space-y-3"><Skeleton className="h-8 w-1/2" /><Skeleton className="h-40" /></div> : q.isError ? <ErrorState onRetry={q.refetch} /> : !p ? <EmptyState title="Content coming soon" body="This page is being prepared." /> : (
-          <div className={slug === 'about' ? 'mx-auto max-w-4xl' : 'grid gap-10 lg:grid-cols-[1fr_22rem]'}>
+          <div className={slug === 'about' ? 'mx-auto max-w-5xl' : 'grid gap-10 lg:grid-cols-[1fr_22rem]'}>
             <article>
-              <img src={img} alt="" loading="lazy" className="mb-8 aspect-[16/7] w-full rounded-2xl object-cover" />
-              <RichText text={p.description} />
+              {slug !== 'about' && <img src={img} alt="" loading="lazy" className="mb-8 aspect-[16/7] w-full rounded-2xl object-cover" />}
+              {slug === 'about' ? <AboutSections text={p.description} photos={photos} /> : <RichText text={p.description} />}
               <ListBlock title="Highlights" items={lines(p.highlights)} columns />
               <ListBlock title="Learning pathway" items={lines(p.curriculum)} numbered />
               <ListBlock title="Outcomes" items={lines(p.outcomes)} />
@@ -61,13 +64,19 @@ export function Blogs() {
   const q = usePublicList('blogs');
   const [cat, setCat] = useState('');
   const [term, setTerm] = useState('');
+  const [page, setPage] = useState(1);
+  const top = useRef(null);
   useSeo({ title: 'Blogs and Insights', description: 'Articles on education, careers, logistics and international trade from 4PL Academy.' });
   const all = useMemo(() => [...(q.data || [])].sort((a, b) => bdate(b) - bdate(a)), [q.data]);
   const cats = useMemo(() => uniq(all.map((b) => b.category)), [all]);
   const t = term.trim().toLowerCase();
   const filtered = all.filter((b) => (!cat || b.category === cat) && (!t || `${b.name} ${b.shortDescription || ''} ${b.author || ''} ${b.category || ''}`.toLowerCase().includes(t)));
-  const feature = !cat && !t ? filtered[0] : null;
-  const rows = feature ? filtered.slice(1) : filtered;
+  const PER = 6;
+  const pages = Math.max(1, Math.ceil(filtered.length / PER));
+  const cur = Math.min(page, pages);
+  const rows = filtered.slice((cur - 1) * PER, cur * PER);
+  const goPage = (n) => { setPage(n); top.current?.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' }); };
+  const setCatP = (c) => { setCat(c); setPage(1); };
   return (
     <>
       <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Blogs' }]} eyebrow="Insights" title="Blogs and insights" body="Articles from 4PL Academy on logistics, supply chains and global trade." />
@@ -76,37 +85,26 @@ export function Blogs() {
           <>
             <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
               <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
-                <button type="button" className="pill-tab" aria-pressed={!cat} onClick={() => setCat('')}>All</button>
-                {cats.map((c) => <button key={c} type="button" className="pill-tab" aria-pressed={cat === c} onClick={() => setCat(c)}>{c}</button>)}
+                <button type="button" className="pill-tab" aria-pressed={!cat} onClick={() => setCatP('')}>All</button>
+                {cats.map((c) => <button key={c} type="button" className="pill-tab" aria-pressed={cat === c} onClick={() => setCatP(c)}>{c}</button>)}
               </div>
-              <div className="relative w-full lg:max-w-sm"><label htmlFor="blog-q" className="sr-only">Search articles</label><Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" /><input id="blog-q" type="search" value={term} onChange={(e) => setTerm(e.target.value)} placeholder="Search articles" className="input rounded-full pl-10" /></div>
+              <div className="relative w-full lg:max-w-sm"><label htmlFor="blog-q" className="sr-only">Search articles</label><Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" /><input id="blog-q" type="search" value={term} onChange={(e) => { setTerm(e.target.value); setPage(1); }} placeholder="Search articles" className="input rounded-full pl-10" /></div>
             </div>
-            {feature && (
-              <Link href={`/blogs/${feature.slug}`} className="story-card group mt-8 grid overflow-hidden rounded-[1.75rem] bg-mist/70 lg:grid-cols-2" data-testid="card-blog-featured">
-                <div className="flex items-center bg-mist">{has(feature.image) ? <img src={feature.image} alt="" width={feature.imageWidth} height={feature.imageHeight} className="h-auto w-full object-contain" /> : <div className="navy-surface grid w-full min-h-[14rem] place-items-center p-6 text-center"><span className="font-display text-2xl text-gold">{feature.category || 'Featured story'}</span></div>}</div>
-                <div className="flex min-w-0 flex-col justify-center p-6 sm:p-10">
-                  <p className="eyebrow">Featured story</p>
-                  <h2 className="mt-3 text-2xl font-extrabold leading-tight text-navy sm:text-4xl">{feature.name}</h2>
-                  {has(feature.shortDescription) && <p className="mt-3 text-foreground/75">{feature.shortDescription}</p>}
-                  <p className="mt-4 text-xs text-muted-foreground">{[feature.category, fmtDate(feature.publishedAt), feature.author].filter(has).join(' · ')}</p>
-                  <span className="btn btn-navy mt-6 self-start">Read article <ArrowRight className="h-4 w-4" aria-hidden="true" /></span>
-                </div>
-              </Link>
-            )}
+            <div ref={top} className="scroll-mt-28" />
             {rows.length ? (
-              <ul className="mt-10 divide-y divide-line">
-                {rows.map((b) => (
-                  <li key={b.id}><Link href={`/blogs/${b.slug}`} className="story-card group grid min-w-0 gap-4 py-6 sm:grid-cols-[14rem_minmax(0,1fr)] sm:gap-8" data-testid={`card-blog-${b.id}`}>
-                    <div className="self-center overflow-hidden rounded-2xl bg-mist">{has(b.image) ? <img src={b.image} alt="" loading="lazy" width={b.imageWidth} height={b.imageHeight} className="h-auto w-full object-contain" /> : <div className="navy-surface grid aspect-[9/5] place-items-center p-3 text-center"><span className="font-display text-gold">{b.category || 'Insights'}</span></div>}</div>
-                    <div className="min-w-0 self-center">
-                      <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">{has(b.category) && <span className="chip chip-gold">{b.category}</span>}{has(b.publishedAt) && <span>{fmtDate(b.publishedAt)}</span>}{has(b.author) && <span>{b.author}</span>}</div>
-                      <h3 className="mt-2 text-xl font-bold leading-snug text-navy group-hover:underline sm:text-2xl">{b.name}</h3>
-                      {has(b.shortDescription) && <p className="mt-2 line-clamp-2 text-sm text-foreground/75">{b.shortDescription}</p>}
-                    </div>
-                  </Link></li>
-                ))}
-              </ul>
-            ) : !feature && <div className="mt-8"><EmptyState title="No articles match" body="Try another category or search term." action={<button type="button" className="btn btn-outline btn-sm" onClick={() => { setCat(''); setTerm(''); }}>Clear filters</button>} /></div>}
+              <>
+                <ul className="mt-8 grid gap-x-6 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
+                  {rows.map((b) => <li key={b.id} className="min-w-0"><BlogCard b={b} compact /></li>)}
+                </ul>
+                {pages > 1 && (
+                  <nav aria-label="Blog pages" className="mt-10 flex flex-wrap items-center justify-center gap-2">
+                    <button type="button" className="btn btn-outline btn-sm" disabled={cur === 1} onClick={() => goPage(cur - 1)}>Previous</button>
+                    {Array.from({ length: pages }, (_, i) => i + 1).map((n) => <button key={n} type="button" aria-current={n === cur ? 'page' : undefined} aria-label={`Page ${n}`} onClick={() => goPage(n)} className={`h-11 w-11 rounded-full border text-sm font-bold ${n === cur ? 'border-gold bg-gold text-navy' : 'border-navy/20 text-navy hover:border-gold'}`}>{n}</button>)}
+                    <button type="button" className="btn btn-outline btn-sm" disabled={cur === pages} onClick={() => goPage(cur + 1)}>Next</button>
+                  </nav>
+                )}
+              </>
+            ) : <div className="mt-8"><EmptyState title="No articles match" body="Try another category or search term." action={<button type="button" className="btn btn-outline btn-sm" onClick={() => { setCat(''); setTerm(''); setPage(1); }}>Clear filters</button>} /></div>}
           </>
         )}
       </div>
@@ -171,7 +169,7 @@ export function Faq() {
   });
   return (
     <>
-      <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'FAQ' }]} eyebrow="Help" title="Frequently asked questions" body="Straight answers about admission, training and placement support." />
+      <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'FAQ' }]} eyebrow="Help" title="Frequently asked questions" body="Answers to your questions about programs, courses and studying with 4PL Academy." />
       <div className="container-x max-w-4xl py-10 sm:py-14">
         {q.isLoading ? <Skeleton className="h-80" /> : q.isError ? <ErrorState onRetry={q.refetch} /> : !entries.length ? <EmptyState title="No FAQs published yet" body="Ask ACAD BOT or contact our team." action={<Link href="/contact" className="btn btn-navy">Contact us</Link>} /> : <FaqList faqs={entries} title="" defaultOpen />}
       </div>
@@ -180,10 +178,10 @@ export function Faq() {
 }
 
 const FORMS = {
-  book: { title: "Let's Find the Right Program for You", eyebrow: 'Book Counselling', body: 'Tell us what you are exploring. Your selected program or university is already filled in. No guarantees, only honest guidance.', cat: 'counselling', label: 'Book Counselling' },
+  book: { title: "Let's Find the Right Program for You", eyebrow: 'Book Counselling', body: 'Tell us what you are exploring. Your selected program or university is already filled in.', cat: 'counselling', label: 'Book Counselling' },
   contact: { title: 'Contact 4PL Academy', eyebrow: 'Contact', body: 'Questions about programs, courses or partnerships? Send us a message.', cat: 'contact', label: 'Send message' },
   apply: { title: 'Start your application', eyebrow: 'Apply', body: 'Tell us what you are interested in. Our admissions team will guide you through the process.', cat: 'application', label: 'Submit application interest' },
-  counselling: { title: 'Request counselling', eyebrow: 'Counselling', body: 'A one-to-one conversation about programs, universities and admission support. No guarantees, only honest guidance.', cat: 'counselling', label: 'Request counselling' },
+  counselling: { title: 'Request counselling', eyebrow: 'Counselling', body: 'A one-to-one conversation about programs, universities and admission support.', cat: 'counselling', label: 'Request counselling' },
 };
 export function FormPage({ kind }) {
   const sp = new URLSearchParams(useSearch());
@@ -201,8 +199,8 @@ export function FormPage({ kind }) {
         <div className="card-s p-5 sm:p-8"><LeadForm key={JSON.stringify(ctx)} category={c.cat} idPrefix={kind} submitLabel={c.label} {...ctx} /></div>
         <div className="space-y-5">
           {page && has(page.description) && <RichText text={page.description} />}
-          <div className="navy-surface on-navy rounded-lg p-6"><p className="eyebrow">What happens next</p><ol className="mt-4 space-y-4">{(careers ? ['Your message is sent to the 4PL Academy team', 'The team reviews your enquiry', 'Keep your contact details accurate for any follow-up'] : ['We review your request', 'An admissions advisor contacts you', 'You get verified information and next steps']).map((s, i) => <li key={s} className="flex gap-3"><span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-gold text-sm font-bold text-navy">{i + 1}</span><span className="text-sm text-surface/90">{s}</span></li>)}</ol></div>
-          <p className="text-xs text-muted-foreground">{careers ? 'This is a general enquiry to the team, not a job application.' : 'Admission, training and placement support is provided. Admission, jobs and salaries are never guaranteed.'}</p>
+          <div className="navy-surface on-navy rounded-lg p-6"><p className="eyebrow">What happens next</p><ol className="mt-4 space-y-4">{(careers ? ['Your message is sent to the 4PL Academy team', 'The team reviews your enquiry', 'Keep your contact details accurate for any follow-up'] : ['We review your request', 'An admissions advisor contacts you', 'You get clear information and next steps']).map((s, i) => <li key={s} className="flex gap-3"><span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-gold text-sm font-bold text-navy">{i + 1}</span><span className="text-sm text-surface/90">{s}</span></li>)}</ol></div>
+          <p className="text-xs text-muted-foreground">{careers ? 'This is a general enquiry to the team, not a job application.' : ''}</p>
         </div>
       </div>
     </>

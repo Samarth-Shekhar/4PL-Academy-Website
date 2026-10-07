@@ -1,7 +1,7 @@
 .admissions-carousel {
   position: relative;
   overflow: hidden;
-  perspective: 1400px;
+  perspective: 2500px;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
 }
@@ -10,10 +10,9 @@
   overflow-x: auto;
   overflow-y: visible;
   overscroll-behavior-x: contain;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
+  scroll-behavior: auto;
   -webkit-overflow-scrolling: touch;
-  touch-action: pan-x;
+  touch-action: pan-x pan-y pinch-zoom;
   cursor: grab;
   padding: 1.25rem max(1rem, calc((100vw - 76rem) / 2)) 2rem;
   outline: none;
@@ -34,14 +33,17 @@
   display: flex;
   width: max-content;
   align-items: center;
-  gap: clamp(.8rem, 1.45vw, 1.35rem);
-  transform-style: preserve-3d;
+  gap: 28px;
+  /* Flatten the rail's hit-testing plane. Individual card perspective
+     remains intact, without negative-Z cards falling behind the rail
+     and making their visible links unclickable. */
+  transform-style: flat;
 }
 
 .admission-card-shell {
   flex: none;
-  width: min(72vw, 17rem);
-  aspect-ratio: 1 / 1.07;
+  width: min(82vw, 340px);
+  height: 500px;
   scroll-snap-align: center;
   transform: perspective(900px) translateZ(var(--curve-depth, 0px)) rotateY(var(--curve-angle, 0deg)) scale(var(--curve-scale, 1));
   transform-origin: center center;
@@ -53,7 +55,7 @@
   position: relative;
   isolation: isolate;
   height: 100%;
-  background: hsl(var(--brand-navy));
+  background: hsl(var(--brand-surface));
   box-shadow: 0 14px 34px -20px hsl(var(--brand-navy) / .65);
 }
 
@@ -85,63 +87,27 @@
   border-color: hsl(var(--brand-gold));
 }
 
-.admissions-controls {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: .15rem;
-}
-
-.admissions-hint {
-  color: hsl(var(--brand-navy) / .67);
-  font-size: .72rem;
-  font-weight: 700;
-  letter-spacing: .13em;
-  text-transform: uppercase;
-}
-
-.admissions-arrow {
-  display: grid;
-  width: 2.7rem;
-  height: 2.7rem;
-  place-items: center;
-  border: 1px solid hsl(var(--brand-navy) / .2);
-  border-radius: 999px;
-  background: hsl(var(--brand-surface) / .75);
-  color: hsl(var(--brand-navy));
-  transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease, transform 180ms ease;
-}
-
-.admissions-arrow svg {
-  width: 1rem;
-  height: 1rem;
-}
-
-.admissions-arrow:hover {
-  transform: translateY(-1px);
-  border-color: hsl(var(--brand-navy));
-  background: hsl(var(--brand-navy));
-  color: hsl(var(--brand-surface));
-}
-
-@media (min-width: 640px) {
-  .admission-card-shell { width: 18rem; }
-  .admissions-controls { padding-inline: 2rem; }
-}
-
 @media (max-width: 639px) {
   .admissions-carousel {
     -webkit-mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
     mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
   }
   .admissions-viewport { padding-inline: 1.15rem; }
-  .admission-card-shell { width: min(75vw, 17rem); }
-  .admissions-controls { padding-inline: 1.15rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .admissions-viewport { scroll-behavior: auto; }
+  .admissions-viewport { scroll-behavior: auto; scroll-snap-type: x proximity; }
+  .admission-card-shell { transform: none; }
+  .admission-card:hover .admission-card-image,
+  .admission-card:focus-visible .admission-card-image { transform: none; filter: none; }
   .admission-card-shell,
-  .admission-card-image,
-  .admissions-arrow { transition: none; }
+  .admission-card-image { transition: none; }
+}
+
+@keyframes admission-rise {
+  from { opacity: .35; translate: 0 24px; }
+  to { opacity: 1; translate: 0 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .admissions-carousel.is-visible { animation: admission-rise .7s ease-out both; }
 }

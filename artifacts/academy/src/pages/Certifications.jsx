@@ -15,10 +15,10 @@ export default function Certifications() {
   const list = (q.data || []).filter((c) => c.verified === true);
   return (
     <>
-      <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Certifications' }]} eyebrow="Certifications" title="Credentials you can verify" body="Only certifications confirmed with the issuer are listed. Anything unconfirmed is marked as to be verified." />
+      <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Certifications' }]} eyebrow="Certifications" title="Credentials worth earning" body="Explore professional certifications and the pathways they support." />
       <div className="container-x py-10 sm:py-14">
         {q.isLoading ? <CardSkeletons n={3} /> : q.isError ? <ErrorState onRetry={q.refetch} /> : !list.length ? (
-          <EmptyState icon={Award} title="No verified certifications published yet" body="Browse professional courses or speak to admissions about credential options." action={<div className="flex flex-wrap justify-center gap-3"><Link href="/professional-courses" className="btn btn-navy">Professional courses</Link><BookButton ctx={{ interestedIn: 'Certification' }} size="" /></div>} />
+          <EmptyState icon={Award} title="Certifications coming soon" body="Browse professional courses or speak to admissions about credential options." action={<div className="flex flex-wrap justify-center gap-3"><Link href="/professional-courses" className="btn btn-navy">Professional courses</Link><BookButton ctx={{ interestedIn: 'Certification' }} size="" /></div>} />
         ) : (
           <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{list.map((c) => {
             const co = courses.find((x) => x.id === c.courseId); const pr = programs.find((x) => x.id === c.programId);

@@ -1,6 +1,6 @@
-export const TBV = 'Information to be verified';
+export const TBV = '';
 export const has = (v) => v !== undefined && v !== null && String(v).trim() !== '';
-export const val = (v) => (has(v) ? String(v) : TBV);
+export const val = (v) => (has(v) ? String(v) : '');
 export const asset = (p) => `${import.meta.env.BASE_URL}${p.replace(/^\//, '')}`;
 export const lines = (v) => (Array.isArray(v) ? v.filter(has) : []);
 export const paragraphs = (t) => (has(t) ? String(t).split(/\n{2,}/).map((s) => s.trim()).filter(Boolean) : []);

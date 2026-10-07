@@ -72,7 +72,7 @@ export function PageHero({ eyebrow, title, body, crumbs, children }) {
 export const VerifyChip = ({ ok, label }) => (
   <span className={cn('chip', ok ? 'chip-ok' : 'chip-warn')}>{label}</span>
 );
-export const Fact = ({ icon: Icon, label, value }) => (
+export const Fact = ({ icon: Icon, label, value }) => (value === '' || value === null || value === undefined || value === false) ? null : (
   <div className="flex items-start gap-2.5 min-w-0">
     {Icon && <Icon className="mt-0.5 h-4 w-4 shrink-0 text-gold-deep" aria-hidden="true" />}
     <div className="min-w-0">

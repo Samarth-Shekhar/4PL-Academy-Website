@@ -103,7 +103,7 @@ function MediaStrip({ universityId }) {
   );
 }
 
-const Unverified = ({ children = 'Detailed information for this listing is still being verified. Please speak to admissions for confirmed details.' }) => (
+const Unverified = ({ children = 'Speak to admissions for details on this listing.' }) => (
   <div className="flex gap-3 rounded-lg border border-gold/50 bg-gold-soft p-4 text-sm text-navy"><Info className="mt-0.5 h-5 w-5 shrink-0 text-gold-deep" aria-hidden="true" /><p>{children}</p></div>
 );
 
@@ -191,8 +191,8 @@ export function UniversityDetail() {
             </Hero>
             <div className="container-x grid gap-10 py-10 pb-24 sm:py-14 lg:grid-cols-[1fr_22rem]">
               <div>
-                {!verified && <div className="mb-8"><Unverified>This is a discovery record from our university directory. It does not confirm a partnership with 4PL Academy, and details are marked as information to be verified until confirmed.</Unverified></div>}
-                <Body c={u} sections={[['Key highlights', lines(u.highlights), false, true], ['Facilities', lines(u.facilities), false, true], ['Student support', lines(u.studentSupport)], ['Industry exposure', lines(u.industryExposure)], ['Internships', lines(u.internships)], ['Career outcomes', lines(u.outcomes)], ['Verified placement information', u.verified ? lines(u.placementInformation) : []], ['Career paths', lines(u.careerPaths)], ['Admission process', lines(u.admissionProcess), true], ['Documents required', lines(u.documentsRequired)]]} />
+                {!verified && <div className="mb-8"><Unverified>This institution is listed in our university directory. Speak to admissions to learn more.</Unverified></div>}
+                <Body c={u} sections={[['Key highlights', lines(u.highlights), false, true], ['Facilities', lines(u.facilities), false, true], ['Student support', lines(u.studentSupport)], ['Industry exposure', lines(u.industryExposure)], ['Internships', lines(u.internships)], ['Career outcomes', lines(u.outcomes)], ['Placement information', u.verified ? lines(u.placementInformation) : []], ['Career paths', lines(u.careerPaths)], ['Admission process', lines(u.admissionProcess), true], ['Documents required', lines(u.documentsRequired)]]} />
                 <MediaStrip universityId={u.id} />
                 <section className="mt-12">
                   <h2 className="text-2xl text-navy sm:text-3xl">Programs listed</h2><div className="gold-rule mb-5 mt-3" />

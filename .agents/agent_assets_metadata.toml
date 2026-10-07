@@ -28,3 +28,17 @@ mtime_ms = 1791291195218
 storage_uri = "gcs://replit-rams-assets-sisko/rams/assets/repl:5dacc939-c66c-4592-9696-6c46fe4df0f6/9a4042f5-f5e0-49f6-a24e-a22990c5f64e/ad033d3c-8c15-4cc7-98b0-51a844796d35"
 storage_version_token = "1791291493974545"
 content_type = "image/png"
+
+[[outputs]]
+id = "90zmI4mU9HCGzU7CCTdZI"
+uri = "file://attached_assets/4pl-favicon-transparent.png"
+type = "image"
+title = "Transparent 4PL logo"
+description = "Your new favicon artwork with a fully transparent background."
+logical_id = "94ad0e2c-6d88-44ae-b900-657620239425"
+content_hash = "sha256:6b686ab37f00164624a2f9de1439ce6733be16cf3fbc316824dead8cf7b28db8"
+size = 61179
+mtime_ms = 1791359961305
+storage_uri = "gcs://replit-rams-assets-sisko/rams/assets/repl:5dacc939-c66c-4592-9696-6c46fe4df0f6/94ad0e2c-6d88-44ae-b900-657620239425/ed7f15a3-7a75-4573-b48b-cb5941bf9012"
+storage_version_token = "1791360699889677"
+content_type = "image/png"

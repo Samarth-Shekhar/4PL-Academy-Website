@@ -3,7 +3,9 @@ import { Scale, X } from 'lucide-react';
 import { usePublicList } from '@/lib/api';
 import { useCompare } from '@/lib/compare';
 import { useSeo } from '@/lib/seo';
-import { val, lines } from '@/lib/format';
+import { has, lines } from '@/lib/format';
+
+const val = (v) => (has(v) ? String(v) : '—');
 import { PageHero, Skeleton, EmptyState, ErrorState } from '@/components/ui-kit';
 
 const ROWS = [
@@ -19,7 +21,7 @@ export default function Compare() {
   const items = cmp.ids.map((s) => (q.data || []).find((p) => p.slug === s)).filter(Boolean);
   return (
     <>
-      <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Programs', href: '/programs' }, { label: 'Compare' }]} eyebrow="Compare" title="Programs side by side" body="Select two or three programs from the program list. Fields still to be verified show as such rather than guessed." />
+      <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Programs', href: '/programs' }, { label: 'Compare' }]} eyebrow="Compare" title="Programs side by side" body="Select two or three programs from the program list. Compare university, fee, duration, eligibility and mode at a glance." />
       <div className="container-x py-10">
         {q.isLoading ? <Skeleton className="h-80" /> : q.isError ? <ErrorState onRetry={q.refetch} /> : items.length < 2 ? (
           <EmptyState icon={Scale} title={items.length ? 'Add one more program' : 'Nothing to compare yet'} body="Use the Compare button on any program card. You can compare up to three." action={<Link href="/programs" className="btn btn-navy">Choose programs</Link>} />

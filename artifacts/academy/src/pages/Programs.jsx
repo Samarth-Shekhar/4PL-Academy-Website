@@ -62,7 +62,7 @@ export default function Programs({ level = '' }) {
       <SelectField id="f-mode" label="Mode" value={f.mode} onChange={set('mode')} options={opt('mode')} />
       <SelectField id="f-elig" label="Eligibility" value={f.eligibility} onChange={set('eligibility')} options={opt('eligibility')} />
       <SelectField id="f-fee" label="Fee range" value={f.fee} onChange={set('fee')} options={FEE_RANGES.map((r) => ({ value: r.id, label: r.label }))} />
-      {f.fee && <p className="hint">Programs with a fee that is still to be verified are hidden while a fee range is selected.</p>}
+
     </>
   );
   return (

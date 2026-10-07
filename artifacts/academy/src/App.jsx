@@ -15,6 +15,7 @@ import { ProgramDetail, UniversityDetail, CourseDetail } from '@/pages/Details';
 import Certifications from '@/pages/Certifications';
 import Career from '@/pages/Career';
 import Careers from '@/pages/Careers';
+import PartnerWithUs from '@/pages/PartnerWithUs';
 import Legal from '@/pages/Legal';
 import { KindPage, Blogs, BlogDetail, Faq, FormPage } from '@/pages/Content';
 
@@ -94,7 +95,8 @@ function PublicApp() {
         <Route path="/privacy"><Legal slug="privacy" title="Privacy Policy" /></Route>
         <Route path="/terms"><Legal slug="terms" title="Terms and Conditions" /></Route>
         <Route path="/student-life"><KindPage slug="student-life" /></Route>
-        <Route path="/for-universities"><KindPage slug="for-universities" /></Route>
+        <Route path="/for-universities"><Redirect to="/partner-with-us" /></Route>
+        <Route path="/partner-with-us" component={PartnerWithUs} />
         <Route path="/blogs" component={Blogs} />
         <Route path="/blogs/:slug" component={BlogDetail} />
         <Route path="/faq" component={Faq} />

@@ -23,11 +23,9 @@ const NAV = [
     { href: '/courses/short-term', label: 'Short-Term Courses' },
     { href: '/courses/long-term', label: 'Long-Term Courses' },
   ] },
-  { href: '/universities', label: 'Universities', children: [
-    { href: '/universities', label: 'University Directory' },
-    { href: '/for-universities', label: 'For Universities' },
-  ] },
+  { href: '/universities', label: 'Universities' },
   { href: '/blogs', label: 'Blogs' },
+  { href: '/partner-with-us', label: 'Partner With Us' },
   { href: '/contact', label: 'Contact Us' },
 ];
 
@@ -65,7 +63,7 @@ function Header() {
     <header ref={header} className={cn('sticky top-0 z-50 bg-white font-bold transition-shadow', scrolled && 'shadow-[0_6px_24px_-14px_hsl(221_76%_17%/.5)]')}>
       <div className="container-x flex h-[4.75rem] items-center justify-between gap-2">
         <Link href="/" aria-label="4PL Academy home" className="shrink-0"><Logo className="h-16 sm:h-[4.5rem] -my-2" /></Link>
-        <nav className="hidden items-center gap-2 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
           {NAV.map((n) => {
             const selected = active(n.href) || (n.children || []).some(c => active(c.href));
             const style = cn('relative flex min-h-11 items-center gap-1 rounded px-3 py-2 text-[0.82rem] font-bold uppercase text-navy/80 hover:text-gold-deep focus-visible:text-gold-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold active:text-gold-deep', selected && 'text-gold-deep');
@@ -80,7 +78,7 @@ function Header() {
           })}
         </nav>
         <div className="flex items-center gap-2">
-          <button type="button" onClick={() => setOpen(true)} className="btn btn-navy btn-sm lg:hidden" aria-label="Open menu" data-testid="button-menu"><Menu className="h-5 w-5" aria-hidden="true" /><span className="sr-only sm:not-sr-only">Menu</span></button>
+          <button type="button" onClick={() => setOpen(true)} className="btn btn-navy btn-sm xl:hidden" aria-label="Open menu" data-testid="button-menu"><Menu className="h-5 w-5" aria-hidden="true" /><span className="sr-only sm:not-sr-only">Menu</span></button>
         </div>
       </div>
       <div className="h-px bg-line" />
@@ -148,7 +146,7 @@ function Footer() {
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-[0.8fr_0.9fr_1fr_1.6fr]">
             {col('Learn', [{ href: '/programs/undergraduate', label: 'Undergraduate' }, { href: '/programs/postgraduate', label: 'Postgraduate' }, { href: '/compare', label: 'Compare Programs' }, { href: '/professional-courses', label: 'Professional Courses' }, { href: '/certifications', label: 'Certifications' }])}
             {col('Discover', [{ href: '/universities', label: 'University Directory' }, { href: '/career', label: 'Career & Industry' }, { href: '/student-life', label: 'Student Life' }, { href: '/blogs', label: 'Blogs' }])}
-            {col('4PL Academy', [{ href: '/about', label: 'About' }, { href: '/for-universities', label: 'For Universities' }, { href: '/careers', label: 'Careers at 4PL' }, { href: '/faq', label: 'FAQ' }, { href: '/apply', label: 'Apply' }, { href: '/book-counselling', label: 'Book Counselling' }])}
+            {col('4PL Academy', [{ href: '/about', label: 'About' }, { href: '/partner-with-us', label: 'Partner With Us' }, { href: '/careers', label: 'Careers at 4PL' }, { href: '/faq', label: 'FAQ' }, { href: '/apply', label: 'Apply' }, { href: '/book-counselling', label: 'Book Counselling' }])}
             <div className="col-span-2 sm:col-span-1">
               <h3 className="font-sans text-xs font-bold uppercase tracking-[0.16em] text-gold">Contact</h3>
               <div className="mt-3 space-y-3 text-sm">

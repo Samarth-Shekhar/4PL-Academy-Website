@@ -14,15 +14,27 @@ out additional hero labels that had been missed.
 as individual pages and CMS-sourced descriptions. Keep factual source/provenance metadata and do not describe
 generic artwork as a verified campus, person or event.
 
-For the homepage, use program subjects and objects rather than human-focused
-photographs. Retain animation, large clean text and the Student Grad screenshot
-design direction, adapted to 4PL Academy.
+For the homepage's hero and program-promotion imagery, use program subjects
+and objects rather than learner portraits. Retain animation, large clean text
+and the Student Grad screenshot design direction, adapted to 4PL Academy.
 
 **Why:** After the first program carousel used learners, the user clarified that
 the images should be of programs, not humans, and supplied the intended style.
 
 **How to apply:** Show subjects such as AI hardware, logistics infrastructure,
-digital marketing equipment and trade materials rather than learner portraits.
+digital marketing equipment and trade materials in program-promotion imagery.
+This does not prohibit student photography in student-life content.
+
+Use realistic human student photography in "Learning Happens Together".
+Give learning and admission carousel items distinct images rather than
+recycling the program hero's artwork.
+
+**Why:** The owner explicitly requested human student images in this section
+and different, previously unused images for the journey cards.
+
+**How to apply:** Keep the imagery distinct across these sections. Retain
+honest source metadata for stock photos and do not label them as actual 4PL
+campus events or identified academy learners.
 
 Keep hero navigation minimal: no hero search field or previous/next arrow
 buttons; retain small clickable slide indicators for manual selection.
