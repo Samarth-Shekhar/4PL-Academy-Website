@@ -35,8 +35,8 @@ Keep submission acceptance separate from notification delivery: an email outage 
 
 **How to apply:** Save the enquiry before attempting email delivery, and report notification failures truthfully while keeping the saved record intact.
 
-Use the academy's existing email provider for lead notifications without requiring an API key.
+Use Microsoft Graph app-only tenant credentials for complete lead emails, rather than a transactional-email API key.
 
-**Why:** The user declined the API-key setup and asked for the existing-provider option “without any api key.”
+**Why:** The user explicitly selected the Microsoft tenant credentials method after declining the transactional-email API-key setup.
 
-**How to apply:** Prefer an authenticated mailbox connection where available. Account authorization is still required; do not reintroduce a transactional-email API-key requirement.
+**How to apply:** Read credentials from securely configured server environment variables or the owner's ignored local `.env`. Require Microsoft Graph Mail.Send Application permission with admin consent; never put credentials in tracked example files. Keep saved enquiries intact if email delivery fails.

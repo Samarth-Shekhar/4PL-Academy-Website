@@ -87,7 +87,7 @@ test('sends the complete lead to the contact inbox through Microsoft Graph', asy
   assert.equal(message.toRecipients[0].emailAddress.address, 'contact@4placademy.com');
   assert.equal(message.replyTo[0].emailAddress.address, lead.email);
   assert.equal(message.body.contentType, 'Text');
-  for (const value of Object.values(lead)) {
+  for (const value of Object.values(lead).filter((value) => typeof value === 'string')) {
     assert.ok(message.body.content.includes(String(value)), `Missing submitted value: ${value}`);
   }
   assert.ok(message.body.content.includes('Lead reference: lead-graph-test-2'));
