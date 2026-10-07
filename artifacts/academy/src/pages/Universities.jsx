@@ -52,7 +52,7 @@ export default function Universities() {
   );
   return (
     <>
-      <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Universities' }]} eyebrow="University discovery" title="Explore universities and colleges" body="A discovery directory of institutions. A listing here does not imply a partnership with 4PL Academy." />
+      <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Universities' }]} eyebrow="University discovery" title="Explore universities and colleges" body="Discover institutions, explore locations and find learning pathways that match your interests." />
       <FilterLayout search={<SearchField value={f.search} onChange={set('search')} placeholder="Search by university, city or state" />} panel={panel} activeCount={active} onReset={reset} count={q.isLoading ? 'Loading universities' : `${list.length} institution${list.length === 1 ? '' : 's'} found`}>
         {q.isLoading || (programs.isLoading&&active>0) ? <CardSkeletons n={6} className="h-48" /> : q.isError ? <ErrorState onRetry={q.refetch} /> : !list.length ? <EmptyState icon={Landmark} title="No universities match" body="Try a different city, degree or search term." action={<button type="button" className="btn btn-navy" onClick={() => setF(empty)}>Clear everything</button>} /> : <div className="grid auto-rows-fr gap-4 sm:grid-cols-2 xl:grid-cols-3">{list.map((u) => <UniversityCard key={u.id} u={u} />)}</div>}
       </FilterLayout>

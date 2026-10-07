@@ -53,6 +53,7 @@ export const KINDS = {
   },
   pages: {
     label: 'Page', plural: 'Pages', descLabel: 'Page body', descRows: 14, slugHint: 'Must match the route: home, about, career-industry, student-life, for-universities, contact.',
+    items: true, itemsLabel: 'Page images',
     groups: [['Media', [U('image', 'Hero image')]]],
     arrays: [['highlights', 'Highlights'], ['curriculum', 'Pathway steps'], ['outcomes', 'Outcomes'], ['careerPaths', 'Career pathways'], ['facilities', 'Facilities'], ['media', 'Media URLs']], faqs: true,
   },

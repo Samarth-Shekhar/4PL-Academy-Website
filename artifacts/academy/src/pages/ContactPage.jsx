@@ -4,7 +4,7 @@ import { telHref } from '@/lib/settings';
 import { has } from '@/lib/format';
 import { RichText } from '@/components/RichText';
 import { LeadForm } from '@/components/LeadForm';
-import { Breadcrumbs } from '@/components/Breadcrumbs';
+import { PageHero } from '@/components/ui-kit';
 import { OfficeLocationMap } from '@/components/OfficeLocationMap';
 
 const link = 'min-w-0 text-navy underline decoration-gold decoration-2 underline-offset-4 hover:text-gold-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold';
@@ -29,16 +29,10 @@ export default function ContactPage({ c, ctx, careers, st, page }) {
   const addrs = offices.filter((o) => has(o.address));
   const phoneOffices = offices.filter((o) => o.phones?.length);
   return (
+    <div>
+    <PageHero eyebrow={c.eyebrow} title={c.title} body={c.body} crumbs={[{ label: 'Home', href: '/' }, { label: c.eyebrow }]} />
     <div className="container-x py-8 sm:py-12">
-      <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: c.eyebrow }]} />
-      <header className="mx-auto mt-8 max-w-2xl text-center">
-        <p className="eyebrow">{c.eyebrow}</p>
-        <h1 className="mt-3 text-4xl font-extrabold leading-[1.05] tracking-tight text-navy sm:text-5xl">{c.title}</h1>
-        <div className="gold-rule mx-auto mt-5" />
-        <p className="mt-5 text-muted-foreground">{c.body}</p>
-      </header>
-
-      <div className="mt-10 grid gap-5 md:grid-cols-3" data-testid="block-contact-details">
+      <div className="grid gap-5 md:grid-cols-3" data-testid="block-contact-details">
         <InfoCard i={0} icon={MapPin} title="Location">
           {addrs.length ? addrs.map((o) => (
             <div key={o.id}>
@@ -71,6 +65,7 @@ export default function ContactPage({ c, ctx, careers, st, page }) {
 
       <div className="mt-12 min-w-0 overflow-hidden rounded-2xl border border-navy/10 bg-white p-1.5 text-foreground"><OfficeLocationMap /></div>
       {page && has(page.description) && <div className="mx-auto mt-8 max-w-4xl rounded-2xl bg-surface p-5 text-foreground"><RichText text={page.description} /></div>}
+    </div>
     </div>
   );
 }

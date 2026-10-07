@@ -10,7 +10,6 @@ import { RichText, ListBlock } from '@/components/RichText';
 import { FaqList } from '@/components/FaqList';
 import { LeadForm } from '@/components/LeadForm';
 import { ProgramCard, LogoBadge } from '@/components/Cards';
-import { bookHref } from '@/lib/booking';
 import { BookButton, StickyBook } from '@/components/BookCta';
 import { useUniMap } from '@/components/Cards';
 import { mediaUrl } from '@/lib/home';
@@ -46,8 +45,6 @@ function Hero({ c, crumbs, eyebrow, facts, children, logo }) {
   );
 }
 
-const applyHref = (ctx) => bookHref(ctx).replace('/book-counselling', '/apply');
-
 function Sidebar({ c, kind, ctx, extraLinks }) {
   return (
     <aside className="space-y-5 lg:sticky lg:top-24 lg:self-start">
@@ -55,10 +52,8 @@ function Sidebar({ c, kind, ctx, extraLinks }) {
         <h2 className="text-xl text-navy">Talk to admissions</h2>
         <p className="mb-4 mt-1 text-sm text-muted-foreground">Get guidance on eligibility, fees and next steps. Your selection is carried into the booking form.</p>
         <BookButton ctx={ctx} size="" className="w-full" testid={`button-book-${kind}`} />
-        {kind === 'program' && <Link href={applyHref(ctx)} className="btn btn-outline mt-2 w-full" data-testid="link-apply-sidebar">Apply Now</Link>}
       </div>
-      {(has(c.applicationUrl) || has(c.brochureUrl) || extraLinks) && <div className="card-s space-y-2 p-5">
-        {has(c.applicationUrl) && <a href={c.applicationUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline w-full"><ExternalLink className="h-4 w-4" aria-hidden="true" /> Official application page</a>}
+      {(has(c.brochureUrl) || extraLinks) && <div className="card-s space-y-2 p-5">
         {has(c.brochureUrl) && <a href={c.brochureUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline w-full"><FileText className="h-4 w-4" aria-hidden="true" /> Brochure</a>}
         {extraLinks}
       </div>}
@@ -143,7 +138,6 @@ export function ProgramDetail() {
                 <Fact icon={CalendarDays} label="Intake" value={val(p.intake || p.batch)} />{has(p.specialization) && <Fact icon={GraduationCap} label="Specialization" value={p.specialization} />}
               </>}>
               <BookButton ctx={ctx} size="" />
-              <Link href={applyHref(ctx)} className="btn btn-light" data-testid="link-apply-now">Apply Now</Link>
               <button type="button" onClick={() => cmp.toggle(p.slug)} className="btn btn-light"><Scale className="h-4 w-4" aria-hidden="true" /> {cmp.has(p.slug) ? 'Remove from compare' : 'Add to compare'}</button>
             </Hero>
             <div className="container-x grid gap-10 py-10 pb-24 sm:py-14 lg:grid-cols-[1fr_22rem]">

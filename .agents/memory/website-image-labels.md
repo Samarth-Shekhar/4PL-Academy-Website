@@ -1,6 +1,6 @@
 ---
 name: Website imagery rules
-description: No visible illustrative captions; homepage imagery focuses on program subjects rather than people.
+description: Subject-appropriate imagery, distinct navy photographic page headers, and no visible illustrative captions.
 ---
 
 Do not show “Representative generic imagery”, “Illustrative imagery · Details”,
@@ -63,3 +63,15 @@ images shown in their screenshots.
 
 **How to apply:** Preserve gallery records and the student-life route, but
 omit that homepage block. Keep the learning images prominent and responsive.
+
+Student Life and Partner With Us must use distinct imagery, not the same shared photo set.
+
+**Why:** The user asked for different Student Life images and unique Partner With Us images.
+
+**How to apply:** Select appropriate student and professional photographs separately, maintaining honest source metadata and avoiding claims that stock scenes depict actual academy events.
+
+Pages reached through the main header should share the photographic navy-blue overlay style of Partner With Us, with a different relevant image for each destination.
+
+**Why:** The user requested “same kind bg but different images for every header section when clicked.”
+
+**How to apply:** Keep destination images distinct across navigation pages and course-dropdown categories. Preserve the homepage's existing course-focused rotating hero; aliases for the same page should retain the same image.

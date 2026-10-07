@@ -7,12 +7,13 @@ import { useSeo, seoFrom } from '@/lib/seo';
 import { has, lines, fmtDate, asset, uniq } from '@/lib/format';
 import { PageHero, Skeleton, ErrorState, EmptyState, CardSkeletons } from '@/components/ui-kit';
 import { RichText, ListBlock } from '@/components/RichText';
-import { useStudentLifePhotos } from '@/lib/home';
+import { useStudentLifePhotos, mediaUrl } from '@/lib/home';
 import { AboutSections } from '@/components/AboutSections';
 import { FaqList } from '@/components/FaqList';
 import { BlogCard } from '@/components/Cards';
 import { BookButton } from '@/components/BookCta';
 import { LeadForm } from '@/components/LeadForm';
+import { StudentLife } from '@/components/StudentLife';
 import { Breadcrumbs } from '@/components/Breadcrumbs';
 import NotFound from './NotFound';
 import ContactPage from './ContactPage';
@@ -25,17 +26,19 @@ export function KindPage({ slug }) {
   const q = usePublicItem('pages', slug);
   const p = q.data;
   useSeo({ ...seoFrom(p, { title: EYEBROW[slug] || slug, description: 'Information from 4PL Academy.' }) });
-  const photos = useStudentLifePhotos();
+  const home = useStudentLifePhotos();
+  const gallery = (Array.isArray(p?.items) ? p.items : []).filter((g) => has(g?.image)).map((g) => ({ src: mediaUrl(g.image), alt: g.altText || '' }));
+  const photos = slug === 'student-life' && gallery.length ? gallery : home;
   const img = has(p?.image) ? p.image : asset(PAGE_IMG[slug] || 'images/industry-logistics.webp');
   return (
     <>
       <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: p?.name || EYEBROW[slug] || slug }]} eyebrow={EYEBROW[slug]} title={p?.name || EYEBROW[slug] || 'Loading'} body={p?.shortDescription} />
-      <div className="container-x py-10 sm:py-14">
+      {slug === 'student-life' && p ? <StudentLife page={p} photos={photos} /> : <div className="container-x py-10 sm:py-14">
         {q.isLoading ? <div className="space-y-3"><Skeleton className="h-8 w-1/2" /><Skeleton className="h-40" /></div> : q.isError ? <ErrorState onRetry={q.refetch} /> : !p ? <EmptyState title="Content coming soon" body="This page is being prepared." /> : (
           <div className={slug === 'about' ? 'mx-auto max-w-5xl' : 'grid gap-10 lg:grid-cols-[1fr_22rem]'}>
             <article>
               {slug !== 'about' && <img src={img} alt="" loading="lazy" className="mb-8 aspect-[16/7] w-full rounded-2xl object-cover" />}
-              {slug === 'about' ? <AboutSections text={p.description} photos={photos} /> : <RichText text={p.description} />}
+              {slug === 'about' ? <AboutSections text={p.description} photos={gallery} extra={home} /> : <RichText text={p.description} />}
               <ListBlock title="Highlights" items={lines(p.highlights)} columns />
               <ListBlock title="Learning pathway" items={lines(p.curriculum)} numbered />
               <ListBlock title="Outcomes" items={lines(p.outcomes)} />
@@ -53,7 +56,7 @@ export function KindPage({ slug }) {
             </aside>}
           </div>
         )}
-      </div>
+      </div>}
     </>
   );
 }
@@ -180,7 +183,6 @@ export function Faq() {
 const FORMS = {
   book: { title: "Let's Find the Right Program for You", eyebrow: 'Book Counselling', body: 'Tell us what you are exploring. Your selected program or university is already filled in.', cat: 'counselling', label: 'Book Counselling' },
   contact: { title: 'Contact 4PL Academy', eyebrow: 'Contact', body: 'Questions about programs, courses or partnerships? Send us a message.', cat: 'contact', label: 'Send message' },
-  apply: { title: 'Start your application', eyebrow: 'Apply', body: 'Tell us what you are interested in. Our admissions team will guide you through the process.', cat: 'application', label: 'Submit application interest' },
   counselling: { title: 'Request counselling', eyebrow: 'Counselling', body: 'A one-to-one conversation about programs, universities and admission support.', cat: 'counselling', label: 'Request counselling' },
 };
 export function FormPage({ kind }) {

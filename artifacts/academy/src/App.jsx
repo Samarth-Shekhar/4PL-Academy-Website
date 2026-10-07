@@ -101,7 +101,7 @@ function PublicApp() {
         <Route path="/blogs/:slug" component={BlogDetail} />
         <Route path="/faq" component={Faq} />
         <Route path="/contact"><FormPage kind="contact" /></Route>
-        <Route path="/apply"><FormPage kind="apply" /></Route>
+        <Route path="/apply"><Redirect to={`/book-counselling${window.location.search}`} /></Route>
         <Route path="/counselling"><FormPage kind="book" /></Route>
         <Route component={NotFound} />
       </Switch>

@@ -1,0 +1,65 @@
+[
+  {
+    "name": "students-conversations",
+    "provider": "Pexels",
+    "photoId": 7972508,
+    "sourceUrl": "https://images.pexels.com/photos/7972508/pexels-photo-7972508.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "path": "artifacts/academy/public/images/page-refresh/students-conversations.webp"
+  },
+  {
+    "name": "students-campus",
+    "provider": "Pexels",
+    "photoId": 7972506,
+    "sourceUrl": "https://images.pexels.com/photos/7972506/pexels-photo-7972506.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "path": "artifacts/academy/public/images/page-refresh/students-campus.webp"
+  },
+  {
+    "name": "students-community",
+    "provider": "Pexels",
+    "photoId": 37846368,
+    "sourceUrl": "https://images.pexels.com/photos/37846368/pexels-photo-37846368.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "path": "artifacts/academy/public/images/page-refresh/students-community.webp"
+  },
+  {
+    "name": "partner-collaboration",
+    "provider": "Pexels",
+    "photoId": 5256999,
+    "sourceUrl": "https://images.pexels.com/photos/5256999/pexels-photo-5256999.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "path": "artifacts/academy/public/images/page-refresh/partner-collaboration.webp"
+  },
+  {
+    "name": "partner-meeting",
+    "provider": "Pexels",
+    "photoId": 7651926,
+    "sourceUrl": "https://images.pexels.com/photos/7651926/pexels-photo-7651926.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "path": "artifacts/academy/public/images/page-refresh/partner-meeting.webp"
+  },
+  {
+    "name": "partner-workshop",
+    "provider": "Pexels",
+    "photoId": 12903169,
+    "sourceUrl": "https://images.pexels.com/photos/12903169/pexels-photo-12903169.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "path": "artifacts/academy/public/images/page-refresh/partner-workshop.webp"
+  },
+  {
+    "name": "about-logistics-team",
+    "provider": "Pexels",
+    "photoId": 4480982,
+    "sourceUrl": "https://images.pexels.com/photos/4480982/pexels-photo-4480982.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "path": "artifacts/academy/public/images/page-refresh/about-logistics-team.webp"
+  },
+  {
+    "name": "about-warehouse-discussion",
+    "provider": "Pexels",
+    "photoId": 4481533,
+    "sourceUrl": "https://images.pexels.com/photos/4481533/pexels-photo-4481533.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "path": "artifacts/academy/public/images/page-refresh/about-warehouse-discussion.webp"
+  },
+  {
+    "name": "about-practical-work",
+    "provider": "Pexels",
+    "photoId": 4481259,
+    "sourceUrl": "https://images.pexels.com/photos/4481259/pexels-photo-4481259.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    "path": "artifacts/academy/public/images/page-refresh/about-practical-work.webp"
+  }
+]

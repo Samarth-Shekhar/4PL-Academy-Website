@@ -7,7 +7,7 @@ import { safeHref } from './MovingCards';
 import './admission-carousel.css';
 
 function Step({ it, i, duplicate = false }) {
-  const href = safeHref(it.url, '/apply');
+  const href = safeHref(it.url, '/book-counselling');
   const ext = /^https?:/i.test(href);
   const cls = 'admission-card group flex flex-col overflow-hidden rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold';
   const inner = <>
@@ -29,7 +29,7 @@ function Step({ it, i, duplicate = false }) {
 }
 
 export function AdmissionTimeline({ s }) {
-  const items = s.items || [];
+  const items = (s.items || []).filter((it) => !/^apply(?:\s+now)?$/i.test(it.name || '') && !/^\/apply(?:[/?#]|$)/i.test(it.url || ''));
   const viewport = useRef(null);
   const track = useRef(null);
   const interaction = useRef({ hover: false, focus: false, touch: false, dragging: false, moved: false, startX: 0, startScroll: 0, manualUntil: 0, userPaused: false });

@@ -31,7 +31,7 @@ function Sel({ control, name, id, options, placeholder, disabled }) {
   return <Controller name={name} control={control} render={({ field }) => <BrandSelect id={id} name={field.name} ref={field.ref} value={field.value ?? ''} onChange={field.onChange} onBlur={field.onBlur} options={options} placeholder={placeholder} disabled={disabled} />} />;
 }
 
-export function LeadForm({ category = 'counselling', program, university, course, interestedIn, defaultMessage = '', submitLabel = 'Book Counselling', showMessage = true, careers = false, compact = false, contactFields = false, onDone, idPrefix = 'lead' }) {
+export function LeadForm({ category = 'counselling', program, university, course, interestedIn, defaultMessage = '', submitLabel = 'Book Counselling', showMessage = true, careers = false, compact = false, wide = false, contactFields = false, onDone, idPrefix = 'lead' }) {
   const [done, setDone] = useState(null);
   const submit = useSubmitLead();
   const unis = usePublicList('universities', undefined, { staleTime: 120000 }).data || [];
@@ -86,22 +86,26 @@ export function LeadForm({ category = 'counselling', program, university, course
   }
   const f = (n) => `${idPrefix}-${n}`;
   const Err = ({ n }) => (errors[n] ? <p className="field-err">{errors[n].message}</p> : null);
-  const withCurrent = (list, cur) => (cur && !list.some((x) => x.name === cur) ? [{ id: 'cur', name: cur }, ...list] : list);
+  const withCurrent = (list, cur) => {
+    const options = cur && !list.some((x) => x.name === cur) ? [{ id: 'cur', name: cur }, ...list] : list;
+    return [...new Map(options.map((option) => [option.name, option])).values()];
+  };
   const requiredMark = <span className="text-gold-deep" aria-hidden="true"> *</span>;
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4" data-testid={`form-${idPrefix}`}>
+      {wide && <p className="text-sm text-foreground/70"><span className="text-gold-deep" aria-hidden="true">*</span> Required: full name, email, phone and consent.</p>}
       {course && <p className="rounded-md bg-mist px-3 py-2 text-sm text-navy">Regarding course: <strong>{course}</strong></p>}
-      <div className={contactFields ? 'grid gap-4 sm:grid-cols-2' : 'space-y-4'}>
-        <div><label className="label" htmlFor={f('name')}>Full name{contactFields && requiredMark}</label><input id={f('name')} className="input" autoComplete="name" required={contactFields} aria-invalid={!!errors.name} {...register('name')} /><Err n="name" /></div>
-        <div className={contactFields ? 'contents' : 'grid gap-4 sm:grid-cols-2'}>
-          <div><label className="label" htmlFor={f('email')}>Email{contactFields && requiredMark}</label><input id={f('email')} type="email" inputMode="email" className="input" autoComplete="email" required={contactFields} aria-invalid={!!errors.email} {...register('email')} /><Err n="email" /></div>
-          <div><label className="label" htmlFor={f('phone')}>{contactFields ? 'Mobile' : 'Phone'}{contactFields && requiredMark}</label><input id={f('phone')} type="tel" inputMode="tel" className="input" autoComplete="tel" required={contactFields} aria-invalid={!!errors.phone} {...register('phone')} /><Err n="phone" /></div>
+      <div className={wide ? 'grid gap-4 md:grid-cols-3' : contactFields ? 'grid gap-4 sm:grid-cols-2' : 'space-y-4'}>
+        <div><label className="label" htmlFor={f('name')}>Full name{(contactFields || wide) && requiredMark}</label><input id={f('name')} className="input" autoComplete="name" required={contactFields || wide} aria-invalid={!!errors.name} {...register('name')} /><Err n="name" /></div>
+        <div className={contactFields || wide ? 'contents' : 'grid gap-4 sm:grid-cols-2'}>
+          <div><label className="label" htmlFor={f('email')}>Email{(contactFields || wide) && requiredMark}</label><input id={f('email')} type="email" inputMode="email" className="input" autoComplete="email" required={contactFields || wide} aria-invalid={!!errors.email} {...register('email')} /><Err n="email" /></div>
+          <div><label className="label" htmlFor={f('phone')}>{contactFields ? 'Mobile' : 'Phone'}{(contactFields || wide) && requiredMark}</label><input id={f('phone')} type="tel" inputMode="tel" className="input" autoComplete="tel" required={contactFields || wide} aria-invalid={!!errors.phone} {...register('phone')} /><Err n="phone" /></div>
         </div>
         {contactFields && !careers && <div><label className="label" htmlFor={f('course')}>Courses</label><Sel control={control} name="selection" id={f('course')} disabled={cq.isLoading} placeholder={cq.isLoading ? 'Loading courses…' : 'Please select a course'} options={[{ value: '', label: cq.isLoading ? 'Loading courses…' : 'Please select a course' }, ...choices.map((c) => ({ value: c.value, label: `${c.name}${c.university ? ` — ${c.university}` : ''}` })), { value: 'other', label: 'Other' }]} />{cq.isError && <p className="field-err">Courses could not be loaded. <button type="button" className="underline" onClick={() => cq.refetch()}>Retry</button> or mention your course in the message.</p>}</div>}
         {contactFields && <div><label className="label" htmlFor={f('subject')}>Subject</label><input id={f('subject')} className="input" maxLength={150} aria-invalid={!!errors.subject} {...register('subject')} /><Err n="subject" /></div>}
         {contactFields && <div className={careers ? 'sm:col-span-2' : ''}><label className="label" htmlFor={f('message')}>How can we help?{requiredMark}</label><textarea id={f('message')} className="input min-h-32" required maxLength={2800} aria-invalid={!!errors.message} {...register('message')} /><Err n="message" /></div>}
       </div>
-      {!careers && !compact && <div className="grid gap-4 sm:grid-cols-2">
+      {!careers && !compact && <div className={wide ? 'grid gap-4 md:grid-cols-2' : 'grid gap-4 sm:grid-cols-2'}>
         <div><label className="label" htmlFor={f('interest')}>Interested in</label><Sel control={control} name="interestedIn" id={f('interest')} placeholder="Select" options={[{ value: '', label: 'Select' }, ...INTERESTS]} /></div>
         <div><label className="label" htmlFor={f('qual')}>Highest qualification</label><Sel control={control} name="qualification" id={f('qual')} placeholder="Select" options={[{ value: '', label: 'Select' }, ...QUALIFICATIONS]} /></div>
         <div><label className="label" htmlFor={f('uni')}>Preferred university</label><Sel control={control} name="university" id={f('uni')} placeholder="No preference" options={[{ value: '', label: 'No preference' }, ...withCurrent(unis, university).map((u) => u.name)]} /></div>
@@ -119,7 +123,7 @@ export function LeadForm({ category = 'counselling', program, university, course
         <Err n="consent" />
       </div>
       {submit.isError && <p className="rounded-md bg-red-50 p-3 text-sm text-destructive" role="alert">{errMsg(submit.error)}</p>}
-      <button type="submit" disabled={submit.isPending} className="btn btn-gold w-full" data-testid={`button-submit-${idPrefix}`}>
+      <button type="submit" disabled={submit.isPending} className={wide ? 'btn btn-gold w-full sm:w-auto sm:min-w-56' : 'btn btn-gold w-full'} data-testid={`button-submit-${idPrefix}`}>
         {submit.isPending ? <><Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Sending</> : submitLabel}
       </button>
       <p className="flex items-center gap-1.5 text-xs text-muted-foreground"><ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" /> {careers ? 'Your details are used to respond to your careers enquiry.' : contactFields ? 'Your details are used only to respond to your enquiry.' : 'Your details are used only for admissions guidance.'}</p>

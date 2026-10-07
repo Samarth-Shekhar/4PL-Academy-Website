@@ -1,4 +1,7 @@
 import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect } from 'react';
+import { useLocation } from 'wouter';
+import { routeHeroImage } from '@/lib/route-images';
 import { AlertTriangle, Inbox, RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/cn';
 import { Breadcrumbs } from './Breadcrumbs';
@@ -52,11 +55,22 @@ export function SectionHead({ eyebrow, title, body, light, align = 'left', child
     </div>
   );
 }
-export function PageHero({ eyebrow, title, body, crumbs, children }) {
+export function PageHero({ eyebrow, title, body, crumbs, children, image }) {
+  const [loc] = useLocation();
+  const reduce = useReducedMotion();
+  const src = image || routeHeroImage(loc);
+  useEffect(() => {
+    const l = document.createElement('link');
+    l.rel = 'preload'; l.as = 'image'; l.href = src;
+    document.head.appendChild(l);
+    return () => { l.remove(); };
+  }, [src]);
   return (
-    <header className="px-3 pt-3 sm:px-5">
-      <div className="page-hero navy-surface on-navy relative overflow-hidden rounded-[1.75rem]">
-        <div className="container-x relative pb-10 pt-6 sm:pb-16 sm:pt-8">
+    <header>
+      <div className="navy-surface on-navy relative isolate overflow-hidden">
+        <motion.img src={src} alt="" aria-hidden="true" loading="eager" decoding="async" fetchPriority="high" draggable={false} initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 0.45 }} transition={{ duration: 0.5 }} className="pointer-events-none absolute inset-0 -z-10 h-full w-full select-none object-cover" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-navy via-navy/85 to-navy/40" />
+        <div className="container-x relative pb-12 pt-6 sm:pb-20 sm:pt-8">
           {crumbs && <Breadcrumbs items={crumbs} light />}
           <div className="mt-8 max-w-3xl">
             {eyebrow && <p className="hero-pill mb-4">{eyebrow}</p>}

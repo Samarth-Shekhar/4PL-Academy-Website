@@ -10,6 +10,8 @@
 - [Industry brand references](industry-brand-references.md) — logos shown near credentials are not evidence of partners, issuers, endorsements or employers.
 - [Acad Bot scope](acad-bot-scope.md) — academy-focused help; unrelated or unsupported questions should offer human contact.
 - [UI verification quirks](ui-verification-quirks.md) — controls, viewport coordinates, motion preferences and debug sessions can cause false browser failures.
+- [About page visibility](about-page-visibility.md) — show every section name and full content; use the original site's open image-and-text approach, not clipped tabs or all cards.
+- [Public browsing scope](public-browsing-scope.md) — listing filters belong above results, not in a left sidebar; omit the public Apply section and links.
 - [Contact source priority](contact-source-priority.md) — latest owner-confirmed contacts override legacy values; map the current street address.
 - [Enquiry integrity](enquiry-integrity.md) — qualify same-title programs by university; retain contact subjects and validate combined message length.
 - [University directory scope](university-directory-scope.md) — directory only, no partnerships mode; listing cards use matching ratios and basic supplied facts.

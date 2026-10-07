@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { RichText } from '@/components/RichText';
-import { has } from '@/lib/format';
+import { has, asset } from '@/lib/format';
 
 /* Split Markdown at # / ## headings. Nothing is dropped: text before the first
    heading becomes the intro, every other line stays in its section body. */
@@ -21,57 +21,60 @@ export function splitMarkdown(text) {
 }
 
 function Row({ s, i, photo, reduce }) {
-  const flip = i % 2 === 1;
-  const fade = reduce ? {} : { initial: { opacity: 0, y: 24 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-60px' }, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } };
+  const fade = reduce ? {} : { initial: { opacity: 0, y: 16 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-40px' }, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } };
+  const columns = !photo ? '' : i % 2
+    ? 'md:grid-cols-[17rem_minmax(0,1fr)] md:gap-10 lg:grid-cols-[20rem_minmax(0,1fr)]'
+    : 'md:grid-cols-[minmax(0,1fr)_17rem] md:gap-10 lg:grid-cols-[minmax(0,1fr)_20rem]';
   return (
-    <motion.section id={s.id} data-testid={`about-section-${i}`} {...fade} className="scroll-mt-36 border-t border-navy/10 py-12 sm:py-16">
-      <div className="grid min-w-0 gap-8 lg:grid-cols-12 lg:gap-12">
-        <div className={`min-w-0 lg:col-span-4 ${flip ? 'lg:order-2' : ''}`}>
-          <span className="num-xl text-4xl text-gold-deep" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-          <h2 className="mt-2 break-words text-2xl font-extrabold text-navy sm:text-3xl">{s.title}</h2>
-          <div className="gold-rule mt-4" />
-          {photo && (
-            <figure className="mt-6 overflow-hidden rounded-2xl bg-mist">
-              <img src={photo.src} alt={photo.alt || 'Student life photograph from the 4PL Academy media catalog'} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover" />
-            </figure>
-          )}
+    <motion.section id={s.id} data-testid={`about-section-${i}`} {...fade} className="scroll-mt-28 border-t border-navy/10 py-9 first:border-t-0 sm:py-12">
+      <div className={`grid min-w-0 gap-6 ${columns}`}>
+        <div className="min-w-0">
+          <h2 className="break-words text-2xl font-extrabold text-navy sm:text-3xl">{s.title}</h2>
+          <div className="gold-rule mb-5 mt-3" />
+          <RichText text={s.body} />
         </div>
-        <div className={`min-w-0 lg:col-span-8 ${flip ? 'lg:order-1' : ''}`}><RichText text={s.body} /></div>
+        {photo && (
+          <motion.figure {...(reduce ? {} : { initial: { opacity: 0, scale: 0.97, x: i % 2 ? -16 : 16 }, whileInView: { opacity: 1, scale: 1, x: 0 }, viewport: { once: true, margin: '-60px' }, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.1 } })} className={`group self-start overflow-hidden rounded-xl bg-mist ${i % 2 ? 'md:order-first' : ''}`}>
+            <img src={photo.src} alt={photo.alt || ''} loading="lazy" decoding="async" className="aspect-[4/3] w-full object-cover transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
+          </motion.figure>
+        )}
       </div>
     </motion.section>
   );
 }
 
-export function AboutSections({ text, photos = [] }) {
+export function AboutSections({ text, photos = [], extra = [] }) {
   const reduce = useReducedMotion();
   const { intro, sections } = useMemo(() => splitMarkdown(text), [text]);
   const [active, setActive] = useState('');
   useEffect(() => {
     if (!sections.length || typeof IntersectionObserver === 'undefined') return undefined;
-    const io = new IntersectionObserver((es) => { const v = es.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]; if (v) setActive(v.target.id); }, { rootMargin: '-20% 0px -60% 0px' });
+    const io = new IntersectionObserver((es) => { const v = es.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0]; if (v) setActive(v.target.id); }, { rootMargin: '-15% 0px -65% 0px' });
     sections.forEach((s) => { const n = document.getElementById(s.id); if (n) io.observe(n); });
     return () => io.disconnect();
   }, [sections]);
   if (!sections.length) return <RichText text={text} />;
-  const go = (id) => { document.getElementById(id)?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); history.replaceState(null, '', `#${id}`); };
-  let n = 0;
-  const lead = photos[0];
+  const go = (id) => { document.getElementById(id)?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' }); history.replaceState(null, '', `#${id}`); setActive(id); };
+  const industry = { src: asset('images/industry-logistics.webp'), alt: '' };
+  const seen = new Set();
+  const pool = [industry, ...photos, ...extra.slice(0, 2)].filter((x) => x.src && !seen.has(x.src) && seen.add(x.src));
+  const len = sections.length;
+  const slots = new Map();
+  pool.forEach((ph, k) => { let idx = Math.min(len - 1, Math.round((k * len) / pool.length)); while (slots.has(idx) && idx < len - 1) idx += 1; if (!slots.has(idx)) slots.set(idx, ph); });
   return (
     <div data-testid="about-sections">
-      <div className={`grid gap-8 pb-10 ${has(intro) && lead ? 'lg:grid-cols-2 lg:items-center' : ''}`}>
-        {has(intro) && <motion.div initial={reduce ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="text-lg"><RichText text={intro} /></motion.div>}
-        {lead && <motion.img initial={reduce ? false : { opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} src={lead.src} alt={lead.alt || 'Student life photograph from the 4PL Academy media catalog'} className="aspect-[16/10] w-full rounded-3xl object-cover" />}
-      </div>
-      <nav aria-label="About sections" className="sticky top-[4.75rem] z-10 -mx-4 border-y border-navy/10 bg-white/90 px-4 py-3 backdrop-blur sm:mx-0 sm:px-0">
-        <div className="no-scrollbar flex items-center gap-2 overflow-x-auto">
-          {sections.map((s) => <button key={s.id} type="button" onClick={() => go(s.id)} aria-current={active === s.id ? 'true' : undefined} className={`shrink-0 rounded-full border px-4 py-1.5 text-sm font-semibold transition-colors ${active === s.id ? 'border-gold bg-gold text-navy' : 'border-navy/20 text-navy hover:border-gold hover:bg-gold/15'}`}>{s.title}</button>)}
-        </div>
+      {has(intro) && <div className="pb-6 text-lg"><RichText text={intro} /></div>}
+      <nav aria-label="About sections" data-testid="about-nav" className="mb-6 border-y border-navy/10 bg-mist/60 px-3 py-3 sm:px-4">
+        <ul className="flex flex-wrap gap-2">
+          {sections.map((s) => (
+            <li key={s.id} className="max-w-full">
+              <button type="button" onClick={() => go(s.id)} aria-current={active === s.id ? 'true' : undefined} className={`max-w-full whitespace-normal break-words rounded-full border px-3.5 py-1.5 text-left text-sm font-semibold leading-snug transition-colors ${active === s.id ? 'border-gold bg-gold text-navy' : 'border-navy/20 bg-white text-navy hover:border-gold hover:bg-gold/15'}`}>{s.title}</button>
+            </li>
+          ))}
+        </ul>
       </nav>
       <div>
-        {sections.map((s, i) => {
-          const photo = i % 3 === 1 && photos.length > 1 ? photos[1 + (n++ % (photos.length - 1))] : null;
-          return <Row key={s.id} s={s} i={i} photo={photo} reduce={reduce} />;
-        })}
+        {sections.map((s, i) => <Row key={s.id} s={s} i={i} photo={slots.get(i) || null} reduce={reduce} />)}
       </div>
     </div>
   );

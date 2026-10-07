@@ -110,12 +110,11 @@ const sections = [
       step('Explore','Discover institutions, programs and professional courses.','port','/programs'),
        step('Book Counselling','Confirm eligibility, availability and current details.','business','/counselling'),
        step('Choose Program','Compare the pathways that interest you.','classroom','/programs'),
-      step('Apply','Submit an enquiry and follow the confirmed application process.','technology','/apply'),
       step('Admission','Complete the institution’s requirements and await its decision.','classroom','/counselling'),
       step('Start Learning','Begin after admission and enrolment are confirmed.','warehouse','/student-life'),
     ],
     ctaLabel:'Book Counselling',ctaUrl:'/counselling',
-    secondaryCtaLabel:'Apply Now',secondaryCtaUrl:'/apply',
+    secondaryCtaLabel:'',secondaryCtaUrl:'',
   },
   {
     slug:'final-cta',name:'Your Next Chapter Starts Here.',

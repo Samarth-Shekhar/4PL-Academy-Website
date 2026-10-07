@@ -144,9 +144,9 @@ function Footer() {
             </ul>
           </div>
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-[0.8fr_0.9fr_1fr_1.6fr]">
-            {col('Learn', [{ href: '/programs/undergraduate', label: 'Undergraduate' }, { href: '/programs/postgraduate', label: 'Postgraduate' }, { href: '/compare', label: 'Compare Programs' }, { href: '/professional-courses', label: 'Professional Courses' }, { href: '/certifications', label: 'Certifications' }])}
-            {col('Discover', [{ href: '/universities', label: 'University Directory' }, { href: '/career', label: 'Career & Industry' }, { href: '/student-life', label: 'Student Life' }, { href: '/blogs', label: 'Blogs' }])}
-            {col('4PL Academy', [{ href: '/about', label: 'About' }, { href: '/partner-with-us', label: 'Partner With Us' }, { href: '/careers', label: 'Careers at 4PL' }, { href: '/faq', label: 'FAQ' }, { href: '/apply', label: 'Apply' }, { href: '/book-counselling', label: 'Book Counselling' }])}
+            {col('Courses', [...NAV.find((item) => item.href === '/courses').children, { href: '/compare', label: 'Compare Programs' }, { href: '/certifications', label: 'Certifications' }])}
+            {col('Discover', [{ href: '/universities', label: 'Universities' }, { href: '/career', label: 'Career & Industry' }, { href: '/student-life', label: 'Student Life' }, { href: '/blogs', label: 'Blogs' }])}
+            {col('4PL Academy', [{ href: '/', label: 'Home' }, { href: '/about', label: 'About Us' }, { href: '/partner-with-us', label: 'Partner With Us' }, { href: '/careers', label: 'Careers at 4PL' }, { href: '/faq', label: 'FAQ' }, { href: '/book-counselling', label: 'Book Counselling' }])}
             <div className="col-span-2 sm:col-span-1">
               <h3 className="font-sans text-xs font-bold uppercase tracking-[0.16em] text-gold">Contact</h3>
               <div className="mt-3 space-y-3 text-sm">
@@ -165,7 +165,7 @@ function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-surface/15 pt-4 text-xs leading-relaxed text-surface/70">
-          <p className="flex flex-wrap items-center gap-x-4 gap-y-1"><span>4PL Academy. All rights reserved.</span><span className="sr-only" role="status">{health.isError ? 'Service status: unavailable' : 'Service status: ok'}</span><Link href="/privacy" className="hover:text-gold hover:underline">Privacy Policy</Link><Link href="/terms" className="hover:text-gold hover:underline">Terms and Conditions</Link><Link href="/contact" className="hover:text-gold hover:underline">Contact</Link></p>
+          <p className="flex flex-wrap items-center gap-x-4 gap-y-1"><span>4PL Academy. All rights reserved.</span><span className="sr-only" role="status">{health.isError ? 'Service status: unavailable' : 'Service status: ok'}</span><Link href="/privacy" className="hover:text-gold hover:underline">Privacy Policy</Link><Link href="/terms" className="hover:text-gold hover:underline">Terms and Conditions</Link><Link href="/contact" className="hover:text-gold hover:underline">Contact Us</Link></p>
         </div>
       </div>
     </footer>

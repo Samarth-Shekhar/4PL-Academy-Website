@@ -27,3 +27,9 @@ information and real university images from the web.
 **How to apply:** Use matching campus imagery, not generic industry pictures.
 Retain full supplied information in the full catalog and detail pages; a
 homepage preview must not invent university associations or course titles.
+
+Combine homepage university discovery into the All / Undergraduate / Postgraduate showcase, rather than a separate Discover Universities section. Cards in this showcase must share fixed overall and image ratios.
+
+**Why:** The owner asked to remove the pictured university section, combine its cards with the degree section or an All view, and keep every card's size and ratio consistent.
+
+**How to apply:** University-only cards can appear in All when no concrete source-supported program pair is available. Keep degree-specific views limited to actual supplied programs; do not infer degree offerings for bare institution cards.

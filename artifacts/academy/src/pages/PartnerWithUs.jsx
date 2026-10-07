@@ -3,14 +3,14 @@ import { ArrowRight } from 'lucide-react';
 import { usePublicItem } from '@/lib/api';
 import { useSeo } from '@/lib/seo';
 import { has, asset } from '@/lib/format';
-import { useStudentLifePhotos, mediaUrl } from '@/lib/home';
+import { mediaUrl } from '@/lib/home';
 import { Reveal, Skeleton, ErrorState } from '@/components/ui-kit';
 import { RichText } from '@/components/RichText';
 
 export default function PartnerWithUs() {
   const q = usePublicItem('pages', 'for-universities');
   const p = q.data;
-  const photos = useStudentLifePhotos();
+  const photos = (Array.isArray(p?.items) ? p.items : []).filter((g) => has(g?.image)).map((g) => ({ src: mediaUrl(g.image), alt: g.altText || '' }));
   const ph = (i) => photos[i] || null;
   const hero = (p && has(p.image) && { src: mediaUrl(p.image), alt: '' }) || ph(0) || { src: asset('images/industry-logistics.webp'), alt: '' };
   useSeo({
@@ -18,6 +18,7 @@ export default function PartnerWithUs() {
     description: has(p?.seoDescription) ? p.seoDescription : 'Universities and organisations can collaborate with 4PL Academy. Share your institution details and collaboration focus with our team.',
   });
   const second = ph(1) || ph(0);
+  const third = ph(2);
   return (
     <div>
       <section className="navy-surface on-navy relative isolate overflow-hidden">
@@ -36,6 +37,7 @@ export default function PartnerWithUs() {
             <Reveal>
               {has(p?.description) && <RichText text={p.description} />}
               {second && <img src={second.src} alt={second.alt} loading="lazy" className="mt-10 aspect-[16/10] w-full rounded-3xl object-cover" />}
+              {third && <img src={third.src} alt={third.alt} loading="lazy" className="mt-6 aspect-[16/10] w-full rounded-3xl object-cover" />}
             </Reveal>
           )}
         </div>

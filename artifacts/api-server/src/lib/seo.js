@@ -2,7 +2,7 @@ import { db, contentTable } from '@workspace/db';
 import { eq, and } from 'drizzle-orm';
 import { siteUrl } from './config.js';
 const escape = value => String(value || '').replace(/[<>&"']/g, c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#39;'}[c]));
-const fixedRoutes = ['','programs','programs/undergraduate','programs/postgraduate','universities','professional-courses','professional-courses/short-term','professional-courses/long-term','certifications','about','career','student-life','for-universities','blogs','faq','contact','apply','book-counselling'];
+const fixedRoutes = ['','programs','programs/undergraduate','programs/postgraduate','universities','professional-courses','professional-courses/short-term','professional-courses/long-term','certifications','about','career','student-life','for-universities','blogs','faq','contact','book-counselling'];
 const canonicalPath = pathname => pathname.replace(/^\/courses(?=\/|$)/,'/professional-courses').replace(/^\/blog(?=\/)/,'/blogs').replace(/^\/career-industry\/?$/,'/career').replace(/^\/counselling\/?$/,'/book-counselling');
 export async function sitemap() {
   if (!siteUrl) return null;
