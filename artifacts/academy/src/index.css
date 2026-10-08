@@ -165,10 +165,10 @@
 
 /* ---- 4PL cinematic homepage ---- */
 @layer components {
-  @keyframes kb-a { from { transform: scale(1.02) translate3d(0,0,0); } to { transform: scale(1.06) translate3d(-.6%,-.4%,0); } }
-  @keyframes kb-b { from { transform: scale(1.06) translate3d(-.4%,0,0); } to { transform: scale(1.02) translate3d(.4%,-.4%,0); } }
-  .kb-a { animation: kb-a 14s ease-in-out forwards; }
-  .kb-b { animation: kb-b 14s ease-in-out forwards; }
+  @keyframes kb-a { from { transform: scale(1.03) translate3d(.4%,0,0); } to { transform: scale(1.11) translate3d(-1%,-.5%,0); } }
+  @keyframes kb-b { from { transform: scale(1.11) translate3d(-.8%,0,0); } to { transform: scale(1.03) translate3d(.4%,-.4%,0); } }
+  .kb-a { animation: kb-a 8s ease-in-out forwards; }
+  .kb-b { animation: kb-b 8s ease-in-out forwards; }
   .kb-paused { animation-play-state: paused; }
   @keyframes marquee { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
   .marquee-track { display: flex; width: max-content; animation: marquee 48s linear infinite; }

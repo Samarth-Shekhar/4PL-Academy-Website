@@ -54,7 +54,6 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
   const slides = hero.length ? hero : has(section?.image) ? [{ id: 'cover', name: section.name, type: 'image', url: section.image, altText: '' }] : [];
   const light = mobile || reduce || saveData();
   const [idx, setIdx] = useState(0);
-  const [prevIdx, setPrevIdx] = useState(null);
   const [imageError, setImageError] = useState('');
   const want = useRef(null);
   const slidesRef = useRef(slides);
@@ -76,12 +75,13 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
   const book = bookHref(isCourse(cur) ? { course: course?.name || cur.name } : prog ? { program: prog.name, university: prog.universityName } : cur?.universityId == null && cur?.name && cur.id !== 'cover' ? { program: cur.name } : {});
   const motionAllowed = playing && inView && tab && !hovering && !focused;
   const running = motionAllowed && n > 1;
+  const panRunning = playing && inView && tab && !reduce && !saveData();
   const show = useCallback((t) => {
     if (!n) return;
     const target = ((t % n) + n) % n;
     want.current = target;
     const s2 = slidesRef.current[target];
-    const done = () => { if (want.current !== target) return; want.current = null; setImageError(''); setPrevIdx(idxRef.current === target ? null : idxRef.current); setIdx(target); };
+    const done = () => { if (want.current !== target) return; want.current = null; setImageError(''); setIdx(target); };
     if (!s2 || s2.type === 'video' || target === idxRef.current) { done(); return; }
     decodeImage(s2.url).then(done).catch(() => {
       if (want.current !== target) return;
@@ -91,7 +91,6 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
     });
   }, [n]);
   const go = useCallback((d) => show(idxRef.current + d), [show]);
-  useEffect(() => { if (prevIdx == null) return undefined; const t = setTimeout(() => setPrevIdx(null), 1000); return () => clearTimeout(t); }, [prevIdx]);
   useEffect(() => {
     if (n < 2 || !inView || !tab || saveData() || /(^|-)2g$/.test(navigator.connection?.effectiveType || '')) return undefined;
     const nx = slidesRef.current[(idx + 1) % n]; if (!nx || nx.type === 'video') return undefined;
@@ -108,13 +107,14 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
   return (
     <section ref={wrap} className="navy-surface on-navy relative min-h-[min(88svh,54rem)] overflow-hidden" aria-label="Featured programs and courses in motion" onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} onFocusCapture={() => setFocused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
       <div className="absolute inset-0 -z-10 bg-navy" aria-hidden="true">
-        {prevIdx != null && slides[prevIdx] && slides[prevIdx].type !== 'video' && <div className="absolute inset-0"><img {...srcs(slides[prevIdx].url)} sizes={SIZES} alt="" className="h-full w-full object-cover object-[65%_center] sm:object-center" decoding="async" /></div>}
+        <AnimatePresence initial={false} mode="sync">
         {cur && (
-          <motion.div key={`${cur.id}-${idx}`} className="absolute inset-0" initial={idx === 0 && prevIdx == null ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: reduce ? 0 : 0.8, ease: 'easeInOut' }}>
+          <motion.div key={`${cur.id}-${idx}`} data-testid="hero-image-layer" className="absolute inset-0" initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduce ? 0 : 1.2, ease: [0.22, 1, 0.36, 1] }}>
             {asVideo ? <video ref={vid} src={mediaUrl(cur.url)} poster={still || undefined} muted loop playsInline preload="metadata" className="h-full w-full object-cover" />
-              : still ? <img {...(cur.type === 'video' ? { src: still } : srcs(cur.url))} sizes={SIZES} alt={cur.altText || ''} className={cn('h-full w-full object-cover object-[65%_center] sm:object-center', idx % 2 ? 'kb-b' : 'kb-a', !running && 'kb-paused')} fetchPriority={idx === 0 ? 'high' : undefined} loading="eager" decoding="async" /> : null}
+              : still ? <img {...(cur.type === 'video' ? { src: still } : srcs(cur.url))} sizes={SIZES} alt={cur.altText || ''} className={cn('h-full w-full object-cover object-[65%_center] sm:object-center motion-reduce:animate-none motion-reduce:transform-none', !reduce && !saveData() && (idx % 2 ? 'kb-b' : 'kb-a'), !panRunning && 'kb-paused')} fetchPriority={idx === 0 ? 'high' : undefined} loading="eager" decoding="async" /> : null}
           </motion.div>
         )}
+        </AnimatePresence>
         <div className="hero-image-scrim absolute inset-0" />
         <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-navy/45 via-navy/10 to-transparent" />
       </div>
