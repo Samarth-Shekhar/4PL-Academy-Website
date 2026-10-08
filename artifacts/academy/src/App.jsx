@@ -43,8 +43,13 @@ const ADMIN = [
   ['media', 'Media', () => <ContentManager kind="media" />],
   ['seo', 'SEO', () => <ContentManager kind="seo" />],
   ['pages', 'Pages', () => <ContentManager kind="pages" />],
-  ['leads', 'Leads', () => <Leads />],
-  ['applications', 'Applications', () => <Leads onlyCategory="application" />],
+  ['leads', 'All leads', () => <Leads />],
+  ['contact-leads', 'Contact Us leads', () => <Leads onlyCategory="contact" />],
+  ['counselling-leads', 'Counselling booking leads', () => <Leads onlyCategory="counselling" />],
+  ['partner-leads', 'Partner With Us leads', () => <Leads onlyCategory="partnership" />],
+  ['careers-leads', 'Careers enquiries', () => <Leads onlyCategory="careers" />],
+  ['callback-leads', 'Chatbot callback leads', () => <Leads onlyCategory="chatbot" />],
+  ['applications', 'Legacy applications', () => <Leads onlyCategory="application" />],
   ['settings', 'Settings', () => <Settings />],
 ];
 

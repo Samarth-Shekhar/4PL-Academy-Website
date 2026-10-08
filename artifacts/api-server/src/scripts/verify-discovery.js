@@ -19,7 +19,7 @@ try {
   assert.equal(captureAttribution('?'+attribution),attribution);
   assert.equal(captureAttribution(''),attribution,'Untagged internal navigation must retain the campaign, even without browser storage.');
   const input = validation.SubmitLeadBody.parse({
-    name:'Contract QA',email:'contract-qa@example.invalid',phone:'+91 9000000000',consent:true,
+    name:'Contract QA',email:'contract-qa@example.invalid',phone:'+91 9000000000',phoneCountry:'IN',consent:true,
     interestedIn:'Professional',qualification:'10+2',city:'Test City',category:'counselling',
     source:'/book-counselling',utm:'utm_source=contract-check',
   });

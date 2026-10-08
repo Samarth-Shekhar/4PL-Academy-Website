@@ -2,6 +2,8 @@ import { Router } from 'express';
 import { db, contentTable, leadsTable } from '@workspace/db';
 import { and, eq } from 'drizzle-orm';
 import { ListContentQueryParams, GetContentResponse, ListContentResponse, SubmitLeadBody, AskAcadBotBody, GetDiscoveryResponse } from '@workspace/api-zod';
+import { validateLeadPhone } from '../lib/lead-phone.js';
+import { resolveLeadContentId } from '../lib/lead-content.js';
 import { getCatalog, checkKind, publicContent } from '../lib/content.js';
 import { answerQuestion } from '../lib/chat.js';
 import { sendLeadNotification } from '../lib/lead-email.js';
@@ -41,25 +43,10 @@ router.get('/discovery', async (_req, res) => {
 async function saveLead(req, res) {
   const data = SubmitLeadBody.parse(req.body);
   if (!data.consent) { res.status(400).json({ error: 'Consent is required to send your enquiry.' }); return; }
-  if (!/^[+\d\s()-]{7,25}$/.test(data.phone) || data.phone.replace(/\D/g,'').length < 7) { res.status(400).json({ error: 'Please enter a valid phone number.' }); return; }
-  let contentId = null;
-  const name = data.program || data.course || data.university;
-  if (name) {
-    const conditions = [eq(contentTable.name, name), eq(contentTable.status, 'published')];
-    if (data.program) {
-      conditions.push(eq(contentTable.kind, 'programs'));
-      if (data.university) {
-        const [university] = await db.select({ id: contentTable.id }).from(contentTable).where(and(eq(contentTable.kind, 'universities'), eq(contentTable.name, data.university), eq(contentTable.status, 'published'))).limit(1);
-        // Same degree title can belong to several universities. Never associate
-        // an enquiry with a different institution just because its name matches.
-        conditions.push(eq(contentTable.universityId, university?.id ?? -1));
-      }
-    } else {
-      conditions.push(eq(contentTable.kind, data.course ? 'courses' : 'universities'));
-    }
-    const [content] = await db.select({ id: contentTable.id }).from(contentTable).where(and(...conditions)).limit(1);
-    contentId = content?.id || null;
-  }
+  const phone = validateLeadPhone(data.phone, data.phoneCountry);
+  if (phone.error) { res.status(400).json({ error: phone.error }); return; }
+  Object.assign(data, phone);
+  const contentId = await resolveLeadContentId(data);
   const [savedLead] = await db.insert(leadsTable)
     .values({ ...data, name: data.name.trim(), email: data.email.trim().toLowerCase(), contentId })
     .returning({ id: leadsTable.id });

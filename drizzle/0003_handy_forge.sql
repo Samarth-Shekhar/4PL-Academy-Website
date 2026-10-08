@@ -1,0 +1,1 @@
+ALTER TABLE "academy_leads" ADD COLUMN "phone_country" text DEFAULT '' NOT NULL;

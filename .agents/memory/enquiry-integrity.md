@@ -40,3 +40,15 @@ Use Microsoft Graph app-only tenant credentials for complete lead emails, rather
 **Why:** The user explicitly selected the Microsoft tenant credentials method after declining the transactional-email API-key setup.
 
 **How to apply:** Read credentials from securely configured server environment variables or the owner's ignored local `.env`. Require Microsoft Graph Mail.Send Application permission with admin consent; never put credentials in tracked example files. Keep saved enquiries intact if email delivery fails.
+
+All enquiry forms need a selectable phone country/calling code and country-specific validation, not just a generic digit-length check.
+
+**Why:** The user asked for precise phone submissions for every country across all forms.
+
+**How to apply:** Preserve the selected country together with the international-format number in backend capture, staff editing, exports and email details. Do not claim number validation proves ownership or reachability.
+
+Keep each form’s leads in its own named staff section and table while retaining a shared category-based lead store.
+
+**Why:** The user wants to manage Contact Us, Partner With Us, Counselling and other forms by name. Separate staff views provide this without splitting historical records or duplicating capture and notification logic.
+
+**How to apply:** Allow full lead editing and confirmed permanent deletion. Preserve original consent and received time. Validate/rewrite a historical phone only when staff change its phone or country, not during unrelated edits.

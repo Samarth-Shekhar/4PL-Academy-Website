@@ -21,6 +21,7 @@ const fields = [
   ['Name', 'name'],
   ['Email', 'email'],
   ['Phone', 'phone'],
+  ['Phone country', 'phoneCountry'],
   ['Enquiry type', 'category'],
   ['Interested in', 'interestedIn'],
   ['University', 'university'],

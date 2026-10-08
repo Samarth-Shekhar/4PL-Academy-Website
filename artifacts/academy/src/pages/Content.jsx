@@ -188,7 +188,7 @@ const FORMS = {
 export function FormPage({ kind }) {
   const sp = new URLSearchParams(useSearch());
   const careers = kind === 'contact' && sp.get('intent') === 'careers';
-  const c = careers ? { ...FORMS.contact, title: 'Contact the 4PL Academy team', eyebrow: 'Careers enquiry', body: 'Tell us about your background and how you would like to contribute to 4PL Academy.', label: 'Send careers enquiry' } : FORMS[kind];
+  const c = careers ? { ...FORMS.contact, cat: 'careers', title: 'Contact the 4PL Academy team', eyebrow: 'Careers enquiry', body: 'Tell us about your background and how you would like to contribute to 4PL Academy.', label: 'Send careers enquiry' } : FORMS[kind];
   const ctx = careers ? { careers: true, interestedIn: 'Careers enquiry', defaultMessage: 'Careers enquiry: ' } : { program: sp.get('program') || undefined, university: sp.get('university') || undefined, course: sp.get('course') || undefined, interestedIn: sp.get('interestedIn') || undefined };
   const st = useContactSettings();
   useSeo({ title: c.title, description: c.body });

@@ -24,8 +24,13 @@ export const ADMIN_NAV = [
   { href: '/admin/testimonials', label: 'Testimonials', icon: Quote },
   { href: '/admin/media', label: 'Media', icon: Image },
   { href: '/admin/seo', label: 'SEO', icon: Search },
-  { href: '/admin/leads', label: 'Leads', icon: Inbox },
-  { href: '/admin/applications', label: 'Applications', icon: ClipboardList },
+  { href: '/admin/leads', label: 'All leads', icon: Inbox },
+  { href: '/admin/contact-leads', label: 'Contact Us leads', icon: Inbox },
+  { href: '/admin/counselling-leads', label: 'Counselling booking', icon: Inbox },
+  { href: '/admin/partner-leads', label: 'Partner With Us leads', icon: Inbox },
+  { href: '/admin/careers-leads', label: 'Careers enquiries', icon: Inbox },
+  { href: '/admin/callback-leads', label: 'Chatbot callbacks', icon: Inbox },
+  { href: '/admin/applications', label: 'Legacy applications', icon: ClipboardList },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
 ];
 

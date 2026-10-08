@@ -5,13 +5,16 @@ import { z } from 'zod';
 import { CheckCircle2, Loader2, ShieldCheck } from 'lucide-react';
 import { useSubmitLead } from '@workspace/api-client-react';
 import { BrandSelect } from '@/components/BrandSelect';
+import { PhoneField } from '@/components/PhoneField';
+import { getPhoneError, normalizePhone } from '@/lib/phone';
 import { errMsg, usePublicList } from '@/lib/api';
 import { INTERESTS, QUALIFICATIONS, captureAttribution } from '@/lib/booking';
 
 const schema = z.object({
   name: z.string().trim().min(2, 'Please enter your full name').max(150),
   email: z.string().trim().email('Enter a valid email address').max(250),
-  phone: z.string().trim().min(7, 'Enter a valid phone number').max(25).regex(/^[0-9+()\-\s]+$/, 'Use digits, spaces, + or - only'),
+  phone: z.string().trim().max(25),
+  phoneCountry: z.string(),
   interestedIn: z.string().max(150).optional(),
   university: z.string().max(250).optional(),
   program: z.string().max(250).optional(),
@@ -21,11 +24,17 @@ const schema = z.object({
   consent: z.literal(true, { errorMap: () => ({ message: 'Consent is required so we can contact you' }) }),
 });
 
-const contactSchema = schema.extend({
+const contactBaseSchema = schema.extend({
   subject: z.string().trim().max(150, 'Please keep the subject under 150 characters').optional(),
   selection: z.string().max(50).optional(),
   message: z.string().trim().min(1, 'Please tell us how we can help').max(2800, 'Please keep this under 2800 characters'),
 });
+const checkPhone = (value, ctx) => {
+  const error = getPhoneError(value.phone, value.phoneCountry);
+  if (error) ctx.addIssue({ code: 'custom', path: ['phone'], message: error });
+};
+const leadSchema = schema.superRefine(checkPhone);
+const contactSchema = contactBaseSchema.superRefine(checkPhone);
 
 function Sel({ control, name, id, options, placeholder, disabled }) {
   return <Controller name={name} control={control} render={({ field }) => <BrandSelect id={id} name={field.name} ref={field.ref} value={field.value ?? ''} onChange={field.onChange} onBlur={field.onBlur} options={options} placeholder={placeholder} disabled={disabled} />} />;
@@ -44,9 +53,9 @@ export function LeadForm({ category = 'counselling', program, university, course
     })),
     ...(cq.data || []).filter((c) => c.name).map((c) => ({ value: `course:${c.id}`, type: 'course', name: c.name })),
   ] : [];
-  const { register, handleSubmit, formState: { errors, dirtyFields }, reset, setValue, control } = useForm({
-    resolver: zodResolver(contactFields ? contactSchema : schema),
-    defaultValues: { name: '', email: '', phone: '', interestedIn: interestedIn || '', university: university || '', program: program || '', qualification: '', city: '', subject: '', selection: '', message: defaultMessage, consent: false },
+  const { register, handleSubmit, formState: { errors, dirtyFields }, reset, setValue, control, watch } = useForm({
+    resolver: zodResolver(contactFields ? contactSchema : leadSchema),
+    defaultValues: { name: '', email: '', phone: '', phoneCountry: 'IN', interestedIn: interestedIn || '', university: university || '', program: program || '', qualification: '', city: '', subject: '', selection: '', message: defaultMessage, consent: false },
   });
   useEffect(() => {
     // Async options can replace a temporary selected option in an uncontrolled
@@ -66,7 +75,7 @@ export function LeadForm({ category = 'counselling', program, university, course
     const selected = choices.find((c) => c.value === v.selection);
     const message = contactFields && o(v.subject) ? `Subject: ${o(v.subject)}\n\n${o(v.message)}` : o(v.message);
     submit.mutate(
-      { data: { name: v.name, email: v.email, phone: v.phone, consent: true, category,
+      { data: { name: v.name, email: v.email, phone: normalizePhone(v.phone, v.phoneCountry), phoneCountry: v.phoneCountry, consent: true, category,
         university: other ? undefined : selected ? (selected.type === 'program' ? o(selected.university) : undefined) : o(v.university),
         program: other ? undefined : selected ? (selected.type === 'program' ? selected.name : undefined) : o(v.program),
         course: other ? undefined : selected ? (selected.type === 'course' ? selected.name : undefined) : course,
@@ -99,7 +108,7 @@ export function LeadForm({ category = 'counselling', program, university, course
         <div><label className="label" htmlFor={f('name')}>Full name{(contactFields || wide) && requiredMark}</label><input id={f('name')} className="input" autoComplete="name" required={contactFields || wide} aria-invalid={!!errors.name} {...register('name')} /><Err n="name" /></div>
         <div className={contactFields || wide ? 'contents' : 'grid gap-4 sm:grid-cols-2'}>
           <div><label className="label" htmlFor={f('email')}>Email{(contactFields || wide) && requiredMark}</label><input id={f('email')} type="email" inputMode="email" className="input" autoComplete="email" required={contactFields || wide} aria-invalid={!!errors.email} {...register('email')} /><Err n="email" /></div>
-          <div><label className="label" htmlFor={f('phone')}>{contactFields ? 'Mobile' : 'Phone'}{(contactFields || wide) && requiredMark}</label><input id={f('phone')} type="tel" inputMode="tel" className="input" autoComplete="tel" required={contactFields || wide} aria-invalid={!!errors.phone} {...register('phone')} /><Err n="phone" /></div>
+          <div><label className="label" htmlFor={f('phone')}>{contactFields ? 'Mobile' : 'Phone'}{(contactFields || wide) && requiredMark}</label><Controller name="phone" control={control} render={({ field }) => <PhoneField id={f('phone')} ref={field.ref} value={field.value} onChange={field.onChange} onBlur={field.onBlur} country={watch('phoneCountry')} onCountryChange={(value) => setValue('phoneCountry', value, { shouldDirty: true })} error={errors.phone?.message} disabled={submit.isPending} />} /></div>
         </div>
         {contactFields && !careers && <div><label className="label" htmlFor={f('course')}>Courses</label><Sel control={control} name="selection" id={f('course')} disabled={cq.isLoading} placeholder={cq.isLoading ? 'Loading courses…' : 'Please select a course'} options={[{ value: '', label: cq.isLoading ? 'Loading courses…' : 'Please select a course' }, ...choices.map((c) => ({ value: c.value, label: `${c.name}${c.university ? ` — ${c.university}` : ''}` })), { value: 'other', label: 'Other' }]} />{cq.isError && <p className="field-err">Courses could not be loaded. <button type="button" className="underline" onClick={() => cq.refetch()}>Retry</button> or mention your course in the message.</p>}</div>}
         {contactFields && <div><label className="label" htmlFor={f('subject')}>Subject</label><input id={f('subject')} className="input" maxLength={150} aria-invalid={!!errors.subject} {...register('subject')} /><Err n="subject" /></div>}

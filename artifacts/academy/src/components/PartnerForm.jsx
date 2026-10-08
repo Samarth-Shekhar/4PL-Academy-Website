@@ -5,6 +5,8 @@ import { z } from 'zod';
 import { CheckCircle2, Loader2, ShieldCheck } from 'lucide-react';
 import { useSubmitLead } from '@workspace/api-client-react';
 import { BrandSelect } from '@/components/BrandSelect';
+import { PhoneField } from '@/components/PhoneField';
+import { getPhoneError, normalizePhone } from '@/lib/phone';
 import { errMsg } from '@/lib/api';
 import { captureAttribution } from '@/lib/booking';
 
@@ -22,7 +24,8 @@ const schema = z.object({
   name: z.string().trim().min(2, 'Enter your full name').max(150),
   role: z.string().trim().max(120).optional(),
   email: z.string().trim().email('Enter a valid email address').max(250),
-  phone: z.string().trim().min(7, 'Enter a valid phone number').max(25).regex(/^[0-9+()\-\s]+$/, 'Use digits, spaces, + or - only'),
+  phone: z.string().trim().max(25),
+  phoneCountry: z.string(),
   website: z.string().trim().max(250).refine((v) => {
     if (!v) return true;
     try { return ['http:', 'https:'].includes(new URL(v).protocol); } catch { return false; }
@@ -33,6 +36,8 @@ const schema = z.object({
   message: z.string().trim().min(10, 'Tell us a little more about your collaboration goals').max(1600, 'Please keep your message under 1600 characters'),
   consent: z.literal(true, { errorMap: () => ({ message: 'Please agree so we can respond to your enquiry' }) }),
 }).superRefine((v, ctx) => {
+  const phoneError = getPhoneError(v.phone, v.phoneCountry);
+  if (phoneError) ctx.addIssue({ code: 'custom', path: ['phone'], message: phoneError });
   if (v.focus === 'other' && (v.otherFocus || '').length < 3) ctx.addIssue({ code: 'custom', path: ['otherFocus'], message: 'Describe the collaboration area' });
 });
 
@@ -56,9 +61,9 @@ export function PartnerForm() {
   const [done, setDone] = useState(false);
   const [doneMessage, setDoneMessage] = useState('');
   const submit = useSubmitLead();
-  const { register, control, handleSubmit, reset, watch, setError, formState: { errors } } = useForm({
+  const { register, control, handleSubmit, reset, watch, setError, setValue, formState: { errors } } = useForm({
     resolver: zodResolver(schema),
-    defaultValues: { organisation: '', organisationType: '', name: '', role: '', email: '', phone: '', website: '', city: '', focus: '', otherFocus: '', message: '', consent: false },
+    defaultValues: { organisation: '', organisationType: '', name: '', role: '', email: '', phone: '', phoneCountry: 'IN', website: '', city: '', focus: '', otherFocus: '', message: '', consent: false },
   });
   const other = watch('focus') === 'other';
   const onSubmit = (v) => {
@@ -74,7 +79,7 @@ export function PartnerForm() {
       '', 'Collaboration goals:', v.message,
     ].filter((line) => line !== false && line !== undefined).join('\n');
     if (message.length > 3000) { setError('message', { message: 'Please shorten your message so all your organisation details can be included.' }); return; }
-    submit.mutate({ data: { name: v.name, email: v.email, phone: v.phone, category: 'partnership', consent: true, interestedIn: focus, city: v.city || undefined, message, source: window.location.pathname, utm: captureAttribution() } },
+    submit.mutate({ data: { name: v.name, email: v.email, phone: normalizePhone(v.phone, v.phoneCountry), phoneCountry: v.phoneCountry, category: 'partnership', consent: true, interestedIn: focus, city: v.city || undefined, message, source: window.location.pathname, utm: captureAttribution() } },
       { onSuccess: (r) => { setDoneMessage(r?.message || 'Thank you. Your partnership enquiry has been saved.'); setDone(true); reset(); } });
   };
   if (done) return <div className="rounded-2xl bg-gold-soft p-6 text-center" role="status" data-testid="partner-success">
@@ -91,7 +96,7 @@ export function PartnerForm() {
       <InputField name="name" label="Contact name" register={register} error={errors.name} autoComplete="name" maxLength={150} />
       <InputField name="role" label="Your role / designation" register={register} error={errors.role} optional autoComplete="organization-title" maxLength={120} />
       <InputField name="email" label="Work email" register={register} error={errors.email} type="email" autoComplete="email" maxLength={250} />
-      <InputField name="phone" label="Phone" register={register} error={errors.phone} type="tel" autoComplete="tel" maxLength={25} />
+      <div><label className="label" htmlFor="partner-phone">Phone<span className="text-gold-deep"> *</span></label><Controller name="phone" control={control} render={({ field }) => <PhoneField id="partner-phone" ref={field.ref} value={field.value} onChange={field.onChange} onBlur={field.onBlur} country={watch('phoneCountry')} onCountryChange={(value) => setValue('phoneCountry', value, { shouldDirty: true })} error={errors.phone?.message} disabled={submit.isPending} />} /></div>
       <InputField name="website" label="Institution website" register={register} error={errors.website} optional type="url" maxLength={250} wide />
       <div className="sm:col-span-2"><SelectField name="focus" label="Collaboration area" control={control} error={errors.focus} options={FOCUS} /></div>
       {other && <InputField name="otherFocus" label="Tell us the collaboration area" register={register} error={errors.otherFocus} maxLength={150} wide />}

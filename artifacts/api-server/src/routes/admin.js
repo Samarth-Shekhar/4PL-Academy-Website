@@ -5,6 +5,8 @@ import { eq, and, desc } from 'drizzle-orm';
 import { AdminLoginBody, ChangeAdminPasswordBody, CreateContentBody, UpdateContentBody, UpdateLeadBody, GetAdminDashboardResponse, ListAdminLeadsResponse } from '@workspace/api-zod';
 import { currentAdmin, requireAdmin, createSession, removeSession, verifyPassword, hashPassword, initializeAdmin } from '../lib/auth.js';
 import { getCatalog, checkKind, publicContent, contentValues } from '../lib/content.js';
+import { validateLeadPhone } from '../lib/lead-phone.js';
+import { resolveLeadContentId } from '../lib/lead-content.js';
 
 const router = Router();
 const loginLimit = rateLimit({ windowMs: 15 * 60 * 1000, limit: 10, skipSuccessfulRequests: true, standardHeaders: 'draft-7', legacyHeaders: false, message: { error: 'Too many sign-in attempts. Please try again in 15 minutes.' } });
@@ -106,8 +108,30 @@ router.patch('/leads/:id', async (req,res) => {
   const id = Number(req.params.id);
   if (!Number.isSafeInteger(id) || id<=0) { res.status(400).json({error:'Invalid enquiry.'});return; }
   const input = UpdateLeadBody.parse(req.body);
+  const [existing] = await db.select().from(leadsTable).where(eq(leadsTable.id,id)).limit(1);
+  if (!existing) { res.status(404).json({ error: 'Lead not found.' }); return; }
+  if (input.phone !== undefined || input.phoneCountry !== undefined) {
+    const phone = validateLeadPhone(input.phone ?? existing.phone, input.phoneCountry ?? existing.phoneCountry);
+    if (phone.error) { res.status(400).json({ error: phone.error }); return; }
+    Object.assign(input, phone);
+  }
+  if (input.name !== undefined) {
+    input.name = input.name.trim();
+    if (input.name.length < 2) { res.status(400).json({ error: 'Enter the lead’s full name.' }); return; }
+  }
+  if (input.email !== undefined) input.email = input.email.trim().toLowerCase();
+  if (['program','course','university'].some((field) => input[field] !== undefined)) {
+    input.contentId = await resolveLeadContentId({ ...existing, ...input });
+  }
   const [row] = await db.update(leadsTable).set({...input,updatedAt:new Date()}).where(eq(leadsTable.id,id)).returning();
   if (!row) { res.status(404).json({error:'Enquiry not found.'});return; }
   res.json({...row,createdAt:row.createdAt.toISOString()});
+});
+router.delete('/leads/:id', async (req,res) => {
+  const id=Number(req.params.id);
+  if(!Number.isSafeInteger(id)||id<=0){res.status(400).json({error:'Invalid lead identifier.'});return;}
+  const [row]=await db.delete(leadsTable).where(eq(leadsTable.id,id)).returning({id:leadsTable.id});
+  if(!row){res.status(404).json({error:'Lead not found.'});return;}
+  res.json({success:true,message:'Lead permanently deleted. Previously sent email copies are unchanged.'});
 });
 export default router;

@@ -255,6 +255,16 @@ paths:
           content:
             application/json:
               schema: { $ref: "#/components/schemas/Lead" }
+    delete:
+      operationId: deleteLead
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        "200":
+          description: Lead permanently deleted
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Success" }
 components:
   schemas:
     HealthStatus:
@@ -409,13 +419,14 @@ components:
         categories: { type: array, items: { type: string } }
     LeadInput:
       type: object
-      required: [name, email, phone, consent]
+      required: [name, email, phone, phoneCountry, consent]
       properties:
         name: { type: string, minLength: 2, maxLength: 150 }
         email: { type: string, format: email, maxLength: 250 }
         phone: { type: string, minLength: 7, maxLength: 25 }
+        phoneCountry: { type: string, maxLength: 2, description: Selected ISO country code; empty only on legacy records }
         consent: { type: boolean }
-        category: { type: string, enum: [contact, counselling, application, partnership, chatbot] }
+        category: { type: string, enum: [contact, counselling, application, partnership, chatbot, careers] }
         university: { type: string }
         program: { type: string }
         course: { type: string }
@@ -438,6 +449,20 @@ components:
     LeadUpdate:
       type: object
       properties:
+        name: { type: string, minLength: 2, maxLength: 150 }
+        email: { type: string, format: email, maxLength: 250 }
+        phone: { type: string, minLength: 7, maxLength: 25 }
+        phoneCountry: { type: string, maxLength: 2 }
+        category: { type: string, enum: [contact, counselling, application, partnership, chatbot, careers] }
+        university: { type: string, maxLength: 250 }
+        program: { type: string, maxLength: 250 }
+        course: { type: string, maxLength: 250 }
+        interestedIn: { type: string, maxLength: 150 }
+        qualification: { type: string, maxLength: 250 }
+        city: { type: string, maxLength: 150 }
+        message: { type: string, maxLength: 3000 }
+        source: { type: string, maxLength: 1000 }
+        utm: { type: string, maxLength: 2000 }
         status: { type: string, enum: [New, Contacted, Interested, Application Started, Applied, Admission Confirmed, Closed] }
         notes: { type: string, maxLength: 5000 }
     ChatInput:
