@@ -11,6 +11,12 @@ Keep only the university directory view; do not reintroduce a separate verified-
 
 Listing cards should share a consistent image ratio and show only basic information supplied by the owner or source records.
 
+Only VGU (Vivekananda Global University), IBMR Group of Institutions and Sushant University may appear as institution listings anywhere on the public website. Other institutions' logos, listings, linked programs and form choices must stay unpublished.
+
+**Why:** The owner explicitly requested removal of every other university's logos and data throughout the website.
+
+**How to apply:** Keep this restriction consistent across public listings, direct detail URLs, homepage previews, form choices, chatbot answers and SEO. Do not add more institutions without the owner's request. Preserve historical enquiry records and archived CMS content.
+
 **Why:** The user requested matching templates and basic supplied information instead of lengthy cards and repetitive missing-information placeholders.
 
 **How to apply:** Omit unavailable facts from cards, retain complete supplied information on detail pages, and align card actions.

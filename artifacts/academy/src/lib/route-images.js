@@ -7,7 +7,7 @@ const IMG = {
   pg: 'images/learning-refresh/experience.webp',
   short: 'images/learning-refresh/build.webp',
   long: 'images/learning-refresh/credentials.webp',
-  universities: 'images/university-campus/noida-international.webp',
+  universities: 'images/university-campus/vgu.webp',
   blogs: 'images/learning-refresh/student-perspectives.webp',
   contact: 'images/learning-refresh/counselling.webp',
   life: 'images/page-refresh/students-campus.webp',

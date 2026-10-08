@@ -4,7 +4,7 @@ import { and, eq } from 'drizzle-orm';
 import { ListContentQueryParams, GetContentResponse, ListContentResponse, SubmitLeadBody, AskAcadBotBody, GetDiscoveryResponse } from '@workspace/api-zod';
 import { validateLeadPhone } from '../lib/lead-phone.js';
 import { resolveLeadContentId } from '../lib/lead-content.js';
-import { getCatalog, checkKind, publicContent } from '../lib/content.js';
+import { getCatalog, checkKind, publicContent, publicUniversityScope } from '../lib/content.js';
 import { answerQuestion } from '../lib/chat.js';
 import { sendLeadNotification } from '../lib/lead-email.js';
 import { logger } from '../lib/log.js';
@@ -21,7 +21,7 @@ router.get('/catalog/:kind', async (req, res) => {
 });
 router.get('/catalog/:kind/:slug', async (req, res) => {
   checkKind(req.params.kind);
-  const [row] = await db.select().from(contentTable).where(and(eq(contentTable.kind, req.params.kind), eq(contentTable.slug, req.params.slug), eq(contentTable.status, 'published'))).limit(1);
+  const [row] = await db.select().from(contentTable).where(and(eq(contentTable.kind, req.params.kind), eq(contentTable.slug, req.params.slug), eq(contentTable.status, 'published'), publicUniversityScope())).limit(1);
   if (!row) { res.status(404).json({ error: 'This page is not available.' }); return; }
   const item = publicContent(row);
   if (row.universityId) {

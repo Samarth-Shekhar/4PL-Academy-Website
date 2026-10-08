@@ -1,5 +1,21 @@
 import { db, contentTable } from '@workspace/db';
-import { eq, and, asc, desc, ilike, or, inArray, sql } from 'drizzle-orm';
+import { eq, ne, isNull, and, asc, desc, ilike, or, inArray, sql } from 'drizzle-orm';
+
+export const publicUniversitySlugs = ['vivekananda-global-university', 'ibmr-group-of-institutions', 'sushant-university'];
+
+// Apply the owner's institution scope consistently to every public read.
+// Archived content and historical leads remain accessible to staff.
+export function publicUniversityScope() {
+  const institutions = db.select({ id: contentTable.id }).from(contentTable).where(and(
+    eq(contentTable.kind, 'universities'),
+    eq(contentTable.status, 'published'),
+    inArray(contentTable.slug, publicUniversitySlugs),
+  ));
+  return and(
+    or(ne(contentTable.kind, 'universities'), inArray(contentTable.slug, publicUniversitySlugs)),
+    or(isNull(contentTable.universityId), inArray(contentTable.universityId, institutions)),
+  );
+}
 
 export const kinds = ['universities', 'programs', 'courses', 'blogs', 'faqs', 'pages', 'media', 'seo', 'settings', 'homepage', 'industry_companies', 'certifications', 'testimonials'];
 export function checkKind(kind) {
@@ -57,7 +73,7 @@ export function contentValues(input, kind) {
 export async function getCatalog(kind, filters = {}, admin = false) {
   checkKind(kind);
   const conditions = [eq(contentTable.kind, kind)];
-  if (!admin) conditions.push(eq(contentTable.status, 'published'));
+  if (!admin) conditions.push(eq(contentTable.status, 'published'), publicUniversityScope());
   if (filters.search) {
     const pattern = `%${filters.search}%`;
     conditions.push(or(
