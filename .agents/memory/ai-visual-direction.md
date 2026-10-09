@@ -48,3 +48,9 @@ Contact Us is a plain header link, not a gold bubble. Keep hover animation on th
 **Why:** The owner explicitly removed the Contact Us bubble and requested clean, minimal hover motion on the whole hero text.
 
 **How to apply:** Preserve navy-and-gold text colours, legibility and layout; avoid glowing or decorative text effects and disable added motion for reduced-motion preferences.
+
+Keep the home career-pathway showcase aligned with the actual courses offered, excluding Digital Marketing from this section.
+
+**Why:** The owner asked to change these options according to the courses, not Digital Marketing.
+
+**How to apply:** Preserve CMS editability and update course names, descriptions, matching images and program links together when offerings change.
