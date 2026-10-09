@@ -6,6 +6,7 @@ import { usePublicItem, usePublicList } from '@/lib/api';
 import { useSeo, seoFrom } from '@/lib/seo';
 import { has, lines, fmtDate, asset, uniq } from '@/lib/format';
 import { PageHero, Skeleton, ErrorState, EmptyState, CardSkeletons } from '@/components/ui-kit';
+import CounsellingPage from './CounsellingPage';
 import { RichText, ListBlock } from '@/components/RichText';
 import { useStudentLifePhotos, mediaUrl } from '@/lib/home';
 import { AboutSections } from '@/components/AboutSections';
@@ -194,6 +195,7 @@ export function FormPage({ kind }) {
   useSeo({ title: c.title, description: c.body });
   const page = usePublicItem('pages', kind === 'contact' ? 'contact' : '__none__', { enabled: kind === 'contact' }).data;
   if (kind === 'contact') return <ContactPage c={c} ctx={ctx} careers={careers} st={st} page={page} />;
+  if (kind === 'book' || kind === 'counselling') return <CounsellingPage c={c} ctx={ctx} />;
   return (
     <>
       <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: c.eyebrow }]} eyebrow={c.eyebrow} title={c.title} body={c.body} />

@@ -30,3 +30,9 @@ Favor real photographs of humans learning robotics or working with technology in
 **Why:** The owner asked for human-and-AI EdTech imagery and supplied the parent consultancy's separate logo for that specific section.
 
 **How to apply:** Preserve institutional campus identity, original blog artwork and the actual logistics offerings. Record stock-photo sources internally without claiming the people or facilities belong to the academy.
+
+Do not add a second rounded navigation strip to the footer. Animate the large Academy wordmark using the supplied React Bits TechText treatment while retaining readable reduced-motion output and the existing footer detail columns.
+
+**Why:** The owner explicitly removed the extra footer navigation bubble and provided TechText code for the wordmark animation.
+
+**How to apply:** Keep motion confined to the wordmark, preserve normal scrolling and keep all contact, social and legal details accessible.

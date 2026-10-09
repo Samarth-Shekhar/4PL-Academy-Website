@@ -9,6 +9,8 @@ import { PhoneField } from '@/components/PhoneField';
 import { getPhoneError, normalizePhone } from '@/lib/phone';
 import { errMsg, usePublicList } from '@/lib/api';
 import { INTERESTS, QUALIFICATIONS, captureAttribution } from '@/lib/booking';
+import { BOOKING_TIME_ZONE, bookingNow } from '@/lib/booking-schedule';
+import { CounsellingSchedule } from '@/components/CounsellingSchedule';
 
 const schema = z.object({
   name: z.string().trim().min(2, 'Please enter your full name').max(150),
@@ -35,13 +37,24 @@ const checkPhone = (value, ctx) => {
 };
 const leadSchema = schema.superRefine(checkPhone);
 const contactSchema = contactBaseSchema.superRefine(checkPhone);
+const bookingSchema = schema.extend({
+  preferredDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Choose your preferred date'),
+  preferredTime: z.string().regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/, 'Choose your preferred time'),
+  timeZone: z.literal(BOOKING_TIME_ZONE),
+}).superRefine((value, ctx) => {
+  checkPhone(value, ctx);
+  const now = bookingNow();
+  if (value.preferredDate && value.preferredDate < now.date) ctx.addIssue({ code: 'custom', path: ['preferredDate'], message: 'Choose today or a future date' });
+  if (value.preferredDate === now.date && value.preferredTime && value.preferredTime <= now.time) ctx.addIssue({ code: 'custom', path: ['preferredTime'], message: 'Choose a time in the future' });
+});
 
 function Sel({ control, name, id, options, placeholder, disabled }) {
   return <Controller name={name} control={control} render={({ field }) => <BrandSelect id={id} name={field.name} ref={field.ref} value={field.value ?? ''} onChange={field.onChange} onBlur={field.onBlur} options={options} placeholder={placeholder} disabled={disabled} />} />;
 }
 
-export function LeadForm({ category = 'counselling', program, university, course, interestedIn, defaultMessage = '', submitLabel = 'Book Counselling', showMessage = true, careers = false, compact = false, wide = false, contactFields = false, onDone, idPrefix = 'lead' }) {
+export function LeadForm({ category = 'counselling', program, university, course, interestedIn, defaultMessage = '', submitLabel = 'Book Counselling', showMessage = true, careers = false, compact = false, wide = false, contactFields = false, scheduling = false, onDone, idPrefix = 'lead' }) {
   const [done, setDone] = useState(null);
+  const [bookedSlot, setBookedSlot] = useState(null);
   const submit = useSubmitLead();
   const unis = usePublicList('universities', undefined, { staleTime: 120000 }).data || [];
   const progs = usePublicList('programs', undefined, { staleTime: 120000 }).data || [];
@@ -54,8 +67,8 @@ export function LeadForm({ category = 'counselling', program, university, course
     ...(cq.data || []).filter((c) => c.name).map((c) => ({ value: `course:${c.id}`, type: 'course', name: c.name })),
   ] : [];
   const { register, handleSubmit, formState: { errors, dirtyFields }, reset, setValue, control, watch } = useForm({
-    resolver: zodResolver(contactFields ? contactSchema : leadSchema),
-    defaultValues: { name: '', email: '', phone: '', phoneCountry: 'IN', interestedIn: interestedIn || '', university: university || '', program: program || '', qualification: '', city: '', subject: '', selection: '', message: defaultMessage, consent: false },
+    resolver: zodResolver(scheduling ? bookingSchema : contactFields ? contactSchema : leadSchema),
+    defaultValues: { name: '', email: '', phone: '', phoneCountry: 'IN', interestedIn: interestedIn || '', university: university || '', program: program || '', qualification: '', city: '', subject: '', selection: '', message: defaultMessage, consent: false, preferredDate: '', preferredTime: '', timeZone: BOOKING_TIME_ZONE },
   });
   useEffect(() => {
     // Async options can replace a temporary selected option in an uncontrolled
@@ -79,13 +92,15 @@ export function LeadForm({ category = 'counselling', program, university, course
         university: other ? undefined : selected ? (selected.type === 'program' ? o(selected.university) : undefined) : o(v.university),
         program: other ? undefined : selected ? (selected.type === 'program' ? selected.name : undefined) : o(v.program),
         course: other ? undefined : selected ? (selected.type === 'course' ? selected.name : undefined) : course,
-        interestedIn: other ? 'Other' : o(v.interestedIn), qualification: o(v.qualification), city: o(v.city), message, source: window.location.pathname, utm: captureAttribution() } },
-      { onSuccess: (r) => { setDone(r?.message || 'Thank you. Our admissions team will reach out to you.'); reset(); onDone?.(); } },
+        interestedIn: other ? 'Other' : o(v.interestedIn), qualification: o(v.qualification), city: o(v.city), message, source: window.location.pathname, utm: captureAttribution(),
+        ...(scheduling ? { preferredDate: v.preferredDate, preferredTime: v.preferredTime, timeZone: v.timeZone } : {}) } },
+      { onSuccess: (r) => { setDone(r?.message || 'Thank you. Our admissions team will reach out to you.'); if (scheduling) setBookedSlot({ date: v.preferredDate, time: v.preferredTime }); reset(); onDone?.(); } },
     );
   };
   if (done) {
     return (
       <div className="rounded-lg bg-gold-soft p-6 text-center" role="status">
+        {bookedSlot && <p className="mb-4 font-semibold text-navy">Preferred counselling: {bookedSlot.date} at {bookedSlot.time} IST. Our team will confirm availability.</p>}
         <CheckCircle2 className="mx-auto mb-3 h-10 w-10 text-gold-deep" aria-hidden="true" />
         <h3 className="text-xl text-navy">Request received</h3>
         <p className="mt-2 text-sm text-navy/80">{done}</p>
@@ -102,11 +117,11 @@ export function LeadForm({ category = 'counselling', program, university, course
   const requiredMark = <span className="text-gold-deep" aria-hidden="true"> *</span>;
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="form-flow space-y-6" data-testid={`form-${idPrefix}`}>
-      {wide && <p className="text-sm text-foreground/70"><span className="text-gold-deep" aria-hidden="true">*</span> Required: full name, email, phone and consent.</p>}
+      {(wide || scheduling) && <p className="text-sm text-foreground/70"><span className="text-gold-deep" aria-hidden="true">*</span> Required: full name, email, phone{scheduling ? ', preferred date and time' : ''}, and consent.</p>}
       {course && <p className="rounded-md bg-mist px-3 py-2 text-sm text-navy">Regarding course: <strong>{course}</strong></p>}
-      <div className={wide ? 'grid gap-4 md:grid-cols-3' : contactFields ? 'grid gap-x-6 gap-y-5 sm:grid-cols-2' : 'space-y-5'}>
+      <div className={wide ? 'grid gap-4 md:grid-cols-3' : contactFields || scheduling ? 'grid gap-x-6 gap-y-5 sm:grid-cols-2' : 'space-y-5'}>
         <div><label className="label" htmlFor={f('name')}>Full name{(contactFields || wide) && requiredMark}</label><input id={f('name')} className="input" autoComplete="name" required={contactFields || wide} aria-invalid={!!errors.name} {...register('name')} /><Err n="name" /></div>
-        <div className={contactFields || wide ? 'contents' : 'grid gap-4 sm:grid-cols-2'}>
+        <div className={contactFields || wide || scheduling ? 'contents' : 'grid gap-4 sm:grid-cols-2'}>
           <div><label className="label" htmlFor={f('email')}>Email{(contactFields || wide) && requiredMark}</label><input id={f('email')} type="email" inputMode="email" className="input" autoComplete="email" required={contactFields || wide} aria-invalid={!!errors.email} {...register('email')} /><Err n="email" /></div>
           <div><label className="label" htmlFor={f('phone')}>{contactFields ? 'Mobile' : 'Phone'}{(contactFields || wide) && requiredMark}</label><Controller name="phone" control={control} render={({ field }) => <PhoneField id={f('phone')} ref={field.ref} value={field.value} onChange={field.onChange} onBlur={field.onBlur} country={watch('phoneCountry')} onCountryChange={(value) => setValue('phoneCountry', value, { shouldDirty: true })} error={errors.phone?.message} disabled={submit.isPending} />} /></div>
         </div>
@@ -121,6 +136,12 @@ export function LeadForm({ category = 'counselling', program, university, course
         <div><label className="label" htmlFor={f('prog')}>Preferred program</label><Sel control={control} name="program" id={f('prog')} placeholder="No preference" options={[{ value: '', label: 'No preference' }, ...withCurrent(progs, program).map((p) => p.name)]} /></div>
       </div>}
       {!careers && !compact && <div><label className="label" htmlFor={f('city')}>City</label><input id={f('city')} className="input" autoComplete="address-level2" {...register('city')} /></div>}
+      {scheduling && <>
+        <input type="hidden" {...register('preferredDate')} />
+        <input type="hidden" {...register('preferredTime')} />
+        <input type="hidden" {...register('timeZone')} />
+        <CounsellingSchedule date={watch('preferredDate')} time={watch('preferredTime')} timeZone={BOOKING_TIME_ZONE} idPrefix={idPrefix} dateError={errors.preferredDate?.message} timeError={errors.preferredTime?.message} onDateChange={date => setValue('preferredDate', date, { shouldDirty: true, shouldValidate: true })} onTimeChange={time => setValue('preferredTime', time, { shouldDirty: true, shouldValidate: true })} />
+      </>}
       {showMessage && !contactFields && (
         <div><label className="label" htmlFor={f('message')}>Message <span className="font-normal text-muted-foreground">(optional)</span></label><textarea id={f('message')} className="input" {...register('message')} /><Err n="message" /></div>
       )}

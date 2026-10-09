@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useHealthCheck } from '@workspace/api-client-react';
 import { Menu, ChevronDown, ArrowUp, ArrowRight, Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
+import TechText from './TechText';
 import { Modal } from './Modal';
 import { AcadBot } from './AcadBot';
 import { ScrollTransitions } from './ScrollTransitions';
@@ -154,12 +155,9 @@ function Footer() {
       <div className="footer-scene relative h-64 overflow-hidden sm:h-80">
         <img alt="" src={asset('images/ai-human-learning/lab-collaboration-1280.webp')} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
         <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-navy/20" />
-        <p aria-hidden="true" className="footer-giant container-x absolute inset-x-0 bottom-4 font-display font-extrabold leading-none text-white">4PL Academy</p>
+        <div className="container-x absolute inset-x-0 bottom-3 h-24 text-white sm:h-36 lg:h-44"><TechText text="4PL ACADEMY" fontFamily="Bricolage Grotesque, Figtree, sans-serif" fontWeight={800} fontSize={190} letterSpacing={-0.04} color="#ffffff" accentColor="#e5ac2e" reveal="letter" specks={0} labels={false} selection draggable sweep reach={160} strokeWidth={1.5} /></div>
       </div>
       <div className="container-x py-10">
-        <nav aria-label="Footer primary" className="mb-8 flex flex-wrap justify-center gap-1 rounded-3xl border border-white/20 bg-white/5 p-2 sm:rounded-full">
-          {NAV.map(n => <Link key={n.href} href={n.href} className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm text-surface transition-colors hover:bg-gold hover:text-navy focus-visible:bg-gold focus-visible:text-navy">{n.label}<ArrowRight className="h-3.5 w-3.5" aria-hidden="true" /></Link>)}
-        </nav>
         <div className="mb-9 flex flex-col justify-between gap-5 border-b border-white/20 pb-8 sm:flex-row sm:items-end">
           <div><p className="mb-2 text-xs font-bold uppercase tracking-[.16em] text-gold">AI · Digital transformation · Logistics</p><p className="font-display text-3xl font-extrabold leading-tight text-white sm:text-4xl">Your next chapter starts here.</p></div>
           <Link href="/programs" className="btn btn-gold self-start">Discover programs <ArrowRight className="h-4 w-4" /></Link>

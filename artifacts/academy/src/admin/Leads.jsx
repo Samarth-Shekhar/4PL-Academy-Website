@@ -21,8 +21,9 @@ export const FORMS = {
 const CATS = Object.keys(FORMS);
 const TEXT_FIELDS = ['university', 'program', 'course', 'interestedIn', 'qualification', 'city', 'source', 'utm'];
 const LABELS = { university: 'University', program: 'Program', course: 'Course', interestedIn: 'Interested in', qualification: 'Highest qualification', city: 'City', source: 'Source', utm: 'Tracking (UTM)' };
-const CSV_COLS = ['id', 'createdAt', 'category', 'status', 'name', 'email', 'phone', 'phoneCountry', 'consent', 'university', 'program', 'course', 'interestedIn', 'qualification', 'city', 'source', 'utm', 'message', 'notes'];
-const EDITABLE = ['name', 'email', 'category', 'status', 'notes', 'message', ...TEXT_FIELDS];
+const SCHEDULE_FIELDS = ['preferredDate', 'preferredTime', 'timeZone'];
+const CSV_COLS = ['id', 'createdAt', 'category', 'status', 'name', 'email', 'phone', 'phoneCountry', 'consent', 'university', 'program', 'course', 'interestedIn', 'qualification', 'city', ...SCHEDULE_FIELDS, 'source', 'utm', 'message', 'notes'];
+const EDITABLE = ['name', 'email', 'category', 'status', 'notes', 'message', ...TEXT_FIELDS, ...SCHEDULE_FIELDS];
 
 const toForm = (l) => {
   const f = {};
@@ -90,6 +91,12 @@ function Editor({ lead, onClose }) {
         <div><label className="label" htmlFor="ld-cat">Form</label><select id="ld-cat" className="input" value={f.category} onChange={(e) => set('category', e.target.value)}>{CATS.map((x) => <option key={x} value={x}>{FORMS[x]}</option>)}</select></div>
         <div><label className="label" htmlFor="ld-status">Status</label><select id="ld-status" className="input" value={f.status} onChange={(e) => set('status', e.target.value)} data-testid="select-lead-status">{STATUSES.map((x) => <option key={x}>{x}</option>)}</select></div>
         {TEXT_FIELDS.map((k) => <div key={k}><label className="label" htmlFor={`ld-${k}`}>{LABELS[k]}</label><input id={`ld-${k}`} className="input" value={f[k]} onChange={(e) => set(k, e.target.value)} /></div>)}
+        {(f.category === 'counselling' || lead.preferredDate) && <fieldset className="grid gap-3 rounded-xl border border-gold/40 bg-gold-soft/40 p-4 sm:col-span-2 sm:grid-cols-2">
+          <legend className="px-2 font-bold text-navy">Preferred counselling appointment</legend>
+          <div><label className="label" htmlFor="ld-preferredDate">Date</label><input type="date" id="ld-preferredDate" className="input" value={f.preferredDate} onChange={e => set('preferredDate', e.target.value)} /></div>
+          <div><label className="label" htmlFor="ld-preferredTime">Time</label><input type="time" id="ld-preferredTime" className="input" value={f.preferredTime} onChange={e => { set('preferredTime', e.target.value); if (e.target.value && !f.timeZone) set('timeZone', 'Asia/Kolkata'); }} /></div>
+          <div className="sm:col-span-2"><label className="label" htmlFor="ld-timeZone">Time zone</label><input id="ld-timeZone" className="input" placeholder="Asia/Kolkata" value={f.timeZone} onChange={e => set('timeZone', e.target.value)} /></div>
+        </fieldset>}
       </div>
       <div><label className="label" htmlFor="ld-message">Message / additional details</label><textarea id="ld-message" rows={6} className="input" value={f.message} onChange={(e) => set('message', e.target.value)} /></div>
       <div><label className="label" htmlFor="ld-notes">Internal notes</label><textarea id="ld-notes" className="input" maxLength={5000} value={f.notes} onChange={(e) => set('notes', e.target.value)} data-testid="input-lead-notes" /></div>
@@ -139,7 +146,7 @@ export default function Leads({ onlyCategory }) {
                   <td className="p-3 font-semibold text-navy">{l.name}</td>
                   <td className="p-3"><span className="block break-all">{l.email}</span><span className="block text-xs text-muted-foreground">{l.phone}</span></td>
                   {showForm && <td className="p-3"><span className="chip">{FORMS[l.category] || l.category}</span></td>}
-                  <td className="max-w-xs p-3 text-foreground/75"><span className="line-clamp-2 break-words">{[l.interestedIn, l.program, l.course, l.university, l.city].filter(has).join(' / ') || l.message || l.source || 'General enquiry'}</span></td>
+                  <td className="max-w-xs p-3 text-foreground/75"><span className="line-clamp-2 break-words">{[l.interestedIn, l.program, l.course, l.university, l.city].filter(has).join(' / ') || l.message || l.source || 'General enquiry'}</span>{l.preferredDate && <span className="mt-2 block text-xs font-semibold text-gold-deep" data-testid={`lead-appointment-${l.id}`}>{l.preferredDate} · {l.preferredTime} · {l.timeZone}</span>}</td>
                   <td className="p-3"><span className="chip chip-gold whitespace-nowrap">{l.status}</span></td>
                   <td className="whitespace-nowrap p-3 text-xs text-muted-foreground">{fmtDate(l.createdAt)}</td>
                   <td className="p-3 text-right"><button type="button" className="btn btn-outline btn-sm" onClick={() => setSel(l)}>View / edit</button></td>

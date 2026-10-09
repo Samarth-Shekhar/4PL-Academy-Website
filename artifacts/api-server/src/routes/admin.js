@@ -6,6 +6,7 @@ import { AdminLoginBody, ChangeAdminPasswordBody, CreateContentBody, UpdateConte
 import { currentAdmin, requireAdmin, createSession, removeSession, verifyPassword, hashPassword, initializeAdmin } from '../lib/auth.js';
 import { getCatalog, checkKind, publicContent, contentValues } from '../lib/content.js';
 import { validateLeadPhone } from '../lib/lead-phone.js';
+import { validateLeadSchedule } from '../lib/lead-schedule.js';
 import { resolveLeadContentId } from '../lib/lead-content.js';
 
 const router = Router();
@@ -110,6 +111,11 @@ router.patch('/leads/:id', async (req,res) => {
   const input = UpdateLeadBody.parse(req.body);
   const [existing] = await db.select().from(leadsTable).where(eq(leadsTable.id,id)).limit(1);
   if (!existing) { res.status(404).json({ error: 'Lead not found.' }); return; }
+  if (['preferredDate','preferredTime','timeZone'].some(field => input[field] !== undefined)) {
+    const schedule = validateLeadSchedule({ ...existing, ...input }, { allowPast: true });
+    if (schedule.error) { res.status(400).json({ error: schedule.error }); return; }
+    Object.assign(input, schedule.fields);
+  }
   if (input.phone !== undefined || input.phoneCountry !== undefined) {
     const phone = validateLeadPhone(input.phone ?? existing.phone, input.phoneCountry ?? existing.phoneCountry);
     if (phone.error) { res.status(400).json({ error: phone.error }); return; }

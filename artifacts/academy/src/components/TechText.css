@@ -1,0 +1,12 @@
+.tech-text { position: relative; width: 100%; height: 100%; touch-action: pan-y; user-select: none; }
+.tech-text-canvas { display: block; width: 100%; height: 100%; }
+.tech-text-canvas { position: absolute; inset: 0; }
+.tech-text-fallback { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; color: inherit; font-weight: 800; font-size: clamp(2rem, 11vw, 9rem); line-height: 1; letter-spacing: -.04em; white-space: nowrap; text-transform: uppercase; }
+.tech-text.is-ready .tech-text-fallback { opacity: 0; }
+.tech-text-canvas { transition: filter .3s ease; }
+.tech-text-fallback { transition: color .3s ease; }
+.tech-text:hover .tech-text-canvas { filter: sepia(1) saturate(2.8) drop-shadow(0 0 10px rgba(229, 172, 46, .35)); }
+.tech-text:hover .tech-text-fallback { color: #e5ac2e; }
+@media (prefers-reduced-motion: reduce) {
+  .tech-text-canvas, .tech-text-fallback { transition: none; }
+}

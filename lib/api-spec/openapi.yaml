@@ -433,6 +433,9 @@ components:
         interestedIn: { type: string, maxLength: 150 }
         qualification: { type: string, maxLength: 250 }
         city: { type: string, maxLength: 150 }
+        preferredDate: { type: string, maxLength: 10, description: Preferred counselling date in YYYY-MM-DD; empty on unscheduled enquiries }
+        preferredTime: { type: string, maxLength: 5, description: Preferred counselling time in HH:mm; empty on unscheduled enquiries }
+        timeZone: { type: string, maxLength: 100, description: IANA time zone for the preferred date and time }
         source: { type: string }
         utm: { type: string }
         message: { type: string, maxLength: 3000 }
@@ -460,6 +463,9 @@ components:
         interestedIn: { type: string, maxLength: 150 }
         qualification: { type: string, maxLength: 250 }
         city: { type: string, maxLength: 150 }
+        preferredDate: { type: string, maxLength: 10 }
+        preferredTime: { type: string, maxLength: 5 }
+        timeZone: { type: string, maxLength: 100 }
         message: { type: string, maxLength: 3000 }
         source: { type: string, maxLength: 1000 }
         utm: { type: string, maxLength: 2000 }

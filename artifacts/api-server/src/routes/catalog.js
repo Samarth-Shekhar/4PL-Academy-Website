@@ -3,6 +3,7 @@ import { db, contentTable, leadsTable } from '@workspace/db';
 import { and, eq } from 'drizzle-orm';
 import { ListContentQueryParams, GetContentResponse, ListContentResponse, SubmitLeadBody, AskAcadBotBody, GetDiscoveryResponse } from '@workspace/api-zod';
 import { validateLeadPhone } from '../lib/lead-phone.js';
+import { validateLeadSchedule } from '../lib/lead-schedule.js';
 import { resolveLeadContentId } from '../lib/lead-content.js';
 import { getCatalog, checkKind, publicContent, publicUniversityScope } from '../lib/content.js';
 import { answerQuestion } from '../lib/chat.js';
@@ -46,6 +47,9 @@ async function saveLead(req, res) {
   const phone = validateLeadPhone(data.phone, data.phoneCountry);
   if (phone.error) { res.status(400).json({ error: phone.error }); return; }
   Object.assign(data, phone);
+  const schedule = validateLeadSchedule(data);
+  if (schedule.error) { res.status(400).json({ error: schedule.error }); return; }
+  Object.assign(data, schedule.fields);
   const contentId = await resolveLeadContentId(data);
   const [savedLead] = await db.insert(leadsTable)
     .values({ ...data, name: data.name.trim(), email: data.email.trim().toLowerCase(), contentId })
