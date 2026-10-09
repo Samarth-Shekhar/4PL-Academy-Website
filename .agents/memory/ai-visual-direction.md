@@ -36,3 +36,9 @@ Do not add a second rounded navigation strip to the footer. Animate the large Ac
 **Why:** The owner explicitly removed the extra footer navigation bubble and provided TechText code for the wordmark animation.
 
 **How to apply:** Keep motion confined to the wordmark, preserve normal scrolling and keep all contact, social and legal details accessible.
+
+Keep the public header minimal and transparent/light, and public enquiry forms compact across pages. Time choices should use the same branded dropdown treatment as the other fields.
+
+**Why:** The owner requested the EduNova/Studify-style header and less scrolling to complete every public form.
+
+**How to apply:** Reduce excess spacing and use responsive columns without removing fields, consent or clear validation. Keep mobile controls usable rather than shrinking everything to fit.

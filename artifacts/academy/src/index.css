@@ -483,3 +483,15 @@ header.sticky nav a.nav-contact:hover, header.sticky nav a.nav-contact:focus-vis
 .form-flow button[type="submit"] { min-height: 3.25rem; }
 .contact-info { border-radius: 1.5rem; }
 @media (prefers-reduced-motion: reduce) { .nav-contact { transition: none !important; transform: none !important; } }
+
+/* ---- Light header + compact forms ---- */
+.academy-header.sticky { background: transparent; border-bottom: 1px solid transparent; backdrop-filter: none; box-shadow: none; transition: background-color .25s, border-color .25s, backdrop-filter .25s; }
+.academy-header.sticky.is-scrolled { background: hsl(40 25% 99% / .82); border-bottom-color: hsl(221 76% 17% / .08); backdrop-filter: saturate(1.4) blur(12px); -webkit-backdrop-filter: saturate(1.4) blur(12px); }
+.academy-header nav a.nav-contact { padding-inline: 1rem; min-height: 2.5rem; }
+.academy-header .btn-sm { min-height: 2.5rem; }
+.form-surface:has(.form-flow) { border-radius: 1.25rem; }
+.form-flow .label { font-size: .82rem; margin-bottom: .25rem; }
+.form-flow .input, .form-flow .brand-select-trigger { min-height: 2.75rem; border-radius: .75rem; padding-block: .4rem; }
+.form-flow textarea.input { min-height: 5rem; }
+.form-flow .consent-box { padding: .6rem .8rem; border-radius: .85rem; }
+.form-flow button[type="submit"] { min-height: 2.9rem; }

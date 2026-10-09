@@ -88,8 +88,8 @@ export function PartnerForm() {
     <p className="mt-3 text-sm leading-relaxed text-navy/80">{doneMessage}</p>
     <button type="button" className="btn btn-outline mt-5" onClick={() => { submit.reset(); setDoneMessage(''); setDone(false); }}>Send another enquiry</button>
   </div>;
-  return <form noValidate onSubmit={handleSubmit(onSubmit)} className="form-flow space-y-6" data-testid="form-partner">
-    <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
+  return <form noValidate onSubmit={handleSubmit(onSubmit)} className="form-flow space-y-3.5" data-testid="form-partner">
+    <div className="grid gap-x-4 gap-y-3 sm:grid-cols-2">
       <InputField name="organisation" label="Institution / organisation" register={register} error={errors.organisation} maxLength={200} wide />
       <SelectField name="organisationType" label="Organisation type" control={control} error={errors.organisationType} options={TYPES} />
       <InputField name="city" label="City / country" register={register} error={errors.city} optional autoComplete="address-level2" maxLength={150} />
@@ -102,7 +102,7 @@ export function PartnerForm() {
       {other && <InputField name="otherFocus" label="Tell us the collaboration area" register={register} error={errors.otherFocus} maxLength={150} wide />}
       <div className="sm:col-span-2">
         <label className="label" htmlFor="partner-message">How would you like to collaborate?<span className="text-gold-deep"> *</span></label>
-        <textarea id="partner-message" className="input min-h-32" maxLength={1600} required aria-invalid={!!errors.message} {...register('message')} placeholder="Share your institution's goals, areas of interest and what you would like to discuss." />
+        <textarea id="partner-message" className="input min-h-20" maxLength={1600} required aria-invalid={!!errors.message} {...register('message')} placeholder="Share your institution's goals, areas of interest and what you would like to discuss." />
         {errors.message && <p className="field-err">{errors.message.message}</p>}
       </div>
     </div>

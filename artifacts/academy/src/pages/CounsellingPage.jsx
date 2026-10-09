@@ -14,9 +14,9 @@ export default function CounsellingPage({ c, ctx }) {
   return (
     <div>
       <PageHero eyebrow={c.eyebrow} title={c.title} body={c.body} crumbs={[{ label: 'Home', href: '/' }, { label: c.eyebrow }]} />
-      <div className="container-x py-8 sm:py-14">
-        <div className="grid items-start gap-8 lg:grid-cols-[1.3fr_.7fr] lg:gap-12">
-          <div className="form-surface min-w-0 p-5 sm:p-8">
+      <div className="container-x py-5 sm:py-8">
+        <div className="grid items-start gap-5 lg:grid-cols-[1.3fr_.7fr] lg:gap-8">
+          <div className="form-surface min-w-0 p-4 sm:p-6">
             <div className="[&_.label]:text-navy">
               <LeadForm key={JSON.stringify(ctx)} category={c.cat} scheduling idPrefix="book" submitLabel={c.label} {...ctx} />
             </div>

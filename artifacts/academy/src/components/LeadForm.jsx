@@ -116,20 +116,20 @@ export function LeadForm({ category = 'counselling', program, university, course
   };
   const requiredMark = <span className="text-gold-deep" aria-hidden="true"> *</span>;
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="form-flow space-y-6" data-testid={`form-${idPrefix}`}>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="form-flow space-y-3.5" data-testid={`form-${idPrefix}`}>
       {(wide || scheduling) && <p className="text-sm text-foreground/70"><span className="text-gold-deep" aria-hidden="true">*</span> Required: full name, email, phone{scheduling ? ', preferred date and time' : ''}, and consent.</p>}
       {course && <p className="rounded-md bg-mist px-3 py-2 text-sm text-navy">Regarding course: <strong>{course}</strong></p>}
-      <div className={wide ? 'grid gap-4 md:grid-cols-3' : contactFields || scheduling ? 'grid gap-x-6 gap-y-5 sm:grid-cols-2' : 'space-y-5'}>
+      <div className={wide ? 'grid gap-3 md:grid-cols-3' : contactFields || scheduling ? 'grid gap-x-4 gap-y-3 sm:grid-cols-2' : "space-y-3"}>
         <div><label className="label" htmlFor={f('name')}>Full name{(contactFields || wide) && requiredMark}</label><input id={f('name')} className="input" autoComplete="name" required={contactFields || wide} aria-invalid={!!errors.name} {...register('name')} /><Err n="name" /></div>
-        <div className={contactFields || wide || scheduling ? 'contents' : 'grid gap-4 sm:grid-cols-2'}>
+        <div className={contactFields || wide || scheduling ? 'contents' : 'grid gap-3 sm:grid-cols-2'}>
           <div><label className="label" htmlFor={f('email')}>Email{(contactFields || wide) && requiredMark}</label><input id={f('email')} type="email" inputMode="email" className="input" autoComplete="email" required={contactFields || wide} aria-invalid={!!errors.email} {...register('email')} /><Err n="email" /></div>
           <div><label className="label" htmlFor={f('phone')}>{contactFields ? 'Mobile' : 'Phone'}{(contactFields || wide) && requiredMark}</label><Controller name="phone" control={control} render={({ field }) => <PhoneField id={f('phone')} ref={field.ref} value={field.value} onChange={field.onChange} onBlur={field.onBlur} country={watch('phoneCountry')} onCountryChange={(value) => setValue('phoneCountry', value, { shouldDirty: true })} error={errors.phone?.message} disabled={submit.isPending} />} /></div>
         </div>
         {contactFields && !careers && <div><label className="label" htmlFor={f('course')}>Courses</label><Sel control={control} name="selection" id={f('course')} disabled={cq.isLoading} placeholder={cq.isLoading ? 'Loading courses…' : 'Please select a course'} options={[{ value: '', label: cq.isLoading ? 'Loading courses…' : 'Please select a course' }, ...choices.map((c) => ({ value: c.value, label: `${c.name}${c.university ? ` — ${c.university}` : ''}` })), { value: 'other', label: 'Other' }]} />{cq.isError && <p className="field-err">Courses could not be loaded. <button type="button" className="underline" onClick={() => cq.refetch()}>Retry</button> or mention your course in the message.</p>}</div>}
         {contactFields && <div className="sm:col-span-2"><label className="label" htmlFor={f('subject')}>Subject</label><input id={f('subject')} className="input" maxLength={150} aria-invalid={!!errors.subject} {...register('subject')} /><Err n="subject" /></div>}
-        {contactFields && <div className="sm:col-span-2"><label className="label" htmlFor={f('message')}>How can we help?{requiredMark}</label><textarea id={f('message')} className="input min-h-32" required maxLength={2800} aria-invalid={!!errors.message} {...register('message')} /><Err n="message" /></div>}
+        {contactFields && <div className="sm:col-span-2"><label className="label" htmlFor={f('message')}>How can we help?{requiredMark}</label><textarea id={f('message')} className="input min-h-20" required maxLength={2800} aria-invalid={!!errors.message} {...register('message')} /><Err n="message" /></div>}
       </div>
-      {!careers && !compact && <div className={wide ? 'grid gap-4 md:grid-cols-2' : 'grid gap-4 sm:grid-cols-2'}>
+      {!careers && !compact && <div className={wide ? 'grid gap-3 md:grid-cols-2' : 'grid gap-3 sm:grid-cols-2'}>
         <div><label className="label" htmlFor={f('interest')}>Interested in</label><Sel control={control} name="interestedIn" id={f('interest')} placeholder="Select" options={[{ value: '', label: 'Select' }, ...INTERESTS]} /></div>
         <div><label className="label" htmlFor={f('qual')}>Highest qualification</label><Sel control={control} name="qualification" id={f('qual')} placeholder="Select" options={[{ value: '', label: 'Select' }, ...QUALIFICATIONS]} /></div>
         <div><label className="label" htmlFor={f('uni')}>Preferred university</label><Sel control={control} name="university" id={f('uni')} placeholder="No preference" options={[{ value: '', label: 'No preference' }, ...withCurrent(unis, university).map((u) => u.name)]} /></div>

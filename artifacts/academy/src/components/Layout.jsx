@@ -78,13 +78,13 @@ function Header() {
   }, []);
   const active = (h) => loc === h || loc.startsWith(h + '/');
   return (
-    <header ref={header} className={cn('sticky top-0 z-50 bg-white transition-shadow', scrolled && 'shadow-[0_8px_24px_-18px_hsl(221_76%_17%/.4)]')}>
-      <div className="container-x flex h-[4.75rem] items-center justify-between gap-2">
-        <Link href="/" aria-label="4PL Academy home" className="shrink-0" onClick={onLogoClick}><Logo className="h-16 sm:h-[4.5rem] -my-2" /></Link>
+    <header ref={header} className={cn('academy-header sticky top-0 z-50 transition-[background-color,box-shadow,backdrop-filter]', scrolled && 'is-scrolled')}>
+      <div className="container-x flex h-14 items-center sm:h-16 justify-between gap-2">
+        <Link href="/" aria-label="4PL Academy home" className="shrink-0" onClick={onLogoClick}><Logo className="h-11 sm:h-12" /></Link>
         <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
           {NAV.map((n) => {
             const selected = active(n.href) || (n.children || []).some(c => active(c.href));
-            const style = cn('relative flex min-h-11 items-center gap-1 rounded px-3 py-2 text-[0.9rem] font-semibold normal-case text-navy/80 hover:text-gold-deep focus-visible:text-gold-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold active:text-gold-deep', selected && 'text-gold-deep');
+            const style = cn('relative flex min-h-11 items-center gap-1 rounded px-2.5 py-1.5 text-[0.88rem] font-semibold normal-case text-navy/80 hover:text-gold-deep focus-visible:text-gold-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold active:text-gold-deep', selected && 'text-gold-deep');
             return n.children ? (
               <div key={n.href} className="relative" onPointerEnter={(e) => { if (e.pointerType === 'mouse') setDropdown(n.href); }} onPointerLeave={(e) => { if (e.pointerType === 'mouse') setDropdown(null); }} onFocus={(e) => { if (e.target.matches?.(':focus-visible')) setDropdown(n.href); }} onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setDropdown(null); }}>
                 <button type="button" className={cn(style, dropdown === n.href && 'text-gold-deep')} onPointerDown={(e) => { ptr.current = e.pointerType; }} aria-expanded={dropdown === n.href} aria-controls={`header-${n.href.slice(1)}`} onClick={() => setDropdown(ptr.current === 'mouse' ? n.href : dropdown === n.href ? null : n.href)}>{n.label}<ChevronDown className="h-3 w-3" aria-hidden="true" /></button>
