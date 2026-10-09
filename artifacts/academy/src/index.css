@@ -413,3 +413,11 @@
   .admin-shell .overflow-x-auto { -webkit-overflow-scrolling: touch; }
   @media (max-width: 360px) { .form-surface { padding: 1rem; border-radius: 1.1rem; } .consent-box { padding: .7rem; } .contact-info { padding: .85rem; gap: .7rem; } }
 }
+
+/* ---- Robotics hero: separate text/image columns ---- */
+.ai-hero .ai-title { font-size: clamp(1.9rem, 8vw, 3.4rem); line-height: .98; }
+@media (min-width: 640px) { .ai-hero .ai-title { font-size: clamp(2.8rem, 7.5vw, 4.2rem); } }
+@media (min-width: 1024px) { .ai-hero .ai-title { font-size: clamp(2.8rem, 4.2vw, 4.4rem); } }
+.ai-portrait { max-width: 34rem; aspect-ratio: 1; overflow: hidden; border-radius: 1.75rem; border: 1px solid hsl(var(--brand-navy) / .12); box-shadow: 0 34px 60px -36px hsl(var(--brand-navy) / .7); background: hsl(var(--brand-mist)); }
+@media (min-width: 1024px) { .ai-portrait { max-width: none; } }
+.studio-photo { box-shadow: 0 24px 50px -30px #000a; }

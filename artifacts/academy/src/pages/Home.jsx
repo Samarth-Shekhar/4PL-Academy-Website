@@ -76,7 +76,7 @@ export default function Home() {
         const sectionType = s.section || s.slug;
         if (studioKeys.has(sectionType) && s.id !== studioFirst) return null;
         const C = MAP[sectionType] || GenericSection;
-        return <motion.div key={s.id} initial={reduce || sectionType === 'hero' ? false : { opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.06 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>{i === blogsAt && <Blogs />}{sectionType === 'hero'
+        return <motion.div key={s.id} initial={reduce || sectionType === 'hero' ? false : { opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.04 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>{i === blogsAt && <Blogs />}{sectionType === 'hero'
           ? <><ProgramVideoHero section={s} fallbackTitle={home?.name} fallbackBody={home?.shortDescription} /><FocusPrograms />{!hasPrograms && <ProgramFinder />}</>
           : s.id === studioFirst ? <AiLearningStudio sections={studioSections} /> : sectionType === 'programs' ? <ProgramFinder s={s} /> : <C s={s} />}</motion.div>;
       })}

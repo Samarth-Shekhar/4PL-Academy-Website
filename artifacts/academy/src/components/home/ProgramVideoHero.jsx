@@ -29,24 +29,26 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
       <div aria-hidden="true" className="ai-grid" />
       <div className="container-x relative pb-10 pt-8 sm:pt-12 lg:pb-14">
         <motion.p {...fx(0.05)} className="mb-4 inline-flex max-w-full items-center gap-2 rounded-full border border-gold/50 bg-white/70 px-4 py-2 text-xs font-bold uppercase tracking-[0.13em] backdrop-blur"><Sparkles className="h-4 w-4 shrink-0 text-gold-deep" aria-hidden="true" /><span className="min-w-0">AI, digital transformation and logistics degrees</span></motion.p>
-        <div className="relative min-w-0 lg:min-h-[34rem]">
-          <h1 className="ai-title relative z-10 min-w-0">
-            {words.map((w, i) => (
-              <span key={i} className="block overflow-hidden pb-[0.04em]">
-                <motion.span className={cn('block', i === words.length - 1 ? 'text-gold' : 'text-navy')} initial={reduce ? false : { y: '105%' }} animate={{ y: 0 }} transition={{ delay: 0.04 + i * 0.06, duration: .55, ease }}>{w}</motion.span>
-              </span>
-            ))}
-          </h1>
-          <motion.div initial={reduce ? false : { opacity: .7, scale: 0.94, rotate: -3 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ duration: .7, ease }} className="ai-sculpt pointer-events-none">
-            <img className="ai-float h-full w-full object-contain" src={mediaUrl('/images/edtech/ai-sculpture-960.webp')} srcSet={`${mediaUrl('/images/edtech/ai-sculpture-640.webp')} 640w, ${mediaUrl('/images/edtech/ai-sculpture-960.webp')} 960w`} sizes="(min-width:1024px) 640px, 80vw" alt="Conceptual sculpture of a navy and gold brain circled by gold orbits, representing artificial intelligence" width="960" height="960" fetchPriority="high" decoding="async" />
-          </motion.div>
-          <div className="relative z-10 mt-6 max-w-md">
-            {has(body) && <motion.p {...fx(0.7)} className="text-base leading-relaxed text-navy/80 sm:text-lg">{body}</motion.p>}
-            <motion.div {...fx(0.85)} className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-              <Cta {...first} url={isBook(first) && first.url !== 'bot' ? book : first.url} className="btn-hero" variant="gold" />
-              <Cta {...second} url={isBook(second) && second.url !== 'bot' ? book : second.url} variant="outline" className="btn-hero" />
-            </motion.div>
+        <div className="grid min-w-0 items-center gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,.9fr)] lg:gap-12">
+          <div className="min-w-0">
+            <h1 className="ai-title min-w-0">
+              {words.map((w, i) => (
+                <span key={i} className="block overflow-hidden pb-[0.04em]">
+                  <motion.span className={cn('block', i === words.length - 1 ? 'text-gold' : 'text-navy')} initial={reduce ? false : { y: '105%' }} animate={{ y: 0 }} transition={{ delay: 0.04 + i * 0.06, duration: .55, ease }}>{w}</motion.span>
+                </span>
+              ))}
+            </h1>
+            <div className="mt-6 max-w-md">
+              {has(body) && <motion.p {...fx(0.7)} className="text-base leading-relaxed text-navy/80 sm:text-lg">{body}</motion.p>}
+              <motion.div {...fx(0.85)} className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Cta {...first} url={isBook(first) && first.url !== 'bot' ? book : first.url} className="btn-hero" variant="gold" />
+                <Cta {...second} url={isBook(second) && second.url !== 'bot' ? book : second.url} variant="outline" className="btn-hero" />
+              </motion.div>
+            </div>
           </div>
+          <motion.figure initial={reduce ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, ease }} className="ai-portrait mx-auto w-full min-w-0">
+            <img className="h-full w-full object-cover" src={mediaUrl('/images/edtech/robot-portrait-960.webp')} srcSet={`${mediaUrl('/images/edtech/robot-portrait-640.webp')} 640w, ${mediaUrl('/images/edtech/robot-portrait-960.webp')} 960w, ${mediaUrl('/images/edtech/robot-portrait-1440.webp')} 1440w`} sizes="(min-width:1280px) 560px, (min-width:1024px) 44vw, 92vw" alt="Illustration of a navy and gold humanoid robot in profile, with exposed joints and cabling at the neck and shoulder" width="960" height="960" fetchPriority="high" decoding="async" />
+          </motion.figure>
         </div>
         {focus.length > 0 && (
           <motion.ul {...fx(1.0)} className="relative z-10 mt-6 flex flex-wrap gap-3" aria-label="Featured programs">

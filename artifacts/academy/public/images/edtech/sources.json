@@ -4,6 +4,24 @@
   "usage": "Generic program subject photography; these are not photographs of 4PL or university facilities.",
   "illustrations": [
     {
+      "key": "robot-portrait",
+      "source": "Original generated illustration for 4PL Academy",
+      "subject": "Detailed navy and gold humanoid robot portrait",
+      "usage": "AI education subject illustration; not actual academy equipment."
+    },
+    {
+      "key": "robot-lab",
+      "source": "Original generated illustration for 4PL Academy",
+      "subject": "Articulated industrial robot working with electronics",
+      "usage": "Robotics learning subject illustration; not an actual academy laboratory."
+    },
+    {
+      "key": "robot-workshop",
+      "source": "Original generated illustration for 4PL Academy",
+      "subject": "Autonomous mobile robots in an engineering workshop",
+      "usage": "Robotics subject illustration; not an actual academy facility."
+    },
+    {
       "key": "ai-sculpture",
       "source": "Original generated illustration for 4PL Academy",
       "subject": "Conceptual navy-and-gold neural brain sculpture",
