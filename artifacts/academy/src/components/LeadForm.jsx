@@ -101,7 +101,7 @@ export function LeadForm({ category = 'counselling', program, university, course
   };
   const requiredMark = <span className="text-gold-deep" aria-hidden="true"> *</span>;
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4" data-testid={`form-${idPrefix}`}>
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="form-flow space-y-5" data-testid={`form-${idPrefix}`}>
       {wide && <p className="text-sm text-foreground/70"><span className="text-gold-deep" aria-hidden="true">*</span> Required: full name, email, phone and consent.</p>}
       {course && <p className="rounded-md bg-mist px-3 py-2 text-sm text-navy">Regarding course: <strong>{course}</strong></p>}
       <div className={wide ? 'grid gap-4 md:grid-cols-3' : contactFields ? 'grid gap-4 sm:grid-cols-2' : 'space-y-4'}>
@@ -124,14 +124,14 @@ export function LeadForm({ category = 'counselling', program, university, course
       {showMessage && !contactFields && (
         <div><label className="label" htmlFor={f('message')}>Message <span className="font-normal text-muted-foreground">(optional)</span></label><textarea id={f('message')} className="input" {...register('message')} /><Err n="message" /></div>
       )}
-      <div>
+      <div className="consent-box">
         <label className="flex items-start gap-3 text-sm leading-snug text-foreground/80">
           <input type="checkbox" className="mt-0.5 h-5 w-5 shrink-0 accent-[hsl(221_76%_17%)]" {...register('consent')} />
           <span>{careers ? 'I agree to be contacted by 4PL Academy about my careers enquiry.' : contactFields ? 'I agree to be contacted by 4PL Academy about my enquiry.' : 'I agree to be contacted by 4PL Academy about admissions, programs and courses.'}</span>
         </label>
         <Err n="consent" />
       </div>
-      {submit.isError && <p className="rounded-md bg-red-50 p-3 text-sm text-destructive" role="alert">{errMsg(submit.error)}</p>}
+      {submit.isError && <p className="form-alert" role="alert">{errMsg(submit.error)}</p>}
       <button type="submit" disabled={submit.isPending} className={wide ? 'btn btn-gold w-full sm:w-auto sm:min-w-56' : 'btn btn-gold w-full'} data-testid={`button-submit-${idPrefix}`}>
         {submit.isPending ? <><Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" /> Sending</> : submitLabel}
       </button>

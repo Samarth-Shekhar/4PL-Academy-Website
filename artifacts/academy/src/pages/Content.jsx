@@ -97,7 +97,7 @@ export function Blogs() {
             {rows.length ? (
               <>
                 <ul className="mt-8 grid gap-x-6 gap-y-9 sm:grid-cols-2 lg:grid-cols-3">
-                  {rows.map((b) => <li key={b.id} className="min-w-0"><BlogCard b={b} compact /></li>)}
+                  {rows.map((b, bi) => <li key={b.id} className={`min-w-0 ${bi === 0 && cur === 1 && !cat && !term ? 'lg:col-span-2' : ''}`}><BlogCard b={b} compact /></li>)}
                 </ul>
                 {pages > 1 && (
                   <nav aria-label="Blog pages" className="mt-10 flex flex-wrap items-center justify-center gap-2">

@@ -3,17 +3,19 @@ import { eq, and } from 'drizzle-orm';
 import { siteUrl } from './config.js';
 import { publicUniversityScope } from './content.js';
 const escape = value => String(value || '').replace(/[<>&"']/g, c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;',"'":'&#39;'}[c]));
-const fixedRoutes = ['','programs','programs/undergraduate','programs/postgraduate','universities','professional-courses','professional-courses/short-term','professional-courses/long-term','certifications','about','career','student-life','for-universities','blogs','faq','contact','book-counselling'];
-const canonicalPath = pathname => pathname.replace(/^\/courses(?=\/|$)/,'/professional-courses').replace(/^\/blog(?=\/)/,'/blogs').replace(/^\/career-industry\/?$/,'/career').replace(/^\/counselling\/?$/,'/book-counselling');
-export async function sitemap() {
-  if (!siteUrl) return null;
+const fixedRoutes = ['','programs','programs/undergraduate','programs/postgraduate','universities','professional-courses','professional-courses/short-term','professional-courses/long-term','certifications','about','career','careers','student-life','partner-with-us','blogs','faq','contact','book-counselling'];
+const canonicalPath = pathname => pathname.replace(/^\/courses(?=\/|$)/,'/professional-courses').replace(/^\/blog(?=\/)/,'/blogs').replace(/^\/career-industry\/?$/,'/career').replace(/^\/for-universities\/?$/,'/partner-with-us').replace(/^\/counselling\/?$/,'/book-counselling');
+export async function sitemap(previewOrigin = '') {
+  const baseUrl = siteUrl || previewOrigin;
+  if (!baseUrl) return null;
   const rows = await db.select().from(contentTable).where(and(eq(contentTable.status,'published'),publicUniversityScope()));
   const dynamic = rows.filter(r=>['universities','programs','courses','blogs'].includes(r.kind)).map(r=>({path:`${r.kind==='courses'?'professional-courses':r.kind}/${r.slug}`,updated:r.updatedAt.toISOString()}));
   dynamic.push(...rows.filter(r => r.kind === 'pages' && ['privacy','terms'].includes(r.slug)).map(r => ({ path: r.slug, updated: r.updatedAt.toISOString() })));
-  return `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${[...fixedRoutes.map(path=>({path})),...dynamic].map(r=>`<url><loc>${escape(siteUrl+'/'+r.path)}</loc>${r.updated?`<lastmod>${r.updated}</lastmod>`:''}</url>`).join('')}</urlset>`;
+  return `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${[...fixedRoutes.map(path=>({path})),...dynamic].map(r=>`<url><loc>${escape(baseUrl+'/'+r.path)}</loc>${r.updated?`<lastmod>${r.updated}</lastmod>`:''}</url>`).join('')}</urlset>`;
 }
-export function robots() {
-  return `User-agent: *\nDisallow: /admin\nDisallow: /api\n${siteUrl ? `Sitemap: ${siteUrl}/sitemap.xml\n` : '# SITE_URL must be configured before generating a canonical sitemap.\n'}`;
+export function robots(previewOrigin = '') {
+  const baseUrl = siteUrl || previewOrigin;
+  return `User-agent: *\nDisallow: /admin\nDisallow: /api\n${baseUrl ? `Sitemap: ${baseUrl}/sitemap.xml\n` : '# SITE_URL must be configured before generating a canonical sitemap.\n'}`;
 }
 export async function renderMetadata(html, pathname) {
   let title = '4PL Academy | Creating Global Professionals';

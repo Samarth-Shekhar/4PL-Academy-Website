@@ -36,28 +36,28 @@ export function UniversityNetwork({ s }) {
   const sel = regions.find((r) => r.key === selected);
   const pick = (k) => { setSelected(k); setActiveUni(null); };
   return (
-    <section className="navy-surface on-navy py-20 sm:py-28" aria-labelledby="sec-universities">
+    <section className="bg-mist/55 py-16 text-navy sm:py-24" aria-labelledby="sec-universities" data-testid="section-university-network">
       <div className="container-x">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.05fr] lg:gap-16">
           <div id="sec-universities" className="min-w-0 lg:pt-6">
-            <Head s={s} light />
-            <Body s={s} light />
-            <p className="mt-7 max-w-md text-xs leading-relaxed text-surface/65">This map shows the university directory. Listing does not imply a partnership with 4PL Academy. Markers show city centres, not campus locations.</p>
-            <CtaRow s={s} light className="mt-7 max-w-full [&_.btn]:max-w-full [&_.btn]:whitespace-normal" />
+            <Head s={s} />
+            <Body s={s} />
+            <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">Explore university locations and find the 4PL Academy team in Noida. Select a location to discover its programs.</p>
+            <CtaRow s={s} className="mt-7 max-w-full [&_.btn]:max-w-full [&_.btn]:whitespace-normal" />
             {regions.length > 0 && (
               <div className="no-scrollbar -mx-4 mt-8 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label="Choose a region">
-                {regions.map((r) => <button key={r.key} type="button" aria-pressed={r.key === selected} onClick={() => pick(r.key === selected ? null : r.key)} className={cn('shrink-0 rounded-full border px-4 py-2 text-sm font-semibold', r.key === selected ? 'border-gold bg-gold text-navy' : 'border-surface/30 text-surface hover:border-gold')}>{r.label} <span className="ml-1 opacity-70">{r.unis.length}</span></button>)}
+                {regions.map((r) => <button key={r.key} type="button" data-testid={`button-map-region-${r.key}`} aria-pressed={r.key === selected} onClick={() => pick(r.key === selected ? null : r.key)} className={cn('shrink-0 rounded-full border px-5 py-3 text-sm font-semibold transition-colors', r.key === selected ? 'border-gold bg-gold text-navy' : 'border-navy/15 bg-white text-navy hover:border-gold hover:bg-gold-soft')}>{r.label} <span className="ml-1 opacity-70">{r.unis.length}</span></button>)}
               </div>
             )}
           </div>
-          <div className="min-w-0">
+          <div className="min-w-0 rounded-[2rem] border border-gold/20 bg-white p-3 shadow-sm">
             {uq.isLoading ? <Skeleton className="mx-auto aspect-[600/640] w-full max-w-[34rem]" /> : (
               <IndiaUniversityMap regions={regions} selected={selected} onSelect={pick} activeUni={activeUni} onUni={setActiveUni} programsOf={programsOf} />
             )}
             {!uq.isLoading && !regions.length && (
-              <div className="mt-5 text-surface"><Pending title="No mapped locations yet" body="Universities appear on the map once their city location is added."><Link href="/universities" className="btn btn-gold">Browse the directory</Link></Pending></div>
+              <div className="mt-5 text-navy"><Pending title="Explore our universities" body="Find institutions and their programs in the directory."><Link href="/universities" className="btn btn-gold">Browse the directory</Link></Pending></div>
             )}
-            {unmapped > 0 && <p className="mt-3 text-center text-xs text-surface/60">{unmapped} listed {unmapped === 1 ? 'institution has' : 'institutions have'} no map location and {unmapped === 1 ? 'is' : 'are'} not shown. <Link href="/universities" className="underline">See the full directory</Link>.</p>}
+            {unmapped > 0 && <p className="mt-3 text-center text-xs text-muted-foreground"><Link href="/universities" className="underline">Explore all institutions in the directory.</Link></p>}
           </div>
         </div>
         {sel && (

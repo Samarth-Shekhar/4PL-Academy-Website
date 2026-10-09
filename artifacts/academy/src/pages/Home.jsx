@@ -21,6 +21,8 @@ import { TestimonialCarousel } from '@/components/home/TestimonialCarousel';
 import { AdmissionTimeline } from '@/components/home/AdmissionTimeline';
 import { FinalCta } from '@/components/home/FinalCta';
 import { UniversityLogoCarousel } from '@/components/home/UniversityLogoCarousel';
+import { FocusPrograms } from '@/components/home/FocusPrograms';
+import { ProgramFinder } from '@/components/home/ProgramFinder';
 import { GenericSection } from '@/components/home/GenericSection';
 
 const MAP = { 'university-logos': UniversityLogoCarousel, ecosystem: Ecosystem, universities: UniversityNetwork, programs: ProgramShowcase, industry: IndustryLogoMarquee, practical: PracticalLearning, certifications: CertificationShowcase, journey: LearningJourney, careers: CareerPathway, 'student-life': StudentLifeGallery, gallery: GalleryShowcase, testimonials: TestimonialCarousel, admissions: AdmissionTimeline, 'final-cta': FinalCta };
@@ -47,8 +49,8 @@ export default function Home() {
     jsonLd: { '@context': 'https://schema.org', '@type': 'EducationalOrganization', name: '4PL Academy', slogan: 'Creating Global Professionals', parentOrganization: { '@type': 'Organization', name: '4PL Consultancy Ltd' }, logo: new URL(asset('images/4pl-logo.jpg'), window.location.origin).href, url: window.location.origin },
   });
   const live = (y) => y.enabled !== false && y.status !== 'archived' && y.status !== 'draft';
-  const sections = (hp.data || []).filter((x, _i, all) => !((x.section || x.slug) === 'certifications' && all.some((y) => (y.section || y.slug) === 'industry' && live(y))) && !((x.section || x.slug) === 'journey' && all.some((y) => (y.section || y.slug) === 'practical' && y.enabled !== false && y.status !== 'archived' && y.status !== 'draft')) && x.enabled !== false && x.status !== 'archived' && x.status !== 'draft' && (x.section || x.slug) !== 'gallery').sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0) || a.id - b.id);
-  const finalIdx = sections.findIndex((x) => (x.section || x.slug) === 'final-cta');
+  const sections = (hp.data || []).filter((x, _i, all) => !((x.section || x.slug) === 'journey' && all.some((y) => (y.section || y.slug) === 'practical' && y.enabled !== false && y.status !== 'archived' && y.status !== 'draft')) && x.enabled !== false && x.status !== 'archived' && x.status !== 'draft' && (x.section || x.slug) !== 'gallery').sort((a, b) => (a.sortOrder ?? 0) - (b.sortOrder ?? 0) || a.id - b.id);
+  const finalIdx = sections.findIndex((x) => (x.section || x.slug) === 'admissions' || (x.section || x.slug) === 'final-cta');
   if (hp.isLoading) return <div><Skeleton className="h-[100svh] rounded-none" /></div>;
   if (!sections.length) {
     return (
@@ -61,6 +63,7 @@ export default function Home() {
       </>
     );
   }
+  const hasPrograms = sections.some((x) => (x.section || x.slug) === 'programs');
   const blogsAt = finalIdx === -1 ? sections.length : finalIdx;
   return (
     <div className="home-page">
@@ -68,8 +71,8 @@ export default function Home() {
         const sectionType = s.section || s.slug;
         const C = MAP[sectionType] || GenericSection;
         return <div key={s.id}>{i === blogsAt && <Blogs />}{sectionType === 'hero'
-          ? <ProgramVideoHero section={s} fallbackTitle={home?.name} fallbackBody={home?.shortDescription} />
-          : <C s={s} />}</div>;
+          ? <><ProgramVideoHero section={s} fallbackTitle={home?.name} fallbackBody={home?.shortDescription} /><FocusPrograms />{!hasPrograms && <ProgramFinder />}</>
+          : sectionType === 'programs' ? <ProgramFinder s={s} /> : <C s={s} />}</div>;
       })}
       {blogsAt === sections.length && <Blogs />}
     </div>

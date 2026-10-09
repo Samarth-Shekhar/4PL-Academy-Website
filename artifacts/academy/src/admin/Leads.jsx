@@ -121,16 +121,16 @@ export default function Leads({ onlyCategory }) {
     <div>
       {showForm && (
         <div className="mb-5 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-          {CATS.map((c) => <button key={c} type="button" onClick={() => setS({ ...s, category: s.category === c ? '' : c })} className={`card-s p-3 text-left hover:border-gold ${s.category === c ? 'border-gold' : ''}`}><span className="block text-xs font-bold uppercase tracking-wider text-gold-deep">{FORMS[c]}</span><span className="font-display text-2xl text-navy">{counts[c] || 0}</span></button>)}
+          {CATS.map((c) => <button key={c} type="button" onClick={() => setS({ ...s, category: s.category === c ? '' : c })} className={`card-s p-3 text-left hover:border-gold ${s.category === c ? 'border-gold bg-gold-soft/50 ring-2 ring-gold/40' : ''}`} aria-pressed={s.category === c}><span className="block text-xs font-bold uppercase tracking-wider text-gold-deep">{FORMS[c]}</span><span className="font-display text-2xl text-navy">{counts[c] || 0}</span></button>)}
         </div>
       )}
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2"><p className="text-sm text-muted-foreground">{name}: {list.length} shown</p><button type="button" className="btn btn-outline btn-sm" onClick={exportCsv} disabled={!list.length} data-testid="button-export-leads">Export CSV ({list.length})</button></div>
-      <div className="mb-5 grid gap-3 sm:grid-cols-[1fr_12rem]">
-        <div><label className="sr-only" htmlFor="l-search">Search</label><input id="l-search" type="search" className="input" placeholder="Search name, email, phone, program, message" value={s.search} onChange={(e) => setS({ ...s, search: e.target.value })} /></div>
+      <div className="admin-toolbar mb-5 grid gap-3 p-3 sm:grid-cols-[minmax(0,1fr)_12rem]">
+        <div><label className="sr-only" htmlFor="l-search">Search</label><input id="l-search" type="search" className="input search-pill" placeholder="Search name, email, phone, program, message" value={s.search} onChange={(e) => setS({ ...s, search: e.target.value })} /></div>
         <div><label className="sr-only" htmlFor="l-status">Status</label><select id="l-status" className="input" value={s.status} onChange={(e) => setS({ ...s, status: e.target.value })}><option value="">All statuses</option>{STATUSES.map((x) => <option key={x}>{x}</option>)}</select></div>
       </div>
       {q.isLoading ? <div className="space-y-2">{Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-14" />)}</div> : q.isError ? <ErrorState onRetry={q.refetch} /> : !list.length ? <EmptyState icon={Inbox} title={`No ${name.toLowerCase()} submissions`} body="Matching enquiries will appear here as they arrive." /> : (
-        <div className="card-s overflow-x-auto">
+        <div className="card-s overflow-x-auto" tabIndex={0} aria-label="Leads table, scroll horizontally on small screens">
           <table className="w-full min-w-[56rem] text-left text-sm">
             <thead><tr className="border-b border-line text-xs font-bold uppercase tracking-wider text-gold-deep"><th className="p-3">Name</th><th className="p-3">Contact</th>{showForm && <th className="p-3">Form</th>}<th className="p-3">Details</th><th className="p-3">Status</th><th className="p-3">Received</th><th className="p-3"><span className="sr-only">Actions</span></th></tr></thead>
             <tbody>

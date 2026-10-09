@@ -20,3 +20,4 @@
 - [Public footer scope](public-footer-scope.md) — compact public footer without the admissions notice or staff sign-in link; preserve authentication.
 - [Public verification copy](public-copy-scope.md) — no visitor-facing verification/disclaimer notices; retain internal checks, omit missing facts and preserve legal consent.
 - [Learner story authenticity](learner-stories.md) — use academy thoughts about students instead of fictional examples; genuine reviews remain separately approved.
+- [Crawler URL routing](crawler-url-routing.md) — HTTP 200 can be a SPA fallback; validate XML/plain-text payloads at public root URLs.

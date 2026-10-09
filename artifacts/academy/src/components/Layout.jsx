@@ -72,7 +72,7 @@ function Header() {
         <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
           {NAV.map((n) => {
             const selected = active(n.href) || (n.children || []).some(c => active(c.href));
-            const style = cn('relative flex min-h-11 items-center gap-1 rounded px-3 py-2 text-[0.82rem] font-bold uppercase text-navy/80 hover:text-gold-deep focus-visible:text-gold-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold active:text-gold-deep', selected && 'text-gold-deep');
+            const style = cn('relative flex min-h-11 items-center gap-1 rounded px-3 py-2 text-[0.9rem] font-bold normal-case text-navy/80 hover:text-gold-deep focus-visible:text-gold-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold active:text-gold-deep', selected && 'text-gold-deep');
             return n.children ? (
               <div key={n.href} className="relative" onPointerEnter={(e) => { if (e.pointerType === 'mouse') setDropdown(n.href); }} onPointerLeave={(e) => { if (e.pointerType === 'mouse') setDropdown(null); }} onFocus={(e) => { if (e.target.matches?.(':focus-visible')) setDropdown(n.href); }} onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setDropdown(null); }}>
                 <button type="button" className={cn(style, dropdown === n.href && 'text-gold-deep')} onPointerDown={(e) => { ptr.current = e.pointerType; }} aria-expanded={dropdown === n.href} aria-controls={`header-${n.href.slice(1)}`} onClick={() => setDropdown(ptr.current === 'mouse' ? n.href : dropdown === n.href ? null : n.href)}>{n.label}<ChevronDown className="h-3 w-3" aria-hidden="true" /></button>
@@ -84,6 +84,7 @@ function Header() {
           })}
         </nav>
         <div className="flex items-center gap-2">
+          <Link href="/book-counselling" className="btn btn-gold btn-sm hidden sm:inline-flex" data-testid="link-header-counselling">Book Counselling</Link>
           <button type="button" onClick={() => setOpen(true)} className="btn btn-navy btn-sm xl:hidden" aria-label="Open menu" data-testid="button-menu"><Menu className="h-5 w-5" aria-hidden="true" /><span className="sr-only sm:not-sr-only">Menu</span></button>
         </div>
       </div>
@@ -97,6 +98,7 @@ function Header() {
             </details>
           ) : <Link key={n.href} href={n.href} onClick={() => setOpen(false)} aria-current={active(n.href) ? 'page' : undefined} className={cn('flex min-h-12 items-center justify-between border-b border-line font-bold uppercase text-navy', active(n.href) && 'text-gold-deep')}>{n.label}<ArrowRight className="h-4 w-4 text-gold-deep" aria-hidden="true" /></Link>)}
         </nav>
+        <Link href="/book-counselling" onClick={() => setOpen(false)} className="btn btn-gold mt-5 w-full">Book Counselling<ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
       </Modal>
     </header>
   );
@@ -135,7 +137,7 @@ function Footer() {
     </div>
   );
   return (
-    <footer className="relative mt-20 isolate overflow-hidden bg-navy font-bold text-surface">
+    <footer className="relative mt-0 isolate overflow-hidden bg-navy border-t-4 border-gold font-bold text-surface">
       <img src={asset('images/footer-study-library.png')} alt="" aria-hidden="true" loading="lazy" className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover" />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-navy/50 via-navy/30 to-navy/20" />
       <div className="container-x py-10">
@@ -178,6 +180,27 @@ function Footer() {
   );
 }
 
+function CounsellingBand() {
+  return (
+    <section className="container-x pb-14 pt-6 sm:pb-20" aria-label="Book counselling">
+      <div className="band-card navy-surface on-navy relative overflow-hidden rounded-[2rem] px-6 py-10 sm:px-12 sm:py-14">
+        <div aria-hidden="true" className="band-ring" />
+        <div className="relative grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+          <div className="max-w-2xl">
+            <p className="eyebrow eyebrow-light mb-3">Talk to a person</p>
+            <h2 className="display-lg text-surface">Not sure which program fits? Speak with a counsellor.</h2>
+            <p className="mt-4 text-surface/75">Share your goals and we will walk you through the options on this website, one conversation at a time.</p>
+          </div>
+          <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
+            <Link href="/book-counselling" className="btn btn-gold btn-hero" data-testid="link-band-counselling">Book Counselling<ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+            <Link href="/contact" className="btn btn-light btn-hero">Contact 4PL Academy</Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function Layout({ children }) {
   const [loc] = useLocation();
   useEffect(() => { captureAttribution(); window.scrollTo(0, 0); }, [loc]);
@@ -186,6 +209,7 @@ export function Layout({ children }) {
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:rounded focus:bg-gold focus:px-4 focus:py-2 focus:text-navy">Skip to content</a>
       <Header />
       <main id="main" className="flex-1">{children}</main>
+      {loc !== '/' && !/^\/(?:book-counselling|counselling|contact|apply)/.test(loc) && <CounsellingBand />}
       <Footer />
       <CompareBar />
       <AcadBot raised={/^\/(?:programs|universities|courses|professional-courses)\/[^/]+\/?$/.test(loc) && !/(?:undergraduate|postgraduate|short-term|long-term)\/?$/.test(loc)} />

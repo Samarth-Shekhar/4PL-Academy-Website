@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import { Link, useParams } from 'wouter';
+import { programFocusImage } from '@/lib/program-focus';
 import { ExternalLink, FileText, MapPin, Clock, Monitor, Wallet, BookOpen, CalendarDays, GraduationCap, Info, Mail, Phone, Globe, Award, Users2, Scale } from 'lucide-react';
 import { usePublicItem, usePublicList } from '@/lib/api';
 import { useSeo, seoFrom } from '@/lib/seo';
@@ -23,24 +25,28 @@ function Shell({ q, crumbs, children }) {
 }
 
 function Hero({ c, crumbs, eyebrow, facts, children, logo }) {
+  const img = programFocusImage(c);
+  const [bad, setBad] = useState(false);
+  const showImg = has(img) && !bad;
   return (
-    <header className="navy-surface on-navy">
-      <div className="container-x pb-10 pt-6 sm:pb-14">
-        <Breadcrumbs items={crumbs} light />
-        <div className="mt-7 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <div className="max-w-3xl">
+    <header className="edu-hero relative isolate overflow-hidden">
+      <div aria-hidden="true" className="edu-hero-blob pointer-events-none absolute -right-24 -top-24 -z-10 h-96 w-96 rounded-full" />
+      <div className="container-x pb-8 pt-5 sm:pb-12">
+        <Breadcrumbs items={crumbs} />
+        <div className={`mt-7 grid items-center gap-8 ${showImg ? 'lg:grid-cols-[1.2fr_.8fr]' : ''}`}>
+          <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2"><p className="eyebrow">{eyebrow}</p>{c.featured && <span className="chip chip-gold">Featured</span>}</div>
             <div className="mt-3 flex items-start gap-4">
               {logo}
-              <h1 className="text-[1.9rem] leading-[1.1] sm:text-5xl">{c.name}</h1>
+              <h1 className="min-w-0 break-words text-[2rem] font-extrabold leading-[1.04] text-navy sm:text-5xl">{c.name}</h1>
             </div>
-            {has(c.shortDescription) && <p className="mt-4 text-base leading-relaxed text-surface/80 sm:text-lg">{c.shortDescription}</p>}
+            {has(c.shortDescription) && <p className="mt-4 max-w-2xl text-base leading-relaxed text-foreground/75 sm:text-lg">{c.shortDescription}</p>}
+            {children && <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">{children}</div>}
           </div>
-          {children && <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">{children}</div>}
+          {showImg && <div className="edu-hero-frame relative aspect-[16/10] w-full lg:aspect-[4/3.4]"><img src={img} alt="" loading="eager" decoding="async" onError={() => setBad(true)} className="h-full w-full rounded-[1.75rem] object-cover" /></div>}
         </div>
-        {facts && <div className="mt-8 grid grid-cols-2 gap-x-4 gap-y-5 rounded-lg bg-surface p-4 text-navy sm:grid-cols-3 sm:p-5 lg:grid-cols-6">{facts}</div>}
+        {facts && <div className="fact-bar mt-8 grid grid-cols-2 gap-x-4 gap-y-5 p-4 sm:grid-cols-3 sm:p-6 lg:grid-cols-6">{facts}</div>}
       </div>
-      <div className="h-1 bg-gradient-to-r from-gold via-gold/40 to-transparent" />
     </header>
   );
 }

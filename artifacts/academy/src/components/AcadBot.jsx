@@ -5,9 +5,11 @@ import { Send, X, ExternalLink, Loader2, Headset } from 'lucide-react';
 import { useAskAcadBot } from '@workspace/api-client-react';
 import { LeadForm } from './LeadForm';
 import { errMsg } from '@/lib/api';
+import { useContactSettings, telHref } from '@/lib/settings';
+import { Phone, Mail } from 'lucide-react';
 import { asset } from '@/lib/format';
 
-const isFallback = (t) => /please contact (?:our|the 4PL Academy) team/i.test(String(t || ''));
+const isFallback = (t) => /i don.?t have verified information|please contact (?:our|the 4PL Academy) team/i.test(String(t || ''));
 const MASCOT = asset('images/acad-bot-mascot.webp');
 const hideOnError = (e) => { e.currentTarget.style.visibility = 'hidden'; };
 
@@ -20,6 +22,7 @@ export function AcadBot({ raised = false }) {
   const [text, setText] = useState('');
   const [lead, setLead] = useState(false);
   const ask = useAskAcadBot();
+  const contact = useContactSettings();
   const end = useRef(null);
   const send = (m) => {
     const message = (m ?? text).trim();
@@ -71,7 +74,7 @@ export function AcadBot({ raised = false }) {
               {msgs.map((m, i) => (
                 <div key={i} className={m.role === 'user' ? 'ml-auto max-w-[88%] rounded-lg rounded-tr-none bg-navy p-3 text-sm text-surface' : 'max-w-[92%] rounded-lg rounded-tl-none border border-line bg-card p-3 text-sm leading-relaxed'}>
                   <p className={`whitespace-pre-line ${m.error ? 'text-destructive' : ''}`}>{m.text}</p>
-                   {m.role === 'bot' && (isFallback(m.text) || m.error) && <Link href="/contact" onClick={() => setOpen(false)} className="btn btn-gold btn-sm mt-3" data-testid="button-bot-contact">Contact our team</Link>}
+                   {m.role === 'bot' && (isFallback(m.text) || m.error) && <div className="mt-3 flex flex-col items-start gap-2"><Link href="/contact" onClick={() => setOpen(false)} className="btn btn-gold btn-sm" data-testid="button-bot-contact">Contact 4PL Academy</Link>{contact.phone && <a href={telHref(contact.phone)} className="inline-flex items-center gap-1.5 text-xs font-bold text-navy"><Phone className="h-3.5 w-3.5" aria-hidden="true" />{contact.phone}</a>}{contact.email && <a href={`mailto:${contact.email}`} className="inline-flex items-center gap-1.5 break-all text-xs font-bold text-navy"><Mail className="h-3.5 w-3.5" aria-hidden="true" />{contact.email}</a>}</div>}
                   {m.sources?.length > 0 && <div className="mt-3 border-t border-line pt-2"><p className="text-[0.65rem] font-bold uppercase tracking-wider text-muted-foreground">Sources</p><ul className="mt-1 space-y-1">{m.sources.map((s, k) => <li key={k}><a href={s.url} className="inline-flex items-center gap-1 text-xs font-semibold text-gold-deep underline-offset-2 hover:underline">{s.name}<ExternalLink className="h-3 w-3" aria-hidden="true" /></a></li>)}</ul></div>}
                 </div>
               ))}

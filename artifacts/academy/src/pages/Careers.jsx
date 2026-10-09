@@ -3,7 +3,7 @@ import { usePublicItem } from '@/lib/api';
 import { useSeo, seoFrom } from '@/lib/seo';
 import { asset, has } from '@/lib/format';
 import { mediaUrl } from '@/lib/home';
-import { Reveal, Skeleton, ErrorState } from '@/components/ui-kit';
+import { Reveal, Skeleton, ErrorState, SplitHero } from '@/components/ui-kit';
 import { Cta } from '@/components/home/shared';
 import { cn } from '@/lib/cn';
 
@@ -91,19 +91,7 @@ export default function Careers() {
   const sec = 'scroll-mt-36 border-t border-line py-12 sm:py-16';
   return (
     <div>
-      <section className="navy-surface on-navy relative overflow-hidden">
-        <img src={hero} alt="" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-40" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-navy via-navy/80 to-navy/30" />
-        <div className="container-x py-20 sm:py-28 lg:py-36">
-          <p className="eyebrow mb-5">Careers</p>
-          {q.isLoading ? <Skeleton className="h-24 max-w-2xl" /> : <h1 className="display-lg max-w-3xl text-surface">{p.name}</h1>}
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-surface/80">{p.shortDescription}</p>
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Cta label={p.ctaLabel} url={p.ctaUrl} className="btn-hero" />
-            <Cta label={p.secondaryCtaLabel} url={p.secondaryCtaUrl} variant="light" className="btn-hero" />
-          </div>
-        </div>
-      </section>
+      <SplitHero image={hero} eyebrow="Careers" title={q.isLoading ? <Skeleton className="h-24 max-w-2xl" /> : p.name} body={p.shortDescription} actions={<><Cta label={p.ctaLabel} url={p.ctaUrl} className="btn-hero" /><Cta label={p.secondaryCtaLabel} url={p.secondaryCtaUrl} variant="outline" className="btn-hero" /></>} />
 
       <div className="container-x grid grid-cols-1 gap-8 py-8 lg:grid-cols-[13rem_1fr] lg:gap-14">
         <nav aria-label="Careers page sections" className="sticky top-[4.5rem] z-30 min-w-0 max-w-full bg-background/95 backdrop-blur lg:top-32 lg:self-start">

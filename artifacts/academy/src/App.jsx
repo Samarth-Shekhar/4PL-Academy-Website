@@ -6,19 +6,26 @@ import { Layout } from '@/components/Layout';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { Skeleton } from '@/components/ui-kit';
 import Home from '@/pages/Home';
-import Programs from '@/pages/Programs';
-import Compare from '@/pages/Compare';
-import Universities from '@/pages/Universities';
-import Courses from '@/pages/Courses';
 import NotFound from '@/pages/NotFound';
-import { ProgramDetail, UniversityDetail, CourseDetail } from '@/pages/Details';
-import Certifications from '@/pages/Certifications';
-import Career from '@/pages/Career';
-import Careers from '@/pages/Careers';
-import AboutPage from '@/pages/AboutPage';
-import PartnerWithUs from '@/pages/PartnerWithUs';
-import Legal from '@/pages/Legal';
-import { KindPage, Blogs, BlogDetail, Faq, FormPage } from '@/pages/Content';
+
+const Programs = lazy(() => import('@/pages/Programs'));
+const Compare = lazy(() => import('@/pages/Compare'));
+const Universities = lazy(() => import('@/pages/Universities'));
+const Courses = lazy(() => import('@/pages/Courses'));
+const ProgramDetail = lazy(() => import('@/pages/Details').then((m) => ({ default: m.ProgramDetail })));
+const UniversityDetail = lazy(() => import('@/pages/Details').then((m) => ({ default: m.UniversityDetail })));
+const CourseDetail = lazy(() => import('@/pages/Details').then((m) => ({ default: m.CourseDetail })));
+const Certifications = lazy(() => import('@/pages/Certifications'));
+const Career = lazy(() => import('@/pages/Career'));
+const Careers = lazy(() => import('@/pages/Careers'));
+const AboutPage = lazy(() => import('@/pages/AboutPage'));
+const PartnerWithUs = lazy(() => import('@/pages/PartnerWithUs'));
+const Legal = lazy(() => import('@/pages/Legal'));
+const KindPage = lazy(() => import('@/pages/Content').then((m) => ({ default: m.KindPage })));
+const Blogs = lazy(() => import('@/pages/Content').then((m) => ({ default: m.Blogs })));
+const BlogDetail = lazy(() => import('@/pages/Content').then((m) => ({ default: m.BlogDetail })));
+const Faq = lazy(() => import('@/pages/Content').then((m) => ({ default: m.Faq })));
+const FormPage = lazy(() => import('@/pages/Content').then((m) => ({ default: m.FormPage })));
 
 const AdminLayout = lazy(() => import('@/admin/AdminLayout').then((m) => ({ default: m.AdminLayout })));
 const Login = lazy(() => import('@/admin/Login'));
@@ -74,6 +81,7 @@ function Redirect({ to }) { const [, nav] = useLocation(); useEffect(() => { nav
 function PublicApp() {
   return (
     <Layout>
+      <Suspense fallback={<Fallback />}>
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/programs" component={Programs} />
@@ -111,6 +119,7 @@ function PublicApp() {
         <Route path="/counselling"><FormPage kind="book" /></Route>
         <Route component={NotFound} />
       </Switch>
+      </Suspense>
     </Layout>
   );
 }

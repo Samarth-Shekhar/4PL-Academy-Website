@@ -1,6 +1,6 @@
 import { getCatalog } from './content.js';
 
-export const unavailable = "I can help with verified 4PL Academy programs, courses and admissions information. Please contact our team for help with this question.";
+export const unavailable = "I don't have verified information about that. Please contact the 4PL Academy team for more information.";
 const academyTopic = /\b(?:4pl|academy|programs?|courses?|degrees?|admissions?|apply|applications?|training|placements?|universit\w*|colleges?|campus|bba|mba|pgdm|btech|bca|undergraduate|postgraduate|logistics|supply.chain|trade|customs|incoterms|ai|artificial intelligence|digital marketing|certificat\w*|credential\w*|eligibility|fees?|curriculum|scholarships?|counselling|counseling|internships?|contact|phone|telephone|email|address|office|mission|vision|careers?|jobs?|modules?|semesters?|projects?|outcomes?|duration|batches|batch|deadlines?|blogs?|articles?)\b/i;
 const deny = /ignore (?:all|previous)|system prompt|internal instructions|api.?key|password|(?:api|admin|login|database|private|authentication).?credentials?|secret|sql|database (?:dump|schema|structure)|delete|update.+database|execute|run.+command|guarantee|visa|immigration|legal advice|financial advice/i;
 const stopwords = new Set('what which is are the a an at in of to for me please tell about do you have does and with can how programs program course courses university universities fee fees cost price eligibility eligible qualification percentage duration long take takes deadline batch start date much it its study studying'.split(' '));
@@ -76,7 +76,7 @@ export async function answerQuestion(message) {
   let available = catalog.filter(c => c.verified && c.kind !== 'settings' && (!filterKind || c.kind === filterKind));
   // Never attach a generic degree's facts to an unknown or unrelated institution.
   const institutionPhrase=message.match(/\b(?:at|from)\s+([^?!.]+)/i)?.[1]?.toLowerCase().trim();
-  if(intent && institutionPhrase && !/^4pl academy$/i.test(institutionPhrase)) {
+   if(institutionPhrase && !/^(?:4pl(?: academy)?|the academy)$/i.test(institutionPhrase)) {
     const institution=catalog.find(c=>c.kind==='universities' && (c.name.toLowerCase()===institutionPhrase || institutionPhrase.includes(c.name.toLowerCase())));
     if(!institution)return {answer:unavailable,sources:[]};
     available=available.filter(c=>c.universityId===institution.id || c.kind==='universities'&&c.id===institution.id);
@@ -102,5 +102,5 @@ export async function answerQuestion(message) {
     if (tokens.some(t=>!identity.includes(t)) || !c.verified || !c[intent]) return { answer: unavailable, sources: [{ name: c.name, url:`/${c.kind}/${c.slug}` }] };
     return { answer: `${c.name} — ${intent}: ${c[intent]}.${intent === 'fee' && c.feeNote ? ` ${c.feeNote}` : ''}`, sources: [{ name:c.name,url:`/${c.kind}/${c.slug}` }] };
   }
-  return { answer: matches.map(c => `${c.name}${c.location ? ' — '+c.location : ''}. ${c.shortDescription || c.description || 'Further details are to be verified with our admissions team.'}`).join('\n\n'), sources: matches.map(c => ({name:c.name,url:c.kind === 'pages' ? `/${c.slug}` : c.kind === 'faqs' ? '/faq' : `/${c.kind}/${c.slug}`})) };
+   return { answer: matches.map(c => [c.name + (c.location ? ' — '+c.location : ''), readable(c.shortDescription || c.description)].filter(Boolean).join('. ')).join('\n\n'), sources: matches.map(sourceOf) };
 }

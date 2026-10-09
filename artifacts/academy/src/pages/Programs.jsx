@@ -8,6 +8,7 @@ import { FEE_RANGES, has, parseFee, uniq, programLevel } from '@/lib/format';
 import { cn } from '@/lib/cn';
 import { PageHero, CardSkeletons, ErrorState, EmptyState } from '@/components/ui-kit';
 import { FilterLayout, SelectField, SearchField } from '@/components/FilterLayout';
+import { FOCUS_PROGRAMS } from '@/lib/program-focus';
 import { ProgramCard, CourseCard, CertCard } from '@/components/Cards';
 
 const TYPES = [['all', 'All'], ['ug', 'Undergraduate'], ['pg', 'Postgraduate'], ['pro', 'Professional'], ['cert', 'Certification']];
@@ -25,6 +26,7 @@ export default function Programs({ level = '' }) {
   const useCourses = usePublicList('courses');
   const useCerts = usePublicList('certifications');
   const opt = (k) => uniq(all.map((p) => p[k]));
+  const fr = (p) => { const i = FOCUS_PROGRAMS.findIndex((x) => x.slug === p.slug); return i === -1 ? 99 : i; };
   const list = useMemo(() => {
     const ci = (a, b) => String(a || '').toLowerCase() === b.toLowerCase();
     let r = all.filter((p) => (type !== 'ug' && type !== 'pg' || programLevel(p) === type) && (!f.university || ci(p.universityName, f.university)) && (!f.degreeLevel || ci(p.degreeLevel, f.degreeLevel)) && (!f.specialization || ci(p.specialization, f.specialization)) && (!f.duration || ci(p.duration, f.duration)) && (!f.mode || ci(p.mode, f.mode)) && (!f.eligibility || ci(p.eligibility, f.eligibility)));
@@ -34,7 +36,7 @@ export default function Programs({ level = '' }) {
     if (f.sort === 'az') s.sort((a, b) => a.name.localeCompare(b.name));
     else if (f.sort === 'za') s.sort((a, b) => b.name.localeCompare(a.name));
     else if (f.sort === 'fee-asc' || f.sort === 'fee-desc') s.sort((a, b) => { const x = fee(a), y = fee(b); if (x === null) return 1; if (y === null) return -1; return f.sort === 'fee-asc' ? x - y : y - x; });
-    else s.sort((a, b) => Number(b.featured) - Number(a.featured) || (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
+    else s.sort((a, b) => fr(a) - fr(b) || Number(b.featured) - Number(a.featured) || (a.sortOrder ?? 0) - (b.sortOrder ?? 0));
     return s;
   }, [all, f, type]);
   const needle = f.search.trim().toLowerCase();

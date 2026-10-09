@@ -1,0 +1,27 @@
+{
+  "license": "Unsplash License",
+  "licenseUrl": "https://unsplash.com/license",
+  "usage": "Generic program subject photography; these are not photographs of 4PL or university facilities.",
+  "photos": [
+    {
+      "key": "bba-ai",
+      "subject": "Business analytics dashboard on laptop",
+      "source": "https://images.unsplash.com/photo-1460925895917-afdab827c52f"
+    },
+    {
+      "key": "btech-ai",
+      "subject": "Industrial robotics",
+      "source": "https://images.unsplash.com/photo-1752614671144-7eee784abf74"
+    },
+    {
+      "key": "bca-ai",
+      "subject": "Programming and software development",
+      "source": "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb"
+    },
+    {
+      "key": "bba-logistics",
+      "subject": "Container port and shipping operations",
+      "source": "https://images.unsplash.com/photo-1494412685616-a5d310fbb07d"
+    }
+  ]
+}

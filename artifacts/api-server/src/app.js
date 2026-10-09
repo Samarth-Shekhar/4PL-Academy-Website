@@ -32,9 +32,16 @@ app.use('/api', (req,res,next) => {
 app.use('/api',catalogRouter);
 app.use('/api/admin',adminRouter);
 app.use('/api/storage',storageRouter);
-app.get(['/robots.txt','/api/seo/robots.txt'], (_req,res)=>res.type('text/plain').send(robots()));
-app.get(['/sitemap.xml','/api/seo/sitemap.xml'],async (_req,res)=>{
-  const xml=await sitemap();
+function previewSeoOrigin(req) {
+  if (process.env.NODE_ENV !== 'development') return '';
+  const host = String(req.get('x-forwarded-host') || req.get('host') || '').split(',')[0].trim();
+  const protocol = String(req.get('x-forwarded-proto') || req.protocol).split(',')[0].trim();
+  if (!/^[a-zA-Z0-9.-]+(?::\d+)?$/.test(host) || !['https','http'].includes(protocol)) return '';
+  return `${protocol}://${host}`;
+}
+app.get(['/robots.txt','/api/seo/robots.txt'], (req,res)=>res.type('text/plain').send(robots(previewSeoOrigin(req))));
+app.get(['/sitemap.xml','/api/seo/sitemap.xml'],async (req,res)=>{
+  const xml=await sitemap(previewSeoOrigin(req));
   if (!xml) {res.status(503).type('text/plain').send('Configure SITE_URL to generate an accurate sitemap.');return;}
   res.type('application/xml').send(xml);
 });

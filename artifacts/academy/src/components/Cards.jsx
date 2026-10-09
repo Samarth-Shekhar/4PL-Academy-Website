@@ -1,3 +1,4 @@
+import { programFocusImage } from '@/lib/program-focus';
 import { useMemo, useState } from 'react';
 import { Link } from 'wouter';
 import { ArrowUpRight, Clock, GraduationCap, MapPin, Monitor, Scale, Wallet, BookOpen, CalendarDays, Users2 } from 'lucide-react';
@@ -38,7 +39,7 @@ export function ProgramCard({ p }) {
   const uname = u?.name || (has(p.universityName) ? p.universityName : '');
   return (
     <article className="card-s group flex h-full flex-col overflow-hidden transition-shadow hover:shadow-[0_18px_40px_-22px_hsl(221_76%_17%/.45)]" data-testid={`card-program-${p.id}`}>
-      <div className="relative aspect-[16/9] overflow-hidden"><Cover src={p.image} label={p.degree || 'Program'} className="transition-transform duration-500 group-hover:scale-105" />
+      <div className="relative aspect-[16/9] overflow-hidden"><Cover src={programFocusImage(p)} label={p.degree || 'Program'} className="transition-transform duration-500 group-hover:scale-105" />
         {p.featured && <span className="chip chip-gold absolute left-3 top-3">Featured</span>}
         {u && has(u.logo) && <LogoBadge u={u} className="absolute bottom-2 right-2 h-11 w-11 rounded bg-surface p-1 shadow" />}
       </div>

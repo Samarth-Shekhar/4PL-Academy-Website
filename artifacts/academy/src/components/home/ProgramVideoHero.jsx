@@ -8,11 +8,16 @@ import { usePublicList } from '@/lib/api';
 import { has } from '@/lib/format';
 import { cn } from '@/lib/cn';
 import { Cta } from './shared';
+import { focusPrograms } from '@/lib/program-focus';
 
 const norm = (x) => String(x || '').toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, ' ').trim();
 const rank = (p) => (/sushant/i.test(p.universityName || '') ? 0 : 1);
 const srcs = (u) => {
   const url = String(u || '');
+  const focus = /^(\/images\/edtech\/[a-z-]+)-(?:640|960|1440)\.webp$/.exec(url);
+  if (focus) {
+    return { src: mediaUrl(`${focus[1]}-960.webp`), srcSet: [640, 960, 1440].map((w) => `${mediaUrl(`${focus[1]}-${w}.webp`)} ${w}w`).join(', ') };
+  }
   const m = /^(.*)-(?:4k|1920)\.webp$/.exec(url);
   if (m && (url.startsWith('/images/program-hero/clear-') || url.startsWith('/images/hero-courses/'))) {
     const portrait = typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches;
@@ -26,7 +31,7 @@ const srcs = (u) => {
   }
   return { src: mediaUrl(u), srcSet: undefined };
 };
-const SIZES = '100vw';
+const SIZES = '(min-width: 1024px) 48vw, 100vw';
 const decodeImage = (url, priority = 'auto') => {
   const im = new Image();
   const r = srcs(url);
@@ -50,8 +55,14 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
   const mobile = useMatch('(max-width: 767px)');
   const tab = useTabVisible();
   const [wrap, inView] = useInView();
+  const { list: progs } = useVerified('programs');
+  const curated = focusPrograms(progs).map((p) => ({
+    id: `focus-${p.id}`, type: 'image', name: p.name, programSlug: p.slug,
+    universityId: p.universityId, url: p.focus.heroImage,
+    shortLabel: p.specialization || p.degree, altText: p.focus.alt,
+  }));
   const hero = bySection(list, 'hero');
-  const slides = hero.length ? hero : has(section?.image) ? [{ id: 'cover', name: section.name, type: 'image', url: section.image, altText: '' }] : [];
+  const slides = curated.length ? curated : hero.length ? hero : has(section?.image) ? [{ id: 'cover', name: section.name, type: 'image', url: section.image, altText: '' }] : [];
   const light = mobile || reduce || saveData();
   const [idx, setIdx] = useState(0);
   const [imageError, setImageError] = useState('');
@@ -64,7 +75,6 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
   const [playing, setPlaying] = useState(!reduce);
   const [hovering, setHovering] = useState(false);
   const [focused, setFocused] = useState(false);
-  const { list: progs } = useVerified('programs');
   const { data: courses = [] } = usePublicList('courses');
   const vid = useRef(null);
   const n = slides.length;
@@ -105,8 +115,9 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
   const asVideo = cur?.type === 'video' && !light;
   const words = String(section?.name || fallbackTitle || '4PL Academy').split(/\s+/);
   return (
-    <section ref={wrap} className="navy-surface on-navy relative min-h-[min(88svh,54rem)] overflow-hidden" aria-label="Featured programs and courses in motion" onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} onFocusCapture={() => setFocused(true)} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
-      <div className="absolute inset-0 -z-10 bg-navy" aria-hidden="true">
+    <section ref={wrap} className="relative isolate overflow-hidden bg-white text-navy" aria-label="Featured programs and courses in motion" data-testid="section-home-hero" onMouseEnter={() => setHovering(true)} onMouseLeave={() => setHovering(false)} onFocusCapture={(event) => { if (event.target.closest('a, button')) setFocused(true); }} onBlurCapture={(event) => { if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false); }}>
+      <div className="container-x relative grid gap-8 pb-12 pt-10 sm:gap-12 sm:py-16 lg:min-h-[42rem] lg:grid-cols-[1.05fr_1fr] lg:items-center lg:gap-10">
+      <div className="relative order-2 min-h-[19rem] overflow-hidden rounded-[2rem] bg-navy sm:min-h-[26rem] lg:h-[34rem]" data-testid="hero-photo">
         <AnimatePresence initial={false} mode="sync">
         {cur && (
           <motion.div key={`${cur.id}-${idx}`} data-testid="hero-image-layer" className="absolute inset-0" initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: reduce ? 0 : 1.2, ease: [0.22, 1, 0.36, 1] }}>
@@ -115,52 +126,55 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
           </motion.div>
         )}
         </AnimatePresence>
-        <div className="hero-image-scrim absolute inset-0" />
-        <div className="absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-navy/45 via-navy/10 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-navy/75 to-transparent" />
+        <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4 text-white">
+          <div><p className="text-xs font-bold uppercase tracking-[0.16em] text-gold">Explore your next chapter</p><p className="mt-2 max-w-[22rem] font-display text-xl font-bold sm:text-2xl">{cur?.name}</p></div>
+          {prog?.slug && <Link href={`/programs/${prog.slug}`} aria-label={`Explore ${prog.name}`} data-testid="link-hero-image-program" className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-gold text-navy transition hover:bg-white"><ArrowUpRight className="h-6 w-6" /></Link>}
+        </div>
       </div>
-      <div className="container-x flex min-h-[min(88svh,54rem)] flex-col justify-center pb-10 pt-20">
+      <div className="order-1 flex min-w-0 flex-col justify-center">
         <div className="max-w-4xl">
-          <motion.p key={cur?.id || 'brand'} initial={reduce || light ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="hero-pill mb-4">{cur?.shortLabel || String(course?.name || cur?.name || '4PL Academy').replace(/^(?:BBA in |MBA \/ PGDM in |MBA \+ PGPM in |Foundation(?: Course)?(?: in| To)? )/i, '')}</motion.p>
-          <h1 className="hero-title text-surface text-[clamp(1.9rem,10vw,4.5rem)] sm:text-7xl lg:text-[6rem]">
+          <motion.p key={cur?.id || 'brand'} initial={reduce || light ? false : { opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-gold/35 bg-gold-soft px-4 py-2 text-xs font-bold uppercase tracking-[0.13em] text-navy"><span className="h-2 w-2 shrink-0 rounded-full bg-gold" />{cur?.shortLabel || 'Education for your next chapter'}</motion.p>
+          <h1 style={{ textShadow: 'none' }} className="hero-title text-navy text-[clamp(2.2rem,6.5vw,4.8rem)] font-extrabold leading-[1.06]">
             {words.map((w, i) => (
               <span key={i} className="mr-[0.22em] inline-block overflow-visible align-bottom">
                 <motion.span className={cn('inline-block', i === words.length - 1 && 'text-gold')} initial={reduce || light ? false : { y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.1 + i * 0.09, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}>{w}</motion.span>
               </span>
             ))}
           </h1>
-          <motion.p initial={reduce || light ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.25, duration: 0.5 }} className="mt-4 max-w-xl text-base leading-relaxed text-surface/90 sm:text-lg">{section?.shortDescription || fallbackBody}</motion.p>
+          <motion.p initial={reduce || light ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.25, duration: 0.5 }} className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">{section?.shortDescription || fallbackBody}</motion.p>
           <motion.div initial={reduce ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             {(() => {
               const courseCatalog = isCourse(cur) && (!section?.ctaUrl || section.ctaUrl === '/programs');
               const a = { label: courseCatalog ? 'Explore Courses' : section?.ctaLabel || (section ? '' : 'Explore programs'), url: courseCatalog ? '/professional-courses' : section?.ctaUrl || '/programs', testid: 'link-hero-programs' };
               const b = { label: section?.secondaryCtaLabel || (section ? '' : 'Book Counselling'), url: section?.secondaryCtaUrl || '/book-counselling', testid: 'button-hero-bot' };
               const isBook = (x) => /counsel|book/i.test(`${x.label} ${x.url}`);
-              const bookB = isBook(b) || !isBook(a);
-              const [first, second] = bookB ? [b, a] : [a, b];
-              return <><Cta {...first} url={isBook(first) && first.url !== 'bot' ? book : first.url} className="btn-hero" /><Cta {...second} url={isBook(second) && second.url !== 'bot' ? book : second.url} variant="light" className="btn-hero" /></>;
+              const [first, second] = isBook(a) ? [b, a] : [a, b];
+              return <><Cta {...first} url={isBook(first) && first.url !== 'bot' ? book : first.url} className="btn-hero" variant="gold" /><Cta {...second} url={isBook(second) && second.url !== 'bot' ? book : second.url} variant="outline" className="btn-hero" /></>;
             })()}
           </motion.div>
         </div>
         {n > 0 && (
           <div className="mt-8 pt-2">
             <div className="flex flex-wrap items-center gap-3">
-              <div className="min-w-0 flex-1 text-sm text-surface/85" aria-live={running ? 'off' : 'polite'}>
-                <span className="text-xs font-bold uppercase tracking-wider text-gold">{String(idx % n + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}</span>
-                <AnimatePresence mode="wait" initial={false}><motion.span key={cur?.id} className="ml-2 inline-block font-bold text-surface" initial={reduce ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={reduce ? { opacity: 0 } : { opacity: 0, y: -8 }} transition={{ duration: 0.35 }}>{cur?.name}</motion.span></AnimatePresence>
-                {!isCourse(cur) && prog && has(prog.universityName) && <span className="ml-2 text-xs text-surface/60">{prog.universityName}</span>}
-                {isCourse(cur) ? courseSlug && <Link href={`/professional-courses/${courseSlug}`} className="ml-3 inline-flex items-center gap-1 text-xs font-bold text-gold underline underline-offset-2">Course details<ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" /></Link> : prog?.slug && <Link href={`/programs/${prog.slug}`} className="ml-3 inline-flex items-center gap-1 text-xs font-bold text-gold underline underline-offset-2">Program details<ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" /></Link>}
+              <div className="min-w-0 flex-1 text-sm text-navy" aria-live={running ? 'off' : 'polite'}>
+                <span className="text-xs font-bold uppercase tracking-wider text-gold-deep">{String(idx % n + 1).padStart(2, '0')} / {String(n).padStart(2, '0')}</span>
+                <span className="ml-2 inline-block font-bold">{cur?.name}</span>
+                {!isCourse(cur) && prog && has(prog.universityName) && <span className="ml-2 text-xs text-muted-foreground">{prog.universityName}</span>}
+                {isCourse(cur) ? courseSlug && <Link href={`/professional-courses/${courseSlug}`} className="ml-3 mt-2 inline-flex items-center gap-1 text-xs font-bold text-gold-deep underline underline-offset-2">Course details<ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" /></Link> : prog?.slug && <Link href={`/programs/${prog.slug}`} data-testid="link-hero-program-details" className="ml-3 mt-2 inline-flex items-center gap-1 text-xs font-bold text-gold-deep underline underline-offset-2">Program details<ArrowUpRight className="h-3.5 w-3.5" aria-hidden="true" /></Link>}
               </div>
             </div>
             {n > 1 && (
               <ul className="mt-3 flex flex-wrap gap-2" aria-label="Choose a program or course visual">
                 {slides.map((m, i) => (
-                  <li key={m.id}><button type="button" onClick={() => { setPlaying(false); show(i); }} aria-current={i === idx % n} aria-label={m.name} title={m.name} className="grid h-8 w-8 place-items-center"><span className={cn('block h-1 rounded-full transition-all duration-500', i === idx % n ? 'w-8 bg-gold' : 'w-4 bg-surface/40')} /></button></li>
+                  <li key={m.id}><button type="button" data-testid={`button-hero-slide-${i}`} onClick={() => { setPlaying(false); show(i); }} aria-current={i === idx % n} aria-label={m.name} title={m.name} className="grid h-8 w-8 place-items-center rounded-full focus-visible:outline focus-visible:outline-gold"><span className={cn('block h-1 rounded-full transition-all duration-500', i === idx % n ? 'w-8 bg-gold' : 'w-4 bg-navy/20')} /></button></li>
                 ))}
               </ul>
             )}
-            {imageError && <p role="status" className="mt-2 text-sm text-surface">{imageError}</p>}
+            {imageError && <p role="status" className="mt-2 text-sm text-navy">{imageError}</p>}
           </div>
         )}
+      </div>
       </div>
     </section>
   );

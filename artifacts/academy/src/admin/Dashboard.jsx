@@ -17,11 +17,12 @@ export default function Dashboard() {
   const stages = d.leadStages || [];
   return (
     <div className="space-y-6">
+      <div className="navy-surface on-navy relative overflow-hidden rounded-[1.5rem] p-6 sm:p-8"><div aria-hidden="true" className="band-ring" /><p className="eyebrow eyebrow-light relative">Overview</p><h2 className="relative mt-2 font-display text-2xl font-extrabold sm:text-3xl">Welcome back. Here is what needs attention.</h2><div className="relative mt-5 flex flex-wrap gap-2"><Link href="/admin/leads" className="btn btn-gold btn-sm">Review leads</Link><Link href="/admin/programs" className="btn btn-light btn-sm">Edit programs</Link><Link href="/admin/homepage" className="btn btn-light btn-sm">Edit homepage</Link></div></div>
       <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {tiles.map(([l, n, I, h]) => (
           <Link key={l} href={h} className="card-s group p-4 transition hover:border-gold sm:p-5"><I className="h-5 w-5 text-gold-deep" aria-hidden="true" /><p className="mt-3 font-display text-4xl text-navy" data-testid={`stat-${l.toLowerCase()}`}>{n}</p><p className="text-sm font-semibold text-muted-foreground">{l}</p></Link>
         ))}
-        <div className="navy-surface on-navy col-span-2 rounded-lg p-4 sm:p-5"><AlertTriangle className="h-5 w-5 text-gold" aria-hidden="true" /><p className="mt-3 font-display text-4xl" data-testid="stat-needs-verification">{d.needsVerification}</p><p className="text-sm text-surface/80">Records needing verification</p></div>
+        <div className="navy-surface on-navy col-span-2 rounded-[1.25rem] p-4 sm:p-5"><AlertTriangle className="h-5 w-5 text-gold" aria-hidden="true" /><p className="mt-3 font-display text-4xl" data-testid="stat-needs-verification">{d.needsVerification}</p><p className="text-sm text-surface/80">Records needing verification</p></div>
       </div>
       <div className="grid gap-6 xl:grid-cols-2">
         <section className="card-s p-4 sm:p-6"><h2 className="text-xl text-navy">Lead pipeline</h2>

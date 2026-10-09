@@ -14,6 +14,10 @@ if (Number.isNaN(port) || port <= 0) {
 }
 
 const basePath = process.env.BASE_PATH || '/';
+const seoProxy = Object.fromEntries(['robots.txt', 'sitemap.xml'].map((file) => [
+  `/${file}`,
+  { target: 'http://127.0.0.1:80', changeOrigin: false, xfwd: true, rewrite: () => `/api/seo/${file}` },
+]));
 
 export default defineConfig({
   base: basePath,
@@ -57,6 +61,7 @@ export default defineConfig({
     } } },
   },
   server: {
+    proxy: seoProxy,
     port,
     strictPort: true,
     host: '0.0.0.0',
@@ -66,6 +71,7 @@ export default defineConfig({
     },
   },
   preview: {
+    proxy: seoProxy,
     port,
     host: '0.0.0.0',
     allowedHosts: true,

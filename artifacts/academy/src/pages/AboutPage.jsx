@@ -7,7 +7,7 @@ import { useSeo, seoFrom } from '@/lib/seo';
 import { useContactSettings, telHref } from '@/lib/settings';
 import { asset, has, lines } from '@/lib/format';
 import { mediaUrl } from '@/lib/home';
-import { Reveal, Skeleton, ErrorState, EmptyState } from '@/components/ui-kit';
+import { Reveal, Skeleton, ErrorState, EmptyState, SplitHero } from '@/components/ui-kit';
 import { RichText, ListBlock } from '@/components/RichText';
 import { FaqList } from '@/components/FaqList';
 import { splitMarkdown } from '@/components/AboutSections';
@@ -157,22 +157,7 @@ export default function AboutPage() {
   const usedPhotos = new Set([heroImg, HERO]);
   return (
     <div>
-      <section className="navy-surface on-navy relative isolate overflow-hidden">
-        <img src={heroImg} alt="" fetchPriority="high" className="absolute inset-0 -z-10 h-full w-full object-cover opacity-50" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-navy via-navy/80 to-navy/30" />
-        <div className="container-x py-16 sm:py-24 lg:py-32">
-          <motion.div initial={reduce ? false : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}>
-            <img src={LOGO} alt="4PL Academy: Creating Global Professionals" width="684" height="519" className="mb-6 h-24 w-auto rounded-xl bg-surface p-3" />
-            <p className="eyebrow mb-5">About 4PL Academy</p>
-            {q.isLoading ? <Skeleton className="h-24 max-w-2xl" /> : <h1 className="display-lg max-w-3xl break-words text-surface">{p?.name || 'About 4PL Academy'}</h1>}
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-surface/80">{p?.shortDescription || 'The education and training arm of 4PL Consultancy Ltd, connecting university learning, practical industry expertise and professional growth across India and the UK.'}</p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/programs" className="btn btn-gold btn-hero">Explore programs</Link>
-              <Link href="/contact" className="btn btn-hero btn-light">Contact us</Link>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      <SplitHero image={heroImg} logo={<img src={LOGO} alt="4PL Academy: Creating Global Professionals" width="684" height="519" className="mb-6 h-20 w-auto rounded-xl border border-line bg-white p-2 shadow-sm" />} eyebrow="About 4PL Academy" title={q.isLoading ? <Skeleton className="h-24 max-w-2xl" /> : (p?.name || 'About 4PL Academy')} body={p?.shortDescription || 'The education and training arm of 4PL Consultancy Ltd, connecting university learning, practical industry expertise and professional growth across India and the UK.'} actions={<><Link href="/programs" className="btn btn-gold btn-hero">Explore programs</Link><Link href="/contact" className="btn btn-hero btn-outline">Contact us</Link></>} />
 
       <div className="container-x py-8">
         {q.isLoading ? <div className="space-y-4"><Skeleton className="h-12" /><Skeleton className="h-64" /></div> : q.isError ? <ErrorState onRetry={q.refetch} /> : !p || !sections.length && !has(intro) ? (

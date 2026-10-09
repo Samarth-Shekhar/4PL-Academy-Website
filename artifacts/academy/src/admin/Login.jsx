@@ -23,10 +23,16 @@ export default function Login() {
   const setup = session.data?.setupRequired;
   const onSubmit = (data) => login.mutate({ data }, { onSuccess: (s) => { qc.setQueryData(getGetAdminSessionQueryKey(), s); nav('/admin/dashboard'); } });
   return (
-    <div className="navy-surface on-navy grid min-h-[100dvh] place-items-center px-4 py-10">
+    <div className="grid min-h-[100dvh] lg:grid-cols-[1fr_1.05fr]">
+      <aside className="navy-surface on-navy relative hidden overflow-hidden p-12 lg:flex lg:flex-col lg:justify-between">
+        <div aria-hidden="true" className="band-ring" />
+        <div className="relative rounded-2xl bg-white px-4 py-2 self-start"><Logo className="h-20" /></div>
+        <div className="relative max-w-md"><p className="eyebrow eyebrow-light mb-4">Content studio</p><p className="font-display text-4xl font-extrabold leading-tight">Programs, universities, blogs and leads, managed in one place.</p><div className="gold-rule mt-6" /></div>
+      </aside>
+      <div className="grid place-items-center bg-mist/60 px-4 py-10">
       <div className="w-full max-w-md">
-        <div className="mb-6 flex justify-center"><div className="rounded-lg bg-surface px-4 py-2"><Logo className="h-24" /></div></div>
-        <div className="rounded-xl bg-card p-6 text-foreground shadow-2xl sm:p-8">
+        <div className="mb-6 flex justify-center lg:hidden"><div className="rounded-2xl border border-line bg-white px-4 py-2"><Logo className="h-20" /></div></div>
+        <div className="rounded-[1.5rem] border border-line bg-white p-6 text-foreground shadow-xl sm:p-8">
           <p className="eyebrow">Content studio</p>
           <h1 className="mt-1 text-3xl text-navy">Admin sign in</h1>
           {setup && (
@@ -43,6 +49,7 @@ export default function Login() {
             <button type="submit" className="btn btn-navy w-full" disabled={login.isPending || setup} data-testid="button-admin-login">{login.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Lock className="h-4 w-4" aria-hidden="true" />} Sign in</button>
           </form>
         </div>
+      </div>
       </div>
     </div>
   );

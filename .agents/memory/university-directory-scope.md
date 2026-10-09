@@ -39,3 +39,11 @@ Combine homepage university discovery into the All / Undergraduate / Postgraduat
 **Why:** The owner asked to remove the pictured university section, combine its cards with the degree section or an All view, and keep every card's size and ratio consistent.
 
 **How to apply:** University-only cards can appear in All when no concrete source-supported program pair is available. Keep degree-specific views limited to actual supplied programs; do not infer degree offerings for bare institution cards.
+
+## Owner-supplied program focus
+
+The later EdTech redesign brief permits a separate focus area containing owner-supplied program titles without a university allocation. Keep these distinct from institution-specific program offerings. Approval of a title does not verify its fee, duration, curriculum, eligibility or institutional affiliation.
+
+**Why:** The owner supplied AI program titles in the redesign brief but did not provide those additional academic facts. The public university limit still applies.
+
+**How to apply:** Preserve unknown fields as empty and keep unallocated programs unlinked. Do not fill missing facts from a nearby university logo, an archived institution or another similarly named program.

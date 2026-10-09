@@ -109,7 +109,7 @@ function Field({ f, form, onUploaded }) {
     </div>
   );
 }
-const Group = ({ title, children }) => <fieldset className="rounded-lg border border-line p-4"><legend className="px-2 text-sm font-bold text-navy">{title}</legend><div className="grid gap-4 sm:grid-cols-2">{children}</div></fieldset>;
+const Group = ({ title, children }) => <fieldset className="editor-group min-w-0 p-4 sm:p-5"><legend className="px-2 font-display text-base font-extrabold text-navy">{title}</legend><div className="grid gap-4 sm:grid-cols-2">{children}</div></fieldset>;
 
 export function EditorForm({ kind, cfg, item, onClose, universities = [] }) {
   const careers = kind === 'pages' && item?.slug === 'careers';
@@ -190,7 +190,7 @@ export function EditorForm({ kind, cfg, item, onClose, universities = [] }) {
         </fieldset>
       )}
       {cfg.faqs && (
-        <fieldset className="rounded-lg border border-line p-4"><legend className="px-2 text-sm font-bold text-navy">{cfg.faqsLabel || 'FAQs'}</legend>
+        <fieldset className="editor-group min-w-0 p-4 sm:p-5"><legend className="px-2 font-display text-base font-extrabold text-navy">{cfg.faqsLabel || 'FAQs'}</legend>
           <div className="space-y-3">
             {fields.map((fi, i) => (
               <div key={fi.id} className="rounded-md bg-mist/60 p-3">
@@ -206,7 +206,7 @@ export function EditorForm({ kind, cfg, item, onClose, universities = [] }) {
         </fieldset>
       )}
       {cfg.items && (
-        <fieldset className="rounded-lg border border-line p-4"><legend className="px-2 text-sm font-bold text-navy">{cfg.itemsLabel || 'Items'}</legend>
+        <fieldset className="editor-group min-w-0 p-4 sm:p-5"><legend className="px-2 font-display text-base font-extrabold text-navy">{cfg.itemsLabel || 'Items'}</legend>
           {careers && <p className="mb-4 text-sm text-muted-foreground">Add only real, available positions. Leave this list empty to show “No open positions right now.” Remove a position when it closes.</p>}
           <div className="space-y-3">
             {itemsArr.fields.map((fi, i) => (
@@ -272,11 +272,11 @@ export default function ContentManager({ kind, embedded }) {
         {!embedded && <p className="max-w-xl text-sm text-muted-foreground">Changes are saved to the database and appear on the public site immediately after publishing.</p>}
         <button type="button" onClick={() => setEditing('new')} className="btn btn-gold self-start sm:ml-auto" data-testid={`button-new-${kind}`}><Plus className="h-4 w-4" aria-hidden="true" /> New {cfg.label.toLowerCase()}</button>
       </div>
-      <div className="mb-4 grid gap-3 lg:grid-cols-[1fr_auto]">
-        <div><label className="sr-only" htmlFor="cm-search">Search</label><input id="cm-search" type="search" className="input" placeholder={`Search ${cfg.plural.toLowerCase()}`} value={f.search} onChange={(e) => setF({ ...f, search: e.target.value })} /></div>
-        <div className="no-scrollbar flex gap-1.5 overflow-x-auto" role="tablist" aria-label="Status filter">{['all', ...STATUSES].map((s) => <button key={s} type="button" role="tab" aria-selected={f.status === s} onClick={() => setF({ ...f, status: s })} className={cn('shrink-0 rounded-full border px-3.5 py-2 text-sm font-semibold capitalize', f.status === s ? 'border-navy bg-navy text-surface' : 'border-line bg-card text-navy')}>{s} ({counts[s]})</button>)}</div>
+      <div className="admin-toolbar mb-4 grid gap-3 p-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+        <div><label className="sr-only" htmlFor="cm-search">Search</label><input id="cm-search" type="search" className="input search-pill" placeholder={`Search ${cfg.plural.toLowerCase()}`} value={f.search} onChange={(e) => setF({ ...f, search: e.target.value })} /></div>
+        <div className="no-scrollbar flex gap-1.5 overflow-x-auto" role="tablist" aria-label="Status filter">{['all', ...STATUSES].map((s) => <button key={s} type="button" role="tab" aria-selected={f.status === s} onClick={() => setF({ ...f, status: s })} className={cn('shrink-0 rounded-full border px-3.5 py-2 text-sm font-semibold capitalize', f.status === s ? 'border-navy bg-navy text-surface' : 'border-line bg-white text-navy hover:border-gold')}>{s} ({counts[s]})</button>)}</div>
       </div>
-      {err && <p className="mb-3 rounded-md bg-red-50 p-3 text-sm text-destructive" role="alert">{err}</p>}
+      {err && <p className="form-alert mb-3" role="alert">{err}</p>}
       {q.isLoading ? <div className="space-y-2">{Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} className="h-20" />)}</div> : q.isError ? <ErrorState onRetry={q.refetch} /> : !list.length ? <EmptyState icon={Inbox} title={all.length ? 'Nothing matches' : `No ${cfg.plural.toLowerCase()} yet`} body={all.length ? 'Adjust the search or status filter.' : 'Create the first record to get started.'} /> : (
         <ul className="space-y-2">
           {list.map((x) => (

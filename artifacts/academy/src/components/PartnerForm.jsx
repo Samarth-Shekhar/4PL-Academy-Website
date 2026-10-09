@@ -88,7 +88,7 @@ export function PartnerForm() {
     <p className="mt-3 text-sm leading-relaxed text-navy/80">{doneMessage}</p>
     <button type="button" className="btn btn-outline mt-5" onClick={() => { submit.reset(); setDoneMessage(''); setDone(false); }}>Send another enquiry</button>
   </div>;
-  return <form noValidate onSubmit={handleSubmit(onSubmit)} className="space-y-5" data-testid="form-partner">
+  return <form noValidate onSubmit={handleSubmit(onSubmit)} className="form-flow space-y-5" data-testid="form-partner">
     <div className="grid gap-4 sm:grid-cols-2">
       <InputField name="organisation" label="Institution / organisation" register={register} error={errors.organisation} maxLength={200} wide />
       <SelectField name="organisationType" label="Organisation type" control={control} error={errors.organisationType} options={TYPES} />
@@ -107,10 +107,10 @@ export function PartnerForm() {
       </div>
     </div>
     <div>
-      <label className="flex items-start gap-3 text-sm leading-relaxed text-navy/85"><input type="checkbox" className="mt-1 h-5 w-5 shrink-0 accent-[hsl(221_76%_17%)]" {...register('consent')} /><span>I agree to be contacted by 4PL Academy about this partnership enquiry.</span></label>
+      <label className="consent-box flex items-start gap-3 text-sm leading-relaxed text-navy/85"><input type="checkbox" className="mt-1 h-5 w-5 shrink-0 accent-[hsl(221_76%_17%)]" {...register('consent')} /><span>I agree to be contacted by 4PL Academy about this partnership enquiry.</span></label>
       {errors.consent && <p className="field-err">{errors.consent.message}</p>}
     </div>
-    {submit.isError && <p className="rounded-xl bg-red-50 p-3 text-sm text-destructive" role="alert">{errMsg(submit.error)}</p>}
+    {submit.isError && <p className="form-alert" role="alert">{errMsg(submit.error)}</p>}
     <button type="submit" disabled={submit.isPending} className="btn btn-gold w-full" data-testid="submit-partner">{submit.isPending ? <><Loader2 className="h-4 w-4 animate-spin" /> Sending…</> : 'Submit partnership enquiry'}</button>
     <p className="flex items-start gap-2 text-xs leading-relaxed text-muted-foreground"><ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />Your details are used to respond to your collaboration enquiry.</p>
   </form>;
