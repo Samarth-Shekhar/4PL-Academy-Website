@@ -43,7 +43,7 @@
 .admission-card-shell {
   flex: none;
   width: min(82vw, 340px);
-  height: 500px;
+  height: 530px;
   scroll-snap-align: center;
   transform: perspective(900px) translateZ(var(--curve-depth, 0px)) rotateY(var(--curve-angle, 0deg)) scale(var(--curve-scale, 1));
   transform-origin: center center;

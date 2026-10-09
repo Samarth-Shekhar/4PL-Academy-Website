@@ -91,7 +91,7 @@ function Header() {
                   {n.children.map(c => <li key={c.href}><Link href={c.href} onClick={() => setDropdown(null)} className={cn('block min-h-11 rounded px-3 py-3 text-sm text-navy hover:bg-gold-soft hover:text-gold-deep focus-visible:bg-gold-soft focus-visible:text-gold-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold', active(c.href) && 'text-gold-deep')}>{c.label}</Link></li>)}
                 </ul>}
               </div>
-            ) : <Link key={n.href} href={n.href} className={cn(style, n.ai && 'nav-ai')} aria-current={selected ? 'page' : undefined} onClick={() => setDropdown(null)}>{n.label}</Link>;
+            ) : <Link key={n.href} href={n.href} className={cn(style, n.ai && 'nav-ai', n.href === '/contact' && 'nav-contact')} aria-current={selected ? 'page' : undefined} onClick={() => setDropdown(null)}>{n.label}</Link>;
           })}
         </nav>
         <div className="flex items-center gap-2">
@@ -150,7 +150,16 @@ function Footer() {
   return (
     <footer className="relative mt-0 isolate overflow-hidden bg-navy border-t-4 border-gold text-surface">
       <div aria-hidden="true" className="ai-grid pointer-events-none absolute inset-0 -z-10 opacity-20 [filter:invert(1)]" />
+      <img aria-hidden="true" alt="" src={asset('images/edtech/neural-cutout-960.webp')} loading="lazy" className="pointer-events-none absolute -right-24 bottom-0 -z-10 w-[40rem] max-w-none opacity-10" />
+      <div className="footer-scene relative h-64 overflow-hidden sm:h-80">
+        <img alt="" src={asset('images/ai-human-learning/lab-collaboration-1280.webp')} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-navy/20" />
+        <p aria-hidden="true" className="footer-giant container-x absolute inset-x-0 bottom-4 font-display font-extrabold leading-none text-white">4PL Academy</p>
+      </div>
       <div className="container-x py-10">
+        <nav aria-label="Footer primary" className="mb-8 flex flex-wrap justify-center gap-1 rounded-3xl border border-white/20 bg-white/5 p-2 sm:rounded-full">
+          {NAV.map(n => <Link key={n.href} href={n.href} className="inline-flex min-h-11 items-center gap-2 rounded-full px-4 text-sm text-surface transition-colors hover:bg-gold hover:text-navy focus-visible:bg-gold focus-visible:text-navy">{n.label}<ArrowRight className="h-3.5 w-3.5" aria-hidden="true" /></Link>)}
+        </nav>
         <div className="mb-9 flex flex-col justify-between gap-5 border-b border-white/20 pb-8 sm:flex-row sm:items-end">
           <div><p className="mb-2 text-xs font-bold uppercase tracking-[.16em] text-gold">AI · Digital transformation · Logistics</p><p className="font-display text-3xl font-extrabold leading-tight text-white sm:text-4xl">Your next chapter starts here.</p></div>
           <Link href="/programs" className="btn btn-gold self-start">Discover programs <ArrowRight className="h-4 w-4" /></Link>

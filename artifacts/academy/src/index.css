@@ -467,3 +467,19 @@ footer a { transition: color .2s, background-color .2s; }
   .hero-art:hover img, .back-top:hover svg { scale: 1; translate: none; rotate: none; }
   .hero-art:hover img, .ai-home .card-s:hover, .ai-home .focus-tile:hover { transform: none; }
 }
+
+/* ---- Fresh public layer: editorial header, scene footer, calmer forms ---- */
+header.sticky nav a.nav-contact { background: hsl(var(--brand-gold)); color: hsl(var(--brand-navy)); border-radius: 999px; padding-inline: 1.25rem; box-shadow: 0 8px 18px -10px hsl(var(--brand-gold)); transition: transform .25s, background-color .25s; }
+header.sticky nav a.nav-contact:hover, header.sticky nav a.nav-contact:focus-visible { background: hsl(43 86% 60%); color: hsl(var(--brand-navy)); transform: translateY(-1px); }
+.footer-giant { font-size: clamp(2.3rem, 11vw, 9rem); letter-spacing: -.05em; text-transform: uppercase; opacity: .95; pointer-events: none; user-select: none; white-space: nowrap; }
+.form-surface { border-top-width: 1px; border-radius: 1.75rem; }
+.form-flow .label { font-size: .88rem; color: hsl(var(--brand-navy)); }
+.form-flow .input { background: hsl(40 33% 99%); }
+.form-flow .input:focus { border-color: hsl(var(--brand-gold)); box-shadow: 0 0 0 4px hsl(var(--brand-gold) / .22); }
+.form-flow .brand-select-trigger { background: hsl(40 33% 99%); }
+.form-flow [aria-invalid="true"] { border-color: hsl(var(--destructive)); background: hsl(8 70% 98%); }
+.form-flow textarea.input { min-height: 8rem; resize: vertical; }
+.form-flow .consent-box { background: hsl(var(--brand-gold-soft) / .55); border-color: hsl(var(--brand-gold) / .35); }
+.form-flow button[type="submit"] { min-height: 3.25rem; }
+.contact-info { border-radius: 1.5rem; }
+@media (prefers-reduced-motion: reduce) { .nav-contact { transition: none !important; transform: none !important; } }

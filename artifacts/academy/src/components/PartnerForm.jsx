@@ -88,8 +88,8 @@ export function PartnerForm() {
     <p className="mt-3 text-sm leading-relaxed text-navy/80">{doneMessage}</p>
     <button type="button" className="btn btn-outline mt-5" onClick={() => { submit.reset(); setDoneMessage(''); setDone(false); }}>Send another enquiry</button>
   </div>;
-  return <form noValidate onSubmit={handleSubmit(onSubmit)} className="form-flow space-y-5" data-testid="form-partner">
-    <div className="grid gap-4 sm:grid-cols-2">
+  return <form noValidate onSubmit={handleSubmit(onSubmit)} className="form-flow space-y-6" data-testid="form-partner">
+    <div className="grid gap-x-6 gap-y-5 sm:grid-cols-2">
       <InputField name="organisation" label="Institution / organisation" register={register} error={errors.organisation} maxLength={200} wide />
       <SelectField name="organisationType" label="Organisation type" control={control} error={errors.organisationType} options={TYPES} />
       <InputField name="city" label="City / country" register={register} error={errors.city} optional autoComplete="address-level2" maxLength={150} />

@@ -33,7 +33,7 @@ export default function ContactPage({ c, ctx, careers, st, page }) {
     <div>
     <PageHero eyebrow={c.eyebrow} title={c.title} body={c.body} crumbs={[{ label: 'Home', href: '/' }, { label: c.eyebrow }]} />
     <div className="container-x py-8 sm:py-14">
-      <div className="grid items-start gap-8 lg:grid-cols-[1.15fr_.85fr] lg:gap-10">
+      <div className="grid items-start gap-8 lg:grid-cols-[1.3fr_.7fr] lg:gap-14">
       <div className="min-w-0">
         <div className="form-surface p-5 sm:p-8">
           <div className="[&_.label]:text-navy [&_input[type=checkbox]]:accent-[hsl(221_76%_17%)]">
@@ -64,9 +64,9 @@ export default function ContactPage({ c, ctx, careers, st, page }) {
           {emails.length ? <ul className="space-y-1">{emails.map((e) => <li key={e}><a href={`mailto:${e}`} className={`${link} break-all`}>{e}</a></li>)}</ul> : empty}
         </InfoCard>
       </div>
-      <div className="min-w-0 overflow-hidden rounded-2xl border border-navy/10 bg-white p-1.5 text-foreground"><OfficeLocationMap /></div>
         </div>
       </div>
+      <div className="mt-10 min-w-0 overflow-hidden rounded-[1.75rem] border border-navy/10 bg-white p-2 text-foreground" data-testid="block-contact-map"><OfficeLocationMap satellite wide /></div>
       {page && has(page.description) && <div className="mx-auto mt-8 max-w-4xl rounded-2xl bg-surface p-5 text-foreground"><RichText text={page.description} /></div>}
     </div>
     </div>

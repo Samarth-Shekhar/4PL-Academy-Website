@@ -24,3 +24,9 @@ Keep the header and footer minimal and EduNova-inspired, preserving the full sup
 **Why:** The owner specifically requested a simpler header/footer and less hero spacing, alongside smooth downward entrances and upward navigation rather than abrupt jumps.
 
 **How to apply:** Retain actual navigation, office/contact/social/legal details; use restrained transitions with reduced-motion support rather than blocking native scrolling.
+
+Favor real photographs of humans learning robotics or working with technology in About, student life and editorial defaults, instead of warehouse/logistics stock imagery. Use the supplied 4PL Consultancy logo in “Why 4PL Consultancy,” not the Academy logo.
+
+**Why:** The owner asked for human-and-AI EdTech imagery and supplied the parent consultancy's separate logo for that specific section.
+
+**How to apply:** Preserve institutional campus identity, original blog artwork and the actual logistics offerings. Record stock-photo sources internally without claiming the people or facilities belong to the academy.

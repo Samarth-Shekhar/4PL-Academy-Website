@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'wouter';
+import { HUMAN_LEARNING_PHOTOS } from '@/lib/human-learning';
 import { has } from '@/lib/format';
 import { useMatch } from '@/lib/home';
 import { Head, Body, Cta, Pic } from './shared';
@@ -11,12 +12,12 @@ function Step({ it, i, duplicate = false }) {
   const ext = /^https?:/i.test(href);
   const cls = 'admission-card group flex flex-col overflow-hidden rounded-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold';
   const inner = <>
-    <div className="aspect-[16/11] shrink-0 overflow-hidden"><Pic src={it.image} alt={it.altText || ''} label={it.name} className="admission-card-image h-full w-full" /></div>
-    <div className="flex flex-1 flex-col p-5">
-      <span className="grid h-7 w-7 place-items-center rounded-full bg-navy text-sm font-bold text-gold" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-      <h3 className="mt-2 text-lg font-bold leading-snug text-navy">{it.name}</h3>
-      {has(it.description) && <p className="mt-1.5 line-clamp-3 text-sm leading-relaxed text-muted-foreground">{it.description}</p>}
-      <span className="mt-auto pt-3 text-sm font-bold text-navy underline underline-offset-4">Go</span>
+    <div className="aspect-[16/8] shrink-0 overflow-hidden"><Pic src={it.image} alt={it.altText || ''} label={it.name} className="admission-card-image h-full w-full" /></div>
+    <div className="flex min-h-0 flex-1 flex-col p-5 sm:p-6">
+      <span className="grid h-10 w-10 place-items-center rounded-full bg-navy text-base font-bold text-gold" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+      <h3 className="mt-3 text-2xl font-bold leading-tight text-navy sm:text-[1.7rem]">{it.name}</h3>
+      {has(it.description) && <p className="mt-2.5 text-base leading-relaxed text-navy/75 sm:text-[1.075rem]">{it.description}</p>}
+      <span className="mt-auto pt-4 text-base font-bold text-navy underline decoration-gold decoration-2 underline-offset-4">Go</span>
     </div>
   </>;
   const props = {
@@ -29,7 +30,11 @@ function Step({ it, i, duplicate = false }) {
 }
 
 export function AdmissionTimeline({ s }) {
-  const items = (s.items || []).filter((it) => !/^apply(?:\s+now)?$/i.test(it.name || '') && !/^\/apply(?:[/?#]|$)/i.test(it.url || ''));
+  const items = (s.items || []).filter((it) => !/^apply(?:\s+now)?$/i.test(it.name || '') && !/^\/apply(?:[/?#]|$)/i.test(it.url || '')).map((it, i) => {
+    const legacy = /learning-refresh\/(?:explore|counselling|choose-program|admission|learn)|editorial\/(?:library|classroom)/.test(it.image || '');
+    const photo = HUMAN_LEARNING_PHOTOS[i % HUMAN_LEARNING_PHOTOS.length];
+    return legacy ? { ...it, image: photo.src, altText: photo.alt } : it;
+  });
   const viewport = useRef(null);
   const track = useRef(null);
   const interaction = useRef({ hover: false, focus: false, touch: false, dragging: false, moved: false, startX: 0, startScroll: 0, manualUntil: 0, userPaused: false });

@@ -29,6 +29,7 @@ import { AiLearningStudio } from '@/components/home/AiLearningStudio';
 const MAP = { 'university-logos': UniversityLogoCarousel, ecosystem: Ecosystem, universities: UniversityNetwork, programs: ProgramShowcase, industry: IndustryLogoMarquee, practical: PracticalLearning, certifications: CertificationShowcase, journey: LearningJourney, careers: CareerPathway, 'student-life': StudentLifeGallery, gallery: GalleryShowcase, testimonials: TestimonialCarousel, admissions: AdmissionTimeline, 'final-cta': FinalCta };
 
 function Blogs() {
+  const reduce = useReducedMotion();
   const q = usePublicList('blogs');
   const list = (q.data || []).slice(0, 3);
   if (q.isLoading) return <section className="container-x py-16"><CardSkeletons n={3} /></section>;
@@ -36,7 +37,7 @@ function Blogs() {
   return (
     <section className="py-16 sm:py-24" aria-label="Blogs and Insights of 4PL Academy">
       <div className="container-x"><SectionHead eyebrow="Insights" title="Blogs and Insights of 4PL Academy"><Link href="/blogs" className="btn btn-outline self-start">All articles</Link></SectionHead></div>
-      <div className="container-x grid min-w-0 gap-5 md:grid-cols-3">{list.map((b) => <div key={b.id} className="min-w-0"><BlogCard b={b} compact /></div>)}</div>
+      <div className="container-x grid min-w-0 gap-5 md:grid-cols-3">{list.map((b, i) => <motion.div key={b.id} className="min-w-0" initial={reduce ? false : { opacity: 0, y: 36 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.65, delay: i * 0.14, ease: [0.22, 1, 0.36, 1] }}><BlogCard b={b} compact /></motion.div>)}</div>
     </section>
   );
 }

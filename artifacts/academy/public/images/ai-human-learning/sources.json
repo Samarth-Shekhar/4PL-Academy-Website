@@ -1,0 +1,13 @@
+{
+  "usage": "Real stock photography of learning and research; not academy students, staff, facilities or events.",
+  "photos": [
+    {"key":"lab-collaboration","source":"https://www.pexels.com/photo/9242834/","image":"https://images.pexels.com/photos/9242834/pexels-photo-9242834.jpeg","subject":"Learners collaborating on robotics"},
+    {"key":"robotics-project","source":"https://www.pexels.com/photo/9242844/","image":"https://images.pexels.com/photos/9242844/pexels-photo-9242844.jpeg","subject":"Two learners examining a robotics project"},
+    {"key":"digital-mentor","source":"https://www.pexels.com/photo/8851447/","image":"https://images.pexels.com/photos/8851447/pexels-photo-8851447.jpeg","subject":"Adult researcher using a computer in a lab"},
+    {"key":"engineering-research","source":"https://www.pexels.com/photo/3862630/","image":"https://images.pexels.com/photos/3862630/pexels-photo-3862630.jpeg","subject":"Adult engineer researching with a laptop"}
+  ],
+  "consultancyLogo": {
+    "source": "Owner-supplied Logos_And_Contact_Details_Office_(1)_1791541557712.png",
+    "usage": "4PL Consultancy identity, separate from 4PL Academy."
+  }
+}

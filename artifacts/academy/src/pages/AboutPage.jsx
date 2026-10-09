@@ -12,9 +12,11 @@ import { RichText, ListBlock } from '@/components/RichText';
 import { FaqList } from '@/components/FaqList';
 import { splitMarkdown } from '@/components/AboutSections';
 import { cn } from '@/lib/cn';
+import { HUMAN_LEARNING_PHOTOS, refreshLearningPhoto } from '@/lib/human-learning';
 
 const LOGO = asset('images/4pl-logo-trimmed.webp');
-const HERO = asset('images/page-refresh/about-logistics-team.webp');
+const CONSULTANCY_LOGO = asset('images/4pl-consultancy-logo.webp');
+const HERO = HUMAN_LEARNING_PHOTOS[0].src;
 const FALLBACK_PHOTOS = [
   ['images/page-refresh/about-warehouse-discussion.webp', 'A team discussing warehouse operations'],
   ['images/editorial/classroom.webp', 'A classroom learning setting'],
@@ -33,18 +35,18 @@ const FALLBACK_PHOTOS = [
   ['images/learning-refresh/learn.webp', 'A laptop ready for work and learning'],
   ['images/learning-refresh/credentials.webp', 'Business data and charts on computer monitors'],
   ['images/learning-refresh/launch.webp', 'A calendar and work tools on a computer screen'],
-].map(([p, alt]) => ({ src: asset(p), alt }));
+].map(([p, alt]) => refreshLearningPhoto({ src: asset(p), alt }));
 // Presentation choices only: the titles and full section bodies remain CMS-owned.
 const SECTION_VISUALS = {
-  'who we are': [0, 'images/page-refresh/about-warehouse-discussion.webp', 'A team discussing warehouse operations'],
+  'who we are': [0, 'images/ai-human-learning/robotics-project-1280.webp', 'Learners examining a robotics project together'],
   'our areas of expertise': [1, 'images/edtech/neural-cutout-960.webp', 'Navy and gold brain illustration with circuit traces'],
-  'consulting & industry solutions': [2, 'images/editorial/warehouse.webp', 'Workers reviewing inventory in a warehouse'],
+  'consulting & industry solutions': [2, 'images/ai-human-learning/engineering-research-1280.webp', 'An engineer researching technology in a workshop'],
   'workforce development': [3, 'images/editorial/classroom.webp', 'Students learning together in a classroom'],
-  'how we work': [4, 'images/page-refresh/about-practical-work.webp', 'Workers discussing practical warehouse tasks'],
-  'operating across borders': [5, 'images/editorial/trade.webp', 'A cargo ship carrying goods across borders'],
-  'our vision': [6, 'images/learning-refresh/experience.webp', 'A ship beside a waterfront building'],
+  'how we work': [4, 'images/ai-human-learning/digital-mentor-1280.webp', 'A researcher using a computer in a collaborative laboratory'],
+  'operating across borders': [5, 'images/learning-refresh/shared-ideas.webp', 'Students sharing ideas and learning together'],
+  'our vision': [6, 'images/edtech/robot-portrait-960.webp', 'Navy and gold humanoid AI robot illustration'],
   'our mission': [7, 'images/learning-refresh/student-projects.webp', 'Students working on a project together'],
-  'why 4pl consultancy': [8, 'images/learning-refresh/credentials.webp', 'Business data and charts on computer monitors'],
+  'why 4pl consultancy': [8, 'images/edtech/robot-workshop-960.webp', 'Illustration of robotic technology in a workshop'],
   'leadership perspective': [9, 'images/editorial/business.webp', 'People exchanging ideas in a business meeting'],
   'enabling growth through expertise': [10, 'images/edtech/chip-cutout-960.webp', 'Navy and gold AI chip illustration'],
   'university alliance program': [11, 'images/learning-refresh/student-perspectives.webp', 'Students studying together in a library'],
@@ -110,7 +112,7 @@ function Block({ s, i, ph, variant }) {
   if (why) return sec('py-12', (
     <div className="navy-surface on-navy overflow-hidden rounded-3xl">
       <div className="grid gap-8 p-6 sm:p-10 md:grid-cols-[minmax(0,12rem)_1fr] md:items-start">
-        <div className="space-y-4"><img src={LOGO} alt="4PL Academy logo" width="684" height="519" loading="lazy" className="h-auto w-40 rounded-2xl bg-surface p-3 md:w-full" />{fig(ph, 'hidden rounded-2xl aspect-[4/3] md:block')}</div>
+        <div className="space-y-4"><img src={CONSULTANCY_LOGO} alt="4PL Consultancy: Supply Chain Simplified" width="121" height="85" loading="lazy" className="h-auto w-40 rounded-2xl bg-surface p-3 md:w-full" />{fig(ph, 'hidden rounded-2xl aspect-[4/3] md:block')}</div>
         <div className="min-w-0"><h2 tabIndex={-1} className={cn(H2, '!text-surface')}>{s.title}</h2><div className="gold-rule mt-4" /><div className={cn('mt-5 text-surface/85 [&_.prose-4pl]:!text-surface/85 [&_p]:!text-surface/85 [&_li]:!text-surface/85 [&_h3]:!text-gold', TICK)}><RichText text={body} /></div></div>
       </div>
     </div>));
@@ -134,10 +136,10 @@ export default function AboutPage() {
   const q = usePublicItem('pages', 'about');
   const reduce = useReducedMotion();
   const p = q.data;
-  const heroImg = (p && has(p.image) && mediaUrl(p.image)) || HERO;
+  const heroImg = refreshLearningPhoto({ src: (p && has(p.image) && mediaUrl(p.image)) || HERO }).src;
   useSeo(seoFrom(p, { title: 'About 4PL Academy', description: 'The education and training arm of 4PL Consultancy Ltd.' }));
   const { intro, sections } = useMemo(() => splitMarkdown(clean(p?.description)), [p?.description]);
-  const gallery = useMemo(() => (Array.isArray(p?.items) ? p.items : []).filter((g) => has(g?.image)).map((g) => ({ src: mediaUrl(g.image), alt: g.altText || '', sectionTitle: String(g.name || '').trim().toLowerCase() })), [p?.items]);
+  const gallery = useMemo(() => (Array.isArray(p?.items) ? p.items : []).filter((g) => has(g?.image)).map((g) => refreshLearningPhoto({ src: mediaUrl(g.image), alt: g.altText || '', sectionTitle: String(g.name || '').trim().toLowerCase() })), [p?.items]);
   const photos = useMemo(() => { const seen = new Set([heroImg, HERO]); return [...gallery, ...FALLBACK_PHOTOS].filter((x) => !seen.has(x.src) && seen.add(x.src)); }, [gallery, heroImg]);
   const nav = useMemo(() => [...sections.map((s) => ({ id: s.id, title: s.title })), { id: 'about-offices', title: 'Our offices' }], [sections]);
   const [active, setActive] = useState('');

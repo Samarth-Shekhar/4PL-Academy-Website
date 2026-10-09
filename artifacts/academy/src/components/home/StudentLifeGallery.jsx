@@ -4,12 +4,13 @@ import { bySection, useMedia } from '@/lib/home';
 import { cn } from '@/lib/cn';
 import { Head, Body, CtaRow, Pending } from './shared';
 import { MediaMasonry, toTile } from './MediaMasonry';
+import { refreshLearningPhoto } from '@/lib/human-learning';
 
 export function StudentLifeGallery({ s }) {
   const { list } = useMedia();
   const media = bySection(list, 'student-life').map(toTile);
   const fromItems = (s.items || []).filter((i) => i.image).map((i, k) => ({ key: `i${k}`, type: 'image', src: i.image, alt: i.altText, caption: i.name }));
-  const tiles = media.length ? media : fromItems;
+  const tiles = (media.length ? media : fromItems).map(refreshLearningPhoto);
   const copy = /illustrative photography/i.test(s.description || '') ? { ...s, description: '' } : s;
   return (
     <section className="container-x py-20 sm:py-28" aria-labelledby="sec-student-life">

@@ -25,7 +25,7 @@ export function ScrollTransitions() {
         animation.onfinish = () => animations.delete(animation);
       }
     }, { threshold: 0, rootMargin: '0px 0px -30px 0px' });
-    const scan = () => main.querySelectorAll('h1,h2,figure').forEach((element) => {
+    const scan = () => main.querySelectorAll('h1,h2,figure,[data-testid^="card-blog-"]').forEach((element) => {
       if (seen.has(element)) return;
       seen.add(element);
       observer.observe(element);

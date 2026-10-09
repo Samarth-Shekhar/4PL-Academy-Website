@@ -7,9 +7,10 @@ export function useIndiaOffice() {
   return (q.data || []).find(s => s.slug === 'contact-india' && s.verified);
 }
 
-export function OfficeLocationMap({ compact = false }) {
+export function OfficeLocationMap({ compact = false, satellite = false, wide = false }) {
   const office = useIndiaOffice();
   const [show, setShow] = useState(true);
+  const [imagery, setImagery] = useState(satellite);
   const headingId = useId();
   if (!office?.location) return null;
   // Locate the current street address, not an approximate city-centre pin
@@ -30,9 +31,10 @@ export function OfficeLocationMap({ compact = false }) {
       <p className="mt-2 whitespace-pre-line text-sm text-muted-foreground">{office.location}</p>
       <div className="mt-4 flex flex-wrap gap-3">
         <button type="button" className="btn btn-outline btn-sm" aria-expanded={show} onClick={() => setShow(v => !v)}>{show ? 'Hide map' : 'Show office map'}</button>
+        <button type="button" className={imagery ? 'btn btn-gold btn-sm' : 'btn btn-outline btn-sm'} aria-pressed={imagery} onClick={() => { setImagery(v => !v); setShow(true); }} data-testid="button-map-imagery">{imagery ? 'Satellite view' : 'Street map'}</button>
         <a href={`https://www.google.com/maps/dir/?api=1&destination=${query}`} target="_blank" rel="noopener noreferrer" className="btn btn-navy btn-sm" data-testid="link-office-directions">Open directions <ExternalLink className="h-4 w-4" aria-hidden="true" /></a>
       </div>
-      {show && <iframe title="Google Maps: 4PL Academy Noida office" src={`https://www.google.com/maps?q=${query}&z=16&output=embed`} loading="eager" referrerPolicy="no-referrer-when-downgrade" className={`mt-4 w-full rounded-xl border-0 ${compact ? 'h-40' : 'h-72'}`} data-testid="map-office" />}
+      {show && <iframe title={`Google Maps: 4PL Academy Noida office${imagery ? ', satellite imagery' : ''}`} src={`https://www.google.com/maps?q=${query}&z=16&t=${imagery ? 'k' : 'm'}&output=embed`} loading="eager" referrerPolicy="no-referrer-when-downgrade" className={`mt-4 w-full rounded-xl border-0 ${compact ? 'h-40' : wide ? 'h-80 sm:h-[28rem]' : 'h-72'}`} data-testid="map-office" />}
       {!compact && <p className="mt-3 text-xs text-muted-foreground">Map results are provided by Google. Confirm the building entrance with the team before visiting.</p>}
     </section>
   );

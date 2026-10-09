@@ -3,8 +3,9 @@ import { RichText, ListBlock } from '@/components/RichText';
 import { splitMarkdown } from '@/components/AboutSections';
 import { Link } from 'wouter';
 import { FaqList } from '@/components/FaqList';
-import { has, lines, asset } from '@/lib/format';
+import { has, lines } from '@/lib/format';
 import { mediaUrl } from '@/lib/home';
+import { HUMAN_LEARNING_PHOTOS, refreshLearningPhoto } from '@/lib/human-learning';
 
 function Reveal({ children, className = '', id, reduce }) {
   const a = reduce ? {} : { initial: { opacity: 0, y: 18 }, whileInView: { opacity: 1, y: 0 }, viewport: { once: true, margin: '-40px' }, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } };
@@ -16,7 +17,8 @@ export function StudentLife({ page, photos }) {
   const { intro, sections } = splitMarkdown(page.description);
    const image = mediaUrl(page.image);
    const supplied = image ? [{ src: image, alt: photos.find((p) => p.src === image)?.alt || '' }, ...photos.filter((p) => p.src !== image)] : photos;
-   const pics = supplied.length ? supplied : [{ src: asset('images/hero-students.webp'), alt: '' }];
+   const seen = new Set();
+   const pics = [...supplied.map(refreshLearningPhoto), ...HUMAN_LEARNING_PHOTOS].filter(p => !seen.has(p.src) && seen.add(p.src));
    const introPic = pics[0];
    const photoSlots = new Map(pics.slice(1).map((p, i) => [Math.floor(sections.length * (i + 1) / pics.length), p]));
   const hl = lines(page.highlights);
