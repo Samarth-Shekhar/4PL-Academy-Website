@@ -1,0 +1,85 @@
+## 4PL Academy — Complete EdTech UI Redesign
+
+Redesign the **entire existing 4PL Academy website** using this Dribbble reference as the primary visual inspiration:
+
+https://dribbble.com/shots/22696959-EduNova-Website-design-for-Educational-platform
+
+Use the reference’s overall UI style, typography, layout, spacing, navigation, image treatment, course cards, colour contrast, and smooth interactions. Create an original 4PL Academy design inspired by it; do not copy assets or reproduce it pixel-for-pixel.
+
+### 1. Branding and UI
+- Retain the official 4PL Academy logo and deep navy + academic gold branding.
+- Use modern EdTech typography, clean white backgrounds, strong headings, premium course cards, balanced spacing, and consistent buttons.
+- Redesign **every page and component**, including the homepage, header, footer, course listings, course details, university pages, career page, blogs, contact page, admin interface, and mobile layouts.
+- Use ReactBits (https://reactbits.dev/) selectively for lightweight animations and transitions. Avoid excessive effects, heavy dependencies, and unnecessary rewrites.
+
+### 2. Primary course focus
+Make these four programs the main focus of the homepage and program discovery experience:
+
+1. **BBA — AI & Digital Transformation**
+2. **B.Tech — AI & Digital Transformation**
+3. **BCA — Artificial Intelligence**
+4. **BBA — Logistics & Supply Chain Management**
+
+Give each program its own **unique, relevant, realistic image**:
+- BBA AI: AI-powered business analytics, digital strategy, and intelligent business systems.
+- B.Tech AI: robotics, machine learning, AI engineering, and intelligent technology labs.
+- BCA AI: programming, neural networks, software development, and data science.
+- BBA Logistics: warehouses, global shipping, supply chains, cargo operations, and logistics technology.
+
+Never reuse the same image across different course cards. Prefer real, licensed or officially approved imagery. Do not misrepresent generic images as actual university campuses.
+
+### 3. Homepage
+Create a premium EdTech homepage with this sequence:
+
+- Modern hero with animated transitions between distinct course images.
+- Clear headline positioning 4PL Academy as an education and career-development platform.
+- Primary buttons: **Explore Programs** and **Book Counselling**.
+- Featured AI and logistics programs.
+- Program search and filters.
+- University network and accessible interactive India map, including the 4PL Academy Noida location.
+- Practical learning and industry exposure.
+- Verified certifications and company relationships.
+- Career pathways and student experience.
+- Real testimonials and existing blog articles.
+- Counselling CTA and comprehensive footer.
+
+Keep the design visually rich but uncluttered. Use smooth fades, subtle movement, and restrained scroll animations.
+
+### 4. Course information and existing data
+Preserve existing content, backend functionality, URLs where possible, database relationships, and admin-managed data. Do not rebuild working systems unnecessarily.
+
+Show available, verified information such as fees, duration, eligibility, university, location, curriculum, and study mode. Hide missing fields without blank rows or fake values. Do not invent course details, placement statistics, accreditation, partnerships, or testimonials.
+
+Keep course cards aligned with flexible content heights and consistent bottom-aligned CTAs.
+
+### 5. Other pages
+Apply the same design system throughout:
+- Detailed program pages with curriculum, eligibility, fees, FAQs, and counselling.
+- University listings and profiles.
+- Professional courses and certifications.
+- A dedicated career page with verified career pathways.
+- Existing blogs with original content, correct image aspect ratios, and related articles.
+- Contact page with verified 4PL Academy details.
+- Responsive admin CMS for managing content and media.
+
+### 6. ACAD BOT
+Use the supplied 4PL Academy mascot as the chatbot avatar. Keep it secondary to **Book Counselling**.
+
+ACAD BOT must answer only from verified website/database information. If an answer is unavailable, say: “I don't have verified information about that. Please contact the 4PL Academy team for more information.” Include a working **Contact 4PL Academy** button with the configured phone, email, and contact page. Never hallucinate answers.
+
+### 7. Technical requirements
+Retain the existing project architecture unless a change is genuinely necessary. Use the current React/Vite, Tailwind CSS, Express, PostgreSQL, Drizzle ORM, and TanStack React Query setup where already implemented.
+
+- Fully responsive from 320px mobile screens through desktop.
+- Fast loading, lazy-loaded images, responsive WebP/AVIF assets, optimized video, and code splitting where useful.
+- Clean semantic HTML, accessible interactions, reduced-motion support, unique metadata, canonical URLs, structured data, sitemap, and robots.txt.
+- No unnecessary polling, duplicate libraries, repeated installations, or expensive rebuilds.
+- Keep secrets in environment variables.
+- Do not deploy to Replit.
+
+### 8. Execution rules — important
+First inspect the existing project, routes, database schema, components, and available assets. Then implement the redesign in the existing codebase.
+
+**Do not create a separate mockup, duplicate application, or static-only frontend.** Preserve existing functionality and connect all visible controls to real routes, data, or forms.
+
+Prioritize a complete, polished result in one efficient pass. Run the existing build and fix errors, broken routes, missing assets, mobile overflow, console errors, and nonfunctional buttons. Do not claim completion unless the implemented changes have been verified.
