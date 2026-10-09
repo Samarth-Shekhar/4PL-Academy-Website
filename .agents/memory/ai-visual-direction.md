@@ -37,8 +37,14 @@ Do not add a second rounded navigation strip to the footer. Animate the large Ac
 
 **How to apply:** Keep motion confined to the wordmark, preserve normal scrolling and keep all contact, social and legal details accessible.
 
-Keep the public header minimal and transparent/light, and public enquiry forms compact across pages. Time choices should use the same branded dropdown treatment as the other fields.
+Keep the public header minimal, fully transparent and borderless, with larger bold navigation and the complete original Academy logo intact. Keep public enquiry forms compact across pages. Time choices should use the same branded dropdown treatment as the other fields.
 
-**Why:** The owner requested the EduNova/Studify-style header and less scrolling to complete every public form.
+**Why:** The owner requested the EduNova/Studify-style header and less scrolling to complete every public form, then corrected the remaining white border and the smaller/different-looking logo.
 
-**How to apply:** Reduce excess spacing and use responsive columns without removing fields, consent or clear validation. Keep mobile controls usable rather than shrinking everything to fit.
+**How to apply:** Do not reintroduce an opaque or frosted header on scroll, crop/recreate the logo, or give it a background frame. Remove only its white background while preserving its artwork, proportions and colours. Reduce excess form spacing and use responsive columns without removing fields, consent or clear validation. Keep mobile controls usable rather than shrinking everything to fit.
+
+Contact Us is a plain header link, not a gold bubble. Keep hover animation on the home hero text minimal, moving the full headline together rather than individual letters.
+
+**Why:** The owner explicitly removed the Contact Us bubble and requested clean, minimal hover motion on the whole hero text.
+
+**How to apply:** Preserve navy-and-gold text colours, legibility and layout; avoid glowing or decorative text effects and disable added motion for reduced-motion preferences.
