@@ -484,8 +484,9 @@ footer a { transition: color .2s, background-color .2s; }
 /* ---- Light header + compact forms ---- */
 .academy-header.sticky,
 .academy-header.sticky.is-scrolled { background: transparent; border: 0; outline: 0; backdrop-filter: none; -webkit-backdrop-filter: none; box-shadow: none; }
-.academy-header nav > a,
-.academy-header nav > div > button { font-weight: 800; }
+.academy-header.sticky nav a,
+.academy-header.sticky nav button,
+.academy-header.sticky .btn { font-weight: 400; }
 .academy-header-logo { object-fit: contain; background: transparent; border: 0; border-radius: 0; box-shadow: none; mix-blend-mode: normal; }
 .academy-header.is-home { margin-bottom: -5rem; }
 .ai-home .ai-hero { padding-top: 5rem; }

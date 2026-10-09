@@ -37,9 +37,9 @@ Do not add a second rounded navigation strip to the footer. Animate the large Ac
 
 **How to apply:** Keep motion confined to the wordmark, preserve normal scrolling and keep all contact, social and legal details accessible.
 
-Keep the public header minimal, fully transparent and borderless, with larger bold navigation and the complete original Academy logo intact. Keep public enquiry forms compact across pages. Time choices should use the same branded dropdown treatment as the other fields.
+Keep the public header minimal, fully transparent and borderless, with larger regular-weight navigation (not bold) and the complete original Academy logo intact. Keep public enquiry forms compact across pages. Time choices should use the same branded dropdown treatment as the other fields.
 
-**Why:** The owner requested the EduNova/Studify-style header and less scrolling to complete every public form, then corrected the remaining white border and the smaller/different-looking logo.
+**Why:** The owner requested the EduNova/Studify-style header and less scrolling to complete every public form, then corrected the remaining white border and the smaller/different-looking logo. They subsequently clarified that header text should not be bold.
 
 **How to apply:** Do not reintroduce an opaque or frosted header on scroll, crop/recreate the logo, or give it a background frame. Remove only its white background while preserving its artwork, proportions and colours. Reduce excess form spacing and use responsive columns without removing fields, consent or clear validation. Keep mobile controls usable rather than shrinking everything to fit.
 
