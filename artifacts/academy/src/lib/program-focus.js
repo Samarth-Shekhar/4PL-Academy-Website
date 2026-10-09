@@ -3,7 +3,7 @@
 export const FOCUS_PROGRAMS = [
   {
     slug: 'bba-in-artificial-intelligence-ai',
-    title: 'BBA — AI & Digital Transformation',
+    title: 'BBA in AI Business & Digital Transformation',
     key: 'bba-ai',
     image: '/images/edtech/bba-ai-640.webp',
     heroImage: '/images/edtech/bba-ai-1440.webp',
@@ -11,7 +11,7 @@ export const FOCUS_PROGRAMS = [
   },
   {
     slug: 'btech-ai-digital-transformation',
-    title: 'B.Tech — AI & Digital Transformation',
+    title: 'B.Tech (Hons.) in Artificial Intelligence, Cloud Engineering & DevOps',
     key: 'btech-ai',
     image: '/images/edtech/robot-lab-640.webp',
     heroImage: '/images/edtech/robot-lab-1440.webp',
@@ -19,11 +19,27 @@ export const FOCUS_PROGRAMS = [
   },
   {
     slug: 'bca-artificial-intelligence',
-    title: 'BCA — Artificial Intelligence',
+    title: 'BCA (Hons.) in AI, Cloud Computing & Cybersecurity',
     key: 'bca-ai',
     image: '/images/edtech/robot-workshop-640.webp',
     heroImage: '/images/edtech/robot-workshop-1440.webp',
     alt: 'Illustration of two autonomous mobile robots handling an engine block in a workshop',
+  },
+  {
+    slug: 'mba-ai-business-strategy-digital-transformation',
+    title: 'MBA in AI Business Strategy & Digital Transformation',
+    key: 'mba-ai',
+    image: '/images/programme-brochures/mba-ai-640.webp',
+    heroImage: '/images/programme-brochures/mba-ai-1280.webp',
+    alt: 'AI business strategy programme brochure illustration',
+  },
+  {
+    slug: 'bba-hons-trade-compliance-global-logistics',
+    title: 'BBA (Hons.) in Trade Compliance & Global Logistics',
+    key: 'bba-trade',
+    image: '/images/programme-brochures/bba-trade-640.webp',
+    heroImage: '/images/programme-brochures/bba-trade-1280.webp',
+    alt: 'Global trade and logistics programme brochure illustration',
   },
   {
     slug: 'sushant-university-bba-in-logistics-supply-chain-management',
@@ -42,9 +58,9 @@ export function focusPrograms(list = []) {
       ...focus,
       title: row.name,
       image: row.image || focus.image,
-      heroImage: /^\/images\/edtech\/[a-z-]+-(?:640|960|1440)\.webp$/.test(row.image || '')
+      heroImage: row.heroImage || (/^\/images\/edtech\/[a-z-]+-(?:640|960|1440)\.webp$/.test(row.image || '')
         ? row.image.replace(/-(?:640|960|1440)\.webp$/, '-1440.webp')
-        : row.image || focus.heroImage,
+        : row.image || focus.heroImage),
       alt: row.imageAlt || focus.alt,
     } }] : [];
   });

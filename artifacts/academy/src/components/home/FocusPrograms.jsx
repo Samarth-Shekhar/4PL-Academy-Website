@@ -5,6 +5,7 @@ import { usePublicList } from '@/lib/api';
 import { has, asset, initials } from '@/lib/format';
 import { Reveal, CardSkeletons } from '@/components/ui-kit';
 import { FOCUS_PROGRAMS, focusPrograms, programFocusImage } from '@/lib/program-focus';
+import { mediaUrl } from '@/lib/home';
 
 function Tile({ p, i }) {
   const [bad, setBad] = useState(false);
@@ -36,8 +37,8 @@ export function FocusPrograms() {
         <Reveal>
           <div className="mb-8 flex flex-col gap-4 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-2xl">
-              <p className="eyebrow mb-3"><Compass className="h-4 w-4" aria-hidden="true" />Four programs, one direction</p>
-              <h2 id="focus-h" className="display-lg text-navy">Start with AI and logistics.</h2>
+              <p className="eyebrow mb-3"><Compass className="h-4 w-4" aria-hidden="true" />Industry-integrated programmes</p>
+              <h2 id="focus-h" className="display-lg text-navy">AI, business, technology & global trade.</h2>
               <div className="gold-rule mt-5" />
             </div>
             <Link href="/programs" className="btn btn-outline self-start">All programs <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></Link>
@@ -46,6 +47,7 @@ export function FocusPrograms() {
         {q.isLoading ? <CardSkeletons n={4} className="h-72" /> : (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">{rows.map((p, i) => <Reveal key={p.id || p.slug} delay={i * 0.08} className="min-w-0"><Tile p={p} i={i} /></Reveal>)}</div>
         )}
+        {rows.find(p => has(p.catalogueUrl)) && <a href={mediaUrl(rows.find(p => has(p.catalogueUrl)).catalogueUrl)} target="_blank" rel="noopener noreferrer" className="btn btn-outline mt-6">Read the complete programme catalogue <ArrowUpRight className="h-4 w-4" aria-hidden="true" /></a>}
       </div>
     </section>
   );

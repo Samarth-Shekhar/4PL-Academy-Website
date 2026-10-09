@@ -29,9 +29,10 @@ export const KINDS = {
     groups: [
       ['Program details', [T('degree', 'Degree'), T('degreeLevel', 'Degree level'), T('specialization', 'Specialization'), T('duration', 'Duration'), T('mode', 'Mode'), T('location', 'Location'), T('eligibility', 'Eligibility'), T('minimumPercentage', 'Minimum percentage'), T('batch', 'Batch'), T('intake', 'Intake', { hint: 'For example July and January. Leave empty if not verified.' })]],
       ['Fees', [T('fee', 'Fee', { hint: 'Leave empty if not verified.' }), T('feeNote', 'Fee note')]],
-      ['Links and media', [T('applicationUrl', 'Application URL', { type: 'url' }), T('brochureUrl', 'Brochure URL', { type: 'url' }), U('image', 'Image')]],
+      ['Catalogue and learning model', [T('school', 'Academic school'), T('catalogueYear', 'Catalogue edition'), T('catalogueUrl', 'Master catalogue URL', { hint: 'HTTPS URL or /brochures/name.pdf' }), T('curriculumNote', 'Curriculum conditions', { type: 'textarea' }), T('professionalPassport', 'Professional Passport', { type: 'textarea' })]],
+      ['Links and media', [T('applicationUrl', 'Application URL', { type: 'url' }), T('brochureUrl', 'Brochure URL', { hint: 'HTTPS URL or /brochures/name.pdf' }), T('supplementaryBrochureUrl', 'Additional brochure URL', { hint: 'HTTPS URL or /brochures/name.pdf' }), U('image', 'Image'), U('heroImage', 'Programme hero image')]],
     ],
-    arrays: [['highlights', 'Why choose this program'], ['curriculum', 'Curriculum'], ['outcomes', 'Learning outcomes'], ['industryExposure', 'Industry exposure'], ['projects', 'Projects'], ['internships', 'Internships'], ['admissionProcess', 'Admission process'], ['documentsRequired', 'Documents required'], ['careerPaths', 'Career paths'], ['facilities', 'Facilities'], ['media', 'Media URLs']],
+    arrays: [['highlights', 'Why choose this program'], ['curriculum', 'Curriculum'], ['learningMethods', 'IIAP learning model'], ['technologyKit', 'Enterprise Technology Kit'], ['certificationPathways', 'Certification pathways'], ['globalExposure', 'Global exposure'], ['programmeNotes', 'Programme conditions'], ['outcomes', 'Learning outcomes'], ['industryExposure', 'Industry exposure'], ['projects', 'Projects'], ['internships', 'Internships'], ['admissionProcess', 'Admission process'], ['documentsRequired', 'Documents required'], ['careerPaths', 'Career paths'], ['facilities', 'Facilities'], ['media', 'Media URLs']],
     faqs: true, semesters: true,
   },
   courses: {

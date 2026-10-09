@@ -19,7 +19,7 @@ export default function Programs({ level = '' }) {
   const [f, setF] = useState({ search: init.get('search') || '', university: '', location: '', degree: '', degreeLevel: init.get('level') || '', specialization: '', duration: '', mode: '', eligibility: '', fee: '', sort: 'featured' });
   const [type, setType] = useState(level === 'Undergraduate' ? 'ug' : level === 'Postgraduate' ? 'pg' : ['ug', 'pg', 'pro', 'cert'].includes(init.get('type')) ? init.get('type') : 'all');
   const set = (k) => (v) => setF((x) => ({ ...x, [k]: v }));
-  useSeo({ title: 'Degree Programs: BBA, MBA and PGDM', description: 'Search and compare industry-integrated undergraduate and postgraduate programs from 4PL Academy and the university directory.' });
+  useSeo({ title: 'Degree Programmes: BBA, MBA, BCA & B.Tech', description: 'Explore AI business, intelligent computing, cloud engineering and global trade programmes, with industry-integrated undergraduate and postgraduate learning.' });
   const disc = useGetDiscovery({ query: { queryKey: getGetDiscoveryQueryKey(), staleTime: 30000, refetchOnMount: true } }).data;
   const q = usePublicList('programs', { search: f.search.trim(), location: f.location, degree: f.degree });
   const all = q.data || [];
@@ -69,7 +69,7 @@ export default function Programs({ level = '' }) {
   );
   return (
     <>
-      <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Programs' }]} eyebrow="Degree programs" title="Find the degree that fits your career" body="Industry-integrated BBA and MBA/PGDM programs, plus degree listings discovered across universities. Compare up to three side by side." />
+      <PageHero crumbs={[{ label: 'Home', href: '/' }, { label: 'Programs' }]} eyebrow="Degree programs" title="Find the degree that fits your career" body="Explore BBA, MBA, BCA (Hons.) and B.Tech (Hons.) pathways in AI business, cloud, cybersecurity, engineering and global trade, alongside university-specific programmes. Compare up to three side by side." />
       <div className="container-x -mb-4 mt-6"><div role="tablist" aria-label="Program type" className="no-scrollbar flex gap-2 overflow-x-auto">{TYPES.map(([k, l]) => <button key={k} type="button" role="tab" aria-selected={type === k} onClick={() => setType(k)} data-testid={`tab-type-${k}`} className={cn('min-h-11 shrink-0 rounded-full border px-4 text-sm font-semibold', type === k ? 'border-navy bg-navy text-surface' : 'border-line bg-card text-navy hover:border-gold')}>{l}</button>)}</div></div>
       <FilterLayout search={<SearchField value={f.search} onChange={set('search')} placeholder="Search university, course, specialization..." />} panel={panel} activeCount={isProg ? active : [f.duration, f.mode].filter(Boolean).length} onReset={reset} count={(isProg ? q.isLoading : useCourses.isLoading) ? 'Loading' : type === 'pro' ? `${courses.length} professional course${courses.length === 1 ? '' : 's'} available` : type === 'cert' ? `${certs.length} certification${certs.length === 1 ? '' : 's'} available` : `${list.length} program${list.length === 1 ? '' : 's'} available`}>
         {type === 'pro' ? (

@@ -38,10 +38,11 @@ export function contentValues(input, kind) {
     throw Object.assign(new Error('Published videos need an approved poster image for mobile and reduced-motion visitors.'), {status:400});
   }
   const localPath = value => /^\/(?![\/\\])[^\\\u0000-\u001f]*$/.test(value);
-  for (const key of ['image','logo','websiteUrl','applicationUrl','brochureUrl','canonical','ogImage','url','posterUrl','thumbnailUrl']) {
+  for (const key of ['image','heroImage','logo','websiteUrl','applicationUrl','brochureUrl','supplementaryBrochureUrl','catalogueUrl','canonical','ogImage','url','posterUrl','thumbnailUrl']) {
     const value = data[key];
     if (!value) continue;
-    if (['image','logo','ogImage','url','posterUrl','thumbnailUrl'].includes(key) && localPath(value)) continue;
+    if (['image','heroImage','logo','ogImage','url','posterUrl','thumbnailUrl'].includes(key) && localPath(value)) continue;
+    if (['brochureUrl','supplementaryBrochureUrl','catalogueUrl'].includes(key) && localPath(value) && /^\/brochures\/[a-z0-9-]+\.pdf$/.test(value)) continue;
     try {
       const url = new URL(value);
       if (!['https:', 'http:'].includes(url.protocol) || url.username || url.password) throw new Error();

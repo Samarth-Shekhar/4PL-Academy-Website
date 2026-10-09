@@ -9,7 +9,7 @@ import { Cta } from './shared';
 import { focusPrograms } from '@/lib/program-focus';
 
 const ease = [0.22, 1, 0.36, 1];
-const ai = (p) => /^(bba-in-artificial|btech-ai|bca-artificial)/.test(p.slug);
+const ai = (p) => /^(bba-in-artificial|btech-ai|bca-artificial|mba-ai-business)/.test(p.slug);
 
 export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
   const reduce = useReducedMotion();

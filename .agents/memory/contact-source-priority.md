@@ -6,6 +6,12 @@ description: Preserve owner-confirmed contacts when importing legacy content and
 The owner's latest confirmed contact details take priority over the older
 contact information on the legacy academy website.
 
+Keep the Sector 62 Noida office at **C-27**, not the conflicting C-37 wording in an individual brochure.
+
+**Why:** The owner explicitly confirmed C-27 when the brochure/address conflict was raised.
+
+**How to apply:** Future brochure imports must not silently change the displayed office address or its map query.
+
 **Why:** The owner supplied a current academy email and Indian phone number
 that differ from the legacy contact page. Reimporting that page must not undo
 their correction.

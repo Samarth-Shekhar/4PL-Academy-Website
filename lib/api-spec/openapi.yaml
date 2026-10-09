@@ -310,6 +310,11 @@ components:
         location: { type: string }
         degree: { type: string }
         degreeLevel: { type: string }
+        school: { type: string }
+        catalogueYear: { type: string }
+        catalogueUrl: { type: string }
+        curriculumNote: { type: string }
+        professionalPassport: { type: string }
         specialization: { type: string }
         category: { type: string }
         duration: { type: string }
@@ -328,10 +333,14 @@ components:
         type: { type: string }
         country: { type: string }
         image: { type: string }
+        heroImage: { type: string }
+        imageAlt: { type: string }
+        imageSourceType: { type: string }
         logo: { type: string }
         websiteUrl: { type: string }
         applicationUrl: { type: string }
         brochureUrl: { type: string }
+        supplementaryBrochureUrl: { type: string }
         email: { type: string }
         phone: { type: string }
         author: { type: string }
@@ -348,6 +357,11 @@ components:
         ogImage: { type: string }
         robots: { type: string }
         highlights: { type: array, items: { type: string } }
+        learningMethods: { type: array, items: { type: string } }
+        technologyKit: { type: array, items: { type: string } }
+        certificationPathways: { type: array, items: { type: string } }
+        globalExposure: { type: array, items: { type: string } }
+        programmeNotes: { type: array, items: { type: string } }
         facilities: { type: array, items: { type: string } }
         curriculum: { type: array, items: { type: string } }
         semesters:

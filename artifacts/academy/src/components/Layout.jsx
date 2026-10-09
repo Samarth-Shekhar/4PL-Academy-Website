@@ -26,9 +26,10 @@ const NAV = [
     { href: '/courses/long-term', label: 'Long-Term Courses' },
   ] },
   { href: '/programs', label: 'AI Programs', ai: true, children: [
-    { href: '/programs/bba-in-artificial-intelligence-ai', label: 'BBA — AI & Digital Transformation' },
-    { href: '/programs/btech-ai-digital-transformation', label: 'B.Tech — AI & Digital Transformation' },
-    { href: '/programs/bca-artificial-intelligence', label: 'BCA — Artificial Intelligence' },
+    { href: '/programs/bba-in-artificial-intelligence-ai', label: 'BBA in AI Business & Digital Transformation' },
+    { href: '/programs/btech-ai-digital-transformation', label: 'B.Tech (Hons.) in AI, Cloud Engineering & DevOps' },
+    { href: '/programs/bca-artificial-intelligence', label: 'BCA (Hons.) in AI, Cloud Computing & Cybersecurity' },
+    { href: '/programs/mba-ai-business-strategy-digital-transformation', label: 'MBA in AI Business Strategy & Digital Transformation' },
   ] },
   { href: '/universities', label: 'Universities' },
   { href: '/blogs', label: 'Blogs' },

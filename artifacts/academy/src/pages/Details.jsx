@@ -25,7 +25,7 @@ function Shell({ q, crumbs, children }) {
 }
 
 function Hero({ c, crumbs, eyebrow, facts, children, logo }) {
-  const img = programFocusImage(c);
+  const img = c.heroImage || programFocusImage(c);
   const [bad, setBad] = useState(false);
   const showImg = has(img) && !bad;
   return (
@@ -60,19 +60,22 @@ function Sidebar({ c, kind, ctx, extraLinks }) {
         <BookButton ctx={ctx} size="" className="w-full" testid={`button-book-${kind}`} />
       </div>
       {(has(c.brochureUrl) || extraLinks) && <div className="card-s space-y-2 p-5">
-        {has(c.brochureUrl) && <a href={c.brochureUrl} target="_blank" rel="noopener noreferrer" className="btn btn-outline w-full"><FileText className="h-4 w-4" aria-hidden="true" /> Brochure</a>}
+        {has(c.brochureUrl) && <a href={mediaUrl(c.brochureUrl)} target="_blank" rel="noopener noreferrer" className="btn btn-outline w-full"><FileText className="h-4 w-4" aria-hidden="true" /> Programme brochure</a>}
+        {has(c.supplementaryBrochureUrl) && <a href={mediaUrl(c.supplementaryBrochureUrl)} target="_blank" rel="noopener noreferrer" className="btn btn-outline w-full"><FileText className="h-4 w-4" aria-hidden="true" /> Illustrated brochure</a>}
+        {has(c.catalogueUrl) && <a href={mediaUrl(c.catalogueUrl)} target="_blank" rel="noopener noreferrer" className="btn btn-outline w-full"><FileText className="h-4 w-4" aria-hidden="true" /> Complete programme catalogue</a>}
         {extraLinks}
       </div>}
     </aside>
   );
 }
 
-function Semesters({ semesters }) {
+function Semesters({ semesters, note }) {
   const sems = (Array.isArray(semesters) ? semesters : []).filter((x) => has(x?.name) || lines(x?.modules).length);
   if (!sems.length) return null;
   return (
     <section className="mt-12" data-testid="section-semesters">
       <h2 className="text-2xl text-navy sm:text-3xl">Semester-wise curriculum</h2><div className="gold-rule mb-5 mt-3" />
+      {has(note) && <p className="mb-5 text-sm leading-relaxed text-muted-foreground">{note}</p>}
       <div className="grid gap-4 sm:grid-cols-2">
         {sems.map((x, i) => (
           <details key={`${x.name}-${i}`} open={i < 2} className="card-s group p-4">
@@ -137,19 +140,19 @@ export function ProgramDetail() {
         const ctx = { program: p.name, university: has(p.universityName) ? p.universityName : undefined };
         return (
           <>
-            <Hero c={p} eyebrow={[p.degree, p.degreeLevel].filter(has).join(' / ') || 'Degree program'} crumbs={[{ label: 'Home', href: '/' }, { label: 'Programs', href: '/programs' }, { label: p.name }]}
+            <Hero c={p} eyebrow={p.school || [p.degree, p.degreeLevel].filter(has).join(' / ') || 'Degree program'} crumbs={[{ label: 'Home', href: '/' }, { label: 'Programs', href: '/programs' }, { label: p.name }]}
               facts={<>
                 <Fact icon={Users2} label="University" value={uniOf(p) ? <Link href={`/universities/${uniOf(p).slug}`} className="underline">{p.universityName}</Link> : val(p.universityName)} /><Fact icon={MapPin} label="Location" value={val(p.location || p.city)} /><Fact icon={Clock} label="Duration" value={val(p.duration)} />
                 <Fact icon={Monitor} label="Mode" value={val(p.mode)} /><Fact icon={BookOpen} label="Eligibility" value={val(p.eligibility)} /><Fact icon={Wallet} label="Fee" value={has(p.fee) ? `${p.fee}${has(p.feeNote) ? ` (${p.feeNote})` : ''}` : TBV} />
                 <Fact icon={CalendarDays} label="Intake" value={val(p.intake || p.batch)} />{has(p.specialization) && <Fact icon={GraduationCap} label="Specialization" value={p.specialization} />}
               </>}>
               <BookButton ctx={ctx} size="" />
-              <button type="button" onClick={() => cmp.toggle(p.slug)} className="btn btn-light"><Scale className="h-4 w-4" aria-hidden="true" /> {cmp.has(p.slug) ? 'Remove from compare' : 'Add to compare'}</button>
+              <button type="button" onClick={() => cmp.toggle(p.slug)} className="btn btn-outline"><Scale className="h-4 w-4" aria-hidden="true" /> {cmp.has(p.slug) ? 'Remove from compare' : 'Add to compare'}</button>
             </Hero>
             <div className="container-x grid gap-10 py-10 pb-24 sm:py-14 lg:grid-cols-[1fr_22rem]">
               <div>
-              <Body c={p} sections={[['Why choose this program', lines(p.highlights), false, true], ...(Array.isArray(p.semesters) && p.semesters.length ? [] : [['Curriculum', lines(p.curriculum), true]]), ['Learning outcomes', lines(p.outcomes)], ['Industry exposure', lines(p.industryExposure)], ['Projects', lines(p.projects)], ['Internships', lines(p.internships)], ['Career paths', lines(p.careerPaths), false, true], ['Facilities', lines(p.facilities), false, true], ['Admission process', lines(p.admissionProcess), true], ['Documents required', lines(p.documentsRequired)]]} />
-              <Semesters semesters={p.semesters} />
+              <Body c={p} sections={[['Why choose this program', lines(p.highlights), false, true], ['IIAP™ learning journey', lines(p.learningMethods)], ...(Array.isArray(p.semesters) && p.semesters.length ? [] : [['Curriculum', lines(p.curriculum), true]]), ['Enterprise Technology Kit', lines(p.technologyKit), false, true], ['Learning outcomes', lines(p.outcomes)], ['Industry exposure', lines(p.industryExposure)], ['Projects', lines(p.projects)], ['Internships', lines(p.internships)], ['Professional certification pathways', lines(p.certificationPathways)], ['4PL Professional Passport™', has(p.professionalPassport) ? [p.professionalPassport] : []], ['Global industry & academic exposure', lines(p.globalExposure)], ['Career paths', lines(p.careerPaths), false, true], ['Programme conditions', lines(p.programmeNotes)], ['Facilities', lines(p.facilities), false, true], ['Admission process', lines(p.admissionProcess), true], ['Documents required', lines(p.documentsRequired)]]} />
+              <Semesters semesters={p.semesters} note={p.curriculumNote} />
               <MediaStrip universityId={p.universityId} />
               <Related p={p} />
               </div>
