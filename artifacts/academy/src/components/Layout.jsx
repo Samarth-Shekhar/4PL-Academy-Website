@@ -47,7 +47,7 @@ const homeLogoClick = (loc, after) => (event) => {
 };
 
 export const Logo = ({ className = 'h-14', blend = true, transparent = false }) => (
-  <img src={asset(transparent ? 'images/4pl-academy-transparent.webp' : 'images/4pl-logo-trimmed.webp')} alt="4PL Academy: Creating Global Professionals" className={cn('w-auto', blend && 'logo-blend', className)} width="684" height="519" />
+  <img src={asset(transparent ? 'images/4pl-academy-transparent-256.webp' : 'images/4pl-logo-trimmed-256.webp')} srcSet={[128, 256, 384].map(w => `${asset(`images/${transparent ? '4pl-academy-transparent' : '4pl-logo-trimmed'}-${w}.webp`)} ${w}w`).join(', ')} sizes={transparent ? '(min-width: 640px) 106px, 85px' : '96px'} alt="4PL Academy: Creating Global Professionals" className={cn('w-auto', blend && 'logo-blend', className)} width="684" height="519" />
 );
 
 function Header() {

@@ -38,6 +38,16 @@ export default defineConfig({
           ),
         ]
       : []),
+    {
+      name: 'academy-early-charset',
+      transformIndexHtml: {
+        order: 'post',
+        handler(html) {
+          return html.replace(/<meta\s+charset=["']UTF-8["']\s*\/?>/i, '')
+            .replace(/<head(?:\s[^>]*)?>/i, '$&\n    <meta charset="UTF-8" />');
+        },
+      },
+    },
   ],
   resolve: {
     alias: {
@@ -55,6 +65,7 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, 'dist/public'),
     emptyOutDir: true,
+    sourcemap: true,
     rollupOptions: { output: { manualChunks(id) {
       if(id.includes('/react-dom/')||id.includes('/react/')||id.includes('/scheduler/'))return 'react-vendor';
       if(id.includes('/framer-motion/')||id.includes('/motion-dom/')||id.includes('/motion-utils/'))return 'motion-vendor';

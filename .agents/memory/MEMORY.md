@@ -21,5 +21,6 @@
 - [Public verification copy](public-copy-scope.md) — no visitor-facing verification/disclaimer notices; retain internal checks, omit missing facts and preserve legal consent.
 - [Learner story authenticity](learner-stories.md) — use academy thoughts about students instead of fictional examples; genuine reviews remain separately approved.
 - [Crawler URL routing](crawler-url-routing.md) — HTTP 200 can be a SPA fallback; validate XML/plain-text payloads at public root URLs.
+- [Performance verification](performance-verification.md) — distinguish development Lighthouse warnings from production; preserve branding and source assets during optimization.
 - [AI visual direction](ai-visual-direction.md) — blue-and-gold, AI-focused presentation inspired by EduNova and Studify; retain supplied facts and other offerings.
 - [Counselling appointments](counselling-appointments.md) — calendar selections are preferred requests in IST, not reserved appointments; keep timezone with saved and emailed details.

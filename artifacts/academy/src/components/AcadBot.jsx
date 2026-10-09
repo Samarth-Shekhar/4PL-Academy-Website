@@ -1,16 +1,16 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link } from 'wouter';
 import { Send, X, ExternalLink, Loader2, Headset } from 'lucide-react';
 import { useAskAcadBot } from '@workspace/api-client-react';
-import { LeadForm } from './LeadForm';
 import { errMsg } from '@/lib/api';
 import { useContactSettings, telHref } from '@/lib/settings';
 import { Phone, Mail } from 'lucide-react';
 import { asset } from '@/lib/format';
 
 const isFallback = (t) => /i don.?t have verified information|please contact (?:our|the 4PL Academy) team/i.test(String(t || ''));
-const MASCOT = asset('images/acad-bot-mascot.webp');
+const MASCOT = asset('images/acad-bot-mascot-160.webp');
+const LeadForm = lazy(() => import('./LeadForm').then(module => ({ default: module.LeadForm })));
 const hideOnError = (e) => { e.currentTarget.style.visibility = 'hidden'; };
 
 const PROMPTS = ['Which degree programs does 4PL Academy offer?', 'How does admission support work?', 'What professional courses are available?'];
@@ -82,7 +82,9 @@ export function AcadBot({ raised = false }) {
               {lead && (
                 <div className="rounded-lg border border-gold bg-card p-4">
                   <p className="mb-3 font-display text-lg text-navy">Talk to the admissions team</p>
-                  <LeadForm category="chatbot" idPrefix="bot" showMessage={false} defaultMessage={lastQ} submitLabel="Request a call back" onDone={() => {}} />
+                  <Suspense fallback={<p role="status" className="py-4 text-sm text-navy">Loading callback form…</p>}>
+                    <LeadForm category="chatbot" idPrefix="bot" showMessage={false} defaultMessage={lastQ} submitLabel="Request a call back" onDone={() => {}} />
+                  </Suspense>
                 </div>
               )}
               <div ref={end} />

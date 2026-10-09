@@ -47,15 +47,15 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
             </div>
           </div>
           <motion.div initial={reduce ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, ease }} className="ai-cutouts hero-art mx-auto w-full min-w-0" aria-hidden="false">
-            <img className="ai-brain" src={mediaUrl('/images/edtech/neural-cutout-960.webp')} srcSet={`${mediaUrl('/images/edtech/neural-cutout-640.webp')} 640w, ${mediaUrl('/images/edtech/neural-cutout-960.webp')} 960w`} sizes="(min-width:1024px) 40vw, 80vw" alt="Navy and gold illustration of a brain wrapped in circuit traces and orbiting gold rings" width="960" height="960" fetchPriority="high" decoding="async" />
-            <img className="ai-chip-art" src={mediaUrl('/images/edtech/chip-cutout-640.webp')} srcSet={`${mediaUrl('/images/edtech/chip-cutout-640.webp')} 640w, ${mediaUrl('/images/edtech/chip-cutout-960.webp')} 960w`} sizes="(min-width:1024px) 16vw, 32vw" alt="Navy and gold AI processor chip" width="960" height="960" decoding="async" />
+            <img className="ai-brain" src={mediaUrl('/images/edtech/neural-cutout-640.webp')} srcSet={`${mediaUrl('/images/edtech/neural-cutout-480.webp')} 480w, ${mediaUrl('/images/edtech/neural-cutout-640.webp')} 640w, ${mediaUrl('/images/edtech/neural-cutout-960.webp')} 960w`} sizes="(min-width:1024px) 40vw, calc(100vw - 32px)" alt="Navy and gold illustration of a brain wrapped in circuit traces and orbiting gold rings" width="960" height="960" loading="eager" fetchPriority="high" decoding="async" />
+            <img className="ai-chip-art" src={mediaUrl('/images/edtech/chip-cutout-320.webp')} srcSet={`${mediaUrl('/images/edtech/chip-cutout-160.webp')} 160w, ${mediaUrl('/images/edtech/chip-cutout-320.webp')} 320w, ${mediaUrl('/images/edtech/chip-cutout-640.webp')} 640w, ${mediaUrl('/images/edtech/chip-cutout-960.webp')} 960w`} sizes="(min-width:1024px) 12vw, 34vw" alt="Navy and gold AI processor chip" width="960" height="960" decoding="async" />
           </motion.div>
         </div>
         {focus.length > 0 && (
           <motion.ul {...fx(1.0)} className="relative z-10 mt-6 flex flex-wrap gap-3" aria-label="Featured programs">
             {focus.map((p, i) => (
               <li key={p.id || p.slug} className="min-w-0">
-                <Link href={`/programs/${p.slug}`} aria-label={p.name} className="ai-chip group flex min-w-0 items-center gap-2 rounded-full px-4 py-2 text-xs font-bold">
+                <Link href={`/programs/${p.slug}`} aria-label={`${p.degree || 'Degree'} · ${ai(p) ? 'AI' : 'Logistics'} — ${p.name}`} className="ai-chip group flex min-w-0 items-center gap-2 rounded-full px-4 py-2 text-xs font-bold">
                   <span>{p.degree || 'Degree'} · {ai(p) ? 'AI' : 'Logistics'}</span>
                   <ArrowUpRight className="h-4 w-4 shrink-0 text-gold-deep transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
                 </Link>
