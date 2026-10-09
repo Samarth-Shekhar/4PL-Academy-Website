@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Link } from 'wouter';
-import { ChevronLeft, ChevronRight, Quote, BadgeCheck } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Quote, BadgeCheck, Star } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
 import { MovingCards } from './MovingCards';
 import { useVerified, mediaUrl } from '@/lib/home';
@@ -12,6 +12,16 @@ const STUDENT_THOUGHTS = [
   { title: 'Clarity builds confidence', text: 'Taking the next step in education can raise many questions. We believe students deserve clear guidance on applications, documents and requirements so they can make informed decisions.' },
   { title: 'Learning beyond the classroom', text: 'We value curiosity and the willingness to put knowledge into practice. For us, meaningful learning connects academic understanding with practical skills and a commitment to keep growing.' },
 ];
+
+function StudentRating({ value }) {
+  if (!(typeof value === 'number' || (typeof value === 'string' && value.trim()))) return null;
+  const rating = Number(value);
+  if (!Number.isFinite(rating) || rating < 1 || rating > 5) return null;
+  return <p className="mb-4 flex items-center gap-2 text-sm font-bold text-gold">
+    <span aria-hidden="true" className="flex gap-0.5">{[0, 1, 2, 3, 4].map((i) => <span key={i} className="relative h-4 w-4"><Star className="absolute h-4 w-4 opacity-35" /><span className="absolute inset-y-0 left-0 overflow-hidden" style={{ width: `${Math.min(1, Math.max(0, rating - i)) * 100}%` }}><Star className="h-4 w-4 max-w-none" fill="currentColor" /></span></span>)}</span>
+    <span aria-label={`Rated ${rating} out of 5`}>{rating}/5</span>
+  </p>;
+}
 
 export function TestimonialCarousel({ s }) {
   const { list } = useVerified('testimonials');
@@ -46,6 +56,7 @@ export function TestimonialCarousel({ s }) {
             <div ref={row} className="snap-row -mx-4 cursor-grab select-none px-4 pb-3 active:cursor-grabbing sm:mx-0 sm:px-0" role="region" aria-label="Student testimonials" tabIndex={0} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerLeave={up} onKeyDown={(e) => { if (e.key === 'ArrowRight') by(1); if (e.key === 'ArrowLeft') by(-1); }}>
               {items.map((t) => (
                 <figure key={t.id} className="flex w-[18.5rem] flex-col rounded-lg bg-surface p-6 text-navy sm:w-[23rem]" data-testid={`card-testimonial-${t.id}`}>
+                  <StudentRating value={t.rating} />
                   <Quote className="h-8 w-8 text-gold" aria-hidden="true" />
                   <blockquote className="mt-3 flex-1 font-display text-xl leading-snug">{t.quote}</blockquote>
                   <figcaption className="mt-6 flex items-center gap-3 border-t border-line pt-4">

@@ -87,7 +87,7 @@ export const KINDS = {
   testimonials: {
     label: 'Testimonial', plural: 'Testimonials', nameLabel: 'Student name', universityPicker: true, mirrorName: 'studentName', descLabel: 'Longer story (optional)', descRows: 4,
     note: 'Publish only testimonials the student has approved in writing.',
-    groups: [['Story', [T('quote', 'Quote', { type: 'textarea' }), T('degree', 'Program or degree'), T('year', 'Year'), U('image', 'Student photo')]]],
+    groups: [['Story', [T('quote', 'Quote', { type: 'textarea' }), T('rating', 'Student-supplied rating (1–5, optional)', { type: 'number', min: 1, max: 5 }), T('degree', 'Program or degree'), T('year', 'Year'), U('image', 'Student photo')]]],
     arrays: [], faqs: false,
   },
   seo: {

@@ -2,6 +2,14 @@
   "license": "Unsplash License",
   "licenseUrl": "https://unsplash.com/license",
   "usage": "Generic program subject photography; these are not photographs of 4PL or university facilities.",
+  "illustrations": [
+    {
+      "key": "ai-sculpture",
+      "source": "Original generated illustration for 4PL Academy",
+      "subject": "Conceptual navy-and-gold neural brain sculpture",
+      "usage": "Decorative AI education concept; not an actual academy facility or piece of equipment."
+    }
+  ],
   "photos": [
     {
       "key": "bba-ai",

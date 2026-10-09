@@ -44,7 +44,7 @@ export function FocusPrograms() {
           </div>
         </Reveal>
         {q.isLoading ? <CardSkeletons n={4} className="h-72" /> : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">{rows.map((p, i) => <Tile key={p.id || p.slug} p={p} i={i} />)}</div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">{rows.map((p, i) => <Reveal key={p.id || p.slug} delay={i * 0.08} className="min-w-0"><Tile p={p} i={i} /></Reveal>)}</div>
         )}
       </div>
     </section>

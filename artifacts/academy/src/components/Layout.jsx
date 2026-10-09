@@ -23,6 +23,11 @@ const NAV = [
     { href: '/courses/short-term', label: 'Short-Term Courses' },
     { href: '/courses/long-term', label: 'Long-Term Courses' },
   ] },
+  { href: '/programs', label: 'AI Programs', ai: true, children: [
+    { href: '/programs/bba-in-artificial-intelligence-ai', label: 'BBA — AI & Digital Transformation' },
+    { href: '/programs/btech-ai-digital-transformation', label: 'B.Tech — AI & Digital Transformation' },
+    { href: '/programs/bca-artificial-intelligence', label: 'BCA — Artificial Intelligence' },
+  ] },
   { href: '/universities', label: 'Universities' },
   { href: '/blogs', label: 'Blogs' },
   { href: '/partner-with-us', label: 'Partner With Us' },
@@ -80,7 +85,7 @@ function Header() {
                   {n.children.map(c => <li key={c.href}><Link href={c.href} onClick={() => setDropdown(null)} className={cn('block min-h-11 rounded px-3 py-3 text-sm text-navy hover:bg-gold-soft hover:text-gold-deep focus-visible:bg-gold-soft focus-visible:text-gold-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold', active(c.href) && 'text-gold-deep')}>{c.label}</Link></li>)}
                 </ul>}
               </div>
-            ) : <Link key={n.href} href={n.href} className={style} aria-current={selected ? 'page' : undefined} onClick={() => setDropdown(null)}>{n.label}</Link>;
+            ) : <Link key={n.href} href={n.href} className={cn(style, n.ai && 'nav-ai')} aria-current={selected ? 'page' : undefined} onClick={() => setDropdown(null)}>{n.label}</Link>;
           })}
         </nav>
         <div className="flex items-center gap-2">
@@ -141,6 +146,10 @@ function Footer() {
       <img src={asset('images/footer-study-library.png')} alt="" aria-hidden="true" loading="lazy" className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover" />
       <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-navy/50 via-navy/30 to-navy/20" />
       <div className="container-x py-10">
+        <div className="mb-9 flex flex-col justify-between gap-5 border-b border-white/20 pb-8 sm:flex-row sm:items-end">
+          <div><p className="mb-2 text-xs font-bold uppercase tracking-[.16em] text-gold">AI · Digital transformation · Logistics</p><p className="font-display text-3xl font-extrabold leading-tight text-white sm:text-4xl">Your next chapter starts here.</p></div>
+          <Link href="/programs" className="btn btn-gold self-start">Discover programs <ArrowRight className="h-4 w-4" /></Link>
+        </div>
         <div className="grid gap-8 lg:grid-cols-[0.9fr_2.5fr]">
           <div>
             <Link href="/" aria-label="4PL Academy home" className="inline-block"><span className="block rounded-xl bg-white px-4 py-2 shadow-lg"><Logo blend={false} className="h-24 sm:h-28" /></span></Link>
