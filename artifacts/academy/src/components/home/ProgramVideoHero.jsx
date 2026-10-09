@@ -1,6 +1,6 @@
 import { Link } from 'wouter';
 import { motion, useReducedMotion } from 'framer-motion';
-import { ArrowUpRight, Sparkles } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { useVerified, mediaUrl } from '@/lib/home';
 import { bookHref } from '@/lib/booking';
 import { has } from '@/lib/format';
@@ -28,7 +28,7 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
       <div aria-hidden="true" className="ai-sun" />
       <div aria-hidden="true" className="ai-grid" />
       <div className="container-x relative pb-10 pt-8 sm:pt-12 lg:pb-14">
-        <motion.p {...fx(0.05)} className="mb-4 inline-flex max-w-full items-center gap-2 rounded-full border border-gold/50 bg-white/70 px-4 py-2 text-xs font-bold uppercase tracking-[0.13em] backdrop-blur"><Sparkles className="h-4 w-4 shrink-0 text-gold-deep" aria-hidden="true" /><span className="min-w-0">AI, digital transformation and logistics degrees</span></motion.p>
+        <motion.p {...fx(0.05)} className="mb-4 max-w-full text-xs font-bold uppercase tracking-[0.13em] text-gold-deep">AI, digital transformation and logistics degrees</motion.p>
         <div className="grid min-w-0 items-center gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,.9fr)] lg:gap-12">
           <div className="min-w-0">
             <h1 className="ai-title min-w-0">
@@ -46,9 +46,10 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
               </motion.div>
             </div>
           </div>
-          <motion.figure initial={reduce ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, ease }} className="ai-portrait mx-auto w-full min-w-0">
-            <img className="h-full w-full object-cover" src={mediaUrl('/images/edtech/robot-portrait-960.webp')} srcSet={`${mediaUrl('/images/edtech/robot-portrait-640.webp')} 640w, ${mediaUrl('/images/edtech/robot-portrait-960.webp')} 960w, ${mediaUrl('/images/edtech/robot-portrait-1440.webp')} 1440w`} sizes="(min-width:1280px) 560px, (min-width:1024px) 44vw, 92vw" alt="Illustration of a navy and gold humanoid robot in profile, with exposed joints and cabling at the neck and shoulder" width="960" height="960" fetchPriority="high" decoding="async" />
-          </motion.figure>
+          <motion.div initial={reduce ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, ease }} className="ai-cutouts mx-auto w-full min-w-0" aria-hidden="false">
+            <img className="ai-brain" src={mediaUrl('/images/edtech/neural-cutout-960.webp')} srcSet={`${mediaUrl('/images/edtech/neural-cutout-640.webp')} 640w, ${mediaUrl('/images/edtech/neural-cutout-960.webp')} 960w`} sizes="(min-width:1024px) 40vw, 80vw" alt="Navy and gold illustration of a brain wrapped in circuit traces and orbiting gold rings" width="960" height="960" fetchPriority="high" decoding="async" />
+            <img className="ai-chip-art" src={mediaUrl('/images/edtech/chip-cutout-640.webp')} srcSet={`${mediaUrl('/images/edtech/chip-cutout-640.webp')} 640w, ${mediaUrl('/images/edtech/chip-cutout-960.webp')} 960w`} sizes="(min-width:1024px) 16vw, 32vw" alt="Navy and gold AI processor chip" width="960" height="960" decoding="async" />
+          </motion.div>
         </div>
         {focus.length > 0 && (
           <motion.ul {...fx(1.0)} className="relative z-10 mt-6 flex flex-wrap gap-3" aria-label="Featured programs">

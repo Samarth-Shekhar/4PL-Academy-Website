@@ -37,7 +37,7 @@ const FALLBACK_PHOTOS = [
 // Presentation choices only: the titles and full section bodies remain CMS-owned.
 const SECTION_VISUALS = {
   'who we are': [0, 'images/page-refresh/about-warehouse-discussion.webp', 'A team discussing warehouse operations'],
-  'our areas of expertise': [1, 'images/editorial/technology.webp', 'A person working on computer code'],
+  'our areas of expertise': [1, 'images/edtech/neural-cutout-960.webp', 'Navy and gold brain illustration with circuit traces'],
   'consulting & industry solutions': [2, 'images/editorial/warehouse.webp', 'Workers reviewing inventory in a warehouse'],
   'workforce development': [3, 'images/editorial/classroom.webp', 'Students learning together in a classroom'],
   'how we work': [4, 'images/page-refresh/about-practical-work.webp', 'Workers discussing practical warehouse tasks'],
@@ -46,7 +46,7 @@ const SECTION_VISUALS = {
   'our mission': [7, 'images/learning-refresh/student-projects.webp', 'Students working on a project together'],
   'why 4pl consultancy': [8, 'images/learning-refresh/credentials.webp', 'Business data and charts on computer monitors'],
   'leadership perspective': [9, 'images/editorial/business.webp', 'People exchanging ideas in a business meeting'],
-  'enabling growth through expertise': [10, 'images/learning-refresh/build.webp', 'Computer code on a screen'],
+  'enabling growth through expertise': [10, 'images/edtech/chip-cutout-960.webp', 'Navy and gold AI chip illustration'],
   'university alliance program': [11, 'images/learning-refresh/student-perspectives.webp', 'Students studying together in a library'],
 };
 const clean = (t) => String(t || '').replace(/Admission\s*[–—-]\s*Training\s*[–—-]\s*Placement model/gi, 'approach');
@@ -95,8 +95,8 @@ const LIST = '[&_ul]:list-none [&_ul]:pl-0 [&_li]:relative [&_li]:border-l-2 [&_
 const NUM = '[&_ul]:list-none [&_ul]:pl-0 [&_ul]:[counter-reset:n] [&_li]:[counter-increment:n] [&_li]:flex [&_li]:gap-3 [&_li]:border-b [&_li]:border-line [&_li]:pb-2 [&_li]:before:content-[counter(n,decimal-leading-zero)] [&_li]:before:font-display [&_li]:before:font-extrabold [&_li]:before:text-gold-deep';
 const TICK = '[&_ul]:list-none [&_ul]:pl-0 [&_ul]:grid [&_ul]:gap-2 sm:[&_ul]:grid-cols-2 [&_li]:rounded-xl [&_li]:bg-white/10 [&_li]:p-3';
 const fig = (ph, cls) => ph && (
-  <figure className={cn('group min-w-0 overflow-hidden bg-mist', cls)}>
-    <img src={ph.src} alt={ph.alt} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100" />
+  <figure className={cn('group min-w-0 overflow-hidden bg-mist', cls, /cutout/.test(ph.src) && '!aspect-square !overflow-visible !rounded-none !bg-transparent')}>
+    <img src={ph.src} alt={ph.alt} loading="lazy" decoding="async" className={cn('h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100', /cutout/.test(ph.src) && '!object-contain')} />
   </figure>
 );
 

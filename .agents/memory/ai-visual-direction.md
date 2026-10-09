@@ -9,11 +9,11 @@ The owner wants the whole website to emphasize AI courses and AI imagery, using 
 
 **How to apply:** Use bold educational typography, dimensional imagery and smooth, lightweight entrance/scroll transitions. Keep logistics and the other supplied offerings accessible; visual emphasis does not authorize invented curricula, outcomes or testimonial ratings.
 
-Use detailed robot-related subject imagery rather than abstract AI bubbles or icon-only decorations. Keep hero text and imagery in separate layout areas with no overlap.
+Use detailed AI subject imagery rather than generic AI bubbles or icon-only decorations. Keep hero text and imagery in separate layout areas with no overlap.
 
-**Why:** The owner explicitly rejected the abstract brain/bubble treatment and the headline overlapping the hero artwork.
+**Why:** The owner rejected generic bubble/icon treatment and headline overlap, then clarified that unboxed, moving brain and AI-chip artwork is preferred over the framed robot portrait.
 
-**How to apply:** Prefer humanoid robots, robotic arms and autonomous robotics in relevant AI learning visuals; preserve student and university identity imagery elsewhere.
+**How to apply:** Use dimensional brain/chip cutouts with restrained motion and no background box for the hero, plain eyebrow text rather than a pill, and relevant robotics imagery elsewhere. Preserve student and university identity imagery.
 
 References:
 - https://dribbble.com/shots/22696959-EduNova-Website-design-for-Educational-platform

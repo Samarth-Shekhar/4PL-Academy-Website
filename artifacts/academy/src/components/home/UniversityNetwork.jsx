@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link } from 'wouter';
 import { Building2 } from 'lucide-react';
 import { usePublicList } from '@/lib/api';
-import { REFRESH } from '@/lib/home';
+import { universityMapLocation, hasMapCoordinates } from '@/lib/university-locations';
 import { has } from '@/lib/format';
 import { cn } from '@/lib/cn';
 import { Skeleton } from '@/components/ui-kit';
@@ -11,16 +11,15 @@ import { IndiaUniversityMap, project } from './IndiaUniversityMap';
 import { UniversityCard } from './UniversityCard';
 
 const num = (v) => (v === null || v === undefined || v === '' ? NaN : Number(v));
-const valid = (u) => Number.isFinite(num(u.latitude)) && Number.isFinite(num(u.longitude)) && num(u.latitude) >= 6 && num(u.latitude) <= 38 && num(u.longitude) >= 68 && num(u.longitude) <= 98;
 
 export function UniversityNetwork({ s }) {
   const uq = usePublicList('universities', undefined, { refetchOnWindowFocus: true });
   const pq = usePublicList('programs', undefined, { refetchOnWindowFocus: true });
   const [selected, setSelected] = useState(null);
   const [activeUni, setActiveUni] = useState(null);
-  const all = uq.data || [];
+  const all = useMemo(() => (uq.data || []).map(universityMapLocation), [uq.data]);
   const pool = all;
-  const mapped = pool.filter(valid);
+  const mapped = useMemo(() => pool.filter(hasMapCoordinates), [pool]);
   const unmapped = pool.length - mapped.length;
   const programsOf = (u) => (pq.data || []).filter((p) => (p.universityId != null && p.universityId === u.id) || (p.universityId == null && has(p.universityName) && p.universityName === u.name));
   const regions = useMemo(() => {
@@ -35,6 +34,12 @@ export function UniversityNetwork({ s }) {
   }, [mapped]);
   const sel = regions.find((r) => r.key === selected);
   const pick = (k) => { setSelected(k); setActiveUni(null); };
+  const visible = sel?.unis || pool;
+  const focusUniversity = (u) => {
+    const region = regions.find((r) => r.unis.some((x) => x.id === u.id));
+    if (region) setSelected(region.key);
+    setActiveUni(u.id);
+  };
   return (
     <section className="bg-mist/55 py-16 text-navy sm:py-24" aria-labelledby="sec-universities" data-testid="section-university-network">
       <div className="container-x">
@@ -45,7 +50,8 @@ export function UniversityNetwork({ s }) {
             <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">Explore university locations and find the 4PL Academy team in Noida. Select a location to discover its programs.</p>
             <CtaRow s={s} className="mt-7 max-w-full [&_.btn]:max-w-full [&_.btn]:whitespace-normal" />
             {regions.length > 0 && (
-              <div className="no-scrollbar -mx-4 mt-8 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label="Choose a region">
+              <div className="mt-8 flex flex-wrap gap-2" role="group" aria-label="Choose a region">
+                <button type="button" data-testid="button-map-region-all" aria-pressed={!selected} onClick={() => pick(null)} className={cn('rounded-full border px-5 py-3 text-sm font-semibold transition-colors', !selected ? 'border-gold bg-gold text-navy' : 'border-navy/15 bg-white hover:border-gold')}>All universities <span className="ml-1 opacity-70">{pool.length}</span></button>
                 {regions.map((r) => <button key={r.key} type="button" data-testid={`button-map-region-${r.key}`} aria-pressed={r.key === selected} onClick={() => pick(r.key === selected ? null : r.key)} className={cn('shrink-0 rounded-full border px-5 py-3 text-sm font-semibold transition-colors', r.key === selected ? 'border-gold bg-gold text-navy' : 'border-navy/15 bg-white text-navy hover:border-gold hover:bg-gold-soft')}>{r.label} <span className="ml-1 opacity-70">{r.unis.length}</span></button>)}
               </div>
             )}
@@ -60,10 +66,10 @@ export function UniversityNetwork({ s }) {
             {unmapped > 0 && <p className="mt-3 text-center text-xs text-muted-foreground"><Link href="/universities" className="underline">Explore all institutions in the directory.</Link></p>}
           </div>
         </div>
-        {sel && (
+        {visible.length > 0 && (
           <div className="mt-12 rounded-lg bg-surface p-4 text-navy sm:p-6" aria-live="polite">
-            <h3 className="flex items-center gap-2 text-2xl"><Building2 className="h-6 w-6 text-gold-deep" aria-hidden="true" />{sel.label}<span className="text-base font-normal text-muted-foreground">{sel.unis.length} {sel.unis.length === 1 ? 'university' : 'universities'}</span></h3>
-            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{sel.unis.map((u) => <UniversityCard key={u.id} u={u} programs={programsOf(u)} active={activeUni === u.id} onFocus={() => setActiveUni(u.id)} />)}</div>
+            <h3 className="flex flex-wrap items-center gap-2 text-2xl"><Building2 className="h-6 w-6 text-gold-deep" aria-hidden="true" />{sel?.label || 'Explore our universities'}<span className="text-base font-normal text-muted-foreground">{visible.length} {visible.length === 1 ? 'university' : 'universities'}</span></h3>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{visible.map((u) => <UniversityCard key={u.id} u={u} programs={programsOf(u)} active={activeUni === u.id} onFocus={() => focusUniversity(u)} />)}</div>
           </div>
         )}
       </div>

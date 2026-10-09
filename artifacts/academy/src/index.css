@@ -421,3 +421,23 @@
 .ai-portrait { max-width: 34rem; aspect-ratio: 1; overflow: hidden; border-radius: 1.75rem; border: 1px solid hsl(var(--brand-navy) / .12); box-shadow: 0 34px 60px -36px hsl(var(--brand-navy) / .7); background: hsl(var(--brand-mist)); }
 @media (min-width: 1024px) { .ai-portrait { max-width: none; } }
 .studio-photo { box-shadow: 0 24px 50px -30px #000a; }
+
+/* hero cutouts */
+.ai-cutouts { position: relative; max-width: 34rem; aspect-ratio: 1; }
+.ai-brain { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; background: none; animation: ai-float 9s ease-in-out infinite; }
+.ai-chip-art { position: absolute; right: 0; bottom: 2%; width: 34%; height: auto; background: none; animation: ai-float 7s ease-in-out -3s infinite; filter: drop-shadow(0 18px 18px hsl(var(--brand-navy) / .25)); }
+@keyframes ai-float { 0%,100% { transform: translate3d(0,0,0); } 50% { transform: translate3d(0,-10px,0); } }
+@media (min-width: 1024px) { .ai-cutouts { max-width: none; } }
+.home-strip { padding-block: 3rem; }
+.ai-home > * + * { margin-top: 0; }
+.testimonial-envelope { background: linear-gradient(155deg, #daeafa, #f5f8fc 65%, #f9f0d9); }
+.testimonial-envelope .gold-rule { margin-inline: auto; }
+.envelope-shell::before { content: ""; position: absolute; inset: -2rem 0 0; background: #ffffffa8; clip-path: polygon(0 25%, 50% 0, 100% 25%, 100% 100%, 0 100%); pointer-events: none; }
+.envelope-shell::after { content: ""; position: absolute; inset: 48% 0 0; background: linear-gradient(135deg, #c6d9ee88, #ffffffcc); clip-path: polygon(0 0, 50% 45%, 100% 0, 100% 100%, 0 100%); pointer-events: none; }
+.stationery { --paper-angle: 0deg; animation: paper-drift 8s ease-in-out infinite; }
+.stationery-0 { --paper-angle: -3deg; }
+.stationery-1 { animation-delay: -2s; }
+.stationery-2 { --paper-angle: 3deg; animation-delay: -4s; }
+@keyframes paper-drift { 0%,100% { transform: translateY(0) rotate(var(--paper-angle)); } 50% { transform: translateY(-7px) rotate(var(--paper-angle)); } }
+@media (max-width: 767px) { .stationery { --paper-angle: 0deg; } .envelope-shell::before, .envelope-shell::after { display: none; } }
+@media (prefers-reduced-motion: reduce) { .ai-brain, .ai-chip-art, .stationery { animation: none !important; } }

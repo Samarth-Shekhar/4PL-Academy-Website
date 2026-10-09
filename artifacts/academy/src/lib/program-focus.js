@@ -50,6 +50,8 @@ export function focusPrograms(list = []) {
   });
 }
 
-export function programFocusImage(program) {
-  return program?.image || FOCUS_PROGRAMS.find((focus) => focus.slug === program?.slug)?.image || '';
+export function programFocusImage(program, university) {
+  const campus = /sushant/i.test(`${program?.slug || ''} ${program?.universityName || ''}`)
+    ? '/images/university-campus/sushant.jpg' : '';
+  return program?.image || university?.image || campus || FOCUS_PROGRAMS.find((focus) => focus.slug === program?.slug)?.image || '';
 }

@@ -4,6 +4,18 @@
   "usage": "Generic program subject photography; these are not photographs of 4PL or university facilities.",
   "illustrations": [
     {
+      "key": "neural-cutout",
+      "source": "Original generated illustration for 4PL Academy",
+      "subject": "Transparent navy and gold neural brain sculpture",
+      "usage": "Decorative AI subject artwork, not academy equipment."
+    },
+    {
+      "key": "chip-cutout",
+      "source": "Original generated illustration for 4PL Academy",
+      "subject": "Transparent dimensional navy and gold AI processor",
+      "usage": "Decorative AI subject artwork, not academy equipment."
+    },
+    {
       "key": "robot-portrait",
       "source": "Original generated illustration for 4PL Academy",
       "subject": "Detailed navy and gold humanoid robot portrait",
