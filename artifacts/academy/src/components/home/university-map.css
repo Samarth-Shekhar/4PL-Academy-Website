@@ -1,0 +1,13 @@
+.network-scan { animation: network-scan 12s linear infinite; }
+.network-data-path { animation: network-data 5s linear infinite; }
+.ai-network-map .office-node { cursor: pointer; }
+.ai-network-map .office-node:hover path, .ai-network-map .office-node:focus-visible path {
+  fill: #f0cd6f;
+  filter: drop-shadow(0 0 5px #d5a83088);
+}
+@keyframes network-scan { from { transform: translateY(-90px); } to { transform: translateY(640px); } }
+@keyframes network-data { to { stroke-dashoffset: -90; } }
+@media (prefers-reduced-motion: reduce) {
+  .network-scan { display: none; }
+  .network-data-path { animation: none; }
+}

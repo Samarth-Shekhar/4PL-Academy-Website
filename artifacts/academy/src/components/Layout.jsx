@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useHealthCheck } from '@workspace/api-client-react';
-import { Menu, ChevronDown, ArrowRight, Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { Menu, ChevronDown, ArrowUp, ArrowRight, Mail, Phone, MapPin, Facebook, Instagram, Linkedin } from 'lucide-react';
 import { Modal } from './Modal';
 import { AcadBot } from './AcadBot';
+import { ScrollTransitions } from './ScrollTransitions';
 import { cn } from '@/lib/cn';
 import { asset, has } from '@/lib/format';
 import { useContactSettings, telHref } from '@/lib/settings';
@@ -34,6 +35,16 @@ const NAV = [
   { href: '/contact', label: 'Contact Us' },
 ];
 
+const toTop = () => {
+  const calm = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top: 0, left: 0, behavior: calm ? 'auto' : 'smooth' });
+};
+const homeLogoClick = (loc, after) => (event) => {
+  if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  after?.();
+  if (loc === '/') { event.preventDefault(); toTop(); }
+};
+
 export const Logo = ({ className = 'h-14', blend = true }) => (
   <img src={asset('images/4pl-logo-trimmed.webp')} alt="4PL Academy: Creating Global Professionals" className={cn('w-auto', blend && 'logo-blend', className)} width="684" height="519" />
 );
@@ -45,12 +56,7 @@ function Header() {
   const header = useRef(null);
   const ptr = useRef('');
   const [scrolled, setScrolled] = useState(false);
-  const onLogoClick = (event) => {
-    if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    setOpen(false);
-    setDropdown(null);
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-  };
+  const onLogoClick = homeLogoClick(loc, () => { setOpen(false); setDropdown(null); });
   useEffect(() => { setOpen(false); setDropdown(null); }, [loc]);
   useEffect(() => {
     if (!dropdown) return undefined;
@@ -71,13 +77,13 @@ function Header() {
   }, []);
   const active = (h) => loc === h || loc.startsWith(h + '/');
   return (
-    <header ref={header} className={cn('sticky top-0 z-50 bg-white font-bold transition-shadow', scrolled && 'shadow-[0_6px_24px_-14px_hsl(221_76%_17%/.5)]')}>
+    <header ref={header} className={cn('sticky top-0 z-50 bg-white transition-shadow', scrolled && 'shadow-[0_8px_24px_-18px_hsl(221_76%_17%/.4)]')}>
       <div className="container-x flex h-[4.75rem] items-center justify-between gap-2">
         <Link href="/" aria-label="4PL Academy home" className="shrink-0" onClick={onLogoClick}><Logo className="h-16 sm:h-[4.5rem] -my-2" /></Link>
         <nav className="hidden items-center gap-1 xl:flex" aria-label="Primary">
           {NAV.map((n) => {
             const selected = active(n.href) || (n.children || []).some(c => active(c.href));
-            const style = cn('relative flex min-h-11 items-center gap-1 rounded px-3 py-2 text-[0.9rem] font-bold normal-case text-navy/80 hover:text-gold-deep focus-visible:text-gold-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold active:text-gold-deep', selected && 'text-gold-deep');
+            const style = cn('relative flex min-h-11 items-center gap-1 rounded px-3 py-2 text-[0.9rem] font-semibold normal-case text-navy/80 hover:text-gold-deep focus-visible:text-gold-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold active:text-gold-deep', selected && 'text-gold-deep');
             return n.children ? (
               <div key={n.href} className="relative" onPointerEnter={(e) => { if (e.pointerType === 'mouse') setDropdown(n.href); }} onPointerLeave={(e) => { if (e.pointerType === 'mouse') setDropdown(null); }} onFocus={(e) => { if (e.target.matches?.(':focus-visible')) setDropdown(n.href); }} onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget)) setDropdown(null); }}>
                 <button type="button" className={cn(style, dropdown === n.href && 'text-gold-deep')} onPointerDown={(e) => { ptr.current = e.pointerType; }} aria-expanded={dropdown === n.href} aria-controls={`header-${n.href.slice(1)}`} onClick={() => setDropdown(ptr.current === 'mouse' ? n.href : dropdown === n.href ? null : n.href)}>{n.label}<ChevronDown className="h-3 w-3" aria-hidden="true" /></button>
@@ -93,7 +99,6 @@ function Header() {
           <button type="button" onClick={() => setOpen(true)} className="btn btn-navy btn-sm xl:hidden" aria-label="Open menu" data-testid="button-menu"><Menu className="h-5 w-5" aria-hidden="true" /><span className="sr-only sm:not-sr-only">Menu</span></button>
         </div>
       </div>
-      <div className="h-px bg-line" />
       <Modal open={open} onOpenChange={setOpen} title="Menu" side="right">
         <nav aria-label="Mobile" className="flex flex-col">
           {NAV.map((n) => n.children ? (
@@ -133,6 +138,7 @@ const SOCIALS = [
 ];
 
 function Footer() {
+  const [loc] = useLocation();
   const health = useHealthCheck({ query: { queryKey: ['/api/healthz'], staleTime: 60000, retry: false } });
   const contact = useContactSettings();
   const col = (t, items) => (
@@ -142,9 +148,8 @@ function Footer() {
     </div>
   );
   return (
-    <footer className="relative mt-0 isolate overflow-hidden bg-navy border-t-4 border-gold font-bold text-surface">
-      <img src={asset('images/footer-study-library.png')} alt="" aria-hidden="true" loading="lazy" className="pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover" />
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-navy/50 via-navy/30 to-navy/20" />
+    <footer className="relative mt-0 isolate overflow-hidden bg-navy border-t-4 border-gold text-surface">
+      <div aria-hidden="true" className="ai-grid pointer-events-none absolute inset-0 -z-10 opacity-20 [filter:invert(1)]" />
       <div className="container-x py-10">
         <div className="mb-9 flex flex-col justify-between gap-5 border-b border-white/20 pb-8 sm:flex-row sm:items-end">
           <div><p className="mb-2 text-xs font-bold uppercase tracking-[.16em] text-gold">AI · Digital transformation · Logistics</p><p className="font-display text-3xl font-extrabold leading-tight text-white sm:text-4xl">Your next chapter starts here.</p></div>
@@ -152,7 +157,7 @@ function Footer() {
         </div>
         <div className="grid gap-8 lg:grid-cols-[0.9fr_2.5fr]">
           <div>
-            <Link href="/" aria-label="4PL Academy home" className="inline-block"><span className="block rounded-xl bg-white px-4 py-2 shadow-lg"><Logo blend={false} className="h-24 sm:h-28" /></span></Link>
+            <Link href="/" aria-label="4PL Academy home" className="inline-block" onClick={homeLogoClick(loc)}><span className="block rounded-lg bg-white px-3 py-1.5 "><Logo blend={false} className="h-16 sm:h-20" /></span></Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-surface/80">The learning arm of 4PL Consultancy Ltd, bridging universities and industry.</p>
             <ul className="mt-4 flex flex-wrap gap-2" aria-label="4PL Academy on social media">
               {SOCIALS.map(({ label, href, icon: I }) => (
@@ -182,7 +187,7 @@ function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t border-surface/15 pt-4 text-xs leading-relaxed text-surface/70">
-          <p className="flex flex-wrap items-center gap-x-4 gap-y-1"><span>4PL Academy. All rights reserved.</span><span className="sr-only" role="status">{health.isError ? 'Service status: unavailable' : 'Service status: ok'}</span><Link href="/privacy" className="hover:text-gold hover:underline">Privacy Policy</Link><Link href="/terms" className="hover:text-gold hover:underline">Terms and Conditions</Link><Link href="/contact" className="hover:text-gold hover:underline">Contact Us</Link></p>
+          <p className="flex flex-wrap items-center gap-x-4 gap-y-1"><span>4PL Academy. All rights reserved.</span><span className="sr-only" role="status">{health.isError ? 'Service status: unavailable' : 'Service status: ok'}</span><Link href="/privacy" className="hover:text-gold hover:underline">Privacy Policy</Link><Link href="/terms" className="hover:text-gold hover:underline">Terms and Conditions</Link><Link href="/contact" className="hover:text-gold hover:underline">Contact Us</Link><button type="button" onClick={toTop} className="back-top ml-auto inline-flex min-h-11 items-center gap-1.5 rounded-full border border-gold/60 px-4 text-gold hover:bg-gold hover:text-navy" data-testid="button-back-to-top"><ArrowUp className="h-4 w-4" aria-hidden="true" />Back to top</button></p>
         </div>
       </div>
     </footer>
@@ -216,6 +221,7 @@ export function Layout({ children }) {
   return (
     <div className="flex min-h-[100dvh] flex-col">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[100] focus:rounded focus:bg-gold focus:px-4 focus:py-2 focus:text-navy">Skip to content</a>
+      <ScrollTransitions />
       <Header />
       <main id="main" className="flex-1">{children}</main>
       {loc !== '/' && !/^\/(?:book-counselling|counselling|contact|apply)/.test(loc) && <CounsellingBand />}

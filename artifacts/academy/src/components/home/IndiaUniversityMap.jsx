@@ -4,7 +4,8 @@ import { X } from 'lucide-react';
 import { asset } from '@/lib/format';
 import { cn } from '@/lib/cn';
 import { useState, useEffect, useId } from 'react';
-import { useIndiaOffice } from '@/components/OfficeLocationMap';
+import { OfficeLocationMap, useIndiaOffice } from '@/components/OfficeLocationMap';
+import './university-map.css';
 
 export const W = 600; export const H = 640;
 export const project = (lat, lon) => ({ x: ((lon - 68) / 30) * W, y: ((38 - lat) / 32) * H });
@@ -22,18 +23,20 @@ export function IndiaUniversityMap({ regions, selected, onSelect, activeUni, onU
   const pop = au ? au.pt : null;
   const left = pop ? Math.min(Math.max((pop.x / W) * 100, 24), 76) : 50;
   return (
-    <div className="relative mx-auto w-full max-w-[34rem] overflow-hidden rounded-3xl bg-navy" style={{ aspectRatio: `${W} / ${H}` }}>
+    <div className="ai-network-map relative mx-auto w-full max-w-[34rem] overflow-hidden rounded-3xl bg-navy" style={{ aspectRatio: `${W} / ${H}` }} data-testid="university-network-map">
       <svg viewBox={`0 0 ${W} ${H}`} className="absolute inset-0 h-full w-full" role="group" aria-label={partnerMode ? 'Map of verified partner universities in India' : 'Map of university directory locations in India, city centre positions'}>
         <defs>
           <radialGradient id={`${mapId}-glow`} cx="50%" cy="45%" r="65%"><stop offset="0" stopColor="hsl(219 45% 43%)" stopOpacity=".55" /><stop offset="1" stopColor="hsl(221 76% 17%)" stopOpacity="0" /></radialGradient>
           <pattern id={`${mapId}-mesh`} width="30" height="30" patternUnits="userSpaceOnUse"><path d="M30 0H0V30" fill="none" stroke="#75a3d2" strokeOpacity=".14" strokeWidth=".7" /><circle cx="0" cy="0" r="1.2" fill="#75a3d2" opacity=".25" /></pattern>
+          <linearGradient id={`${mapId}-scan`} x1="0" y1="0" x2="0" y2="1"><stop stopColor="#83c9ff" stopOpacity="0" /><stop offset="1" stopColor="#83c9ff" stopOpacity=".17" /></linearGradient>
         </defs>
         <rect width={W} height={H} fill={`url(#${mapId}-glow)`} />
         <rect width={W} height={H} fill={`url(#${mapId}-mesh)`} aria-hidden="true" />
         <image href={asset('images/india-map.svg')} x="0" y="0" width={W} height={H} preserveAspectRatio="none" opacity=".95" />
+        <g aria-hidden="true" pointerEvents="none" className="network-scan"><rect x="0" y="0" width={W} height="90" fill={`url(#${mapId}-scan)`} /><line x1="0" y1="90" x2={W} y2="90" stroke="#83c9ff" strokeOpacity=".2" /></g>
         <text x="26" y="35" fill="#e2b744" fontSize="12" fontWeight="700" letterSpacing="2">UNIVERSITY NETWORK</text>
         <text x="26" y="58" fill="white" fontSize="13">{regions.reduce((n, r) => n + r.unis.length, 0)} universities · {regions.length} regions</text>
-        {officePoint && regions.map((r) => <path key={`link-${r.key}`} d={`M${officePoint.x} ${officePoint.y} H${r.pt.x + 24} V${r.pt.y} H${r.pt.x}`} fill="none" stroke="#e2b744" strokeWidth="1.2" strokeDasharray="4 5" opacity=".45" aria-hidden="true" />)}
+        {officePoint && regions.map((r) => <path key={`link-${r.key}`} className="network-data-path" d={`M${officePoint.x} ${officePoint.y} H${r.pt.x + 24} V${r.pt.y} H${r.pt.x}`} fill="none" stroke="#e2b744" strokeWidth="1.2" strokeDasharray="4 5" opacity=".6" aria-hidden="true" />)}
         <path d="M26 555v38h45m-24-17h25v-20h28 M540 94h32v40m-18-20v36h-24" fill="none" stroke="#e2b744" strokeOpacity=".35" strokeWidth="1.2" aria-hidden="true" />
         {sel && regions.filter((r) => r.key !== sel.key).map((r) => <line key={r.key} x1={sel.pt.x} y1={sel.pt.y} x2={r.pt.x} y2={r.pt.y} stroke="hsl(40 64% 50%)" strokeOpacity=".55" strokeWidth="1.4" className={reduce ? '' : 'map-line'} />)}
         {regions.map((r, i) => {
@@ -47,7 +50,7 @@ export function IndiaUniversityMap({ regions, selected, onSelect, activeUni, onU
                 <text x={r.pt.x} y={r.pt.y + 5} textAnchor="middle" fontSize="14" fontWeight="700" fill="hsl(221 76% 17%)" style={{ pointerEvents: 'none' }}>{r.unis.length}</text>
                 <circle cx={r.pt.x} cy={r.pt.y} r={Math.max(rad + 8, 26)} fill="transparent" />
               </g>
-              {!on && <text x={r.pt.x} y={r.pt.y - rad - 6} textAnchor="middle" fontSize="12" fontWeight="600" fill="hsl(40 30% 97%)" stroke="hsl(221 76% 17%)" strokeWidth="3" paintOrder="stroke" style={{ pointerEvents: 'none' }}>{r.label}</text>}
+              {!on && <text x={r.pt.x - rad - 10} y={r.pt.y + 4} textAnchor="end" fontSize="12" fontWeight="600" fill="hsl(40 30% 97%)" stroke="hsl(221 76% 17%)" strokeWidth="3" paintOrder="stroke" style={{ pointerEvents: 'none' }}>{r.label}</text>}
             </motion.g>
           );
         })}
@@ -58,7 +61,7 @@ export function IndiaUniversityMap({ regions, selected, onSelect, activeUni, onU
           </g>
         ))}
         {officePoint && (
-          <g className="map-marker" role="button" tabIndex={0} aria-label="4PL Academy Noida office, approximate location. View contact information" aria-pressed={officeOpen}
+          <g className="map-marker office-node" role="button" tabIndex={0} aria-label="4PL Academy Noida office. View street map and directions" aria-pressed={officeOpen} data-testid="button-map-office"
             onClick={() => { setOfficeOpen(v => !v); onUni(null); }}
             onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOfficeOpen(v => !v); onUni(null); } }}>
             <title>4PL Academy, Noida — approximate office area</title>
@@ -68,15 +71,16 @@ export function IndiaUniversityMap({ regions, selected, onSelect, activeUni, onU
             <text x={officePoint.x + 48} y={officePoint.y - 40} textAnchor="middle" fill="hsl(221 76% 17%)" fontSize="10" fontWeight="800" pointerEvents="none">4PL</text>
             <text x={officePoint.x + 48} y={officePoint.y - 69} textAnchor="middle" fill="white" fontSize="12" fontWeight="700" stroke="hsl(221 76% 17%)" strokeWidth="3" paintOrder="stroke" pointerEvents="none">4PL Academy · Noida</text>
             <circle cx={officePoint.x + 48} cy={officePoint.y - 44} r="26" fill="transparent" />
+            <rect x={officePoint.x - 44} y={officePoint.y - 91} width="184" height="32" fill="transparent" />
           </g>
         )}
       </svg>
       {officeOpen && office && (
-        <div className="absolute inset-x-2 bottom-2 z-20 rounded-xl bg-surface p-4 text-navy shadow-xl" role="region" aria-label="4PL Academy Noida office details">
+        <motion.div initial={reduce ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .3 }} className="absolute inset-x-2 bottom-2 z-20 max-h-[85%] overflow-y-auto rounded-xl bg-surface p-4 text-navy shadow-xl" role="region" aria-label="4PL Academy Noida office details">
           <button type="button" onClick={() => setOfficeOpen(false)} className="absolute right-2 top-2 grid h-8 w-8 place-items-center" aria-label="Close office details"><X className="h-4 w-4" /></button>
-          <h4 className="pr-8 text-lg">4PL Academy</h4><p className="mt-1 whitespace-pre-line text-xs">{office.location}</p>
+          <div className="pr-5"><OfficeLocationMap compact /></div>
           <Link href="/contact" className="btn btn-navy btn-sm mt-3">View Contact</Link>
-        </div>
+        </motion.div>
       )}
       {au && (
         <div className={cn('absolute inset-x-2 bottom-2 z-10 rounded-lg bg-surface p-4 text-navy shadow-xl sm:inset-x-auto sm:w-64 sm:-translate-x-1/2 sm:-translate-y-full')} style={{ ...(typeof window !== 'undefined' && window.innerWidth >= 640 ? { left: `${left}%`, top: `calc(${(pop.y / H) * 100}% - 14px)` } : {}) }} role="dialog" aria-label={au.name}>

@@ -18,3 +18,9 @@ Use detailed AI subject imagery rather than generic AI bubbles or icon-only deco
 References:
 - https://dribbble.com/shots/22696959-EduNova-Website-design-for-Educational-platform
 - https://dribbble.com/shots/27029330-Education-Website-UI-Studify-Learning-Platform-for-Real-Growth
+
+Keep the header and footer minimal and EduNova-inspired, preserving the full supplied footer data. Keep the hero eyebrow close to the headline and make logo/back-to-top scrolling smooth.
+
+**Why:** The owner specifically requested a simpler header/footer and less hero spacing, alongside smooth downward entrances and upward navigation rather than abrupt jumps.
+
+**How to apply:** Retain actual navigation, office/contact/social/legal details; use restrained transitions with reduced-motion support rather than blocking native scrolling.

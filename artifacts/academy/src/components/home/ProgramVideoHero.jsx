@@ -28,9 +28,9 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
       <div aria-hidden="true" className="ai-sun" />
       <div aria-hidden="true" className="ai-grid" />
       <div className="container-x relative pb-10 pt-8 sm:pt-12 lg:pb-14">
-        <motion.p {...fx(0.05)} className="mb-4 max-w-full text-xs font-bold uppercase tracking-[0.13em] text-gold-deep">AI, digital transformation and logistics degrees</motion.p>
         <div className="grid min-w-0 items-center gap-8 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,.9fr)] lg:gap-12">
           <div className="min-w-0">
+          <motion.p {...fx(0.05)} className="mb-2 max-w-full text-xs font-bold uppercase tracking-[0.13em] text-gold-deep">AI, digital transformation and logistics degrees</motion.p>
             <h1 className="ai-title min-w-0">
               {words.map((w, i) => (
                 <span key={i} className="block overflow-hidden pb-[0.04em]">
@@ -46,7 +46,7 @@ export function ProgramVideoHero({ section, fallbackTitle, fallbackBody }) {
               </motion.div>
             </div>
           </div>
-          <motion.div initial={reduce ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, ease }} className="ai-cutouts mx-auto w-full min-w-0" aria-hidden="false">
+          <motion.div initial={reduce ? false : { opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .7, ease }} className="ai-cutouts hero-art mx-auto w-full min-w-0" aria-hidden="false">
             <img className="ai-brain" src={mediaUrl('/images/edtech/neural-cutout-960.webp')} srcSet={`${mediaUrl('/images/edtech/neural-cutout-640.webp')} 640w, ${mediaUrl('/images/edtech/neural-cutout-960.webp')} 960w`} sizes="(min-width:1024px) 40vw, 80vw" alt="Navy and gold illustration of a brain wrapped in circuit traces and orbiting gold rings" width="960" height="960" fetchPriority="high" decoding="async" />
             <img className="ai-chip-art" src={mediaUrl('/images/edtech/chip-cutout-640.webp')} srcSet={`${mediaUrl('/images/edtech/chip-cutout-640.webp')} 640w, ${mediaUrl('/images/edtech/chip-cutout-960.webp')} 960w`} sizes="(min-width:1024px) 16vw, 32vw" alt="Navy and gold AI processor chip" width="960" height="960" decoding="async" />
           </motion.div>

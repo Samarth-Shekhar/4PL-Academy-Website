@@ -441,3 +441,29 @@
 @keyframes paper-drift { 0%,100% { transform: translateY(0) rotate(var(--paper-angle)); } 50% { transform: translateY(-7px) rotate(var(--paper-angle)); } }
 @media (max-width: 767px) { .stationery { --paper-angle: 0deg; } .envelope-shell::before, .envelope-shell::after { display: none; } }
 @media (prefers-reduced-motion: reduce) { .ai-brain, .ai-chip-art, .stationery { animation: none !important; } }
+
+/* ---- Minimal header/footer + restrained hover motion ---- */
+header.sticky { background: hsl(0 0% 100% / .94); border-bottom-color: hsl(var(--brand-navy) / .08); }
+header.sticky nav a, header.sticky nav button { position: relative; border-radius: .5rem; transition: color .2s; }
+header.sticky nav > a:hover, header.sticky nav > div > button:hover { background: transparent; }
+header.sticky nav > a::after, header.sticky nav > div > button::after { content: ''; position: absolute; left: .75rem; right: .75rem; bottom: .4rem; height: 1px; background: hsl(var(--brand-gold)); transform: scaleX(0); transform-origin: left; transition: transform .25s ease; }
+header.sticky nav > a:hover::after, header.sticky nav > div > button:hover::after, header.sticky nav > a[aria-current]::after { transform: scaleX(1); }
+.nav-ai { background: transparent !important; }
+.ai-hero .ai-title { line-height: .98; }
+.hero-art img { transition: scale .6s cubic-bezier(.22,1,.36,1), translate .6s cubic-bezier(.22,1,.36,1), rotate .6s; }
+.hero-art:hover .ai-brain { translate: 0 -5px; scale: 1.025; }
+.hero-art:hover .ai-chip-art { translate: 0 -8px; rotate: 4deg; }
+.ai-home .card-s, .ai-home .focus-tile { transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s; }
+.ai-home .home-flow-block + .home-flow-block { border-top: 1px solid hsl(var(--brand-navy) / .06); }
+.ai-home .home-flow-block > section:not(.ai-hero) { padding-block: clamp(3rem, 5vw, 5.5rem); }
+.ai-home .card-s, .ai-home .focus-tile { box-shadow: none; }
+.ai-home .card-s:hover, .ai-home .focus-tile:hover { box-shadow: 0 18px 32px -25px hsl(var(--brand-navy) / .4); }
+footer a { transition: color .2s, background-color .2s; }
+.back-top { transition: color .2s, background-color .2s; }
+.back-top svg { transition: translate .25s; }
+.back-top:hover svg { translate: 0 -3px; }
+@media (prefers-reduced-motion: reduce) {
+  header.sticky nav a::after, header.sticky nav button::after, .hero-art img, .back-top svg { transition: none; }
+  .hero-art:hover img, .back-top:hover svg { scale: 1; translate: none; rotate: none; }
+  .hero-art:hover img, .ai-home .card-s:hover, .ai-home .focus-tile:hover { transform: none; }
+}
