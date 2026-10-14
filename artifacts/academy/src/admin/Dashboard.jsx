@@ -1,7 +1,7 @@
 import { Link } from 'wouter';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, CartesianGrid, Cell } from 'recharts';
 import { useGetAdminDashboard, getGetAdminDashboardQueryKey } from '@workspace/api-client-react';
-import { AlertTriangle, Landmark, GraduationCap, BookOpen, Newspaper, Inbox, ClipboardList } from 'lucide-react';
+import { AlertTriangle, Landmark, GraduationCap, BookOpen, Newspaper, Inbox } from 'lucide-react';
 import { fmtDate } from '@/lib/format';
 import { Skeleton, ErrorState } from '@/components/ui-kit';
 
@@ -12,7 +12,7 @@ export default function Dashboard() {
   const d = q.data;
   const tiles = [
     ['Universities', d.universities, Landmark, '/admin/universities'], ['Programs', d.programs, GraduationCap, '/admin/programs'], ['Courses', d.courses, BookOpen, '/admin/courses'],
-    ['Blogs', d.blogs, Newspaper, '/admin/blogs'], ['Leads', d.leads, Inbox, '/admin/leads'], ['Applications', d.applications, ClipboardList, '/admin/applications'],
+    ['Blogs', d.blogs, Newspaper, '/admin/blogs'], ['Leads', d.leads, Inbox, '/admin/leads'],
   ];
   const stages = d.leadStages || [];
   return (

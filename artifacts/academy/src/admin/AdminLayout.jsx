@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAdminLogout, getGetAdminSessionQueryKey } from '@workspace/api-client-react';
-import { LayoutDashboard, Landmark, GraduationCap, BookOpen, Newspaper, HelpCircle, Image, Search, FileText, Inbox, ClipboardList, Settings, LogOut, Menu, ExternalLink, LayoutTemplate, Building2, Award, Quote, Users } from 'lucide-react';
+import { LayoutDashboard, Landmark, GraduationCap, BookOpen, Newspaper, HelpCircle, Image, Search, FileText, Inbox, Settings, LogOut, Menu, ExternalLink, LayoutTemplate, Building2, Award, Quote, Users } from 'lucide-react';
 import { useAdminSession } from '@/lib/api';
 import { useSeo } from '@/lib/seo';
 import { cn } from '@/lib/cn';
@@ -30,7 +30,6 @@ export const ADMIN_NAV = [
   { href: '/admin/partner-leads', label: 'Partner With Us leads', icon: Inbox },
   { href: '/admin/careers-leads', label: 'Careers enquiries', icon: Inbox },
   { href: '/admin/callback-leads', label: 'Chatbot callbacks', icon: Inbox },
-  { href: '/admin/applications', label: 'Legacy applications', icon: ClipboardList },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
   { href: '/admin/profiles', label: 'Admin profiles', icon: Users },
 ];

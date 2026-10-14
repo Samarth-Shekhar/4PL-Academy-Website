@@ -58,7 +58,6 @@ const ADMIN = [
   ['partner-leads', 'Partner With Us leads', () => <Leads onlyCategory="partnership" />],
   ['careers-leads', 'Careers enquiries', () => <Leads onlyCategory="careers" />],
   ['callback-leads', 'Chatbot callback leads', () => <Leads onlyCategory="chatbot" />],
-  ['applications', 'Legacy applications', () => <Leads onlyCategory="application" />],
   ['settings', 'Settings', () => <Settings />],
   ['profiles', 'Admin profiles', () => <AdminProfiles />],
 ];
