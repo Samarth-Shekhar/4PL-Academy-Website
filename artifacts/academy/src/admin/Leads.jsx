@@ -19,6 +19,7 @@ export const FORMS = {
   application: 'Legacy application',
 };
 const CATS = Object.keys(FORMS);
+const ACTIVE_CATS = CATS.filter((category) => category !== 'application');
 const TEXT_FIELDS = ['university', 'program', 'course', 'interestedIn', 'qualification', 'city', 'source', 'utm'];
 const LABELS = { university: 'University', program: 'Program', course: 'Course', interestedIn: 'Interested in', qualification: 'Highest qualification', city: 'City', source: 'Source', utm: 'Tracking (UTM)' };
 const SCHEDULE_FIELDS = ['preferredDate', 'preferredTime', 'timeZone'];
@@ -88,7 +89,7 @@ function Editor({ lead, onClose }) {
         <div><label className="label" htmlFor="ld-name">Name</label><input id="ld-name" className="input" value={f.name} onChange={(e) => set('name', e.target.value)} /><Err k="name" /></div>
         <div><label className="label" htmlFor="ld-email">Email</label><input id="ld-email" type="email" className="input" value={f.email} onChange={(e) => set('email', e.target.value)} /><Err k="email" /></div>
         <div className="sm:col-span-2"><label className="label" htmlFor="ld-phone">Phone</label><PhoneField id="ld-phone" value={f.phone} country={f.phoneCountry} onChange={(v) => set('phone', v)} onCountryChange={(c) => set('phoneCountry', c)} error={errs.phone} disabled={upd.isPending} />{!phoneChanged && has(lead.phone) && <p className="mt-1 text-xs text-muted-foreground">Stored value: {lead.phone}. Left untouched unless edited.</p>}</div>
-        <div><label className="label" htmlFor="ld-cat">Form</label><select id="ld-cat" className="input" value={f.category} onChange={(e) => set('category', e.target.value)}>{CATS.map((x) => <option key={x} value={x}>{FORMS[x]}</option>)}</select></div>
+        <div><label className="label" htmlFor="ld-cat">Form</label><select id="ld-cat" className="input" value={f.category} onChange={(e) => set('category', e.target.value)}>{(f.category === 'application' ? CATS : ACTIVE_CATS).map((x) => <option key={x} value={x}>{FORMS[x]}</option>)}</select></div>
         <div><label className="label" htmlFor="ld-status">Status</label><select id="ld-status" className="input" value={f.status} onChange={(e) => set('status', e.target.value)} data-testid="select-lead-status">{STATUSES.map((x) => <option key={x}>{x}</option>)}</select></div>
         {TEXT_FIELDS.map((k) => <div key={k}><label className="label" htmlFor={`ld-${k}`}>{LABELS[k]}</label><input id={`ld-${k}`} className="input" value={f[k]} onChange={(e) => set(k, e.target.value)} /></div>)}
         {(f.category === 'counselling' || lead.preferredDate) && <fieldset className="grid gap-3 rounded-xl border border-gold/40 bg-gold-soft/40 p-4 sm:col-span-2 sm:grid-cols-2">
@@ -127,8 +128,8 @@ export default function Leads({ onlyCategory }) {
   return (
     <div>
       {showForm && (
-        <div className="mb-5 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-          {CATS.map((c) => <button key={c} type="button" onClick={() => setS({ ...s, category: s.category === c ? '' : c })} className={`card-s p-3 text-left hover:border-gold ${s.category === c ? 'border-gold bg-gold-soft/50 ring-2 ring-gold/40' : ''}`} aria-pressed={s.category === c}><span className="block text-xs font-bold uppercase tracking-wider text-gold-deep">{FORMS[c]}</span><span className="font-display text-2xl text-navy">{counts[c] || 0}</span></button>)}
+        <div className="mb-5 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-5">
+          {ACTIVE_CATS.map((c) => <button key={c} type="button" onClick={() => setS({ ...s, category: s.category === c ? '' : c })} className={`card-s p-3 text-left hover:border-gold ${s.category === c ? 'border-gold bg-gold-soft/50 ring-2 ring-gold/40' : ''}`} aria-pressed={s.category === c}><span className="block text-xs font-bold uppercase tracking-wider text-gold-deep">{FORMS[c]}</span><span className="font-display text-2xl text-navy">{counts[c] || 0}</span></button>)}
         </div>
       )}
       <div className="mb-3 flex flex-wrap items-center justify-between gap-2"><p className="text-sm text-muted-foreground">{name}: {list.length} shown</p><button type="button" className="btn btn-outline btn-sm" onClick={exportCsv} disabled={!list.length} data-testid="button-export-leads">Export CSV ({list.length})</button></div>
