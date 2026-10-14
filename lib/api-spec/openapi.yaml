@@ -581,13 +581,14 @@ components:
         canManageAdmins: { type: boolean }
     AdminProfile:
       type: object
-      required: [id, email, role, createdAt, isOwner]
+      required: [id, email, role, createdAt, isOwner, canManageAdmins]
       properties:
         id: { type: integer }
         email: { type: string, format: email }
         role: { type: string }
         createdAt: { type: string }
         isOwner: { type: boolean }
+        canManageAdmins: { type: boolean }
     AdminProfileInput:
       type: object
       required: [email, initialPassword]

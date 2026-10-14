@@ -3,7 +3,7 @@ import { rateLimit } from 'express-rate-limit';
 import { db, contentTable, adminsTable, sessionsTable, leadsTable } from '@workspace/db';
 import { eq, and, desc, asc, inArray, sql } from 'drizzle-orm';
 import { AdminLoginBody, ChangeAdminPasswordBody, CreateAdminProfileBody, ResetAdminProfilePasswordBody, ListAdminProfilesResponse, CreateContentBody, UpdateContentBody, UpdateLeadBody, GetAdminDashboardResponse, ListAdminLeadsResponse } from '@workspace/api-zod';
-import { currentAdmin, requireAdmin, createSession, removeSession, verifyPassword, hashPassword, initializeAdmin, isConfiguredOwner } from '../lib/auth.js';
+import { currentAdmin, requireAdmin, createSession, removeSession, verifyPassword, hashPassword, initializeAdmin, isConfiguredOwner, canManageAdminProfiles } from '../lib/auth.js';
 import { getCatalog, checkKind, publicContent, contentValues, publicUniversitySlugs } from '../lib/content.js';
 import { validateLeadPhone } from '../lib/lead-phone.js';
 import { validateLeadSchedule } from '../lib/lead-schedule.js';
@@ -17,7 +17,7 @@ router.get('/session', async (req, res) => {
   await initializeAdmin();
   const admin = await currentAdmin(req);
   const [first] = await db.select({ id: adminsTable.id }).from(adminsTable).limit(1);
-  res.json({ authenticated: Boolean(admin), setupRequired: !first, canManageAdmins: isConfiguredOwner(admin), ...(admin ? { email: admin.email } : {}) });
+  res.json({ authenticated: Boolean(admin), setupRequired: !first, canManageAdmins: canManageAdminProfiles(admin), ...(admin ? { email: admin.email } : {}) });
 });
 router.post('/login', loginLimit, async (req, res) => {
   const data = AdminLoginBody.parse(req.body);
@@ -27,7 +27,7 @@ router.post('/login', loginLimit, async (req, res) => {
   if (!valid) { res.status(401).json({ error: 'The email or password is incorrect.' }); return; }
   await removeSession(req, res);
   await createSession(res, admin.id);
-  res.json({ authenticated: true, setupRequired: false, canManageAdmins: isConfiguredOwner(admin), email: admin.email });
+  res.json({ authenticated: true, setupRequired: false, canManageAdmins: canManageAdminProfiles(admin), email: admin.email });
 });
 router.post('/logout', async (req, res) => {
   await removeSession(req, res);
@@ -35,7 +35,7 @@ router.post('/logout', async (req, res) => {
 });
 router.use(requireAdmin);
 function requireConfiguredOwner(req, res, next) {
-  if (!isConfiguredOwner(req.admin)) { res.status(403).json({ error: 'Only the configured account owner can manage administrator profiles.' }); return; }
+  if (!canManageAdminProfiles(req.admin)) { res.status(403).json({ error: 'Only an authorized profile manager can manage administrator profiles.' }); return; }
   next();
 }
 function profileResponse(profile) {
@@ -45,6 +45,7 @@ function profileResponse(profile) {
     role: profile.role,
     createdAt: profile.createdAt.toISOString(),
     isOwner: isConfiguredOwner(profile),
+    canManageAdmins: canManageAdminProfiles(profile),
   };
 }
 router.get('/profiles', requireConfiguredOwner, async (_req, res) => {

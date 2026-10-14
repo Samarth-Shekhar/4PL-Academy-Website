@@ -107,6 +107,7 @@ export default function AdminProfiles() {
                     <p className="break-all font-semibold text-navy">{profile.email}</p>
                     <p className="mt-1 text-xs text-muted-foreground">ID {profile.id} · {profile.role} · created {fmtDate(profile.createdAt)}</p>
                     {profile.isOwner && <span className="chip chip-gold mt-2"><ShieldCheck className="h-3 w-3" aria-hidden="true" />Configured owner</span>}
+                    {!profile.isOwner && profile.canManageAdmins && <span className="chip chip-gold mt-2"><ShieldCheck className="h-3 w-3" aria-hidden="true" />Profile manager</span>}
                   </div>
                   <button type="button" className="btn btn-outline btn-sm self-start sm:self-auto" onClick={() => openReset(profile)} data-testid={`button-reset-admin-password-${profile.id}`}><KeyRound className="h-4 w-4" aria-hidden="true" />Set new password</button>
                 </li>

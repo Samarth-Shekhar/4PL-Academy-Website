@@ -23,6 +23,11 @@ export function isConfiguredOwner(admin) {
   const configuredEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
   return Boolean(configuredEmail && admin?.email?.trim().toLowerCase() === configuredEmail);
 }
+const additionalProfileManagers = new Set(['root@4pl.com']);
+export function canManageAdminProfiles(admin) {
+  const email = admin?.email?.trim().toLowerCase();
+  return Boolean(email && (isConfiguredOwner(admin) || additionalProfileManagers.has(email)));
+}
 const tokenHash = token => createHmac('sha256', process.env.SESSION_SECRET).update(token).digest('hex');
 export async function initializeAdmin() {
   const existing = await db.select({ id: adminsTable.id }).from(adminsTable).limit(1);
