@@ -1,22 +1,23 @@
 import { Router } from 'express';
 import { rateLimit } from 'express-rate-limit';
 import { db, contentTable, adminsTable, sessionsTable, leadsTable } from '@workspace/db';
-import { eq, and, desc, inArray, sql } from 'drizzle-orm';
-import { AdminLoginBody, ChangeAdminPasswordBody, CreateContentBody, UpdateContentBody, UpdateLeadBody, GetAdminDashboardResponse, ListAdminLeadsResponse } from '@workspace/api-zod';
-import { currentAdmin, requireAdmin, createSession, removeSession, verifyPassword, hashPassword, initializeAdmin } from '../lib/auth.js';
-import { getCatalog, checkKind, publicContent, contentValues } from '../lib/content.js';
+import { eq, and, desc, asc, inArray, sql } from 'drizzle-orm';
+import { AdminLoginBody, ChangeAdminPasswordBody, CreateAdminProfileBody, ResetAdminProfilePasswordBody, ListAdminProfilesResponse, CreateContentBody, UpdateContentBody, UpdateLeadBody, GetAdminDashboardResponse, ListAdminLeadsResponse } from '@workspace/api-zod';
+import { currentAdmin, requireAdmin, createSession, removeSession, verifyPassword, hashPassword, initializeAdmin, isConfiguredOwner } from '../lib/auth.js';
+import { getCatalog, checkKind, publicContent, contentValues, publicUniversitySlugs } from '../lib/content.js';
 import { validateLeadPhone } from '../lib/lead-phone.js';
 import { validateLeadSchedule } from '../lib/lead-schedule.js';
 import { resolveLeadContentId } from '../lib/lead-content.js';
 
 const router = Router();
 const loginLimit = rateLimit({ windowMs: 15 * 60 * 1000, limit: 10, skipSuccessfulRequests: true, standardHeaders: 'draft-7', legacyHeaders: false, message: { error: 'Too many sign-in attempts. Please try again in 15 minutes.' } });
+const ownerMutationLimit = rateLimit({ windowMs: 15 * 60 * 1000, limit: 20, standardHeaders: 'draft-7', legacyHeaders: false, message: { error: 'Too many profile changes. Please try again later.' } });
 router.use((_req,res,next)=>{res.set('Cache-Control','no-store');res.set('X-Robots-Tag','noindex, nofollow');next();});
 router.get('/session', async (req, res) => {
   await initializeAdmin();
   const admin = await currentAdmin(req);
   const [first] = await db.select({ id: adminsTable.id }).from(adminsTable).limit(1);
-  res.json({ authenticated: Boolean(admin), setupRequired: !first, ...(admin ? { email: admin.email } : {}) });
+  res.json({ authenticated: Boolean(admin), setupRequired: !first, canManageAdmins: isConfiguredOwner(admin), ...(admin ? { email: admin.email } : {}) });
 });
 router.post('/login', loginLimit, async (req, res) => {
   const data = AdminLoginBody.parse(req.body);
@@ -26,13 +27,54 @@ router.post('/login', loginLimit, async (req, res) => {
   if (!valid) { res.status(401).json({ error: 'The email or password is incorrect.' }); return; }
   await removeSession(req, res);
   await createSession(res, admin.id);
-  res.json({ authenticated: true, setupRequired: false, email: admin.email });
+  res.json({ authenticated: true, setupRequired: false, canManageAdmins: isConfiguredOwner(admin), email: admin.email });
 });
 router.post('/logout', async (req, res) => {
   await removeSession(req, res);
   res.json({ success: true, message: 'Signed out.' });
 });
 router.use(requireAdmin);
+function requireConfiguredOwner(req, res, next) {
+  if (!isConfiguredOwner(req.admin)) { res.status(403).json({ error: 'Only the configured account owner can manage administrator profiles.' }); return; }
+  next();
+}
+function profileResponse(profile) {
+  return {
+    id: profile.id,
+    email: profile.email,
+    role: profile.role,
+    createdAt: profile.createdAt.toISOString(),
+    isOwner: isConfiguredOwner(profile),
+  };
+}
+router.get('/profiles', requireConfiguredOwner, async (_req, res) => {
+  const profiles = await db.select({ id: adminsTable.id, email: adminsTable.email, role: adminsTable.role, createdAt: adminsTable.createdAt })
+    .from(adminsTable).orderBy(asc(adminsTable.id));
+  res.json(ListAdminProfilesResponse.parse(profiles.map(profileResponse)));
+});
+router.post('/profiles', requireConfiguredOwner, ownerMutationLimit, async (req, res) => {
+  const input = CreateAdminProfileBody.parse(req.body);
+  const email = input.email.trim().toLowerCase();
+  const [profile] = await db.insert(adminsTable)
+    .values({ email, passwordHash: await hashPassword(input.initialPassword), role: 'admin' })
+    .onConflictDoNothing()
+    .returning({ id: adminsTable.id, email: adminsTable.email, role: adminsTable.role, createdAt: adminsTable.createdAt });
+  if (!profile) { res.status(409).json({ error: 'An administrator with this email already exists.' }); return; }
+  res.status(201).json(ListAdminProfilesResponse.parse([profileResponse(profile)])[0]);
+});
+router.post('/profiles/:id/password', requireConfiguredOwner, ownerMutationLimit, async (req, res) => {
+  const id = Number(req.params.id);
+  if (!Number.isSafeInteger(id) || id <= 0) { res.status(400).json({ error: 'Invalid administrator profile.' }); return; }
+  const input = ResetAdminProfilePasswordBody.parse(req.body);
+  const [profile] = await db.select({ id: adminsTable.id }).from(adminsTable).where(eq(adminsTable.id, id)).limit(1);
+  if (!profile) { res.status(404).json({ error: 'Administrator profile not found.' }); return; }
+  await db.transaction(async (tx) => {
+    await tx.update(adminsTable).set({ passwordHash: await hashPassword(input.newPassword) }).where(eq(adminsTable.id, id));
+    await tx.delete(sessionsTable).where(eq(sessionsTable.adminId, id));
+  });
+  if (id === req.admin.id) await createSession(res, id);
+  res.json({ success: true, message: 'Password reset. Existing sessions for this account were signed out.' });
+});
 router.post('/password', loginLimit, async (req, res) => {
   const input = ChangeAdminPasswordBody.parse(req.body);
   const [admin] = await db.select().from(adminsTable).where(eq(adminsTable.id, req.admin.id));
@@ -75,6 +117,10 @@ async function validateRelation(input, kind) {
 router.post('/content/:kind', async (req, res) => {
   const kind = checkKind(req.params.kind);
   const input = CreateContentBody.parse(req.body);
+  if (kind === 'universities' && !publicUniversitySlugs.includes(input.slug)) {
+    res.status(400).json({ error: 'Only IBMR Group of Institutions, Vivekananda Global University, and Sushant University can be added.' });
+    return;
+  }
   await validateRelation(input, kind);
   await validateLinkedContent(input);
   const [row] = await db.insert(contentTable).values(contentValues(input,kind)).returning();
@@ -85,10 +131,17 @@ router.patch('/content/:kind/:id', async (req, res) => {
   const id = Number(req.params.id);
   if (!Number.isSafeInteger(id) || id <= 0) { res.status(400).json({ error:'Invalid record.' }); return; }
   const input = UpdateContentBody.parse(req.body);
-  await validateRelation(input, kind);
-  await validateLinkedContent(input);
   const [existing] = await db.select().from(contentTable).where(and(eq(contentTable.id,id),eq(contentTable.kind,kind))).limit(1);
   if (!existing) { res.status(404).json({ error:'Record not found.' }); return; }
+  if (kind === 'universities') {
+    const isApproved = publicUniversitySlugs.includes(existing.slug);
+    if (!publicUniversitySlugs.includes(input.slug) && (isApproved || input.slug !== existing.slug || input.status !== 'archived')) {
+      res.status(400).json({ error: 'Only the three approved universities can be published. Legacy university records must remain archived until their linked content is resolved.' });
+      return;
+    }
+  }
+  await validateRelation(input, kind);
+  await validateLinkedContent(input);
   const merged = { ...publicContent(existing,true), ...input };
   const [row] = await db.update(contentTable).set(contentValues(merged,kind)).where(and(eq(contentTable.id,id),eq(contentTable.kind,kind))).returning();
   res.json(publicContent(row,true));

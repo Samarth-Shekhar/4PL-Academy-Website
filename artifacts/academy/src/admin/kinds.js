@@ -7,6 +7,7 @@ export const REL_TYPES = ['Partner', 'Hiring Partner', 'Training Partner', 'Corp
 export const HOME_SECTIONS = ['hero', 'ecosystem', 'universities', 'programs', 'industry', 'practical', 'certifications', 'journey', 'careers', 'student-life', 'gallery', 'testimonials', 'admissions', 'final-cta'];
 export const MEDIA_SECTIONS = ['hero', 'practical', 'student-life', 'gallery', 'journey', 'careers', 'industry', 'certifications', 'admissions'];
 export const MEDIA_CATEGORIES = ['Campus', 'Classroom', 'Industry', 'Events', 'Workshops', 'Students', 'Faculty', 'Projects', 'Career'];
+export const APPROVED_UNIVERSITY_SLUGS = ['ibmr-group-of-institutions', 'vivekananda-global-university', 'sushant-university'];
 export const SEO_FIELDS = [
   T('seoTitle', 'SEO title', { hint: 'Up to about 60 characters.' }), T('seoDescription', 'Meta description', { type: 'textarea', hint: 'Up to about 160 characters.' }),
   T('canonical', 'Canonical URL', { type: 'url' }), T('ogTitle', 'Open Graph title'), T('ogDescription', 'Open Graph description', { type: 'textarea' }), T('ogImage', 'Open Graph image URL', { type: 'url' }),

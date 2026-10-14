@@ -167,6 +167,49 @@ paths:
           content:
             application/json:
               schema: { $ref: "#/components/schemas/Success" }
+  /admin/profiles:
+    get:
+      operationId: listAdminProfiles
+      responses:
+        "200":
+          description: Administrator profile list without password hashes
+          content:
+            application/json:
+              schema: { type: array, items: { $ref: "#/components/schemas/AdminProfile" } }
+        "403": { description: Configured owner access required }
+    post:
+      operationId: createAdminProfile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/AdminProfileInput" }
+      responses:
+        "201":
+          description: Administrator profile created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/AdminProfile" }
+        "409": { description: An administrator with this email already exists }
+        "403": { description: Configured owner access required }
+  /admin/profiles/{id}/password:
+    post:
+      operationId: resetAdminProfilePassword
+      parameters:
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/AdminProfilePasswordInput" }
+      responses:
+        "200":
+          description: Password reset and existing sessions revoked
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Success" }
+        "404": { description: Administrator profile not found }
+        "403": { description: Configured owner access required }
   /admin/dashboard:
     get:
       operationId: getAdminDashboard
@@ -530,11 +573,32 @@ components:
         newPassword: { type: string, minLength: 12, maxLength: 200 }
     AdminSession:
       type: object
-      required: [authenticated, setupRequired]
+      required: [authenticated, setupRequired, canManageAdmins]
       properties:
         authenticated: { type: boolean }
         setupRequired: { type: boolean }
         email: { type: string }
+        canManageAdmins: { type: boolean }
+    AdminProfile:
+      type: object
+      required: [id, email, role, createdAt, isOwner]
+      properties:
+        id: { type: integer }
+        email: { type: string, format: email }
+        role: { type: string }
+        createdAt: { type: string }
+        isOwner: { type: boolean }
+    AdminProfileInput:
+      type: object
+      required: [email, initialPassword]
+      properties:
+        email: { type: string, format: email, maxLength: 250 }
+        initialPassword: { type: string, minLength: 12, maxLength: 200 }
+    AdminProfilePasswordInput:
+      type: object
+      required: [newPassword]
+      properties:
+        newPassword: { type: string, minLength: 12, maxLength: 200 }
     Dashboard:
       type: object
       required: [universities, programs, courses, blogs, leads, applications, needsVerification, leadStages, recentLeads]

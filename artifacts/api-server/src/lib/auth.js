@@ -19,6 +19,10 @@ export async function verifyPassword(password, stored) {
   const expected = Buffer.from(hex, 'hex');
   return hash.length === expected.length && timingSafeEqual(hash, expected);
 }
+export function isConfiguredOwner(admin) {
+  const configuredEmail = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  return Boolean(configuredEmail && admin?.email?.trim().toLowerCase() === configuredEmail);
+}
 const tokenHash = token => createHmac('sha256', process.env.SESSION_SECRET).update(token).digest('hex');
 export async function initializeAdmin() {
   const existing = await db.select({ id: adminsTable.id }).from(adminsTable).limit(1);

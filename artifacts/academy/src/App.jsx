@@ -34,6 +34,7 @@ const ContentManager = lazy(() => import('@/admin/ContentManager'));
 const HomepageManager = lazy(() => import('@/admin/HomepageManager'));
 const Leads = lazy(() => import('@/admin/Leads'));
 const Settings = lazy(() => import('@/admin/Settings'));
+const AdminProfiles = lazy(() => import('@/admin/AdminProfiles'));
 
 const queryClient = new QueryClient({ defaultOptions: { queries: { staleTime: 30000, refetchOnWindowFocus: false, refetchOnMount: true, retry: 1 } } });
 
@@ -59,6 +60,7 @@ const ADMIN = [
   ['callback-leads', 'Chatbot callback leads', () => <Leads onlyCategory="chatbot" />],
   ['applications', 'Legacy applications', () => <Leads onlyCategory="application" />],
   ['settings', 'Settings', () => <Settings />],
+  ['profiles', 'Admin profiles', () => <AdminProfiles />],
 ];
 
 const Fallback = () => <div className="container-x space-y-3 py-10"><Skeleton className="h-10 w-1/2" /><Skeleton className="h-64" /></div>;

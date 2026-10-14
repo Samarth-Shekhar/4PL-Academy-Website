@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { useQueryClient } from '@tanstack/react-query';
 import { useListAdminContent, getListAdminContentQueryKey, useCreateContent, useUpdateContent, useArchiveContent, usePermanentlyDeleteContent } from '@workspace/api-client-react';
 import { Plus, Star, Pencil, Archive, RotateCcw, Eye, EyeOff, Loader2, Trash2, Inbox, ShieldCheck } from 'lucide-react';
-import { KINDS, SEO_FIELDS, STATUSES } from './kinds';
+import { KINDS, SEO_FIELDS, STATUSES, APPROVED_UNIVERSITY_SLUGS } from './kinds';
 import { UploadField } from './UploadField';
 import { mediaUrl } from '@/lib/home';
 import { has, slugify, fmtDate, initials } from '@/lib/format';
@@ -113,6 +113,7 @@ const Group = ({ title, children }) => <fieldset className="editor-group min-w-0
 
 export function EditorForm({ kind, cfg, item, onClose, universities = [] }) {
   const careers = kind === 'pages' && item?.slug === 'careers';
+  const legacyUniversity = kind === 'universities' && item && !APPROVED_UNIVERSITY_SLUGS.includes(item.slug);
   if (careers) cfg = { ...cfg, items: true, itemsLabel: 'Job openings' };
   const qc = useQueryClient();
   const create = useCreateContent();
@@ -156,7 +157,7 @@ export function EditorForm({ kind, cfg, item, onClose, universities = [] }) {
       <Group title="Basics">
         <div><label className="label" htmlFor="f-name">{cfg.nameLabel || 'Name'}</label><input id="f-name" className="input" aria-invalid={!!errors.name} {...register('name')} />{errors.name && <p className="field-err">{errors.name.message}</p>}</div>
         <div><label className="label" htmlFor="f-slug">Slug</label><input id="f-slug" className="input" {...register('slug')} />{cfg.slugHint && <p className="hint">{cfg.slugHint}</p>}{errors.slug && <p className="field-err">{errors.slug.message}</p>}</div>
-        <div><label className="label" htmlFor="f-status">Status</label><select id="f-status" className="input" {...register('status')}>{STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}</select></div>
+         <div><label className="label" htmlFor="f-status">Status</label><select id="f-status" className="input" disabled={legacyUniversity} {...register('status')}>{(legacyUniversity ? ['archived'] : STATUSES).map((s) => <option key={s} value={s}>{s}</option>)}</select>{legacyUniversity && <p className="hint">This legacy university must remain archived until its linked content is resolved.</p>}</div>
         <div><label className="label" htmlFor="f-sort">Sort order</label><input id="f-sort" type="number" inputMode="numeric" className="input" {...register('sortOrder')} />{errors.sortOrder && <p className="field-err">{errors.sortOrder.message}</p>}</div>
         <label className="flex min-h-11 items-center gap-3 text-sm font-semibold text-navy sm:col-span-2"><input type="checkbox" className="h-5 w-5 accent-[hsl(221_76%_17%)]" {...register('featured')} /> Featured on the public site</label>
         {cfg.universityPicker && (
@@ -257,12 +258,15 @@ export default function ContentManager({ kind, embedded }) {
   const [confirm, setConfirm] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [deleteErr, setDeleteErr] = useState('');
-  const [f, setF] = useState({ search: '', status: 'all' });
+  const [f, setF] = useState({ search: '', status: kind === 'universities' ? 'published' : 'all' });
   const [busy, setBusy] = useState(null);
   const [err, setErr] = useState('');
   const all = q.data || [];
+  const legacyUniversities = kind === 'universities' ? all.filter((x) => !APPROVED_UNIVERSITY_SLUGS.includes(x.slug)) : [];
+  const canCreateUniversity = kind !== 'universities' || APPROVED_UNIVERSITY_SLUGS.some((slug) => !all.some((x) => x.slug === slug));
   const counts = useMemo(() => ({ all: all.length, published: all.filter((x) => x.status === 'published').length, draft: all.filter((x) => x.status === 'draft').length, archived: all.filter((x) => x.status === 'archived').length }), [all]);
   const list = useMemo(() => all.filter((x) => (f.status === 'all' || x.status === f.status) && (!f.search || `${x.name} ${x.slug} ${x.universityName || ''} ${x.category || ''} ${x.section || ''}`.toLowerCase().includes(f.search.toLowerCase()))), [all, f]);
+  const isLegacyUniversity = (item) => kind === 'universities' && !APPROVED_UNIVERSITY_SLUGS.includes(item.slug);
   const patch = (item, over, id) => {
     setBusy(`${id}-${item.id}`); setErr('');
     update.mutate({ kind, id: item.id, data: { ...formToPayload(itemToForm(item, cfg), cfg), ...over } }, { onSuccess: () => invalidateAll(qc), onError: (e) => setErr(errMsg(e)), onSettled: () => setBusy(null) });
@@ -281,8 +285,9 @@ export default function ContentManager({ kind, embedded }) {
     <div>
       <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         {!embedded && <p className="max-w-xl text-sm text-muted-foreground">Changes are saved to the database and appear on the public site immediately after publishing.</p>}
-        <button type="button" onClick={() => setEditing('new')} className="btn btn-gold self-start sm:ml-auto" data-testid={`button-new-${kind}`}><Plus className="h-4 w-4" aria-hidden="true" /> New {cfg.label.toLowerCase()}</button>
+        <button type="button" onClick={() => setEditing('new')} disabled={!canCreateUniversity} title={!canCreateUniversity ? 'The three approved universities already exist; edit those records instead.' : undefined} className="btn btn-gold self-start sm:ml-auto" data-testid={`button-new-${kind}`}><Plus className="h-4 w-4" aria-hidden="true" /> New {cfg.label.toLowerCase()}</button>
       </div>
+      {kind === 'universities' && <p className="mb-4 rounded-xl border border-gold/30 bg-gold-soft/50 p-4 text-sm text-navy">Only IBMR, VGU, and Sushant University can be published. {legacyUniversities.length ? `${legacyUniversities.length} other archived university records remain because they are linked to existing content; deletion is blocked until those links are resolved.` : 'No other university records are present.'}</p>}
       <div className="admin-toolbar mb-4 grid gap-3 p-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
         <div><label className="sr-only" htmlFor="cm-search">Search</label><input id="cm-search" type="search" className="input search-pill" placeholder={`Search ${cfg.plural.toLowerCase()}`} value={f.search} onChange={(e) => setF({ ...f, search: e.target.value })} /></div>
         <div className="no-scrollbar flex gap-1.5 overflow-x-auto" role="tablist" aria-label="Status filter">{['all', ...STATUSES].map((s) => <button key={s} type="button" role="tab" aria-selected={f.status === s} onClick={() => setF({ ...f, status: s })} className={cn('shrink-0 rounded-full border px-3.5 py-2 text-sm font-semibold capitalize', f.status === s ? 'border-navy bg-navy text-surface' : 'border-line bg-white text-navy hover:border-gold')}>{s} ({counts[s]})</button>)}</div>
@@ -305,7 +310,7 @@ export default function ContentManager({ kind, embedded }) {
                 {x.status === 'draft' && <Btn item={x} id="publish" icon={Eye} label="Publish" over={{ status: 'published' }} />}
                 {x.status === 'published' && <Btn item={x} id="unpublish" icon={EyeOff} label="Unpublish" over={{ status: 'draft' }} />}
                 {x.status !== 'archived' && <Btn item={x} id="feature" icon={Star} label={x.featured ? 'Unfeature' : 'Feature'} over={{ featured: !x.featured }} />}
-                {x.status === 'archived' ? <Btn item={x} id="restore" icon={RotateCcw} label="Restore as draft" over={{ status: 'draft' }} /> : <button type="button" className="btn btn-outline btn-sm" onClick={() => setConfirm(x)} data-testid={`button-archive-${x.id}`}><Archive className="h-4 w-4" aria-hidden="true" />Archive</button>}
+                {x.status === 'archived' ? (isLegacyUniversity(x) ? <span className="chip chip-warn">Linked legacy record</span> : <Btn item={x} id="restore" icon={RotateCcw} label="Restore as draft" over={{ status: 'draft' }} />) : <button type="button" className="btn btn-outline btn-sm" onClick={() => setConfirm(x)} data-testid={`button-archive-${x.id}`}><Archive className="h-4 w-4" aria-hidden="true" />Archive</button>}
                 <button type="button" className="btn btn-outline btn-sm text-destructive" disabled={permanentDelete.isPending} onClick={() => { setDeleteConfirm(x); setDeleteErr(''); }} data-testid={`button-delete-${x.id}`}><Trash2 className="h-4 w-4" aria-hidden="true" />Delete permanently</button>
               </div>
             </li>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAdminLogout, getGetAdminSessionQueryKey } from '@workspace/api-client-react';
-import { LayoutDashboard, Landmark, GraduationCap, BookOpen, Newspaper, HelpCircle, Image, Search, FileText, Inbox, ClipboardList, Settings, LogOut, Menu, ExternalLink, LayoutTemplate, Building2, Award, Quote } from 'lucide-react';
+import { LayoutDashboard, Landmark, GraduationCap, BookOpen, Newspaper, HelpCircle, Image, Search, FileText, Inbox, ClipboardList, Settings, LogOut, Menu, ExternalLink, LayoutTemplate, Building2, Award, Quote, Users } from 'lucide-react';
 import { useAdminSession } from '@/lib/api';
 import { useSeo } from '@/lib/seo';
 import { cn } from '@/lib/cn';
@@ -32,12 +32,14 @@ export const ADMIN_NAV = [
   { href: '/admin/callback-leads', label: 'Chatbot callbacks', icon: Inbox },
   { href: '/admin/applications', label: 'Legacy applications', icon: ClipboardList },
   { href: '/admin/settings', label: 'Settings', icon: Settings },
+  { href: '/admin/profiles', label: 'Admin profiles', icon: Users },
 ];
 
-function NavList({ loc }) {
+function NavList({ loc, canManageAdmins }) {
+  const items = ADMIN_NAV.filter((item) => item.href !== '/admin/profiles' || canManageAdmins);
   return (
     <nav aria-label="Admin" className="flex flex-col gap-1">
-      {ADMIN_NAV.map((n) => (
+      {items.map((n) => (
         <Link key={n.href} href={n.href} className={cn('admin-nav-link flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm font-semibold text-surface/75 transition-colors hover:bg-surface/10 hover:text-surface', loc === n.href && 'is-active bg-surface/10 text-surface')}>
           <n.icon className="h-4 w-4" aria-hidden="true" />{n.label}
         </Link>
@@ -64,7 +66,7 @@ export function AdminLayout({ children, title }) {
       <aside className="navy-surface on-navy hidden flex-col p-4 lg:flex lg:h-[100dvh] lg:sticky lg:top-0">
         <div className="mb-5 rounded-2xl bg-white px-3 py-2"><Logo className="mx-auto h-16" /></div>
         <p className="eyebrow mb-3 px-3">Content studio</p>
-        <div className="flex-1 overflow-y-auto"><NavList loc={loc} /></div>
+        <div className="flex-1 overflow-y-auto"><NavList loc={loc} canManageAdmins={session.data?.canManageAdmins} /></div>
         <a href={import.meta.env.BASE_URL} target="_blank" rel="noopener noreferrer" className="mt-3 flex items-center gap-2 px-3 py-2 text-xs text-surface/70 hover:text-gold"><ExternalLink className="h-3.5 w-3.5" aria-hidden="true" /> View public site</a>
       </aside>
       <div className="min-w-0">
@@ -74,7 +76,7 @@ export function AdminLayout({ children, title }) {
         </div>
         <div className="p-4 sm:p-6 lg:p-8">{children}</div>
       </div>
-      <Modal open={open} onOpenChange={setOpen} title="Admin menu" side="right"><div className="rounded-md bg-navy p-2"><NavList loc={loc} /></div></Modal>
+      <Modal open={open} onOpenChange={setOpen} title="Admin menu" side="right"><div className="rounded-md bg-navy p-2"><NavList loc={loc} canManageAdmins={session.data?.canManageAdmins} /></div></Modal>
     </div>
   );
 }
