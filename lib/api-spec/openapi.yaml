@@ -230,6 +230,20 @@ paths:
           content:
             application/json:
               schema: { $ref: "#/components/schemas/Success" }
+  /admin/content/{kind}/{id}/permanent:
+    delete:
+      operationId: permanentlyDeleteContent
+      parameters:
+        - { name: kind, in: path, required: true, schema: { type: string } }
+        - { name: id, in: path, required: true, schema: { type: integer } }
+      responses:
+        "200":
+          description: Content record permanently deleted
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Success" }
+        "404": { description: Record not found }
+        "409": { description: Record is still referenced by other content }
   /admin/leads:
     get:
       operationId: listAdminLeads

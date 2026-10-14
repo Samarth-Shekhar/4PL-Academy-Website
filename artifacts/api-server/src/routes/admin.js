@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { rateLimit } from 'express-rate-limit';
 import { db, contentTable, adminsTable, sessionsTable, leadsTable } from '@workspace/db';
-import { eq, and, desc } from 'drizzle-orm';
+import { eq, and, desc, inArray, sql } from 'drizzle-orm';
 import { AdminLoginBody, ChangeAdminPasswordBody, CreateContentBody, UpdateContentBody, UpdateLeadBody, GetAdminDashboardResponse, ListAdminLeadsResponse } from '@workspace/api-zod';
 import { currentAdmin, requireAdmin, createSession, removeSession, verifyPassword, hashPassword, initializeAdmin } from '../lib/auth.js';
 import { getCatalog, checkKind, publicContent, contentValues } from '../lib/content.js';
@@ -100,6 +100,41 @@ router.delete('/content/:kind/:id', async (req, res) => {
   const [row] = await db.update(contentTable).set({ status:'archived', updatedAt:new Date() }).where(and(eq(contentTable.id,id),eq(contentTable.kind,kind))).returning();
   if (!row) { res.status(404).json({error:'Record not found.'});return; }
   res.json({success:true,message:'Archived. This content can be restored from the CMS.'});
+});
+router.delete('/content/:kind/:id/permanent', async (req, res) => {
+  const kind = checkKind(req.params.kind);
+  const id = Number(req.params.id);
+  if (!Number.isSafeInteger(id) || id <= 0) { res.status(400).json({ error: 'Invalid record.' }); return; }
+  const [existing] = await db.select({ id: contentTable.id, name: contentTable.name })
+    .from(contentTable).where(and(eq(contentTable.id, id), eq(contentTable.kind, kind))).limit(1);
+  if (!existing) { res.status(404).json({ error: 'Record not found.' }); return; }
+
+  let references = [];
+  if (kind === 'universities') {
+    references = await db.select({ kind: contentTable.kind, name: contentTable.name })
+      .from(contentTable).where(eq(contentTable.universityId, id));
+  } else if (kind === 'programs' || kind === 'courses') {
+    const reference = kind === 'programs'
+      ? sql`${contentTable.data}->>'programId' = ${String(id)}`
+      : sql`${contentTable.data}->>'courseId' = ${String(id)}`;
+    references = await db.select({ kind: contentTable.kind, name: contentTable.name })
+      .from(contentTable)
+      .where(and(inArray(contentTable.kind, ['media', 'certifications']), reference));
+  }
+  if (references.length) {
+    const labels = [...new Set(references.map((row) => row.kind.replaceAll('_', ' ')))].join(', ');
+    res.status(409).json({ error: `Cannot delete “${existing.name}” while it is linked to ${references.length} ${labels} record(s). Reassign or remove those records first.` });
+    return;
+  }
+
+  const [deleted] = await db.delete(contentTable)
+    .where(and(eq(contentTable.id, id), eq(contentTable.kind, kind)))
+    .returning({ id: contentTable.id });
+  if (!deleted) { res.status(404).json({ error: 'Record not found.' }); return; }
+  res.json({
+    success: true,
+    message: 'Content record permanently deleted. Any related lead remains saved; uploaded files in storage are not removed.',
+  });
 });
 router.get('/leads', async (_req,res) => {
   const rows = await db.select().from(leadsTable).orderBy(desc(leadsTable.createdAt)).limit(5000);

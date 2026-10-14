@@ -3,7 +3,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useQueryClient } from '@tanstack/react-query';
-import { useListAdminContent, getListAdminContentQueryKey, useCreateContent, useUpdateContent, useArchiveContent } from '@workspace/api-client-react';
+import { useListAdminContent, getListAdminContentQueryKey, useCreateContent, useUpdateContent, useArchiveContent, usePermanentlyDeleteContent } from '@workspace/api-client-react';
 import { Plus, Star, Pencil, Archive, RotateCcw, Eye, EyeOff, Loader2, Trash2, Inbox, ShieldCheck } from 'lucide-react';
 import { KINDS, SEO_FIELDS, STATUSES } from './kinds';
 import { UploadField } from './UploadField';
@@ -252,8 +252,11 @@ export default function ContentManager({ kind, embedded }) {
   const unis = useListAdminContent('universities', { query: { queryKey: getListAdminContentQueryKey('universities'), staleTime: 30000, enabled: !!cfg.universityPicker } });
   const update = useUpdateContent();
   const archive = useArchiveContent();
+  const permanentDelete = usePermanentlyDeleteContent();
   const [editing, setEditing] = useState(null);
   const [confirm, setConfirm] = useState(null);
+  const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [deleteErr, setDeleteErr] = useState('');
   const [f, setF] = useState({ search: '', status: 'all' });
   const [busy, setBusy] = useState(null);
   const [err, setErr] = useState('');
@@ -265,6 +268,14 @@ export default function ContentManager({ kind, embedded }) {
     update.mutate({ kind, id: item.id, data: { ...formToPayload(itemToForm(item, cfg), cfg), ...over } }, { onSuccess: () => invalidateAll(qc), onError: (e) => setErr(errMsg(e)), onSettled: () => setBusy(null) });
   };
   const doArchive = () => { archive.mutate({ kind, id: confirm.id }, { onSuccess: () => { invalidateAll(qc); setConfirm(null); }, onError: (e) => setErr(errMsg(e)) }); };
+  const doPermanentDelete = () => {
+    if (!deleteConfirm) return;
+    setDeleteErr('');
+    permanentDelete.mutate({ kind, id: deleteConfirm.id }, {
+      onSuccess: () => { invalidateAll(qc); setDeleteConfirm(null); },
+      onError: (e) => setDeleteErr(errMsg(e)),
+    });
+  };
   const Btn = ({ item, id, icon: I, label, over }) => <button type="button" className="btn btn-outline btn-sm" disabled={busy === `${id}-${item.id}`} onClick={() => patch(item, over, id)} data-testid={`button-${id}-${item.id}`}>{busy === `${id}-${item.id}` ? <Loader2 className="h-4 w-4 animate-spin" /> : <I className="h-4 w-4" aria-hidden="true" />}{label}</button>;
   return (
     <div>
@@ -295,6 +306,7 @@ export default function ContentManager({ kind, embedded }) {
                 {x.status === 'published' && <Btn item={x} id="unpublish" icon={EyeOff} label="Unpublish" over={{ status: 'draft' }} />}
                 {x.status !== 'archived' && <Btn item={x} id="feature" icon={Star} label={x.featured ? 'Unfeature' : 'Feature'} over={{ featured: !x.featured }} />}
                 {x.status === 'archived' ? <Btn item={x} id="restore" icon={RotateCcw} label="Restore as draft" over={{ status: 'draft' }} /> : <button type="button" className="btn btn-outline btn-sm" onClick={() => setConfirm(x)} data-testid={`button-archive-${x.id}`}><Archive className="h-4 w-4" aria-hidden="true" />Archive</button>}
+                <button type="button" className="btn btn-outline btn-sm text-destructive" disabled={permanentDelete.isPending} onClick={() => { setDeleteConfirm(x); setDeleteErr(''); }} data-testid={`button-delete-${x.id}`}><Trash2 className="h-4 w-4" aria-hidden="true" />Delete permanently</button>
               </div>
             </li>
           ))}
@@ -305,6 +317,13 @@ export default function ContentManager({ kind, embedded }) {
       </Modal>
       <Modal open={!!confirm} onOpenChange={(o) => !o && setConfirm(null)} title="Archive this record?" description={confirm ? `"${confirm.name}" will be removed from the public site. You can restore it later.` : ''}>
         <div className="flex justify-end gap-2"><button type="button" className="btn btn-outline" onClick={() => setConfirm(null)}>Cancel</button><button type="button" className="btn btn-danger" disabled={archive.isPending} onClick={doArchive} data-testid="button-confirm-archive">{archive.isPending && <Loader2 className="h-4 w-4 animate-spin" />} Archive</button></div>
+      </Modal>
+      <Modal open={!!deleteConfirm} onOpenChange={(o) => { if (!o && !permanentDelete.isPending) { setDeleteConfirm(null); setDeleteErr(''); } }} title="Permanently delete this record?">
+        <div className="space-y-4">
+          <p className="text-sm text-muted-foreground">This will permanently delete “{deleteConfirm?.name}” from the CMS and cannot be undone. Related lead records remain saved, but uploaded files in storage are not removed. Records still linked to this item must be reassigned or removed first.</p>
+          {deleteErr && <p className="form-alert" role="alert">{deleteErr}</p>}
+          <div className="flex justify-end gap-2"><button type="button" className="btn btn-outline" onClick={() => setDeleteConfirm(null)} disabled={permanentDelete.isPending}>Cancel</button><button type="button" className="btn btn-danger" disabled={permanentDelete.isPending} onClick={doPermanentDelete} data-testid="button-confirm-delete">{permanentDelete.isPending && <Loader2 className="h-4 w-4 animate-spin" />}Delete permanently</button></div>
+        </div>
       </Modal>
     </div>
   );

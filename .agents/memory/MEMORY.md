@@ -25,3 +25,4 @@
 - [AI visual direction](ai-visual-direction.md) — blue-and-gold, AI-focused presentation inspired by EduNova and Studify; retain supplied facts and other offerings.
 - [Counselling appointments](counselling-appointments.md) — calendar selections are preferred requests in IST, not reserved appointments; keep timezone with saved and emailed details.
 - [Programme brochure priority](programme-brochure-priority.md) — owner confirmed the Trade honours title; programme chapters outrank conflicting certification captions.
+- [CMS management scope](cms-management-scope.md) — all site content should be manageable through the authenticated admin, including publish controls and safe deletion.
