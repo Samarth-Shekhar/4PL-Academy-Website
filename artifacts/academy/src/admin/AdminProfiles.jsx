@@ -33,6 +33,7 @@ export default function AdminProfiles() {
   const [resetTarget, setResetTarget] = useState(null);
   const [createError, setCreateError] = useState('');
   const [resetError, setResetError] = useState('');
+  const [message, setMessage] = useState('');
 
   const createForm = useForm({
     resolver: zodResolver(createSchema),
@@ -46,11 +47,13 @@ export default function AdminProfiles() {
   const openCreate = () => {
     createForm.reset({ email: '', initialPassword: '', confirmPassword: '' });
     setCreateError('');
+    setMessage('');
     setCreateOpen(true);
   };
   const openReset = (profile) => {
     resetForm.reset({ newPassword: '', confirmPassword: '' });
     setResetError('');
+    setMessage('');
     setResetTarget(profile);
   };
   const submitCreate = (values) => {
@@ -60,6 +63,7 @@ export default function AdminProfiles() {
         await queryClient.invalidateQueries({ queryKey: getListAdminProfilesQueryKey() });
         setCreateOpen(false);
         createForm.reset();
+        setMessage('Admin profile created. The new account can sign in using its email and initial password.');
       },
       onError: (error) => setCreateError(errMsg(error)),
     });
@@ -69,6 +73,7 @@ export default function AdminProfiles() {
     setResetError('');
     reset.mutate({ id: resetTarget.id, data: { newPassword: values.newPassword } }, {
       onSuccess: () => {
+        setMessage(`Password reset for ${resetTarget.email}. Existing sessions for that account were signed out.`);
         setResetTarget(null);
         resetForm.reset();
       },
@@ -89,6 +94,7 @@ export default function AdminProfiles() {
         </div>
         <button type="button" className="btn btn-gold self-start sm:self-auto" onClick={openCreate} data-testid="button-create-admin-profile"><UserPlus className="h-4 w-4" aria-hidden="true" />Create admin profile</button>
       </section>
+      {message && <p className="rounded-xl bg-gold-soft p-4 text-sm text-navy" role="status">{message}</p>}
 
       {profiles.isLoading ? <div className="space-y-2">{Array.from({ length: 3 }).map((_, i) => <Skeleton key={i} className="h-24" />)}</div>
         : profiles.isError ? <ErrorState onRetry={profiles.refetch} />

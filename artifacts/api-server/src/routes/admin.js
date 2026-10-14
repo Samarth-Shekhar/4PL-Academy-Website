@@ -135,7 +135,7 @@ router.patch('/content/:kind/:id', async (req, res) => {
   if (!existing) { res.status(404).json({ error:'Record not found.' }); return; }
   if (kind === 'universities') {
     const isApproved = publicUniversitySlugs.includes(existing.slug);
-    if (!publicUniversitySlugs.includes(input.slug) && (isApproved || input.slug !== existing.slug || input.status !== 'archived')) {
+    if (isApproved ? !publicUniversitySlugs.includes(input.slug) : input.slug !== existing.slug || input.status !== 'archived') {
       res.status(400).json({ error: 'Only the three approved universities can be published. Legacy university records must remain archived until their linked content is resolved.' });
       return;
     }

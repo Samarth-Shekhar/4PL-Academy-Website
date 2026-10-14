@@ -80,3 +80,9 @@ hit the containing 3D layer instead of the anchors.
 **How to apply:** Check the element under the visible link with
 elementFromPoint, then click that surface and confirm the resulting route.
 Keep this distinction when evaluating transformed or overlapping components.
+
+For HTTP authentication checks through the Replit proxy, select the app's session cookie by name rather than taking the first Set-Cookie value.
+
+**Why:** proxy cookies can precede the app cookie, causing a successful sign-in to appear unauthenticated on the next request.
+
+**How to apply:** use name-aware cookie handling and never print credentials or session tokens in verification output.

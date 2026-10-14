@@ -17,6 +17,12 @@ Only VGU (Vivekananda Global University), IBMR Group of Institutions and Sushant
 
 **How to apply:** Keep this restriction consistent across public listings, direct detail URLs, homepage previews, form choices, chatbot answers and SEO. Do not add more institutions without the owner's request. Preserve historical enquiry records and archived CMS content.
 
+For removing extra university records from the database, the owner selected permanent deletion of university entries only, while preserving linked content.
+
+**Why:** this was the owner's explicit deletion choice; institution-specific content must not be silently deleted or reassigned to one of the remaining universities.
+
+**How to apply:** delete only unreferenced extra university records. If references block deletion, retain those entries archived and ask how their linked content should be handled before changing relationships.
+
 **Why:** The user requested matching templates and basic supplied information instead of lengthy cards and repetitive missing-information placeholders.
 
 **How to apply:** Omit unavailable facts from cards, retain complete supplied information on detail pages, and align card actions.
