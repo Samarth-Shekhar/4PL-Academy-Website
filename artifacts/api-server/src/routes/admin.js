@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { rateLimit } from 'express-rate-limit';
-import { db, contentTable, adminsTable, sessionsTable, leadsTable } from '@workspace/db';
-import { eq, and, desc, asc, inArray, sql } from 'drizzle-orm';
+import { db, contentTable, adminsTable, sessionsTable, leadsTable, insertRow, updateRow, deleteRow, jsonText } from '@workspace/db';
+import { eq, and, desc, asc, inArray } from 'drizzle-orm';
 import { AdminLoginBody, ChangeAdminPasswordBody, CreateAdminProfileBody, ResetAdminProfilePasswordBody, ListAdminProfilesResponse, CreateContentBody, UpdateContentBody, UpdateLeadBody, GetAdminDashboardResponse, ListAdminLeadsResponse } from '@workspace/api-zod';
 import { currentAdmin, requireAdmin, createSession, removeSession, verifyPassword, hashPassword, initializeAdmin, isConfiguredOwner, canManageAdminProfiles } from '../lib/auth.js';
 import { getCatalog, checkKind, publicContent, contentValues, publicUniversitySlugs } from '../lib/content.js';
@@ -56,10 +56,9 @@ router.get('/profiles', requireConfiguredOwner, async (_req, res) => {
 router.post('/profiles', requireConfiguredOwner, ownerMutationLimit, async (req, res) => {
   const input = CreateAdminProfileBody.parse(req.body);
   const email = input.email.trim().toLowerCase();
-  const [profile] = await db.insert(adminsTable)
-    .values({ email, passwordHash: await hashPassword(input.initialPassword), role: 'admin' })
-    .onConflictDoNothing()
-    .returning({ id: adminsTable.id, email: adminsTable.email, role: adminsTable.role, createdAt: adminsTable.createdAt });
+  const profile = await insertRow(adminsTable,
+    { email, passwordHash: await hashPassword(input.initialPassword), role: 'admin' },
+    { ignoreConflict: true });
   if (!profile) { res.status(409).json({ error: 'An administrator with this email already exists.' }); return; }
   res.status(201).json(ListAdminProfilesResponse.parse([profileResponse(profile)])[0]);
 });
@@ -124,7 +123,7 @@ router.post('/content/:kind', async (req, res) => {
   }
   await validateRelation(input, kind);
   await validateLinkedContent(input);
-  const [row] = await db.insert(contentTable).values(contentValues(input,kind)).returning();
+  const row = await insertRow(contentTable, contentValues(input,kind));
   res.status(201).json(publicContent(row,true));
 });
 router.patch('/content/:kind/:id', async (req, res) => {
@@ -144,14 +143,15 @@ router.patch('/content/:kind/:id', async (req, res) => {
   await validateRelation(input, kind);
   await validateLinkedContent(input);
   const merged = { ...publicContent(existing,true), ...input };
-  const [row] = await db.update(contentTable).set(contentValues(merged,kind)).where(and(eq(contentTable.id,id),eq(contentTable.kind,kind))).returning();
+  const row = await updateRow(contentTable, and(eq(contentTable.id,id),eq(contentTable.kind,kind)), contentValues(merged,kind));
+  if (!row) { res.status(404).json({ error: 'Record not found.' }); return; }
   res.json(publicContent(row,true));
 });
 router.delete('/content/:kind/:id', async (req, res) => {
   const kind = checkKind(req.params.kind);
   const id = Number(req.params.id);
   if (!Number.isSafeInteger(id) || id <= 0) { res.status(400).json({error:'Invalid record.'});return; }
-  const [row] = await db.update(contentTable).set({ status:'archived', updatedAt:new Date() }).where(and(eq(contentTable.id,id),eq(contentTable.kind,kind))).returning();
+  const row = await updateRow(contentTable, and(eq(contentTable.id,id),eq(contentTable.kind,kind)), { status:'archived', updatedAt:new Date() });
   if (!row) { res.status(404).json({error:'Record not found.'});return; }
   res.json({success:true,message:'Archived. This content can be restored from the CMS.'});
 });
@@ -169,8 +169,8 @@ router.delete('/content/:kind/:id/permanent', async (req, res) => {
       .from(contentTable).where(eq(contentTable.universityId, id));
   } else if (kind === 'programs' || kind === 'courses') {
     const reference = kind === 'programs'
-      ? sql`${contentTable.data}->>'programId' = ${String(id)}`
-      : sql`${contentTable.data}->>'courseId' = ${String(id)}`;
+      ? eq(jsonText(contentTable.data, 'programId'), String(id))
+      : eq(jsonText(contentTable.data, 'courseId'), String(id));
     references = await db.select({ kind: contentTable.kind, name: contentTable.name })
       .from(contentTable)
       .where(and(inArray(contentTable.kind, ['media', 'certifications']), reference));
@@ -181,9 +181,7 @@ router.delete('/content/:kind/:id/permanent', async (req, res) => {
     return;
   }
 
-  const [deleted] = await db.delete(contentTable)
-    .where(and(eq(contentTable.id, id), eq(contentTable.kind, kind)))
-    .returning({ id: contentTable.id });
+  const deleted = await deleteRow(contentTable, and(eq(contentTable.id, id), eq(contentTable.kind, kind)));
   if (!deleted) { res.status(404).json({ error: 'Record not found.' }); return; }
   res.json({
     success: true,
@@ -218,14 +216,14 @@ router.patch('/leads/:id', async (req,res) => {
   if (['program','course','university'].some((field) => input[field] !== undefined)) {
     input.contentId = await resolveLeadContentId({ ...existing, ...input });
   }
-  const [row] = await db.update(leadsTable).set({...input,updatedAt:new Date()}).where(eq(leadsTable.id,id)).returning();
+  const row = await updateRow(leadsTable, eq(leadsTable.id,id), {...input,updatedAt:new Date()});
   if (!row) { res.status(404).json({error:'Enquiry not found.'});return; }
   res.json({...row,createdAt:row.createdAt.toISOString()});
 });
 router.delete('/leads/:id', async (req,res) => {
   const id=Number(req.params.id);
   if(!Number.isSafeInteger(id)||id<=0){res.status(400).json({error:'Invalid lead identifier.'});return;}
-  const [row]=await db.delete(leadsTable).where(eq(leadsTable.id,id)).returning({id:leadsTable.id});
+  const row = await deleteRow(leadsTable, eq(leadsTable.id,id));
   if(!row){res.status(404).json({error:'Lead not found.'});return;}
   res.json({success:true,message:'Lead permanently deleted. Previously sent email copies are unchanged.'});
 });

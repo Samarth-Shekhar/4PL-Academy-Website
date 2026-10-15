@@ -1,4 +1,5 @@
 import express from 'express';
+import { isUniqueViolation } from '@workspace/db';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import pinoHttp from 'pino-http';
@@ -49,7 +50,7 @@ app.use('/api',(_req,res)=>res.status(404).json({error:'Endpoint not found.'}));
 export function attachErrorHandler() {
   app.use((err,req,res,_next)=>{
     if (err.name==='ZodError') { res.status(400).json({error:'Please check the required fields.',fields:err.issues?.map(i=>({path:i.path.join('.'),message:i.message}))});return; }
-    if (err.code==='23505') {res.status(409).json({error:'A record with this URL slug already exists.'});return;}
+    if (isUniqueViolation(err)) {res.status(409).json({error:'A record with this unique value already exists.'});return;}
     if (err.type==='entity.too.large') {res.status(413).json({error:'Request is too large.'});return;}
     if (err.type==='entity.parse.failed') {res.status(400).json({error:'Invalid JSON request.'});return;}
     const status=err.status || 500;

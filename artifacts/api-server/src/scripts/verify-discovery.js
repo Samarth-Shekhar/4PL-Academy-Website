@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
-import { db, contentTable, pool } from '@workspace/db';
+import { db, contentTable, pool, insertRow } from '@workspace/db';
 import { eq } from 'drizzle-orm';
 import * as validation from '@workspace/api-zod';
 import { contentValues } from '../lib/content.js';
@@ -38,7 +38,7 @@ try {
     name:'Temporary discovery contract check',slug:'contract-check-'+randomUUID(),status:'draft',
     intake:'Test intake',semesters:[{name:'Test semester',modules:['Test module']}],verified:false,
   });
-  const [record] = await db.insert(contentTable).values(contentValues(draft,'programs')).returning();
+  const record = await insertRow(contentTable, contentValues(draft,'programs'));
   temporaryId = record.id;
   assert.equal(record.data.intake,'Test intake');
   assert.equal(record.data.semesters[0].modules[0],'Test module');

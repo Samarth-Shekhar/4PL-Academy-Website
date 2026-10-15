@@ -3,8 +3,8 @@ import { randomUUID } from 'node:crypto';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { rateLimit } from 'express-rate-limit';
-import { db, contentTable } from '@workspace/db';
-import { eq, and, sql } from 'drizzle-orm';
+import { db, contentTable, jsonText, mediaReferences } from '@workspace/db';
+import { eq, and, or } from 'drizzle-orm';
 import { RequestMediaUploadBody } from '@workspace/api-zod';
 import { currentAdmin, requireAdmin } from '../lib/auth.js';
 import { signMediaObject } from '../lib/media-storage.js';
@@ -30,28 +30,10 @@ router.get('/objects/:id', async(req,res,next) => {
   const admin = await currentAdmin(req);
   const [approved] = await db.select({id:contentTable.id}).from(contentTable).where(and(
     eq(contentTable.status,'published'),eq(contentTable.verified,true),
-    sql`(
-      ${contentTable.data}->>'url' = ${objectPath}
-      or ${contentTable.data}->>'image' = ${objectPath}
-      or ${contentTable.data}->>'logo' = ${objectPath}
-      or ${contentTable.data}->>'ogImage' = ${objectPath}
-      or ${contentTable.data}->>'posterUrl' = ${objectPath}
-      or ${contentTable.data}->>'thumbnailUrl' = ${objectPath}
-      or exists (
-        select 1 from jsonb_array_elements(
-          case when jsonb_typeof(${contentTable.data}->'items') = 'array'
-            then ${contentTable.data}->'items' else '[]'::jsonb end
-        ) as story_item
-        where story_item->>'image' = ${objectPath}
-      )
-      or exists (
-        select 1 from jsonb_array_elements_text(
-          case when jsonb_typeof(${contentTable.data}->'media') = 'array'
-            then ${contentTable.data}->'media' else '[]'::jsonb end
-        ) as media_item
-        where media_item = ${objectPath}
-      )
-    )`,
+    or(
+      ...['url','image','logo','ogImage','posterUrl','thumbnailUrl'].map((key) => eq(jsonText(contentTable.data, key), objectPath)),
+      mediaReferences(contentTable.data, objectPath),
+    ),
   )).limit(1);
   if (!approved && admin?.role !== 'admin') {
     res.status(404).json({error:'Media not found.'}); return;

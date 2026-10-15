@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { db, contentTable, leadsTable } from '@workspace/db';
+import { db, contentTable, leadsTable, insertRow } from '@workspace/db';
 import { and, eq } from 'drizzle-orm';
 import { ListContentQueryParams, GetContentResponse, ListContentResponse, SubmitLeadBody, AskAcadBotBody, GetDiscoveryResponse } from '@workspace/api-zod';
 import { validateLeadPhone } from '../lib/lead-phone.js';
@@ -51,9 +51,7 @@ async function saveLead(req, res) {
   if (schedule.error) { res.status(400).json({ error: schedule.error }); return; }
   Object.assign(data, schedule.fields);
   const contentId = await resolveLeadContentId(data);
-  const [savedLead] = await db.insert(leadsTable)
-    .values({ ...data, name: data.name.trim(), email: data.email.trim().toLowerCase(), contentId })
-    .returning({ id: leadsTable.id });
+  const savedLead = await insertRow(leadsTable, { ...data, name: data.name.trim(), email: data.email.trim().toLowerCase(), contentId });
   const notification = await sendLeadNotification(data, savedLead.id);
   if (!notification.sent) {
     logger.warn({ leadId: savedLead.id, category: data.category || 'counselling', reason: notification.reason }, 'Lead saved, but email notification was not sent');

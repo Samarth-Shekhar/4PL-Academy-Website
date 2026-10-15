@@ -5,9 +5,11 @@
   "type": "module",
   "exports": {
     ".": "./src/index.js",
-    "./schema": "./src/schema/index.js"
+    "./schema": "./src/schema/runtime.js"
   },
   "scripts": {
+    "test": "node --test src/settings.test.js src/compatibility.test.js",
+    "test:integration": "node src/integration.test.js",
     "push": "drizzle-kit push --config ./drizzle.config.js",
     "generate": "drizzle-kit generate --config ./drizzle.config.js",
     "migrate": "drizzle-kit migrate --config ./drizzle.config.js"
@@ -15,6 +17,7 @@
   "dependencies": {
     "drizzle-orm": "catalog:",
     "drizzle-zod": "^0.8.3",
+    "mysql2": "^3.24.6",
     "pg": "^8.23.0",
     "zod": "catalog:"
   },

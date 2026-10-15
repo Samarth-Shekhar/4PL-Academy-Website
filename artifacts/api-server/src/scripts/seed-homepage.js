@@ -1,4 +1,4 @@
-import { db, contentTable } from '@workspace/db';
+import { db, contentTable, insertRow } from '@workspace/db';
 import { eq, and } from 'drizzle-orm';
 import { contentValues } from '../lib/content.js';
 
@@ -135,9 +135,9 @@ const photos = [
 ];
 
 async function add(kind,input) {
-  await db.insert(contentTable).values(contentValues({
+  await insertRow(contentTable, contentValues({
     status:'published',verified:true,featured:true,...input,
-  },kind)).onConflictDoNothing();
+  },kind), { ignoreConflict: true });
 }
 export async function seedHomepage(sourceInstitutions = []) {
   const catalog = await db.select().from(contentTable);

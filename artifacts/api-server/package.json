@@ -10,6 +10,7 @@
     "start": "node --enable-source-maps ./dist/index.mjs",
     "test:lead-email": "node --test src/lib/lead-email.test.js",
     "test:leads": "node --test src/lib/lead-phone.test.js src/lib/lead-email.test.js",
+    "test:database": "node src/scripts/verify-database.js",
     "seed": "node src/scripts/seed.js",
     "typecheck": "node --check src/index.js"
   },
@@ -23,6 +24,7 @@
     "express-rate-limit": "^8.1.0",
     "helmet": "^8.1.0",
     "libphonenumber-js": "^1.13.14",
+    "mysql2": "^3.24.6",
     "pino": "^9.14.0",
     "pino-http": "^10.5.0",
     "vite": "catalog:"

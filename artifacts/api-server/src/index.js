@@ -2,7 +2,7 @@ import './lib/config.js';
 import app, { attachErrorHandler } from './app.js';
 import { initializeAdmin } from './lib/auth.js';
 import { logger } from './lib/log.js';
-import { pool } from '@workspace/db';
+import { pool, dialect } from '@workspace/db';
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import express from 'express';
@@ -34,5 +34,5 @@ if (process.env.WEB_DEV === '1') {
   });
 }
 attachErrorHandler();
-const server=app.listen(port,'0.0.0.0',()=>logger.info({port},'4PL Academy server is ready.'));
+const server=app.listen(port,'0.0.0.0',()=>logger.info({port,dbDialect:dialect},'4PL Academy server is ready.'));
 for (const signal of ['SIGTERM','SIGINT']) process.on(signal,()=>server.close(async()=>{await pool.end();process.exit(0);}));

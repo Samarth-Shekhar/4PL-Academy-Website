@@ -1,4 +1,4 @@
-import { db, contentTable } from '@workspace/db';
+import { db, contentTable, insertRow } from '@workspace/db';
 import { eq } from 'drizzle-orm';
 import { contentValues } from '../lib/content.js';
 
@@ -18,10 +18,10 @@ export async function seedDiscovery() {
       phone:'+44 330 043 1245 / +44 798 018 1209',email:'admission@4plconsultancy.co.uk',
     },
   ]) {
-    await db.insert(contentTable).values(contentValues({
+    await insertRow(contentTable, contentValues({
       ...record,status:'published',verified:true,source,
       verificationNotes:'Owner-provided contact details. Historical alternatives remain subject to administrator review.',
-    },'settings')).onConflictDoNothing();
+    },'settings'), { ignoreConflict: true });
   }
   const homepage = await db.select().from(contentTable).where(eq(contentTable.kind,'homepage'));
   for (const row of homepage) {

@@ -26,3 +26,4 @@
 - [Counselling appointments](counselling-appointments.md) — calendar selections are preferred requests in IST, not reserved appointments; keep timezone with saved and emailed details.
 - [Programme brochure priority](programme-brochure-priority.md) — owner confirmed the Trade honours title; programme chapters outrank conflicting certification captions.
 - [CMS management scope](cms-management-scope.md) — all site content should be manageable through the authenticated admin, including publish controls and safe deletion.
+- [Database portability](database-portability.md) — owner wants PostgreSQL/MySQL choice with all data preserved; dialect configuration is not permission to erase or move existing data.

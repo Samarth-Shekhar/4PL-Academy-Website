@@ -1,5 +1,5 @@
-import { db, contentTable } from '@workspace/db';
-import { eq, ne, isNull, and, asc, desc, ilike, or, inArray, sql } from 'drizzle-orm';
+import { db, contentTable, jsonText, insensitiveLike } from '@workspace/db';
+import { eq, ne, isNull, and, asc, desc, or, inArray, sql } from 'drizzle-orm';
 
 export const publicUniversitySlugs = ['vivekananda-global-university', 'ibmr-group-of-institutions', 'sushant-university'];
 
@@ -78,13 +78,13 @@ export async function getCatalog(kind, filters = {}, admin = false) {
   if (filters.search) {
     const pattern = `%${filters.search}%`;
     conditions.push(or(
-      ilike(contentTable.name, pattern), ilike(contentTable.location, pattern), ilike(contentTable.degree, pattern),
-      sql`${contentTable.data}->>'specialization' ilike ${pattern}`,
-      sql`${contentTable.data}->>'state' ilike ${pattern}`,
+      insensitiveLike(contentTable.name, pattern), insensitiveLike(contentTable.location, pattern), insensitiveLike(contentTable.degree, pattern),
+      insensitiveLike(jsonText(contentTable.data, 'specialization'), pattern),
+      insensitiveLike(jsonText(contentTable.data, 'state'), pattern),
       sql`exists (select 1 from academy_content as university
         where university.id = ${contentTable.universityId}
         and university.kind = 'universities' and university.status = 'published'
-        and university.name ilike ${pattern})`,
+        and lower(university.name) like lower(${pattern}))`,
     ));
   }
   if (filters.location) conditions.push(eq(contentTable.location, filters.location));

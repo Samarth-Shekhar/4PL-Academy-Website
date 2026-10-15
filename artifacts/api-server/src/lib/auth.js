@@ -1,6 +1,6 @@
 import { randomBytes, scrypt as scryptCallback, timingSafeEqual, createHmac } from 'node:crypto';
 import { promisify } from 'node:util';
-import { db, adminsTable, sessionsTable } from '@workspace/db';
+import { db, adminsTable, sessionsTable, insertRow } from '@workspace/db';
 import { eq, and, gt, lt } from 'drizzle-orm';
 import { cookieSecure } from './config.js';
 import { logger } from './log.js';
@@ -42,7 +42,7 @@ export async function initializeAdmin() {
     logger.warn('Admin credentials do not meet email / minimum 12-character password requirements.');
     return;
   }
-  await db.insert(adminsTable).values({ email: email.toLowerCase().trim(), passwordHash: await hashPassword(password) }).onConflictDoNothing();
+  await insertRow(adminsTable, { email: email.toLowerCase().trim(), passwordHash: await hashPassword(password) }, { ignoreConflict: true });
   logger.info('Initial administrator created securely.');
 }
 export async function currentAdmin(req) {

@@ -1,7 +1,7 @@
 import '../lib/config.js';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { db, pool, contentTable } from '@workspace/db';
+import { db, pool, contentTable, insertRow } from '@workspace/db';
 import { contentValues } from '../lib/content.js';
 import { logger } from '../lib/log.js';
 import { seedHomepage } from './seed-homepage.js';
@@ -10,7 +10,7 @@ import { seedDiscovery } from './seed-discovery.js';
 const root = path.resolve(import.meta.dirname,'../../../../');
 const slugify = name => name.toLowerCase().normalize('NFKD').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 async function insert(kind, input) {
-  const [row] = await db.insert(contentTable).values(contentValues({status:'published',...input},kind)).onConflictDoNothing().returning();
+  const row = await insertRow(contentTable, contentValues({status:'published',...input},kind), { ignoreConflict: true });
   if(row) return row;
   const { eq,and }=await import('drizzle-orm');
   const [existing]=await db.select().from(contentTable).where(and(eq(contentTable.kind,kind),eq(contentTable.slug,input.slug)));
