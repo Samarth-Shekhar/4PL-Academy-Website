@@ -8,6 +8,7 @@
     "./schema": "./src/schema/runtime.js"
   },
   "scripts": {
+    "dump:mysql": "node src/scripts/dump-mysql.js",
     "test": "node --test src/settings.test.js src/compatibility.test.js",
     "test:integration": "node src/integration.test.js",
     "push": "drizzle-kit push --config ./drizzle.config.js",

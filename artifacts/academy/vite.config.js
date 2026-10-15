@@ -79,6 +79,7 @@ export default defineConfig({
     allowedHosts: true,
     fs: {
       strict: true,
+      deny: ['**/.env', '**/.env.*', '**/*.{crt,pem}', '**/.git/**', '**/db_back/**'],
     },
   },
   preview: {

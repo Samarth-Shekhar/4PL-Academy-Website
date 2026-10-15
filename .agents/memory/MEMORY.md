@@ -27,3 +27,4 @@
 - [Programme brochure priority](programme-brochure-priority.md) — owner confirmed the Trade honours title; programme chapters outrank conflicting certification captions.
 - [CMS management scope](cms-management-scope.md) — all site content should be manageable through the authenticated admin, including publish controls and safe deletion.
 - [Database portability](database-portability.md) — owner wants PostgreSQL/MySQL choice with all data preserved; dialect configuration is not permission to erase or move existing data.
+- [Private backup protection](private-workspace-backups.md) — Git/publish exclusions do not block Vite filesystem URLs; deny private backup folders in every preview server.
