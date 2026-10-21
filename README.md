@@ -1,5 +1,17 @@
 # 4PL Academy
 
+## Live website preview
+
+[![4PL Academy homepage preview](docs/4pl-academy-homepage-preview.png)](https://4placademy.com/)
+
+[Visit the live 4PL Academy website](https://4placademy.com/).
+
+The screenshot above was captured from the live homepage on October 21, 2026.
+
+## Ownership and rights
+
+The 4PL Academy website, company name, trademarks, logo, and company-provided content are owned by 4PL Academy and the company. This repository is published for the company's project; making it available here does not transfer ownership of or grant rights to company-owned materials. Third-party software and media remain subject to their respective licenses.
+
 A portable React + Vite education website and Express content-management API, written in plain JavaScript ES modules. PostgreSQL is the source of truth; Drizzle defines the schema. Replit is used for development only. No deployment or hosting-provider configuration has been created.
 
 ## Local development
